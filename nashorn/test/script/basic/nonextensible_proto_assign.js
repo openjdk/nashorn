@@ -4,9 +4,7 @@
  *
  * This code is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 only, as
- * published by the Free Software Foundation.  Oracle designates this
- * particular file as subject to the "Classpath" exception as provided
- * by Oracle in the LICENSE file that accompanied this code.
+ * published by the Free Software Foundation.
  *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
@@ -23,33 +21,24 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.arrays;
-
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptObject;
-
 /**
- * Reverse iterator over a map
+ * JDK-8023368: Instance __proto__ property should exist and be writable.
+ *
+ * @test
+ * @run
  */
-final class ReverseMapIterator extends MapIterator {
 
-    ReverseMapIterator(final ScriptObject obj, final boolean includeUndefined) {
-        super(obj, includeUndefined);
-        this.index = JSType.toUint32(obj.getLength()) - 1;
-    }
+load("nashorn:mozilla_compat.js")
 
-    @Override
-    public boolean isReverse() {
-        return true;
+// check that we cannot assign to __proto__ of a non-extensible object
+try {
+    var obj = {}
+    Object.preventExtensions(obj);
+    obj.__proto__ = { };
+    fail("Should have thrown TypeError");
+} catch (e) {
+    if (! (e instanceof TypeError)) {
+        fail("Expected TypeError, got " + e);
     }
-
-    @Override
-    protected boolean indexInArray() {
-        return index >= 0;
-    }
-
-    @Override
-    protected long bumpIndex() {
-        return index--;
-    }
+    print(e);
 }

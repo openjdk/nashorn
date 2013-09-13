@@ -25,64 +25,34 @@
 
 package jdk.nashorn.internal.runtime.arrays;
 
-import jdk.nashorn.internal.runtime.ScriptObject;
+import java.util.List;
 
 /**
- * Iterator over a NativeArray
+ * Reverse iterator over a List
  */
-class ArrayIterator extends ArrayLikeIterator<Object> {
-
-    /** Array {@link ScriptObject} to iterate over */
-    protected final ScriptObject array;
-
-    /** length of array */
-    protected final long length;
-
+final class ReverseJavaListIterator extends JavaListIterator {
     /**
      * Constructor
-     * @param array array to iterate over
+     * @param list list to iterate over
      * @param includeUndefined should undefined elements be included in iteration
      */
-    protected ArrayIterator(final ScriptObject array, final boolean includeUndefined) {
-        super(includeUndefined);
-        this.array = array;
-        this.length = array.getArray().length();
+    public ReverseJavaListIterator(final List<?> list, final boolean includeUndefined) {
+        super(list, includeUndefined);
+        this.index = list.size() - 1;
     }
 
-    /**
-     * Is the current index still inside the array
-     * @return true if inside the array
-     */
+    @Override
+    public boolean isReverse() {
+        return true;
+    }
+
+    @Override
     protected boolean indexInArray() {
-        return index < length;
+        return index >= 0;
     }
 
     @Override
-    public Object next() {
-        return array.get(bumpIndex());
-    }
-
-    @Override
-    public long getLength() {
-        return length;
-    }
-
-    @Override
-    public boolean hasNext() {
-        if (!includeUndefined) {
-            while (indexInArray()) {
-                if (array.has(index)) {
-                    break;
-                }
-                bumpIndex();
-            }
-        }
-
-        return indexInArray();
-    }
-
-    @Override
-    public void remove() {
-        array.delete(index, false);
+    protected long bumpIndex() {
+        return index--;
     }
 }
