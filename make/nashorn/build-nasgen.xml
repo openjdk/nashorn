@@ -31,11 +31,13 @@
     </target>
 
     <target name="run-nasgen" depends="build-nasgen">
+        <property name="module.path" location="build/nashorn/dependencies"/>
         <java classname="${nasgen.tool}" fork="true" failonerror="true">
             <classpath>
                 <pathelement location="${basedir}/jcov2/lib/jcov_j2se_rt.jar"/>
                 <pathelement location="${build.dir}/nasgen/dist/nasgen.jar"/>
             </classpath>
+            <jvmarg line="--module-path ${module.path}"/>
             <jvmarg line="${nasgen.module.imports}"/>
             <arg value="${nashorn.module.classes.dir}"/>
             <arg value="org.openjdk.nashorn.internal.objects"/>

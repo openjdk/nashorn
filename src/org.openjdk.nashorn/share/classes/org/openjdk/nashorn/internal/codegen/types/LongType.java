@@ -25,17 +25,17 @@
 
 package org.openjdk.nashorn.internal.codegen.types;
 
-import static jdk.internal.org.objectweb.asm.Opcodes.L2D;
-import static jdk.internal.org.objectweb.asm.Opcodes.L2I;
-import static jdk.internal.org.objectweb.asm.Opcodes.LCONST_0;
-import static jdk.internal.org.objectweb.asm.Opcodes.LCONST_1;
-import static jdk.internal.org.objectweb.asm.Opcodes.LLOAD;
-import static jdk.internal.org.objectweb.asm.Opcodes.LRETURN;
-import static jdk.internal.org.objectweb.asm.Opcodes.LSTORE;
+import static org.objectweb.asm.Opcodes.L2D;
+import static org.objectweb.asm.Opcodes.L2I;
+import static org.objectweb.asm.Opcodes.LCONST_0;
+import static org.objectweb.asm.Opcodes.LCONST_1;
+import static org.objectweb.asm.Opcodes.LLOAD;
+import static org.objectweb.asm.Opcodes.LRETURN;
+import static org.objectweb.asm.Opcodes.LSTORE;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
 import static org.openjdk.nashorn.internal.runtime.JSType.UNDEFINED_LONG;
 
-import jdk.internal.org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.MethodVisitor;
 import org.openjdk.nashorn.internal.codegen.CompilerConstants;
 import org.openjdk.nashorn.internal.runtime.JSType;
 

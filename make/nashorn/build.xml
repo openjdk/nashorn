@@ -160,7 +160,20 @@
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${dist.javadoc.dir}"/>
   </target>
-
+  
+  <target name="get-deps" depends="prepare">
+    <property name="deps.dir" location="${build.dir}/dependencies"/> 
+    <property name="asm.version" value="7.3.1"/>
+    <mkdir dir="${deps.dir}"/>
+    <get dest="${deps.dir}" skipexisting="true">
+      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm/${asm.version}/asm-${asm.version}.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-analysis/${asm.version}/asm-analysis-${asm.version}.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-commons/${asm.version}/asm-commons-${asm.version}.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/${asm.version}/asm-tree-${asm.version}.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-util/${asm.version}/asm-util-${asm.version}.jar"/>
+    </get>
+  </target>
+  
   <target name="clean" depends="init, clean-nasgen, init-cc-cleanup">
     <delete includeemptydirs="true">
       <fileset dir="${build.dir}" erroronmissingdir="false"/>
@@ -170,7 +183,7 @@
     <delete file="${basedir}/NashornProfile.txt"/>
   </target>
 
-  <target name="compile" depends="prepare" description="Compiles nashorn">
+  <target name="compile" depends="get-deps" description="Compiles nashorn">
     <!-- patch-module does not like module-info.class files! -->
     <delete>
       <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
@@ -180,11 +193,11 @@
            debug="${javac.debug}"
            encoding="${javac.encoding}"
            includeantruntime="false" fork="true">
+      <compilerarg line="--module-path ${deps.dir}"/>
       <compilerarg value="-Xlint:all"/>
       <compilerarg value="-XDignore.symbol.file"/>
       <compilerarg value="-Xdiags:verbose"/>
       <compilerarg value="-parameters"/>
-      <compilerarg line="${nashorn.override.option}"/>
     </javac>
     <!-- patch-module does not like module-info.class files! -->
     <delete>

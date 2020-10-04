@@ -25,7 +25,7 @@
 
 package org.openjdk.nashorn.internal.codegen.types;
 
-import jdk.internal.org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.MethodVisitor;
 
 
 /**
