@@ -854,10 +854,10 @@ grant codeBase "file:/${basedir}/${test.script.dir}/basic/JDK-8158467.js" {
   <!-- download and install testng.jar -->
   <target name="get-testng">
     <get dest="${test.lib}" skipexisting="true">
-      <url url="http://central.maven.org/maven2/org/testng/testng/6.8/testng-6.8.jar"/>
-      <url url="http://central.maven.org/maven2/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
-      <url url="http://central.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
-      <url url="http://central.maven.org/maven2/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/testng/testng/6.8/testng-6.8.jar"/>
+      <url url="https://repo1.maven.org/maven2/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
+      <url url="https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
     </get>
   </target>
 
