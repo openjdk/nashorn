@@ -44,12 +44,13 @@ import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCallN
 import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 import static org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome.ERROR_NO_ACCESSIBLE_CONSTRUCTOR;
 
+import java.lang.annotation.Annotation;
 import java.lang.invoke.CallSite;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.security.AccessControlContext;
@@ -74,7 +75,6 @@ import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
 import org.openjdk.nashorn.internal.runtime.ScriptObject;
 import org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome;
-import jdk.internal.reflect.CallerSensitive;
 
 /**
  * Generates bytecode for a Java adapter class. Used by the {@link JavaAdapterFactory}.
@@ -212,6 +212,8 @@ final class JavaAdapterBytecodeGenerator {
     // Method name and type for the no-privilege finalizer delegate
     private static final String FINALIZER_DELEGATE_NAME = "$$nashornFinalizerDelegate";
     private static final String FINALIZER_DELEGATE_METHOD_DESCRIPTOR = Type.getMethodDescriptor(Type.VOID_TYPE, OBJECT_TYPE);
+
+    private static final String CALLER_SENSITIVE_CLASS_NAME = "jdk.internal.reflect.CallerSensitive";
 
     /**
      * Collection of methods we never override: Object.clone(), Object.finalize().
@@ -1227,8 +1229,13 @@ final class JavaAdapterBytecodeGenerator {
         return superClass.isAssignableFrom(c2) ? superClass : assignableSuperClass(superClass, c2);
     }
 
-    private static boolean isCallerSensitive(final AccessibleObject e) {
-        return e.isAnnotationPresent(CallerSensitive.class);
+    private static boolean isCallerSensitive(final Executable e) {
+        for (final Annotation ann: e.getAnnotations()) {
+            if (CALLER_SENSITIVE_CLASS_NAME.equals(ann.annotationType().getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static Call lookupServiceMethod(final String name, final Class<?> rtype, final Class<?>... ptypes) {
