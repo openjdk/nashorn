@@ -44,9 +44,9 @@ import org.testng.annotations.Test;
  * Basic Context API tests.
  *
  * @test
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime
- *          jdk.scripting.nashorn/jdk.nashorn.internal.runtime.options
- *          jdk.scripting.nashorn/jdk.nashorn.internal.objects
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
+ *          org.openjdk.nashorn/jdk.nashorn.internal.runtime.options
+ *          org.openjdk.nashorn/jdk.nashorn.internal.objects
  * @run testng jdk.nashorn.internal.runtime.test.ContextTest
  */
 @SuppressWarnings("javadoc")

@@ -33,7 +33,7 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
  * @test
  * @bug 8184723
  * @summary jdk.nashorn.internal.runtime.linker.JSObjectLinker.callToApply erroneously asserts given arguments
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime.linker
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.linker
  * @run main/othervm -ea jdk.nashorn.internal.runtime.linker.test.JDK_8184723_Test
  */
 

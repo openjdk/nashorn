@@ -22,18 +22,18 @@
  */
 
 /**
- * JDK-8190698: jjs tool of jdk.scripting.nashorn.shell module should not statically depend on java.desktop
+ * JDK-8190698: jjs tool of org.openjdk.nashorn.shell module should not statically depend on java.desktop
  *
  * @test
  * @run
  */
 
-var optJjsMod = java.lang.ModuleLayer.boot().findModule("jdk.scripting.nashorn.shell");
+var optJjsMod = java.lang.ModuleLayer.boot().findModule("org.openjdk.nashorn.shell");
 
 // make sure that the module exists!
 Assert.assertTrue(optJjsMod.isPresent());
 
-// jdk.scripting.nashorn.shell should not have java.desktop dependency
+// org.openjdk.nashorn.shell should not have java.desktop dependency
 var javaDesktopDependency = optJjsMod.get().
         descriptor.requires().
         stream().

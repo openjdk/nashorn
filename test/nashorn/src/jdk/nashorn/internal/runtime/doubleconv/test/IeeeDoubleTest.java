@@ -44,7 +44,7 @@ import static org.testng.Assert.assertTrue;
  * IeeeDouble tests
  *
  * @test
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
  * @run testng jdk.nashorn.internal.runtime.doubleconv.test.IeeeDoubleTest
  */
 @SuppressWarnings({"unchecked", "javadoc"})

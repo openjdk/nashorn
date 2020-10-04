@@ -270,7 +270,7 @@
         windowtitle="${nashorn.product.name} ${nashorn.version}"
         additionalparam="-quiet" failonerror="true" useexternalfile="true"> 
       <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
+      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
       <arg value="--patch-module"/>
       <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
       <arg value="--module-source-path"/>
@@ -289,7 +289,7 @@
         windowtitle="${nashorn.product.name} ${nashorn.version}"
         additionalparam="-quiet" failonerror="true" useexternalfile="true">
       <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
+      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
       <arg value="--patch-module"/>
       <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
       <arg value="--module-source-path"/>
@@ -307,7 +307,7 @@
         windowtitle="Dynalink"
         additionalparam="-quiet" failonerror="true" useexternalfile="true">
       <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
+      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
       <arg value="--patch-module"/>
       <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
       <arg value="--module-source-path"/>

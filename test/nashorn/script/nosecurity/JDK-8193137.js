@@ -46,7 +46,7 @@ if (! new File(jjsCmd).isFile()) {
     jjsCmd = javahome + "/bin/jjs";
     jjsCmd = jjsCmd.toString().replace(/\//g, File.separator);
 }
-jjsCmd += " -J--patch-module=jdk.scripting.nashorn=" + nashornJar;
+jjsCmd += " -J--patch-module=org.openjdk.nashorn=" + nashornJar;
 
 $ENV.PWD=System.getProperty("user.dir")
 

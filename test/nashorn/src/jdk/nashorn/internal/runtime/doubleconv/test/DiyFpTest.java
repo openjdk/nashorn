@@ -44,7 +44,7 @@ import static org.testng.Assert.assertTrue;
  * DiyFp class tests
  *
  * @test
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
  * @run testng jdk.nashorn.internal.runtime.doubleconv.test.DiyFpTest
  */
 @SuppressWarnings("javadoc")

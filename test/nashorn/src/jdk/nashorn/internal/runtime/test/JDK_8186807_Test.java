@@ -38,7 +38,7 @@ import javax.script.ScriptException;
  * @test
  * @bug 8186807
  * @summary JSObject gets ScriptFunction when ScriptObjectMirror is expected
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
  * @run testng/othervm -Dnashorn.unstable.relink.threshold=1 jdk.nashorn.internal.runtime.test.JDK_8186807_Test
  */
 

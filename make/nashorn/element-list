@@ -261,7 +261,7 @@ module:jdk.net
 jdk.net
 jdk.nio
 module:jdk.rmic
-module:jdk.scripting.nashorn
+module:org.openjdk.nashorn
 jdk.nashorn.api.scripting
 jdk.nashorn.api.tree
 module:jdk.sctp

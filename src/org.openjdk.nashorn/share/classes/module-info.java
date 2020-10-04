@@ -139,7 +139,7 @@ ScriptEngine nashornEngine = new ScriptEngineManager().getEngineByName("nashorn"
  * @moduleGraph
  * @since 9
  */
-module jdk.scripting.nashorn {
+module org.openjdk.nashorn {
     requires java.logging;
     requires jdk.dynalink;
 
@@ -149,11 +149,11 @@ module jdk.scripting.nashorn {
     exports jdk.nashorn.api.tree;
 
     exports jdk.nashorn.internal.runtime to
-        jdk.scripting.nashorn.shell;
+        org.openjdk.nashorn.shell;
     exports jdk.nashorn.internal.objects to
-        jdk.scripting.nashorn.shell;
+        org.openjdk.nashorn.shell;
     exports jdk.nashorn.tools to
-        jdk.scripting.nashorn.shell;
+        org.openjdk.nashorn.shell;
 
     provides javax.script.ScriptEngineFactory with
         jdk.nashorn.api.scripting.NashornScriptEngineFactory;

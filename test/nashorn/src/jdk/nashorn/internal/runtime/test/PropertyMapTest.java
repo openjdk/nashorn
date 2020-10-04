@@ -35,7 +35,7 @@ import org.testng.annotations.Test;
  * Tests for PropertyMap functionality
  *
  * @test
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
  * @run testng jdk.nashorn.internal.runtime.test.PropertyMapTest
  */
 @SuppressWarnings("javadoc")

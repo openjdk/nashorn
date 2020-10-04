@@ -35,7 +35,7 @@ import org.testng.annotations.Test;
  * @test
  * @bug 8187362
  * @summary Nashorn unsigned right shift operator unexpectedly returns floating-point
- * @modules jdk.scripting.nashorn/jdk.nashorn.internal.runtime
+ * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
  * @run testng jdk.nashorn.internal.runtime.test.JDK_8187362_Test
  */
 public class JDK_8187362_Test {

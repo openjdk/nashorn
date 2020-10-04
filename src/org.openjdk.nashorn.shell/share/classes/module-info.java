@@ -34,10 +34,10 @@
  * @moduleGraph
  * @since 9
  */
-module jdk.scripting.nashorn.shell {
+module org.openjdk.nashorn.shell {
     requires static java.compiler;
     requires jdk.internal.le;
-    requires jdk.scripting.nashorn;
+    requires org.openjdk.nashorn;
     requires jdk.internal.ed;
     uses jdk.internal.editor.spi.BuildInEditorProvider;
 }

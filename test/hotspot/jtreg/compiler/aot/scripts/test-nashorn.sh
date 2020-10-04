@@ -37,7 +37,7 @@ TIMEFORMAT="%3R"
 N=5
 
 rm -f libjdk.nashorn.$SO_TYPE
-$JAVA_HOME/bin/jaotc --info --compile-commands jdk.scripting.nashorn-list.txt --module jdk.scripting.nashorn --output libjdk.nashorn.$SO_TYPE || exit 1
+$JAVA_HOME/bin/jaotc --info --compile-commands org.openjdk.nashorn-list.txt --module org.openjdk.nashorn --output libjdk.nashorn.$SO_TYPE || exit 1
 
 echo "Tiered C1:"
 for i in `seq 1 $N`; do

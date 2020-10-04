@@ -54,7 +54,7 @@ final class ScriptLoader extends NashornLoader {
         this.context = context;
 
         // new scripts module, it's specific exports and read-edges
-        scriptModule = createModule("jdk.scripting.nashorn.scripts");
+        scriptModule = createModule("org.openjdk.nashorn.scripts");
 
         // specific exports from nashorn to new scripts module
         NASHORN_MODULE.addExports(OBJECTS_PKG, scriptModule);
