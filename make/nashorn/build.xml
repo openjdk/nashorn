@@ -154,7 +154,6 @@
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.classes.dir}"/>
     <mkdir dir="${nashorn.module.classes.dir}"/>
-    <mkdir dir="${dynalink.module.classes.dir}"/>
     <mkdir dir="${nashorn.shell.module.classes.dir}"/>
     <mkdir dir="${nashorn.module.classes.dir}/META-INF/services"/>
     <mkdir dir="${build.test.classes.dir}"/>
@@ -172,16 +171,6 @@
   </target>
 
   <target name="compile" depends="prepare" description="Compiles nashorn">
-    <javac srcdir="${dynalink.module.src.dir}"
-           destdir="${dynalink.module.classes.dir}"
-           debug="${javac.debug}"
-           encoding="${javac.encoding}"
-           includeantruntime="false" fork="true">
-      <compilerarg value="-Xlint:all"/>
-      <compilerarg value="-XDignore.symbol.file"/>
-      <compilerarg value="-Xdiags:verbose"/>
-      <compilerarg value="-parameters"/>
-    </javac>
     <!-- patch-module does not like module-info.class files! -->
     <delete>
       <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
@@ -225,7 +214,6 @@
     <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/tools/resources">
        <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/tools/resources/"/>
     </copy>
-    <copy file="${dynalink.module.src.dir}/jdk/dynalink/support/messages.properties" todir="${dynalink.module.classes.dir}/jdk/dynalink/support"/>
     <copy file="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/codegen"/>
     <copy todir="${nashorn.shell.module.classes.dir}/org/openjdk/nashorn/tools/jjs/resources">
        <fileset dir="${nashorn.shell.module.src.dir}/org/openjdk/nashorn/tools/jjs/resources/"/>
@@ -237,9 +225,6 @@
   </target>
 
   <target name="jar" depends="compile, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
-    <jar jarfile="${dynalink.jar}">
-      <fileset dir="${dynalink.module.classes.dir}"/>
-    </jar>
     <jar jarfile="${nashorn.jar}" index="true" filesetmanifest="merge">
       <fileset dir="${nashorn.module.classes.dir}"/>
       <manifest>
@@ -271,13 +256,10 @@
         additionalparam="-quiet" failonerror="true" useexternalfile="true"> 
       <arg value="--patch-module"/>
       <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
       <arg value="--module-source-path"/>
       <arg value="."/>
       <arg value="${javadoc.option}"/>
       <fileset dir="${nashorn.module.src.dir}" includes="**/*.java"/>
-      <fileset dir="${dynalink.module.src.dir}" includes="**/*.java"/>
       <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
     </javadoc>
   </target>
@@ -290,8 +272,6 @@
         additionalparam="-quiet" failonerror="true" useexternalfile="true">
       <arg value="--patch-module"/>
       <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
       <arg value="--module-source-path"/>
       <arg value="."/>
       <arg value="${javadoc.option}"/>
@@ -300,25 +280,7 @@
     </javadoc>
   </target>
 
-  <!-- generate javadoc only for Dynalink API classes -->
-  <target name="dynalinkapi" depends="jar">
-    <mkdir dir="${dist.dynalinkapi.javadoc.dir}"/>
-    <javadoc destdir="${dist.dynalinkapi.javadoc.dir}" use="yes"
-        windowtitle="Dynalink"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true">
-      <arg value="--patch-module"/>
-      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
-      <arg value="${javadoc.option}"/>
-      <fileset dir="${dynalink.module.src.dir}" includes="**/*.java"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
-    </javadoc>
-  </target>
-
-  <target name="javadocapi" depends="nashornapi, dynalinkapi"/>
+  <target name="javadocapi" depends="nashornapi"/>
 
   <!-- generate all docs -->
   <target name="docs" depends="javadoc"/>
@@ -399,10 +361,6 @@ package.access=sun.misc.,\
 
   <target name="generate-policy-file" depends="prepare">
     <echo file="${build.dir}/nashorn.policy">
-
-grant codeBase "file:/${basedir}/${dynalink.module.classes.dir}" {
-    permission java.security.AllPermission;
-};
 
 grant codeBase "file:/${basedir}/${nashorn.module.classes.dir}" {
     permission java.security.AllPermission;
