@@ -37,7 +37,7 @@ import jdk.internal.org.objectweb.asm.Type;
  */
 @SuppressWarnings("javadoc")
 public interface StringConstants {
-    static final String NASHORN_INTERNAL = "jdk/nashorn/internal/";
+    static final String NASHORN_INTERNAL = "org/openjdk/nashorn/internal/";
     static final String OBJ_PKG = NASHORN_INTERNAL + "objects/";
     static final String OBJ_ANNO_PKG = OBJ_PKG + "annotations/";
     static final String RUNTIME_PKG = NASHORN_INTERNAL + "runtime/";

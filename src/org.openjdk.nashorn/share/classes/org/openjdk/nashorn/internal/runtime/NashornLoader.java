@@ -51,11 +51,11 @@ abstract class NashornLoader extends SecureClassLoader {
     protected static final String RUNTIME_ARRAYS_PKG = "org.openjdk.nashorn.internal.runtime.arrays";
     protected static final String RUNTIME_LINKER_PKG = "org.openjdk.nashorn.internal.runtime.linker";
     protected static final String SCRIPTS_PKG        = "org.openjdk.nashorn.internal.scripts";
-    protected static final String OBJECTS_PKG_INTERNAL        = "jdk/nashorn/internal/objects";
-    protected static final String RUNTIME_PKG_INTERNAL        = "jdk/nashorn/internal/runtime";
-    protected static final String RUNTIME_ARRAYS_PKG_INTERNAL = "jdk/nashorn/internal/runtime/arrays";
-    protected static final String RUNTIME_LINKER_PKG_INTERNAL = "jdk/nashorn/internal/runtime/linker";
-    protected static final String SCRIPTS_PKG_INTERNAL        = "jdk/nashorn/internal/scripts";
+    protected static final String OBJECTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/objects";
+    protected static final String RUNTIME_PKG_INTERNAL        = "org/openjdk/nashorn/internal/runtime";
+    protected static final String RUNTIME_ARRAYS_PKG_INTERNAL = "org/openjdk/nashorn/internal/runtime/arrays";
+    protected static final String RUNTIME_LINKER_PKG_INTERNAL = "org/openjdk/nashorn/internal/runtime/linker";
+    protected static final String SCRIPTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/scripts";
 
     static final Module NASHORN_MODULE = Context.class.getModule();
 

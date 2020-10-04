@@ -4666,7 +4666,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
 
     private MethodEmitter globalAllocateArray(final ArrayType type) {
         //make sure the native array is treated as an array type
-        return method.invokestatic(GLOBAL_OBJECT, "allocate", "(" + type.getDescriptor() + ")Ljdk/nashorn/internal/objects/NativeArray;");
+        return method.invokestatic(GLOBAL_OBJECT, "allocate", "(" + type.getDescriptor() + ")Lorg/openjdk/nashorn/internal/objects/NativeArray;");
     }
 
     private MethodEmitter globalIsEval() {

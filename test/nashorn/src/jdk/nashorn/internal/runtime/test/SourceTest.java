@@ -50,7 +50,7 @@ public class SourceTest {
     final private static char[] SOURCE_CHARS = SOURCE_STRING.toCharArray();
     final private static String RESOURCE_PATH = "resources/load_test.js";
     final private static File SOURCE_FILE = new File(System.getProperty("build.dir", "build") +
-            "/test/classes/jdk/nashorn/internal/runtime/test/" + RESOURCE_PATH);
+            "/test/classes/org/openjdk/nashorn/internal/runtime/test/" + RESOURCE_PATH);
     final private static URL  SOURCE_URL = SourceTest.class.getResource(RESOURCE_PATH);
 
 

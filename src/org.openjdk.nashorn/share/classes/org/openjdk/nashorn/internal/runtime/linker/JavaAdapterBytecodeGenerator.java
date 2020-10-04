@@ -203,7 +203,7 @@ final class JavaAdapterBytecodeGenerator {
     private static final String GET_METHOD_PROPERTY_METHOD_DESCRIPTOR = Type.getMethodDescriptor(OBJECT_TYPE, SCRIPT_OBJECT_TYPE);
     private static final String VOID_METHOD_DESCRIPTOR = Type.getMethodDescriptor(Type.VOID_TYPE);
 
-    private static final String ADAPTER_PACKAGE_INTERNAL = "jdk/nashorn/javaadapters/";
+    private static final String ADAPTER_PACKAGE_INTERNAL = "org/openjdk/nashorn/javaadapters/";
     private static final int MAX_GENERATED_TYPE_NAME_LENGTH = 255;
 
     // Method name prefix for invoking super-methods

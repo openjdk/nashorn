@@ -32,7 +32,7 @@ include TextFileProcessing.gmk
 ################################################################################
 
 # Version file needs to be processed with version numbers
-VERSION_FILE := jdk/nashorn/internal/runtime/resources/version.properties
+VERSION_FILE := org/openjdk/nashorn/internal/runtime/resources/version.properties
 
 $(eval $(call SetupTextFileProcessing, BUILD_VERSION_FILE, \
     SOURCE_FILES := $(TOPDIR)/src/$(MODULE)/share/classes/$(VERSION_FILE).template, \

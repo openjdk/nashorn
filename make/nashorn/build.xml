@@ -216,24 +216,24 @@
     <delete>
       <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
     </delete>
-     <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/api/scripting/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/api/scripting/resources/"/>
+     <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/api/scripting/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/api/scripting/resources/"/>
     </copy>
-    <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/internal/runtime/resources/"/>
+    <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/runtime/resources/"/>
     </copy>
-    <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/tools/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/tools/resources/"/>
+    <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/tools/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/tools/resources/"/>
     </copy>
     <copy file="${dynalink.module.src.dir}/jdk/dynalink/support/messages.properties" todir="${dynalink.module.classes.dir}/jdk/dynalink/support"/>
-    <copy file="${nashorn.module.src.dir}/jdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/jdk/nashorn/internal/codegen"/>
-    <copy todir="${nashorn.shell.module.classes.dir}/jdk/nashorn/tools/jjs/resources">
-       <fileset dir="${nashorn.shell.module.src.dir}/jdk/nashorn/tools/jjs/resources/"/>
+    <copy file="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/codegen"/>
+    <copy todir="${nashorn.shell.module.classes.dir}/org/openjdk/nashorn/tools/jjs/resources">
+       <fileset dir="${nashorn.shell.module.src.dir}/org/openjdk/nashorn/tools/jjs/resources/"/>
     </copy>
 
-    <echo message="version_string=${nashorn.fullversion}" file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties"/>
-    <echo file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
-    <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
+    <echo message="version_string=${nashorn.fullversion}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties"/>
+    <echo file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
+    <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
   </target>
 
   <target name="jar" depends="compile, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
@@ -247,7 +247,7 @@
         <attribute name="Build-Jdk" value="${java.runtime.version}"/>
         <attribute name="Built-By" value="n/a"/>
         <attribute name="Created-By" value="Ant jar task"/>
-        <section name="jdk/nashorn/">
+        <section name="org/openjdk/nashorn/">
           <attribute name="Implementation-Title" value="${nashorn.product.name}"/>
           <attribute name="Implementation-Version" value="${nashorn.version}"/>
         </section>
@@ -295,7 +295,7 @@
       <arg value="--module-source-path"/>
       <arg value="."/>
       <arg value="${javadoc.option}"/>
-      <fileset dir="${nashorn.module.src.dir}" includes="jdk/nashorn/api/**/*.java"/>
+      <fileset dir="${nashorn.module.src.dir}" includes="org/openjdk/nashorn/api/**/*.java"/>
       <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
     </javadoc>
   </target>
@@ -353,16 +353,16 @@
        <fileset dir="${test.src.dir}/META-INF/services/"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/internal/runtime/test/resources">
-       <fileset dir="${test.src.dir}/jdk/nashorn/internal/runtime/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/internal/runtime/test/resources">
+       <fileset dir="${test.src.dir}/org/openjdk/nashorn/internal/runtime/test/resources"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/internal/runtime/doubleconv/test/resources">
-      <fileset dir="${test.src.dir}/jdk/nashorn/internal/runtime/doubleconv/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/internal/runtime/doubleconv/test/resources">
+      <fileset dir="${test.src.dir}/org/openjdk/nashorn/internal/runtime/doubleconv/test/resources"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/api/scripting/test/resources">
-       <fileset dir="${test.src.dir}/jdk/nashorn/api/scripting/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/api/scripting/test/resources">
+       <fileset dir="${test.src.dir}/org/openjdk/nashorn/api/scripting/test/resources"/>
     </copy>
 
     <!-- tests that check nashorn internals and internal API -->
