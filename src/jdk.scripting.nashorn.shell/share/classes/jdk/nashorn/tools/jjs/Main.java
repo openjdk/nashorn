@@ -55,7 +55,6 @@ import jdk.nashorn.tools.Shell;
 /**
  * Interactive command line Shell for Nashorn.
  */
-@Deprecated(since="11", forRemoval=true)
 public final class Main extends Shell {
     private Main() {}
 

@@ -40,12 +40,8 @@ package jdk.nashorn.api.tree;
  * <p>Line terminator is as defined in ECMAScript specification which is one
  * of { &#92;u000A, &#92;u000B, &#92;u2028, &#92;u2029 }.
  *
- * @deprecated Nashorn JavaScript script engine and APIs, and the jjs tool
- * are deprecated with the intent to remove them in a future release.
- *
  * @since 9
  */
-@Deprecated(since="11", forRemoval=true)
 public interface Diagnostic {
 
     /**
@@ -59,11 +55,7 @@ public interface Diagnostic {
      * should imply any inherent semantic meaning to the message
      * of the diagnostic: for example, a tool might provide an
      * option to report all warnings as errors.
-     *
-     * @deprecated Nashorn JavaScript script engine and APIs, and the jjs tool
-     * are deprecated with the intent to remove them in a future release.
      */
-    @Deprecated(since="11", forRemoval=true)
     enum Kind {
         /**
          * Problem which prevents the tool's normal completion.
