@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

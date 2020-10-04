@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import java.util.Iterator;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -35,8 +35,8 @@ import org.testng.annotations.Test;
  * Tests for PropertyMap functionality
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @run testng jdk.nashorn.internal.runtime.test.PropertyMapTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @run testng org.openjdk.nashorn.internal.runtime.test.PropertyMapTest
  */
 @SuppressWarnings("javadoc")
 public class PropertyMapTest {

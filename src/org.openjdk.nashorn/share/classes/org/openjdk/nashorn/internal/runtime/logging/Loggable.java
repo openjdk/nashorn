@@ -22,9 +22,9 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.logging;
+package org.openjdk.nashorn.internal.runtime.logging;
 
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Context;
 
 /**
  * Interface implemented by classes that are loggable.

@@ -22,15 +22,15 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.Module;
-import static jdk.nashorn.api.tree.ExportEntryTreeImpl.createExportList;
-import static jdk.nashorn.api.tree.ImportEntryTreeImpl.createImportList;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.Module;
+import static org.openjdk.nashorn.api.tree.ExportEntryTreeImpl.createExportList;
+import static org.openjdk.nashorn.api.tree.ImportEntryTreeImpl.createImportList;
 
 final class ModuleTreeImpl extends TreeImpl implements ModuleTree {
 

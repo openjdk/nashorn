@@ -18,11 +18,11 @@
  * SOFTWARE.
  */
 
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isFindLongest;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isFindLongest;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
 @SuppressWarnings("javadoc")
 public abstract class Matcher extends IntHolder {

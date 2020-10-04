@@ -27,7 +27,7 @@
  * @run
  */
 
-var URLReader = Java.type("jdk.nashorn.api.scripting.URLReader");
+var URLReader = Java.type("org.openjdk.nashorn.api.scripting.URLReader");
 var File = Java.type("java.io.File");
 var FileReader = Java.type("java.io.FileReader");
 var ScriptEngineManager = Java.type("javax.script.ScriptEngineManager");

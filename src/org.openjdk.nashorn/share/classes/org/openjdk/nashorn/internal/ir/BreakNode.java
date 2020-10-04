@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import jdk.nashorn.internal.codegen.Label;
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.codegen.Label;
+import org.openjdk.nashorn.internal.ir.annotations.Immutable;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
 
 /**
  * IR representation for {@code break} statements.

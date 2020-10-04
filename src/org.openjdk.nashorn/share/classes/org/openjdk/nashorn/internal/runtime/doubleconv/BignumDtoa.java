@@ -55,7 +55,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package jdk.nashorn.internal.runtime.doubleconv;
+package org.openjdk.nashorn.internal.runtime.doubleconv;
 
 // Dtoa implementation based on our own Bignum implementation, supporting
 // all conversion modes but slightly slower than the specialized implementations.

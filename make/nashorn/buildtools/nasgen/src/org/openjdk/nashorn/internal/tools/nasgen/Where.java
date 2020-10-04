@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
 /**
  * Enum to tell where a Function or Property belongs.
- * Note: keep this in sync. with jdk.nashorn.internal.objects.annotations.Where.
+ * Note: keep this in sync. with org.openjdk.nashorn.internal.objects.annotations.Where.
  */
 public enum Where {
     /** this means that the item belongs in the Constructor of an object */

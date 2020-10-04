@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal;
+package org.openjdk.nashorn.internal;
 
 /**
  * Class that exposes the current state of asserts.

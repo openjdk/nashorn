@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.JSType.getAccessorTypeIndex;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.JSType.getAccessorTypeIndex;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -35,8 +35,8 @@ import java.lang.invoke.MethodType;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.support.TypeUtilities;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
 
 /**
  * Optimistic return value filters

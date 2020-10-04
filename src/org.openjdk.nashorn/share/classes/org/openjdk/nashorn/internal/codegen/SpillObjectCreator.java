@@ -23,26 +23,26 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
 
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.Property;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.arrays.ArrayData;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
-import jdk.nashorn.internal.scripts.JD;
-import jdk.nashorn.internal.scripts.JO;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.Property;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
+import org.openjdk.nashorn.internal.scripts.JD;
+import org.openjdk.nashorn.internal.scripts.JO;
 
 /**
  * An object creator that uses spill properties.

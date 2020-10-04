@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.Statement;
 
 abstract class StatementTreeImpl extends TreeImpl implements StatementTree {
     StatementTreeImpl(final Statement stat) {

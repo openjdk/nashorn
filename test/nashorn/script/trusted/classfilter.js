@@ -28,7 +28,7 @@
  * @run
  */
 
-var NashornScriptEngineFactory = Java.type("jdk.nashorn.api.scripting.NashornScriptEngineFactory");
+var NashornScriptEngineFactory = Java.type("org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory");
 
 var fac = new NashornScriptEngineFactory();
 // allow only "java.*" classes to be accessed

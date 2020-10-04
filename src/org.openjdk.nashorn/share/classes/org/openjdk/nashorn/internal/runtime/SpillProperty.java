@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

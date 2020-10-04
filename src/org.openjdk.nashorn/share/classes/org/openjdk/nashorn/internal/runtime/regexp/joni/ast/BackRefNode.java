@@ -17,9 +17,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
-import jdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
 
 @SuppressWarnings("javadoc")
 public final class BackRefNode extends StateNode {

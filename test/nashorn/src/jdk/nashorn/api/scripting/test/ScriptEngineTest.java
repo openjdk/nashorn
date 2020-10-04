@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -51,15 +51,15 @@ import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleScriptContext;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.testng.annotations.Test;
 
 /**
  * Tests for JSR-223 script engine for Nashorn.
  *
  * @test
- * @build jdk.nashorn.api.scripting.test.Window jdk.nashorn.api.scripting.test.WindowEventHandler jdk.nashorn.api.scripting.test.VariableArityTestInterface jdk.nashorn.api.scripting.test.ScriptEngineTest
- * @run testng/othervm jdk.nashorn.api.scripting.test.ScriptEngineTest
+ * @build org.openjdk.nashorn.api.scripting.test.Window org.openjdk.nashorn.api.scripting.test.WindowEventHandler org.openjdk.nashorn.api.scripting.test.VariableArityTestInterface org.openjdk.nashorn.api.scripting.test.ScriptEngineTest
+ * @run testng/othervm org.openjdk.nashorn.api.scripting.test.ScriptEngineTest
  */
 @SuppressWarnings("javadoc")
 public class ScriptEngineTest {
@@ -542,7 +542,7 @@ public class ScriptEngineTest {
         final ScriptEngineManager m = new ScriptEngineManager();
         final ScriptEngine e = m.getEngineByName("nashorn");
         e.eval("obj = { foo: 'hello' }");
-        e.put("Window", e.eval("Packages.jdk.nashorn.api.scripting.test.Window"));
+        e.put("Window", e.eval("Packages.org.openjdk.nashorn.api.scripting.test.Window"));
         assertEquals(e.eval("Window.funcJSObject(obj)"), "hello");
         assertEquals(e.eval("Window.funcScriptObjectMirror(obj)"), "hello");
         assertEquals(e.eval("Window.funcMap(obj)"), "hello");

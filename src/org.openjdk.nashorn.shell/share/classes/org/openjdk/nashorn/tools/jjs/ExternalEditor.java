@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

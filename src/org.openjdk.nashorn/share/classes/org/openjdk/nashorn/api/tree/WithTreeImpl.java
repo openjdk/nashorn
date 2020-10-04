@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.WithNode;
+import org.openjdk.nashorn.internal.ir.WithNode;
 
 final class WithTreeImpl extends StatementTreeImpl implements WithTree {
     private final ExpressionTree scope;

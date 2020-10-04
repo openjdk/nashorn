@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
 import java.util.Collection;
 import java.util.Collections;

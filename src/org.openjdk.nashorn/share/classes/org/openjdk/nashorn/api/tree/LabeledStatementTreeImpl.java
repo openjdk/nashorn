@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.LabelNode;
+import org.openjdk.nashorn.internal.ir.LabelNode;
 
 final class LabeledStatementTreeImpl extends StatementTreeImpl
     implements LabeledStatementTree {

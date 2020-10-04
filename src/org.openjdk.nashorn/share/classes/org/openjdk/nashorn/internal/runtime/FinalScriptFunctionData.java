@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;

@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  *  A tree node for <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-generator-function-definitions">yield expressions</a> used in generator functions.

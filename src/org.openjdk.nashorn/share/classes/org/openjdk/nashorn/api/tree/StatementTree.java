@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  * A tree node used as the base class for the different kinds of

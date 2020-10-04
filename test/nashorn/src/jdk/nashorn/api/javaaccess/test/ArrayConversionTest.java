@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.javaaccess.test;
+package org.openjdk.nashorn.api.javaaccess.test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
@@ -42,7 +42,7 @@ import org.testng.annotations.Test;
 
 /**
  * @test
- * @run testng/othervm jdk.nashorn.api.javaaccess.test.ArrayConversionTest
+ * @run testng/othervm org.openjdk.nashorn.api.javaaccess.test.ArrayConversionTest
  */
 @SuppressWarnings("javadoc")
 public class ArrayConversionTest {

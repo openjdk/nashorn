@@ -23,7 +23,7 @@
  * questions.
  */
 
-// This script is loaded from jdk.nashorn.api.scripting.ScopeTest to test script class sharing and reuse.
+// This script is loaded from org.openjdk.nashorn.api.scripting.ScopeTest to test script class sharing and reuse.
 
 var a;
 

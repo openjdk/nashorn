@@ -23,31 +23,31 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
 import static java.lang.Double.NaN;
 import static java.lang.Double.isInfinite;
 import static java.lang.Double.isNaN;
-import static jdk.nashorn.internal.runtime.ECMAErrors.rangeError;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.rangeError;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
-import jdk.nashorn.internal.objects.annotations.Attribute;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import jdk.nashorn.internal.objects.annotations.Function;
-import jdk.nashorn.internal.objects.annotations.ScriptClass;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction;
-import jdk.nashorn.internal.objects.annotations.Where;
-import jdk.nashorn.internal.parser.DateParser;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.linker.InvokeByName;
+import org.openjdk.nashorn.internal.objects.annotations.Attribute;
+import org.openjdk.nashorn.internal.objects.annotations.Constructor;
+import org.openjdk.nashorn.internal.objects.annotations.Function;
+import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction;
+import org.openjdk.nashorn.internal.objects.annotations.Where;
+import org.openjdk.nashorn.internal.parser.DateParser;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.linker.InvokeByName;
 
 /**
  * ECMA 15.9 Date Objects

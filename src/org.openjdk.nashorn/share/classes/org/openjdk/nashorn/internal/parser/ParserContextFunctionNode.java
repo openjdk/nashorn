@@ -22,17 +22,17 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import jdk.nashorn.internal.codegen.Namespace;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.Module;
+import org.openjdk.nashorn.internal.codegen.Namespace;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.Module;
 
 /**
  * ParserContextNode that represents a function that is currently being parsed

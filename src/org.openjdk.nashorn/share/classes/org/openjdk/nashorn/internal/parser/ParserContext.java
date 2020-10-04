@@ -22,11 +22,11 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import jdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.Statement;
 
 /**
  * A class that tracks the current lexical context of node visitation as a stack of {@code ParserContextNode} nodes. Has special

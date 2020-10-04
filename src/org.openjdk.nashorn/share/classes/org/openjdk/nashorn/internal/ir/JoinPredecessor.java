@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 /**
  * Interface implemented by AST nodes that either can occur as predecessors of a control flow join, or contain a control

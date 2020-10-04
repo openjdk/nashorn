@@ -23,14 +23,14 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.arrays;
+package org.openjdk.nashorn.internal.runtime.arrays;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * Handle arrays where the index is very large.

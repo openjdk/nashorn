@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
 import java.io.File;
 import java.io.FileInputStream;

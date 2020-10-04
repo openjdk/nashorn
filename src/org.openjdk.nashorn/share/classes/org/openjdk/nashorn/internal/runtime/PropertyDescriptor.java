@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 /**
  * Describes attributes of a specific property of a script object.

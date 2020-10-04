@@ -30,9 +30,9 @@
  * @run
  */
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var ForLoopTree = Java.type("jdk.nashorn.api.tree.ForLoopTree");
-var VariableTree = Java.type("jdk.nashorn.api.tree.VariableTree");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var ForLoopTree = Java.type("org.openjdk.nashorn.api.tree.ForLoopTree");
+var VariableTree = Java.type("org.openjdk.nashorn.api.tree.VariableTree");
 var parser = Parser.create();
 
 var code = <<EOF

@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 /**
  * A ParserContextNode that represents a SwitchNode that is currently being parsed

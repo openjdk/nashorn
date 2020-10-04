@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.arrays;
+package org.openjdk.nashorn.internal.runtime.arrays;
 
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 import java.lang.reflect.Array;
-import jdk.nashorn.internal.runtime.BitVector;
+import org.openjdk.nashorn.internal.runtime.BitVector;
 
 /**
  * This filter handles the deletion of array elements.

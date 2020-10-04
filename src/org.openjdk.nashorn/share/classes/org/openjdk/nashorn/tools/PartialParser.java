@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.tools;
+package org.openjdk.nashorn.tools;
 
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Context;
 
 /**
  * Partial parsing support for code completion of expressions.

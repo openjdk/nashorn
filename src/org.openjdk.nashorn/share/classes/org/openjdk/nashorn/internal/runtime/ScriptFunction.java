@@ -22,13 +22,13 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -50,16 +50,16 @@ import jdk.dynalink.SecureLookupSupplier;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.support.Guards;
-import jdk.nashorn.internal.codegen.ApplySpecialization;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.CompilerConstants.Call;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.objects.NativeFunction;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.codegen.ApplySpecialization;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.objects.NativeFunction;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
 
 /**
  * Runtime representation of a JavaScript function. This class has only private

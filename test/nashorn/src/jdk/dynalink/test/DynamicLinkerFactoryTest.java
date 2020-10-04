@@ -48,7 +48,7 @@ import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
 import jdk.dynalink.support.SimpleRelinkableCallSite;
-import jdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  * A visitor of trees, in the style of the visitor design pattern.

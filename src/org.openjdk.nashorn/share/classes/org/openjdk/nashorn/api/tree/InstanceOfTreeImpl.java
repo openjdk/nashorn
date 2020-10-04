@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 final class InstanceOfTreeImpl extends BinaryTreeImpl implements InstanceOfTree {
     InstanceOfTreeImpl(final BinaryNode node,

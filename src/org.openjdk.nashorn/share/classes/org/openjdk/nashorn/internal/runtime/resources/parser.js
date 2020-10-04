@@ -49,7 +49,7 @@ function parse(/*code, [name], [location]*/) {
             code = arguments[0];
     }
 
-    var jsonStr = Packages.jdk.nashorn.api.scripting.ScriptUtils.parse(code, name, location);
+    var jsonStr = Packages.org.openjdk.nashorn.api.scripting.ScriptUtils.parse(code, name, location);
     return JSON.parse(jsonStr,
         function (prop, value) {
             if (typeof(value) == 'string' && prop == "value") {

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_INCLUDES;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_INCLUDES;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import jdk.nashorn.internal.test.framework.TestFinder.TestFactory;
+import org.openjdk.nashorn.internal.test.framework.TestFinder.TestFactory;
 import org.testng.ITest;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Listeners;

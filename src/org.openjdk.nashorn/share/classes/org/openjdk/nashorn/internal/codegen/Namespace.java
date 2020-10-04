@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.MethodEmitter.LARGE_STRING_THRESHOLD;
+import static org.openjdk.nashorn.internal.codegen.MethodEmitter.LARGE_STRING_THRESHOLD;
 
 import java.util.HashMap;
 

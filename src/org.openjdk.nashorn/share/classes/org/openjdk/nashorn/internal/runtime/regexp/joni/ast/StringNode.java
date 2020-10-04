@@ -17,10 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
-import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.StringType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.StringType;
 
 @SuppressWarnings("javadoc")
 public final class StringNode extends Node implements StringType {

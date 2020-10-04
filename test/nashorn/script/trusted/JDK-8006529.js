@@ -38,24 +38,24 @@
  * We cannot use direct Java class (via dynalink bean linker) to Compiler
  * and FunctionNode because of package-access check and so reflective calls.
  */
-var Reflector           = Java.type("jdk.nashorn.test.models.Reflector");
+var Reflector           = Java.type("org.openjdk.nashorn.test.models.Reflector");
 var forName             = java.lang.Class["forName(String)"];
-var Parser              = forName("jdk.nashorn.internal.parser.Parser").static
-var Compiler            = forName("jdk.nashorn.internal.codegen.Compiler").static
-var CompilationPhases   = forName("jdk.nashorn.internal.codegen.Compiler$CompilationPhases").static;
-var Context             = forName("jdk.nashorn.internal.runtime.Context").static
-var CodeInstaller       = forName("jdk.nashorn.internal.runtime.CodeInstaller").static
-var ScriptEnvironment   = forName("jdk.nashorn.internal.runtime.ScriptEnvironment").static
-var Source              = forName("jdk.nashorn.internal.runtime.Source").static
-var FunctionNode        = forName("jdk.nashorn.internal.ir.FunctionNode").static
-var Block               = forName("jdk.nashorn.internal.ir.Block").static
-var VarNode             = forName("jdk.nashorn.internal.ir.VarNode").static
-var ExpressionStatement = forName("jdk.nashorn.internal.ir.ExpressionStatement").static
-var UnaryNode           = forName("jdk.nashorn.internal.ir.UnaryNode").static
-var BinaryNode          = forName("jdk.nashorn.internal.ir.BinaryNode").static
-var ThrowErrorManager   = forName("jdk.nashorn.internal.runtime.Context$ThrowErrorManager").static
-var ErrorManager        = forName("jdk.nashorn.internal.runtime.ErrorManager").static
-var Debug               = forName("jdk.nashorn.internal.runtime.Debug").static
+var Parser              = forName("org.openjdk.nashorn.internal.parser.Parser").static
+var Compiler            = forName("org.openjdk.nashorn.internal.codegen.Compiler").static
+var CompilationPhases   = forName("org.openjdk.nashorn.internal.codegen.Compiler$CompilationPhases").static;
+var Context             = forName("org.openjdk.nashorn.internal.runtime.Context").static
+var CodeInstaller       = forName("org.openjdk.nashorn.internal.runtime.CodeInstaller").static
+var ScriptEnvironment   = forName("org.openjdk.nashorn.internal.runtime.ScriptEnvironment").static
+var Source              = forName("org.openjdk.nashorn.internal.runtime.Source").static
+var FunctionNode        = forName("org.openjdk.nashorn.internal.ir.FunctionNode").static
+var Block               = forName("org.openjdk.nashorn.internal.ir.Block").static
+var VarNode             = forName("org.openjdk.nashorn.internal.ir.VarNode").static
+var ExpressionStatement = forName("org.openjdk.nashorn.internal.ir.ExpressionStatement").static
+var UnaryNode           = forName("org.openjdk.nashorn.internal.ir.UnaryNode").static
+var BinaryNode          = forName("org.openjdk.nashorn.internal.ir.BinaryNode").static
+var ThrowErrorManager   = forName("org.openjdk.nashorn.internal.runtime.Context$ThrowErrorManager").static
+var ErrorManager        = forName("org.openjdk.nashorn.internal.runtime.ErrorManager").static
+var Debug               = forName("org.openjdk.nashorn.internal.runtime.Debug").static
 var String              = forName("java.lang.String").static
 var boolean             = Java.type("boolean");
 
@@ -127,7 +127,7 @@ var ParserConstructor = Parser.class.getConstructor(ScriptEnvironment.class, Sou
 var CompilerConstructor = Compiler.class.getMethod("forNoInstallerCompilation", Context.class, Source.class, boolean.class);
 
 // compile(script) -- compiles a script specified as a string with its
-// source code, returns a jdk.nashorn.internal.ir.FunctionNode object
+// source code, returns a org.openjdk.nashorn.internal.ir.FunctionNode object
 // representing it.
 function compile(source, phases) {
     var source = sourceForMethod.invoke(null, "<no name>", source);

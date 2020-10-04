@@ -23,28 +23,28 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.codegen.ObjectClassGenerator;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.ECMAErrors;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.JSErrorType;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ParserException;
-import jdk.nashorn.internal.runtime.Property;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.SpillProperty;
-import jdk.nashorn.internal.runtime.arrays.ArrayData;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
-import jdk.nashorn.internal.scripts.JD;
-import jdk.nashorn.internal.scripts.JO;
+import org.openjdk.nashorn.internal.codegen.ObjectClassGenerator;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.ECMAErrors;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.JSErrorType;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.Property;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.SpillProperty;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
+import org.openjdk.nashorn.internal.scripts.JD;
+import org.openjdk.nashorn.internal.scripts.JO;
 
-import static jdk.nashorn.internal.parser.TokenType.STRING;
+import static org.openjdk.nashorn.internal.parser.TokenType.STRING;
 
 /**
  * Parses JSON text and returns the corresponding IR node. This is derived from

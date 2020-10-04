@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 public interface B extends A {
     default String b() {

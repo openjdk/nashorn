@@ -30,14 +30,14 @@
 //
 // Copyright 2006-2008 the V8 project authors. All rights reserved.
 
-package jdk.nashorn.internal.runtime.doubleconv.test;
+package org.openjdk.nashorn.internal.runtime.doubleconv.test;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import jdk.nashorn.internal.runtime.doubleconv.DoubleConversion;
-import jdk.nashorn.internal.runtime.doubleconv.DtoaBuffer;
+import org.openjdk.nashorn.internal.runtime.doubleconv.DoubleConversion;
+import org.openjdk.nashorn.internal.runtime.doubleconv.DtoaBuffer;
 
 import org.testng.annotations.Test;
 

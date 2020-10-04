@@ -23,14 +23,14 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.lang.invoke.MethodHandle;
 import java.util.concurrent.Callable;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.parser.JSONParser;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.parser.JSONParser;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 
 /**
  * Utilities used by "JSON" object implementation.

@@ -56,12 +56,12 @@ if (!file.exists()) {
 // * exception swallow (empty catch block in try-catch statements)
 
 const Files = Java.type("java.nio.file.Files");
-const EmptyStatementTree = Java.type("jdk.nashorn.api.tree.EmptyStatementTree");
-const IdentifierTree = Java.type("jdk.nashorn.api.tree.IdentifierTree");
-const MemberSelectTree = Java.type("jdk.nashorn.api.tree.MemberSelectTree");
-const Parser = Java.type("jdk.nashorn.api.tree.Parser");
-const SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES6");
-const Tree = Java.type("jdk.nashorn.api.tree.Tree");
+const EmptyStatementTree = Java.type("org.openjdk.nashorn.api.tree.EmptyStatementTree");
+const IdentifierTree = Java.type("org.openjdk.nashorn.api.tree.IdentifierTree");
+const MemberSelectTree = Java.type("org.openjdk.nashorn.api.tree.MemberSelectTree");
+const Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+const SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6");
+const Tree = Java.type("org.openjdk.nashorn.api.tree.Tree");
 
 const parser = Parser.create("-scripting", "--language=es6");
 

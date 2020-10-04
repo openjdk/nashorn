@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -37,31 +37,31 @@ import jdk.internal.org.jline.reader.Completer;
 import jdk.internal.org.jline.reader.LineReader;
 import jdk.internal.org.jline.reader.ParsedLine;
 import jdk.internal.org.jline.reader.UserInterruptException;
-import jdk.nashorn.api.tree.AssignmentTree;
-import jdk.nashorn.api.tree.BinaryTree;
-import jdk.nashorn.api.tree.CompilationUnitTree;
-import jdk.nashorn.api.tree.CompoundAssignmentTree;
-import jdk.nashorn.api.tree.ConditionalExpressionTree;
-import jdk.nashorn.api.tree.ExpressionTree;
-import jdk.nashorn.api.tree.ExpressionStatementTree;
-import jdk.nashorn.api.tree.FunctionCallTree;
-import jdk.nashorn.api.tree.IdentifierTree;
-import jdk.nashorn.api.tree.InstanceOfTree;
-import jdk.nashorn.api.tree.MemberSelectTree;
-import jdk.nashorn.api.tree.NewTree;
-import jdk.nashorn.api.tree.SimpleTreeVisitorES5_1;
-import jdk.nashorn.api.tree.Tree;
-import jdk.nashorn.api.tree.UnaryTree;
-import jdk.nashorn.api.tree.Parser;
-import jdk.nashorn.api.scripting.NashornException;
-import jdk.nashorn.tools.PartialParser;
-import jdk.nashorn.internal.objects.NativeSyntaxError;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.ECMAException;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.api.tree.AssignmentTree;
+import org.openjdk.nashorn.api.tree.BinaryTree;
+import org.openjdk.nashorn.api.tree.CompilationUnitTree;
+import org.openjdk.nashorn.api.tree.CompoundAssignmentTree;
+import org.openjdk.nashorn.api.tree.ConditionalExpressionTree;
+import org.openjdk.nashorn.api.tree.ExpressionTree;
+import org.openjdk.nashorn.api.tree.ExpressionStatementTree;
+import org.openjdk.nashorn.api.tree.FunctionCallTree;
+import org.openjdk.nashorn.api.tree.IdentifierTree;
+import org.openjdk.nashorn.api.tree.InstanceOfTree;
+import org.openjdk.nashorn.api.tree.MemberSelectTree;
+import org.openjdk.nashorn.api.tree.NewTree;
+import org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1;
+import org.openjdk.nashorn.api.tree.Tree;
+import org.openjdk.nashorn.api.tree.UnaryTree;
+import org.openjdk.nashorn.api.tree.Parser;
+import org.openjdk.nashorn.api.scripting.NashornException;
+import org.openjdk.nashorn.tools.PartialParser;
+import org.openjdk.nashorn.internal.objects.NativeSyntaxError;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.ECMAException;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * A simple source completer for nashorn. Handles code completion for

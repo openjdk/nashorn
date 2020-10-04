@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import java.util.Map;
 import javax.script.Bindings;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 
 @SuppressWarnings("javadoc")
 public class Window {

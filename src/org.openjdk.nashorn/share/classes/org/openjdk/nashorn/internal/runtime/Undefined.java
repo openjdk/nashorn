@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -34,7 +34,7 @@ import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.NamedOperation;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.support.Guards;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
 
 /**
  * Unique instance of this class is used to represent JavaScript undefined.

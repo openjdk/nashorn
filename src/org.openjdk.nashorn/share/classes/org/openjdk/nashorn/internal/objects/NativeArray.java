@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
-import static jdk.nashorn.internal.runtime.ECMAErrors.rangeError;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.PropertyDescriptor.VALUE;
-import static jdk.nashorn.internal.runtime.PropertyDescriptor.WRITABLE;
-import static jdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
-import static jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator.arrayLikeIterator;
-import static jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator.reverseArrayLikeIterator;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_STRICT;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.rangeError;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.PropertyDescriptor.VALUE;
+import static org.openjdk.nashorn.internal.runtime.PropertyDescriptor.WRITABLE;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator.arrayLikeIterator;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator.reverseArrayLikeIterator;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_STRICT;
 
 import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
@@ -45,34 +45,34 @@ import java.util.concurrent.Callable;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.internal.objects.annotations.Attribute;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import jdk.nashorn.internal.objects.annotations.Function;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.ScriptClass;
-import jdk.nashorn.internal.objects.annotations.Setter;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
-import jdk.nashorn.internal.objects.annotations.Where;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.Debug;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.OptimisticBuiltins;
-import jdk.nashorn.internal.runtime.PropertyDescriptor;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.Undefined;
-import jdk.nashorn.internal.runtime.arrays.ArrayData;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-import jdk.nashorn.internal.runtime.arrays.ContinuousArrayData;
-import jdk.nashorn.internal.runtime.arrays.IntElements;
-import jdk.nashorn.internal.runtime.arrays.IteratorAction;
-import jdk.nashorn.internal.runtime.arrays.NumericElements;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.linker.InvokeByName;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.internal.objects.annotations.Attribute;
+import org.openjdk.nashorn.internal.objects.annotations.Constructor;
+import org.openjdk.nashorn.internal.objects.annotations.Function;
+import org.openjdk.nashorn.internal.objects.annotations.Getter;
+import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
+import org.openjdk.nashorn.internal.objects.annotations.Setter;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
+import org.openjdk.nashorn.internal.objects.annotations.Where;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Debug;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.OptimisticBuiltins;
+import org.openjdk.nashorn.internal.runtime.PropertyDescriptor;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+import org.openjdk.nashorn.internal.runtime.arrays.ContinuousArrayData;
+import org.openjdk.nashorn.internal.runtime.arrays.IntElements;
+import org.openjdk.nashorn.internal.runtime.arrays.IteratorAction;
+import org.openjdk.nashorn.internal.runtime.arrays.NumericElements;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.linker.InvokeByName;
 
 /**
  * Runtime representation of a JavaScript array. NativeArray only holds numeric

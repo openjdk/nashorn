@@ -23,21 +23,21 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.JSType.isString;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.JSType.isString;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 import jdk.dynalink.linker.support.TypeUtilities;
-import jdk.nashorn.internal.runtime.ConsString;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ConsString;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
 
 /**
  * Utility class shared by {@code NashornLinker} and {@code NashornPrimitiveLinker} for converting JS values to Java

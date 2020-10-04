@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.runtime.logging.DebugLogger.quote;
+import static org.openjdk.nashorn.internal.runtime.logging.DebugLogger.quote;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -33,20 +33,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import jdk.nashorn.internal.codegen.Compiler.CompilationPhases;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.Symbol;
-import jdk.nashorn.internal.ir.debug.ASTWriter;
-import jdk.nashorn.internal.ir.debug.PrintVisitor;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
-import jdk.nashorn.internal.runtime.CodeInstaller;
-import jdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.Symbol;
+import org.openjdk.nashorn.internal.ir.debug.ASTWriter;
+import org.openjdk.nashorn.internal.ir.debug.PrintVisitor;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.runtime.CodeInstaller;
+import org.openjdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
 
 /**
  * A compilation phase is a step in the processes of turning a JavaScript
@@ -558,10 +558,10 @@ abstract class CompilationPhase {
 
     static final CompilationPhase INSTALL_PHASE = new InstallPhase();
 
-    /** start time of transform - used for timing, see {@link jdk.nashorn.internal.runtime.Timing} */
+    /** start time of transform - used for timing, see {@link org.openjdk.nashorn.internal.runtime.Timing} */
     private long startTime;
 
-    /** start time of transform - used for timing, see {@link jdk.nashorn.internal.runtime.Timing} */
+    /** start time of transform - used for timing, see {@link org.openjdk.nashorn.internal.runtime.Timing} */
     private long endTime;
 
     /** boolean that is true upon transform completion */

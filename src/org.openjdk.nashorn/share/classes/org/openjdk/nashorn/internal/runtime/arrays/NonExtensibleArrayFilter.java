@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.arrays;
+package org.openjdk.nashorn.internal.runtime.arrays;
 
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * Filter class that wrap arrays that have been tagged non extensible

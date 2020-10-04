@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -41,16 +41,16 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.AbstractJSObject;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.testng.annotations.Test;
 
 /**
- * Tests to check jdk.nashorn.api.scripting.ScriptObjectMirror API.
+ * Tests to check org.openjdk.nashorn.api.scripting.ScriptObjectMirror API.
  *
  * @test
- * @run testng jdk.nashorn.api.scripting.test.ScriptObjectMirrorTest
+ * @run testng org.openjdk.nashorn.api.scripting.test.ScriptObjectMirrorTest
  */
 @SuppressWarnings("javadoc")
 public class ScriptObjectMirrorTest {
@@ -362,7 +362,7 @@ public class ScriptObjectMirrorTest {
         final ScriptEngine engine = engineManager.getEngineByName("nashorn");
         final Invocable invocable = (Invocable)engine;
         engine.eval("function apply(obj) { " +
-            " return obj instanceof Packages.jdk.nashorn.api.scripting.ScriptObjectMirror; " +
+            " return obj instanceof Packages.org.openjdk.nashorn.api.scripting.ScriptObjectMirror; " +
             "}");
         @SuppressWarnings("unchecked")
         final Function<Object,Object> func = invocable.getInterface(Function.class);

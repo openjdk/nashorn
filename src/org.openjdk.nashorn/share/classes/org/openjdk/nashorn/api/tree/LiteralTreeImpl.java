@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
 
 final class LiteralTreeImpl extends ExpressionTreeImpl implements LiteralTree {
     private final Object value;

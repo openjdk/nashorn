@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import jdk.nashorn.api.scripting.AbstractJSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 import javax.script.ScriptException;
@@ -38,8 +38,8 @@ import javax.script.ScriptException;
  * @test
  * @bug 8186807
  * @summary JSObject gets ScriptFunction when ScriptObjectMirror is expected
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @run testng/othervm -Dnashorn.unstable.relink.threshold=1 jdk.nashorn.internal.runtime.test.JDK_8186807_Test
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @run testng/othervm -Dnashorn.unstable.relink.threshold=1 org.openjdk.nashorn.internal.runtime.test.JDK_8186807_Test
  */
 
 public class JDK_8186807_Test {

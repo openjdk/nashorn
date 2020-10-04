@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,13 +33,13 @@ import java.util.List;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.NativeJavaPackage;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.objects.NativeJava;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.NativeJavaPackage;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.objects.NativeJava;
 
 /*
  * A helper class to get properties of a given object for source code completion.

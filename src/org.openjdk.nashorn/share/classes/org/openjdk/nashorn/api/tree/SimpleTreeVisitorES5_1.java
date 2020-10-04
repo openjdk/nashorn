@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  * A simple implementation of the TreeVisitor for ECMAScript edition 5.1.

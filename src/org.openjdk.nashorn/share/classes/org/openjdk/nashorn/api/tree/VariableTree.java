@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  * A tree node for a <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-variable-statement">variable declaration statement</a>.

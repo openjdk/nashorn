@@ -23,13 +23,13 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
-import jdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.Source;
 
 /**
  * Helper class to facilitate script access of nashorn Source class.

@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 /**
  * Interface for AST nodes that can have a flag determining if they can terminate function control flow.

@@ -23,15 +23,15 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.ir.annotations.Immutable;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
 
 /**
  * IR representation of a TRY statement.

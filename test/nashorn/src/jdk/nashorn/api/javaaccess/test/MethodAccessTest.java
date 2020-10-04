@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.javaaccess.test;
+package org.openjdk.nashorn.api.javaaccess.test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -41,8 +41,8 @@ import org.testng.annotations.Test;
 
 /**
  * @test
- * @build jdk.nashorn.api.javaaccess.test.SharedObject jdk.nashorn.api.javaaccess.test.Person jdk.nashorn.api.javaaccess.test.MethodAccessTest
- * @run testng/othervm jdk.nashorn.api.javaaccess.test.MethodAccessTest
+ * @build org.openjdk.nashorn.api.javaaccess.test.SharedObject org.openjdk.nashorn.api.javaaccess.test.Person org.openjdk.nashorn.api.javaaccess.test.MethodAccessTest
+ * @run testng/othervm org.openjdk.nashorn.api.javaaccess.test.MethodAccessTest
  */
 @SuppressWarnings("javadoc")
 public class MethodAccessTest {
@@ -61,8 +61,8 @@ public class MethodAccessTest {
         o = new SharedObject();
         o.setEngine(e);
         e.put("o", o);
-        e.eval("var SharedObject = Packages.jdk.nashorn.api.javaaccess.test.SharedObject;");
-        e.eval("var Person = Packages.jdk.nashorn.api.javaaccess.test.Person;");
+        e.eval("var SharedObject = Packages.org.openjdk.nashorn.api.javaaccess.test.SharedObject;");
+        e.eval("var Person = Packages.org.openjdk.nashorn.api.javaaccess.test.Person;");
     }
 
     @AfterClass
@@ -338,13 +338,13 @@ public class MethodAccessTest {
 
     @Test
     public void accessDefaultConstructor() throws ScriptException {
-        e.eval("var dc = new Packages.jdk.nashorn.api.javaaccess.test.Person()");
+        e.eval("var dc = new Packages.org.openjdk.nashorn.api.javaaccess.test.Person()");
         assertEquals(new Person(), e.get("dc"));
     }
 
     @Test
     public void accessCustomConstructor() throws ScriptException {
-        e.eval("var cc = new Packages.jdk.nashorn.api.javaaccess.test.Person(17)");
+        e.eval("var cc = new Packages.org.openjdk.nashorn.api.javaaccess.test.Person(17)");
         assertEquals(new Person(17), e.get("cc"));
     }
 

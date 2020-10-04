@@ -45,4 +45,4 @@ load(__DIR__ + "loadedfile.js");
 // which is exposed as __DIR__ for URL case.
 
 var url = new java.net.URL("http://www.acme.com:8080/foo/bar.js");
-print(Packages.jdk.nashorn.test.models.SourceHelper.baseURL(url));
+print(Packages.org.openjdk.nashorn.test.models.SourceHelper.baseURL(url));

@@ -23,26 +23,26 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.specialCall;
-import static jdk.nashorn.internal.codegen.CompilerConstants.staticCall;
-import static jdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.specialCall;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCall;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.nio.ByteBuffer;
-import jdk.nashorn.internal.objects.annotations.Attribute;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import jdk.nashorn.internal.objects.annotations.Function;
-import jdk.nashorn.internal.objects.annotations.Property;
-import jdk.nashorn.internal.objects.annotations.ScriptClass;
-import jdk.nashorn.internal.objects.annotations.Where;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.arrays.ArrayData;
-import jdk.nashorn.internal.runtime.arrays.TypedArrayData;
+import org.openjdk.nashorn.internal.objects.annotations.Attribute;
+import org.openjdk.nashorn.internal.objects.annotations.Constructor;
+import org.openjdk.nashorn.internal.objects.annotations.Function;
+import org.openjdk.nashorn.internal.objects.annotations.Property;
+import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
+import org.openjdk.nashorn.internal.objects.annotations.Where;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
+import org.openjdk.nashorn.internal.runtime.arrays.TypedArrayData;
 
 /**
  * Uint8 clamped array for TypedArray extension

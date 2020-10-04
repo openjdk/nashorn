@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.options;
+package org.openjdk.nashorn.internal.runtime.options;
 
 import java.util.Locale;
 import java.util.TimeZone;
-import jdk.nashorn.internal.runtime.QuotedStringTokenizer;
+import org.openjdk.nashorn.internal.runtime.QuotedStringTokenizer;
 
 /**
  * This describes the valid input for an option, as read from the resource

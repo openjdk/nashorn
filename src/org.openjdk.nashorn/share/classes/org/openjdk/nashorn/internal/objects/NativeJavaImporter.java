@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
 import jdk.dynalink.beans.StaticClass;
-import jdk.nashorn.internal.objects.annotations.Constructor;
-import jdk.nashorn.internal.objects.annotations.ScriptClass;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.FindProperty;
-import jdk.nashorn.internal.runtime.NativeJavaPackage;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.objects.annotations.Constructor;
+import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.FindProperty;
+import org.openjdk.nashorn.internal.runtime.NativeJavaPackage;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
 
 /**
  * This is "JavaImporter" constructor. This constructor allows you to use Java types omitting explicit package names.

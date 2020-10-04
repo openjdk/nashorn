@@ -23,33 +23,33 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_PROFILE;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_STRICT;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_ENTEREXIT;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_MISSES;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_VALUES;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_PROFILE;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_STRICT;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_ENTEREXIT;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_MISSES;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_VALUES;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import jdk.nashorn.internal.codegen.CompileUnit;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.codegen.Namespace;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
-import jdk.nashorn.internal.parser.Token;
-import jdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.UserAccessorProperty;
-import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
+import org.openjdk.nashorn.internal.codegen.CompileUnit;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.codegen.Namespace;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.annotations.Ignore;
+import org.openjdk.nashorn.internal.ir.annotations.Immutable;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.parser.Token;
+import org.openjdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.UserAccessorProperty;
+import org.openjdk.nashorn.internal.runtime.linker.LinkerCallSite;
 
 /**
  * IR representation for function (or script.)

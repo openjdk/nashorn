@@ -44,7 +44,7 @@ ScriptEngine nashornEngine = new ScriptEngineManager().getEngineByName("nashorn"
 </pre>
  *
  * and then use it just as you would any other JSR-223 script engine. See
- * {@link jdk.nashorn.api.scripting} package for details.
+ * {@link org.openjdk.nashorn.api.scripting} package for details.
  * <h2>Compatibility</h2>
  * Nashorn is 100% compliant with the
  * <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm"
@@ -145,19 +145,19 @@ module org.openjdk.nashorn {
 
     requires transitive java.scripting;
 
-    exports jdk.nashorn.api.scripting;
-    exports jdk.nashorn.api.tree;
+    exports org.openjdk.nashorn.api.scripting;
+    exports org.openjdk.nashorn.api.tree;
 
-    exports jdk.nashorn.internal.runtime to
+    exports org.openjdk.nashorn.internal.runtime to
         org.openjdk.nashorn.shell;
-    exports jdk.nashorn.internal.objects to
+    exports org.openjdk.nashorn.internal.objects to
         org.openjdk.nashorn.shell;
-    exports jdk.nashorn.tools to
+    exports org.openjdk.nashorn.tools to
         org.openjdk.nashorn.shell;
 
     provides javax.script.ScriptEngineFactory with
-        jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+        org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
     provides jdk.dynalink.linker.GuardingDynamicLinkerExporter with
-        jdk.nashorn.api.linker.NashornLinkerExporter;
+        org.openjdk.nashorn.api.linker.NashornLinkerExporter;
 }

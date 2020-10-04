@@ -17,11 +17,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
 import java.lang.ref.WeakReference;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.StackPopLevel;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.StackType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.StackPopLevel;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.StackType;
 
 abstract class StackMachine extends Matcher implements StackType {
     protected static final int INVALID_INDEX = -1;

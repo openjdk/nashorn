@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.TryNode;
+import org.openjdk.nashorn.internal.ir.TryNode;
 
 final class TryTreeImpl extends StatementTreeImpl implements TryTree {
     private final BlockTree block;

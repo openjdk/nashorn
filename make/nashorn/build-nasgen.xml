@@ -38,7 +38,7 @@
             </classpath>
             <jvmarg line="${nasgen.module.imports}"/>
             <arg value="${nashorn.module.classes.dir}"/>
-            <arg value="jdk.nashorn.internal.objects"/>
+            <arg value="org.openjdk.nashorn.internal.objects"/>
             <arg value="${nashorn.module.classes.dir}"/>
         </java>
     </target>
@@ -46,13 +46,13 @@
     <target name="run-nasgen-eclipse" depends="load-properties">
         <mkdir dir="${basedir}/build/eclipse/.nasgentmp"/>
 
-        <java classname="jdk.nashorn.internal.tools.nasgen.Main" fork="true" failonerror="true">
+        <java classname="org.openjdk.nashorn.internal.tools.nasgen.Main" fork="true" failonerror="true">
             <classpath>
                 <pathelement location="${basedir}/buildtools/nasgen/dist/nasgen.jar"/>
             </classpath>
             <jvmarg line="${nasgen.module.imports}"/>
             <arg value="${basedir}/build/eclipse"/>
-            <arg value="jdk.nashorn.internal.objects"/>
+            <arg value="org.openjdk.nashorn.internal.objects"/>
             <arg value="${basedir}/build/eclipse/.nasgentmp"/>
         </java>
 

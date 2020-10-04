@@ -51,7 +51,7 @@ engine.eval(<<CODE
 CODE);
 
 // Nashorn engine returns script objects as instance of
-// the class jdk.nashorn.api.scripting.ScriptObjectMirror
+// the class org.openjdk.nashorn.api.scripting.ScriptObjectMirror
 // But nashorn's dynalink linker can treat these objects
 // specially to support natural script syntax to access..
 // In Java code, you need to use ScriptObjectMirror's

@@ -17,10 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar.INEFFECTIVE_META_CHAR;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.SyntaxProperties;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar.INEFFECTIVE_META_CHAR;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.SyntaxProperties;
 
 @SuppressWarnings("javadoc")
 public final class Syntax implements SyntaxProperties {

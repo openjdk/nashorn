@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.TernaryNode;
+import org.openjdk.nashorn.internal.ir.TernaryNode;
 
 final class ConditionalExpressionTreeImpl extends ExpressionTreeImpl implements ConditionalExpressionTree {
     private final ExpressionTree condExpr, trueExpr, falseExpr;

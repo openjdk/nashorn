@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.options;
+package org.openjdk.nashorn.internal.runtime.options;
 
 import java.io.PrintWriter;
 import java.security.AccessControlContext;
@@ -49,7 +49,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import jdk.nashorn.internal.runtime.QuotedStringTokenizer;
+import org.openjdk.nashorn.internal.runtime.QuotedStringTokenizer;
 
 /**
  * Manages global runtime options.
@@ -595,7 +595,7 @@ public final class Options {
     /**
      * Resource name for properties file
      */
-    private static final String MESSAGES_RESOURCE = "jdk.nashorn.internal.runtime.resources.Options";
+    private static final String MESSAGES_RESOURCE = "org.openjdk.nashorn.internal.runtime.resources.Options";
 
     /**
      * Resource bundle for properties file

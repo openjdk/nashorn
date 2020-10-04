@@ -23,31 +23,31 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.SPLIT_PREFIX;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.SPLIT_PREFIX;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.ObjectNode;
-import jdk.nashorn.internal.ir.PropertyNode;
-import jdk.nashorn.internal.ir.SplitNode;
-import jdk.nashorn.internal.ir.Splittable;
-import jdk.nashorn.internal.ir.Statement;
-import jdk.nashorn.internal.ir.VarNode;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.ObjectNode;
+import org.openjdk.nashorn.internal.ir.PropertyNode;
+import org.openjdk.nashorn.internal.ir.SplitNode;
+import org.openjdk.nashorn.internal.ir.Splittable;
+import org.openjdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.VarNode;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * Split the IR into smaller compile units.

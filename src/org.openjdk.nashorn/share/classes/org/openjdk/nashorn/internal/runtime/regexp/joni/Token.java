@@ -17,9 +17,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import jdk.nashorn.internal.runtime.regexp.joni.constants.TokenType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.TokenType;
 
 final class Token {
     TokenType type;

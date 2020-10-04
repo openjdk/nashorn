@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.DebuggerNode;
+import org.openjdk.nashorn.internal.ir.DebuggerNode;
 
 final class DebuggerTreeImpl extends StatementTreeImpl implements DebuggerTree {
     DebuggerTreeImpl(final DebuggerNode node) {

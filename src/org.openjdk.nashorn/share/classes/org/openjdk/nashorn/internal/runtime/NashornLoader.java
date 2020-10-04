@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.File;
 import java.io.InputStream;
@@ -46,11 +46,11 @@ import java.security.SecureClassLoader;
  * Superclass for Nashorn class loader classes.
  */
 abstract class NashornLoader extends SecureClassLoader {
-    protected static final String OBJECTS_PKG        = "jdk.nashorn.internal.objects";
-    protected static final String RUNTIME_PKG        = "jdk.nashorn.internal.runtime";
-    protected static final String RUNTIME_ARRAYS_PKG = "jdk.nashorn.internal.runtime.arrays";
-    protected static final String RUNTIME_LINKER_PKG = "jdk.nashorn.internal.runtime.linker";
-    protected static final String SCRIPTS_PKG        = "jdk.nashorn.internal.scripts";
+    protected static final String OBJECTS_PKG        = "org.openjdk.nashorn.internal.objects";
+    protected static final String RUNTIME_PKG        = "org.openjdk.nashorn.internal.runtime";
+    protected static final String RUNTIME_ARRAYS_PKG = "org.openjdk.nashorn.internal.runtime.arrays";
+    protected static final String RUNTIME_LINKER_PKG = "org.openjdk.nashorn.internal.runtime.linker";
+    protected static final String SCRIPTS_PKG        = "org.openjdk.nashorn.internal.scripts";
     protected static final String OBJECTS_PKG_INTERNAL        = "jdk/nashorn/internal/objects";
     protected static final String RUNTIME_PKG_INTERNAL        = "jdk/nashorn/internal/runtime";
     protected static final String RUNTIME_ARRAYS_PKG_INTERNAL = "jdk/nashorn/internal/runtime/arrays";

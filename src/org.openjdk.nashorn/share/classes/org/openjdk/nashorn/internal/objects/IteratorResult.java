@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
-import jdk.nashorn.internal.objects.annotations.Property;
-import jdk.nashorn.internal.objects.annotations.ScriptClass;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.objects.annotations.Property;
+import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
 
 @ScriptClass("IteratorResult")
 public class IteratorResult extends ScriptObject {

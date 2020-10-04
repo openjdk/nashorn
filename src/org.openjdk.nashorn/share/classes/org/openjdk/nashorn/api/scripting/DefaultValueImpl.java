@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
-import jdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.JSType;
 
 /**
  * Default implementation of {@link JSObject#getDefaultValue(Class)}. Isolated into a separate class mostly so

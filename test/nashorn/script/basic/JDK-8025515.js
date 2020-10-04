@@ -33,7 +33,7 @@
 function getFirstScriptFrame(stack) {
     for (frameNum in stack) {
         var frame = stack[frameNum];
-        if (frame.className.startsWith("jdk.nashorn.internal.scripts.Script$")) {
+        if (frame.className.startsWith("org.openjdk.nashorn.internal.scripts.Script$")) {
             return frame;
         }
     }

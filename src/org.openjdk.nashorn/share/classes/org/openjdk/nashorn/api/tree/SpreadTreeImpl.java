@@ -22,9 +22,9 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.Expression;
 
 final class SpreadTreeImpl extends ExpressionTreeImpl
         implements SpreadTree {

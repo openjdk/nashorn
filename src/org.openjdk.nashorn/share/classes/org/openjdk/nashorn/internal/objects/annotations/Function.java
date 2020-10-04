@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects.annotations;
+package org.openjdk.nashorn.internal.objects.annotations;
 
-import static jdk.nashorn.internal.objects.annotations.Attribute.DEFAULT_ATTRIBUTES;
+import static org.openjdk.nashorn.internal.objects.annotations.Attribute.DEFAULT_ATTRIBUTES;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

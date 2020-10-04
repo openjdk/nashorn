@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.javaaccess.test;
+package org.openjdk.nashorn.api.javaaccess.test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.JSObject;
 import org.testng.TestNG;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -41,7 +41,7 @@ import org.testng.annotations.Test;
 
 /**
  * @test
- * @run testng jdk.nashorn.api.javaaccess.test.ConsStringTest
+ * @run testng org.openjdk.nashorn.api.javaaccess.test.ConsStringTest
  */
 @SuppressWarnings("javadoc")
 public class ConsStringTest {

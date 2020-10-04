@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,11 +39,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import jdk.internal.org.jline.reader.History;
-import jdk.nashorn.api.scripting.AbstractJSObject;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.internal.runtime.JSType;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 /*
  * A script friendly object that exposes history of commands to scripts.

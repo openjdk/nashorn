@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.Source;
 
 final class LineMapImpl implements LineMap {
     private final Source source;

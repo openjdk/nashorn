@@ -26,7 +26,7 @@
 package jdk.dynalink.beans.test;
 
 import jdk.dynalink.beans.BeansLinker;
-import jdk.nashorn.test.models.ClassLoaderAware;
+import org.openjdk.nashorn.test.models.ClassLoaderAware;
 import org.testng.annotations.Test;
 
 @SuppressWarnings("javadoc")

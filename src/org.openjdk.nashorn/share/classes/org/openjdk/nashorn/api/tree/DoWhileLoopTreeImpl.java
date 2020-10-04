@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.WhileNode;
+import org.openjdk.nashorn.internal.ir.WhileNode;
 
 final class DoWhileLoopTreeImpl extends StatementTreeImpl implements DoWhileLoopTree {
     private final ExpressionTree cond;

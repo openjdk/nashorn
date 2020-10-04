@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import jdk.nashorn.internal.codegen.Label;
+import org.openjdk.nashorn.internal.codegen.Label;
 
 /**
  * Common base class for jump statements (e.g. {@code break} and {@code continue}).

@@ -30,8 +30,8 @@
 
 load(__DIR__ + "/../assert.js")
 
-var Parser = Java.type('jdk.nashorn.api.tree.Parser')
-var Nashorn = Java.type('jdk.nashorn.api.scripting.NashornScriptEngineFactory')
+var Parser = Java.type('org.openjdk.nashorn.api.tree.Parser')
+var Nashorn = Java.type('org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory')
 var File = java.io.File
 var Reader = java.io.FileReader
 

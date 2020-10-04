@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.arrays;
+package org.openjdk.nashorn.internal.runtime.arrays;
 
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.Undefined;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 
 /**
  * Base class for array filters. Implements all core routines so that the

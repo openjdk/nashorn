@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.types;
+package org.openjdk.nashorn.internal.codegen.types;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.DALOAD;
 import static jdk.internal.org.objectweb.asm.Opcodes.DASTORE;
@@ -57,10 +57,10 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import jdk.internal.org.objectweb.asm.MethodVisitor;
-import jdk.nashorn.internal.codegen.CompilerConstants.Call;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.Undefined;
 
 /**
  * This is the representation of a JavaScript type, disassociated from java
@@ -912,7 +912,7 @@ public abstract class Type implements Comparable<Type>, BytecodeOps, Serializabl
 
     /**
      * This is the CharSequence singleton used to represent JS strings internally
-     * (either a {@code java.lang.String} or {@code jdk.nashorn.internal.runtime.ConsString}.
+     * (either a {@code java.lang.String} or {@code org.openjdk.nashorn.internal.runtime.ConsString}.
      */
     public static final Type CHARSEQUENCE = putInCache(new ObjectType(CharSequence.class));
 

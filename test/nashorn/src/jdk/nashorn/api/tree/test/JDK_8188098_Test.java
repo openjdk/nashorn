@@ -22,17 +22,17 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree.test;
+package org.openjdk.nashorn.api.tree.test;
 
-import jdk.nashorn.api.tree.Parser;
-import jdk.nashorn.api.tree.SimpleTreeVisitorES6;
+import org.openjdk.nashorn.api.tree.Parser;
+import org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6;
 import org.testng.annotations.Test;
 
 /**
  * 8188098: NPE in SimpleTreeVisitorES6 visitor when parsing a tagged template literal
  *
  * @test
- * @run testng jdk.nashorn.api.tree.test.JDK_8188098_Test
+ * @run testng org.openjdk.nashorn.api.tree.test.JDK_8188098_Test
  */
 public class JDK_8188098_Test {
     @Test

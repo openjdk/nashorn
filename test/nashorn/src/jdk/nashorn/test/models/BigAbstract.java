@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 public abstract class BigAbstract {
     public static void accept(final BigAbstract ba) {

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ForNode;
+import org.openjdk.nashorn.internal.ir.ForNode;
 
 final class ForInLoopTreeImpl extends StatementTreeImpl implements ForInLoopTree {
     private final ExpressionTree lhsExpr;

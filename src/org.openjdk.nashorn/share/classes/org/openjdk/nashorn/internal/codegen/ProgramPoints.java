@@ -22,26 +22,26 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.FIRST_PROGRAM_POINT;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.MAX_PROGRAM_POINT_VALUE;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.FIRST_PROGRAM_POINT;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.MAX_PROGRAM_POINT_VALUE;
 
 import java.util.HashSet;
 import java.util.Set;
-import jdk.nashorn.internal.IntDeque;
-import jdk.nashorn.internal.ir.AccessNode;
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.CallNode;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.IndexNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.Optimistic;
-import jdk.nashorn.internal.ir.UnaryNode;
-import jdk.nashorn.internal.ir.VarNode;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.IntDeque;
+import org.openjdk.nashorn.internal.ir.AccessNode;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.CallNode;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.IndexNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.Optimistic;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.ir.VarNode;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
 
 /**
  * Find program points in the code that are needed for optimistic assumptions

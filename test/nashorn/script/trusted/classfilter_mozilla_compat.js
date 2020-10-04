@@ -27,7 +27,7 @@
  * @run
  */
 
-var factory = Java.type('jdk.nashorn.api.scripting.NashornScriptEngineFactory')
+var factory = Java.type('org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory')
 var engine  = new factory().getScriptEngine(function(str){
     return str.indexOf('java.util') != -1;
 })

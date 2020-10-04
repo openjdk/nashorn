@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.scripts;
+package org.openjdk.nashorn.internal.scripts;
 
 /**
  * Root of script classes.

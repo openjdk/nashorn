@@ -28,8 +28,8 @@
  * @run
  */
 
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
 
 // with --empty-statements parse tree should contain
 // EmptyStatement tree nodes. Without this option, empty

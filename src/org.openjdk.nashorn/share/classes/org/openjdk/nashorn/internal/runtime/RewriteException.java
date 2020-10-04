@@ -22,11 +22,11 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.staticCall;
-import static jdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCall;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
 
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -39,13 +39,13 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.codegen.CompilerConstants.Call;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.lookup.MethodHandleFactory;
-import jdk.nashorn.internal.lookup.MethodHandleFunctionality;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.lookup.MethodHandleFactory;
+import org.openjdk.nashorn.internal.lookup.MethodHandleFunctionality;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
 
 /**
  * Used to signal to the linker to relink the callee

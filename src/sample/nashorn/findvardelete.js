@@ -46,10 +46,10 @@ if (!file.exists()) {
 }
 
 var Files = Java.type("java.nio.file.Files");
-var IdentifierTree = Java.type("jdk.nashorn.api.tree.IdentifierTree");
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
-var Tree = Java.type("jdk.nashorn.api.tree.Tree");
+var IdentifierTree = Java.type("org.openjdk.nashorn.api.tree.IdentifierTree");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+var Tree = Java.type("org.openjdk.nashorn.api.tree.Tree");
 
 var parser = Parser.create("-scripting", "--const-as-var");
 

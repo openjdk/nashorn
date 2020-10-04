@@ -22,14 +22,14 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jdk.nashorn.internal.objects.NativeSymbol;
-import jdk.nashorn.internal.runtime.Symbol;
+import org.openjdk.nashorn.internal.objects.NativeSymbol;
+import org.openjdk.nashorn.internal.runtime.Symbol;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.security.AccessControlContext;
 import java.security.AccessController;

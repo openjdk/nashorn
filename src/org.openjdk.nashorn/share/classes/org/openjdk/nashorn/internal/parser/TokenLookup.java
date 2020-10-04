@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
-import static jdk.nashorn.internal.parser.TokenKind.SPECIAL;
-import static jdk.nashorn.internal.parser.TokenType.IDENT;
+import static org.openjdk.nashorn.internal.parser.TokenKind.SPECIAL;
+import static org.openjdk.nashorn.internal.parser.TokenType.IDENT;
 
 /**
  * Fast lookup of operators and keywords.

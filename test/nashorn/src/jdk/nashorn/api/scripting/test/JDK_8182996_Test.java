@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

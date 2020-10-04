@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.exception;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.exception;
 
 @SuppressWarnings("javadoc")
 public class InternalException extends JOniException{

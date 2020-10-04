@@ -30,8 +30,8 @@
  */
 
 // Java types used
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
 
 function parse(name, script, visitor) {
     var parser = Parser.create("--empty-statements");

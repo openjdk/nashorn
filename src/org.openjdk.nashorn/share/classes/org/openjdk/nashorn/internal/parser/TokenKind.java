@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 /**
  * Classification of token types.

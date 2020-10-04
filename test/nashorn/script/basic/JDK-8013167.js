@@ -28,5 +28,5 @@
  * @run
  */
 
-var x = new Packages.jdk.nashorn.test.models.VarArgConstructor(1, false, "a", "b", "c")
+var x = new Packages.org.openjdk.nashorn.test.models.VarArgConstructor(1, false, "a", "b", "c")
 print(x.indicator)

@@ -23,13 +23,13 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Context;
 
 /**
  * Few tests reflectively invoke or read fields of Nashorn classes

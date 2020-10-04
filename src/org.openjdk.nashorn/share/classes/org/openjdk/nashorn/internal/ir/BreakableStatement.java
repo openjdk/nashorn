@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 import java.util.Collections;
 import java.util.List;
-import jdk.nashorn.internal.codegen.Label;
-import jdk.nashorn.internal.ir.annotations.Immutable;
+import org.openjdk.nashorn.internal.codegen.Label;
+import org.openjdk.nashorn.internal.ir.annotations.Immutable;
 
 @Immutable
 abstract class BreakableStatement extends LexicalContextStatement implements BreakableNode {

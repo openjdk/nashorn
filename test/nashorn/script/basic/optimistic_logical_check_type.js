@@ -28,7 +28,7 @@
  * @run
  */
 
-var inspect = Java.type("jdk.nashorn.test.tools.StaticTypeInspector").inspect
+var inspect = Java.type("org.openjdk.nashorn.test.tools.StaticTypeInspector").inspect
 var a = 3, b = true, c = 0;
 var x = { a: 2, b: undefined, c: true}
 

@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import java.io.File;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.ClassFilter;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.URLReader;
-import jdk.nashorn.internal.test.framework.TestFinder;
+import org.openjdk.nashorn.api.scripting.ClassFilter;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.URLReader;
+import org.openjdk.nashorn.internal.test.framework.TestFinder;
 import org.testng.annotations.Test;
 
 @SuppressWarnings("javadoc")

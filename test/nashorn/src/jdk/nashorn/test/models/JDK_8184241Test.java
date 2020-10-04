@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 public class JDK_8184241Test {
     public JDK_8184241Test() {

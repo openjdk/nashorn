@@ -17,12 +17,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
 import java.util.Set;
-import jdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 
 @SuppressWarnings("javadoc")
 public final class ConsAltNode extends Node {

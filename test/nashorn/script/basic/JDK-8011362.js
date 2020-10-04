@@ -28,7 +28,7 @@
  * @run
  */
 
-var subject = new (Java.type("jdk.nashorn.test.models.Jdk8011362TestSubject"))
+var subject = new (Java.type("org.openjdk.nashorn.test.models.Jdk8011362TestSubject"))
 
 print(subject.overloaded("", null))
 print(subject.overloaded(0, null))

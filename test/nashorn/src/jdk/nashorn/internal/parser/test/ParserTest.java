@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser.test;
+package org.openjdk.nashorn.internal.parser.test;
 
-import static jdk.nashorn.internal.runtime.Source.readFully;
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.readFully;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 import java.io.File;
-import jdk.nashorn.internal.parser.Parser;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.parser.Parser;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

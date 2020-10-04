@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
 /**
  * Class filter (optional) to be used by nashorn script engine.

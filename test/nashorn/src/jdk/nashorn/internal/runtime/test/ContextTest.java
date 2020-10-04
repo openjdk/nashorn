@@ -23,31 +23,31 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 import java.util.Map;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 import org.testng.annotations.Test;
 
 /**
  * Basic Context API tests.
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- *          org.openjdk.nashorn/jdk.nashorn.internal.runtime.options
- *          org.openjdk.nashorn/jdk.nashorn.internal.objects
- * @run testng jdk.nashorn.internal.runtime.test.ContextTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ *          org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.options
+ *          org.openjdk.nashorn/org.openjdk.nashorn.internal.objects
+ * @run testng org.openjdk.nashorn.internal.runtime.test.ContextTest
  */
 @SuppressWarnings("javadoc")
 public class ContextTest {

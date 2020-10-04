@@ -22,22 +22,22 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_ARRAY_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.OBJ_PKG;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.RUNTIME_PKG;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTS_PKG;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.STRING_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.TYPE_SYMBOL;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_ARRAY_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.OBJ_PKG;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.RUNTIME_PKG;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTS_PKG;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.STRING_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.TYPE_SYMBOL;
 
 import jdk.internal.org.objectweb.asm.Opcodes;
 import jdk.internal.org.objectweb.asm.Type;
 
 /**
  * Details about a Java method or field annotated with any of the field/method
- * annotations from the jdk.nashorn.internal.objects.annotations package.
+ * annotations from the org.openjdk.nashorn.internal.objects.annotations package.
  */
 public final class MemberInfo implements Cloneable {
     // class loader of this class
@@ -78,7 +78,7 @@ public final class MemberInfo implements Cloneable {
         SPECIALIZED_FUNCTION,
     }
 
-    // keep in sync with jdk.nashorn.internal.objects.annotations.Attribute
+    // keep in sync with org.openjdk.nashorn.internal.objects.annotations.Attribute
     static final int DEFAULT_ATTRIBUTES = 0x0;
 
     static final int DEFAULT_ARITY = -2;

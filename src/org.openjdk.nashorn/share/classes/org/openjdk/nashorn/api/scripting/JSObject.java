@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
 import java.util.Collection;
 import java.util.Set;
-import jdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.JSType;
 
 /**
  * This interface can be implemented by an arbitrary Java class. Nashorn will

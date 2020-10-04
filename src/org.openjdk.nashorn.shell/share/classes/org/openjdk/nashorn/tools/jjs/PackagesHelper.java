@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.lang.reflect.Modifier;
 import java.io.IOException;
@@ -33,7 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Context;
 
 /**
  * Abstract helper class to compute properties of a Java package object. Properties of

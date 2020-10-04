@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.encoding;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.encoding;
 
 @SuppressWarnings("javadoc")
 public final class ObjPtr<T> {

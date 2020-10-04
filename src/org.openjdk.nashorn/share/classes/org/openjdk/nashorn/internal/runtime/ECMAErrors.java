@@ -23,20 +23,20 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.scripts.JS;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.scripts.JS;
 
 /**
  * Helper class to throw various standard "ECMA error" exceptions such as Error, ReferenceError, TypeError etc.
  */
 public final class ECMAErrors {
-    private static final String MESSAGES_RESOURCE = "jdk.nashorn.internal.runtime.resources.Messages";
+    private static final String MESSAGES_RESOURCE = "org.openjdk.nashorn.internal.runtime.resources.Messages";
 
     private static final ResourceBundle MESSAGES_BUNDLE;
     static {
@@ -374,7 +374,7 @@ public final class ECMAErrors {
 
     /**
      * Get the exception message by placing the args in the resource defined
-     * by the resource tag. This is visible to, e.g. the {@link jdk.nashorn.internal.parser.Parser}
+     * by the resource tag. This is visible to, e.g. the {@link org.openjdk.nashorn.internal.parser.Parser}
      * can use it to generate compile time messages with the correct locale
      *
      * @param msgId the resource tag (message id)

@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -35,14 +35,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.annotations.Test;
 
 /**
  * @test
  * @bug 8039185 8039403
  * @summary  Test for persistent code cache and path handling
- * @run testng jdk.nashorn.internal.runtime.test.CodeStoreAndPathTest
+ * @run testng org.openjdk.nashorn.internal.runtime.test.CodeStoreAndPathTest
  */
 @SuppressWarnings("javadoc")
 public class CodeStoreAndPathTest {

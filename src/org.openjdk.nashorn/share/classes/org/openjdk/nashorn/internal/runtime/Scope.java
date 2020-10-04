@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
 
 import java.util.concurrent.atomic.LongAdder;
-import jdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  * A {@link ScriptObject} subclass for objects that act as scope.

@@ -17,22 +17,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
-import jdk.nashorn.internal.runtime.regexp.joni.BitSet;
-import jdk.nashorn.internal.runtime.regexp.joni.CodeRangeBuffer;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
-import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
-import jdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
-import jdk.nashorn.internal.runtime.regexp.joni.Syntax;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.CCVALTYPE;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.BitSet;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.CodeRangeBuffer;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Config;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Syntax;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.CCVALTYPE;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 @SuppressWarnings("javadoc")
 public final class CClassNode extends Node {

@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
 
 /**
  * This is an interface for classes that need custom linkage logic. This means Native objects

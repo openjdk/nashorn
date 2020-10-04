@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -33,13 +33,13 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.logging.Level;
-import jdk.nashorn.internal.codegen.Namespace;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
-import jdk.nashorn.internal.runtime.options.KeyValueOption;
-import jdk.nashorn.internal.runtime.options.LoggingOption;
-import jdk.nashorn.internal.runtime.options.LoggingOption.LoggerInfo;
-import jdk.nashorn.internal.runtime.options.Option;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.codegen.Namespace;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.runtime.options.KeyValueOption;
+import org.openjdk.nashorn.internal.runtime.options.LoggingOption;
+import org.openjdk.nashorn.internal.runtime.options.LoggingOption.LoggerInfo;
+import org.openjdk.nashorn.internal.runtime.options.Option;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * Script environment consists of command line options, arguments, script files

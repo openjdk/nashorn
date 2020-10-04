@@ -17,9 +17,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeStatus;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.NodeStatus;
 
 @SuppressWarnings("javadoc")
 public abstract class StateNode extends Node implements NodeStatus {

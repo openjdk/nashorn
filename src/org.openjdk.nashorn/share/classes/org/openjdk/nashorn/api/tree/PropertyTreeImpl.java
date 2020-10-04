@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.PropertyNode;
+import org.openjdk.nashorn.internal.ir.PropertyNode;
 
 final class PropertyTreeImpl extends TreeImpl implements PropertyTree  {
     private final ExpressionTree key;

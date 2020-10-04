@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
-import jdk.nashorn.api.tree.SimpleTreeVisitorES6;
-import jdk.nashorn.api.tree.*;
+import org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6;
+import org.openjdk.nashorn.api.tree.*;
 
 public class ES6ASTVisitor{
 

@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
-import jdk.nashorn.internal.runtime.ECMAErrors;
-import jdk.nashorn.internal.runtime.ECMAException;
+import org.openjdk.nashorn.internal.runtime.ECMAErrors;
+import org.openjdk.nashorn.internal.runtime.ECMAException;
 
 /**
  * A result of generating an adapter for a class. A tuple of an outcome and - in case of an error outcome - a list of

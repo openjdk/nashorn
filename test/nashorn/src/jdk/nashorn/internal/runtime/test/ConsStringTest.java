@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import jdk.nashorn.internal.runtime.ConsString;
+import org.openjdk.nashorn.internal.runtime.ConsString;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
@@ -34,8 +34,8 @@ import org.testng.annotations.Test;
  * Tests for JSType methods.
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @run testng jdk.nashorn.internal.runtime.test.ConsStringTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @run testng org.openjdk.nashorn.internal.runtime.test.ConsStringTest
  */
 public class ConsStringTest {
 

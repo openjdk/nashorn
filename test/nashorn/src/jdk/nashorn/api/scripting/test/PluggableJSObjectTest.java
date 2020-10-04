@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -38,18 +38,18 @@ import java.util.Set;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import jdk.nashorn.api.scripting.AbstractJSObject;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.testng.annotations.Test;
 
 /**
- * Tests for pluggable external impls. of jdk.nashorn.api.scripting.JSObject.
+ * Tests for pluggable external impls. of org.openjdk.nashorn.api.scripting.JSObject.
  *
  * JDK-8024615: Refactor ScriptObjectMirror and JSObject to support external
  * JSObject implementations.
  *
  * @test
- * @run testng jdk.nashorn.api.scripting.test.PluggableJSObjectTest
+ * @run testng org.openjdk.nashorn.api.scripting.test.PluggableJSObjectTest
  */
 @SuppressWarnings("javadoc")
 public class PluggableJSObjectTest {

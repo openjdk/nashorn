@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
@@ -35,8 +35,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Arrays;
-import jdk.nashorn.api.scripting.URLReader;
-import jdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.api.scripting.URLReader;
+import org.openjdk.nashorn.internal.runtime.Source;
 import org.testng.annotations.Test;
 
 /**

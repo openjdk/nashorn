@@ -23,24 +23,24 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
-import static jdk.nashorn.tools.Shell.COMPILATION_ERROR;
-import static jdk.nashorn.tools.Shell.RUNTIME_ERROR;
-import static jdk.nashorn.tools.Shell.SUCCESS;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.tools.Shell.COMPILATION_ERROR;
+import static org.openjdk.nashorn.tools.Shell.RUNTIME_ERROR;
+import static org.openjdk.nashorn.tools.Shell.SUCCESS;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import jdk.nashorn.api.scripting.NashornException;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.NashornException;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * A script evaluator that shares a single Nashorn Context instance to run

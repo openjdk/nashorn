@@ -23,15 +23,15 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.Module;
-import jdk.nashorn.internal.ir.Module.ExportEntry;
-import jdk.nashorn.internal.ir.Module.ImportEntry;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.Module;
+import org.openjdk.nashorn.internal.ir.Module.ExportEntry;
+import org.openjdk.nashorn.internal.ir.Module.ImportEntry;
 
 /**
  * ParserContextNode that represents a module.

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.IfNode;
+import org.openjdk.nashorn.internal.ir.IfNode;
 
 final class IfTreeImpl extends StatementTreeImpl implements IfTree {
     private final ExpressionTree cond;

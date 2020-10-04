@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.Node;
 
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 abstract class TreeImpl implements Tree {
     protected final Node node;

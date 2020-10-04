@@ -24,10 +24,10 @@
  */
 
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.Module;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.Module;
 
 final class IdentifierTreeImpl extends ExpressionTreeImpl implements IdentifierTree {
     private final String name;

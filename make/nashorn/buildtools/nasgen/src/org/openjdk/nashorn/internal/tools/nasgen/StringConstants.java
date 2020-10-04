@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
 import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;

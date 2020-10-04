@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.models;
+package org.openjdk.nashorn.internal.test.models;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

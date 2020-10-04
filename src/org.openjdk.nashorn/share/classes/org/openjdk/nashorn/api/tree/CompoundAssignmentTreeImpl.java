@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
 
 final class CompoundAssignmentTreeImpl extends ExpressionTreeImpl implements CompoundAssignmentTree {
 

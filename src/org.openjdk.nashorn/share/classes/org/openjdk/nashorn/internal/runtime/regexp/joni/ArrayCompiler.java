@@ -17,27 +17,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isDynamic;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isIgnoreCase;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isMultiline;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.Node;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPSize;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isDynamic;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isIgnoreCase;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isMultiline;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.Node;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.OPSize;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
 
 final class ArrayCompiler extends Compiler {
     private int[] code;

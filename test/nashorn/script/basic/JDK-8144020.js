@@ -28,7 +28,7 @@
  * @run
  */
 
-var LongProvider = Java.type("jdk.nashorn.test.models.LongProvider");
+var LongProvider = Java.type("org.openjdk.nashorn.test.models.LongProvider");
 var Long = Java.type("java.lang.Long");
 var LongClass = Long.class;
 var Integer = Java.type("java.lang.Integer");

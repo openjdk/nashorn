@@ -17,18 +17,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.A;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.AQ;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.ASIS;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.DEL;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.PQ_Q;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.P_QQ;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.QQ;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
-import jdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.A;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.AQ;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.ASIS;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.DEL;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.PQ_Q;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.P_QQ;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.ReduceType.QQ;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Config;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
 
 @SuppressWarnings("javadoc")
 public final class QuantifierNode extends StateNode {

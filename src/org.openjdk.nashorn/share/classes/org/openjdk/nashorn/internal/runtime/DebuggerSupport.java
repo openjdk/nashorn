@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.SOURCE;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.SOURCE;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
-import jdk.nashorn.internal.scripts.JS;
+import org.openjdk.nashorn.internal.scripts.JS;
 
 /**
  * This class provides support for external debuggers.  Its primary purpose is

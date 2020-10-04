@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.EmptyNode;
+import org.openjdk.nashorn.internal.ir.EmptyNode;
 
 final class EmptyStatementTreeImpl extends StatementTreeImpl implements EmptyStatementTree {
     EmptyStatementTreeImpl(final EmptyNode node) {

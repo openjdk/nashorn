@@ -60,7 +60,7 @@ function FlexiJSON() {}
 
 // helper to locate Nashorn Parser API classes
 FlexiJSON.treeType = function(name) {
-    return Java.type("jdk.nashorn.api.tree." + name);
+    return Java.type("org.openjdk.nashorn.api.tree." + name);
 }
 
 // Nashorn Parser API classes used

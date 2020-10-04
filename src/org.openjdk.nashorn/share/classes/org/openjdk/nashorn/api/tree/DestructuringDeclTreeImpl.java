@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ExpressionStatement;
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.ir.ExpressionStatement;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 // This implementation of VariableTree represents a destructuring declaration
 final class DestructuringDeclTreeImpl extends StatementTreeImpl

@@ -1,1 +1,1 @@
-jdk.nashorn.api.test.NashornSQLDriver
+org.openjdk.nashorn.api.test.NashornSQLDriver

@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.io.IOException;
 import java.net.URI;
@@ -34,7 +34,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Context;
 
 /**
  * A java packages helper that uses jrt file system.

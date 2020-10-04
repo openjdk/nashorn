@@ -28,7 +28,7 @@
  * @run
  */
 
-var NashornEngineFactory = Java.type("jdk.nashorn.api.scripting.NashornScriptEngineFactory");
+var NashornEngineFactory = Java.type("org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory");
 var ScriptEngine = Java.type("javax.script.ScriptEngine");
 var ScriptContext = Java.type("javax.script.ScriptContext");
 

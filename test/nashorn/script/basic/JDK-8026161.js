@@ -28,5 +28,5 @@
  * @run
  */
 
-print(Java.type("jdk.nashorn.test.models.IntFloatOverloadSelection").overloadedMethod(1))
-print(Java.type("jdk.nashorn.test.models.IntFloatOverloadSelection").overloadedMethod(1.0))
+print(Java.type("org.openjdk.nashorn.test.models.IntFloatOverloadSelection").overloadedMethod(1))
+print(Java.type("org.openjdk.nashorn.test.models.IntFloatOverloadSelection").overloadedMethod(1.0))

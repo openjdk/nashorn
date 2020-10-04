@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
@@ -33,17 +33,17 @@ import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.internal.runtime.RewriteException;
-import jdk.nashorn.internal.runtime.UnwarrantedOptimismException;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.internal.runtime.RewriteException;
+import org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException;
 import org.testng.annotations.Test;
 
 /**
  * JDK-8044518: Ensure exceptions related to optimistic recompilation are not serializable
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @run testng jdk.nashorn.internal.runtime.test.ExceptionsNotSerializable
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @run testng org.openjdk.nashorn.internal.runtime.test.ExceptionsNotSerializable
  */
 @SuppressWarnings("javadoc")
 public class ExceptionsNotSerializable {

@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.CaseNode;
+import org.openjdk.nashorn.internal.ir.CaseNode;
 
 final class CaseTreeImpl extends TreeImpl implements CaseTree {
     private final ExpressionTree expression;

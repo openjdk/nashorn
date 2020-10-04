@@ -32,9 +32,9 @@
 
 // Simple demo of Nashorn Parser API
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
-var IdentifierTree = Java.type("jdk.nashorn.api.tree.IdentifierTree");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+var IdentifierTree = Java.type("org.openjdk.nashorn.api.tree.IdentifierTree");
 
 var parser = Parser.create();
 var ast = parser.parse("t", "eval('hello');\n  eval(2 + 3)", print);

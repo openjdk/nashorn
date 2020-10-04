@@ -22,13 +22,13 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import jdk.nashorn.internal.runtime.Debug;
-import jdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.Debug;
+import org.openjdk.nashorn.internal.runtime.Source;
 
 /**
  * A class that tracks the current lexical context of node visitation as a stack

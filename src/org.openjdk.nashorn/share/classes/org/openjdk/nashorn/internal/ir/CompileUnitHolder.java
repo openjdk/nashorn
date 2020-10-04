@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import jdk.nashorn.internal.codegen.CompileUnit;
+import org.openjdk.nashorn.internal.codegen.CompileUnit;
 
 /**
  * Marker interface for things in the IR that can hold compile units.

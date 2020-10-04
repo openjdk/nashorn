@@ -23,14 +23,14 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_FAILED_LIST_FILE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ENABLE_STRICT_MODE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDES_FILE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_LIST;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FRAMEWORK;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ROOTS;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_FAILED_LIST_FILE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ENABLE_STRICT_MODE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDES_FILE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_LIST;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FRAMEWORK;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ROOTS;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,7 +66,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jdk.nashorn.internal.test.framework.TestFinder.TestFactory;
+import org.openjdk.nashorn.internal.test.framework.TestFinder.TestFactory;
 
 /**
  * Parallel test runner runs tests in multiple threads - but avoids any dependency

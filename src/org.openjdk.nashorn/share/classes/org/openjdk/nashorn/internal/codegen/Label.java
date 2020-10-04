@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.BitSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import jdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.codegen.types.Type;
 
 /**
  * Abstraction for labels, separating a label from the underlying

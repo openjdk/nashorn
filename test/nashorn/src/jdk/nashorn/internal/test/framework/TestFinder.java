@@ -22,25 +22,25 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_CHECK_COMPILE_MSG;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_COMPARE;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_COMPILE_FAIL;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_RUN_FAIL;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_FORK;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_IGNORE_STD_ERROR;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_RUN;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_FAILED_LIST_FILE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ENABLE_STRICT_MODE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDES_FILE;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_DIR;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_LIST;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FRAMEWORK;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_INCLUDES;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_LIST;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ROOTS;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_UNCHECKED_DIR;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_CHECK_COMPILE_MSG;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_COMPARE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_COMPILE_FAIL;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_RUN_FAIL;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_FORK;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_IGNORE_STD_ERROR;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_RUN;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_FAILED_LIST_FILE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ENABLE_STRICT_MODE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDES_FILE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_DIR;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_EXCLUDE_LIST;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FRAMEWORK;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_INCLUDES;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_LIST;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_ROOTS;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_UNCHECKED_DIR;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -68,7 +68,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import jdk.nashorn.tools.Shell;
+import org.openjdk.nashorn.tools.Shell;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 

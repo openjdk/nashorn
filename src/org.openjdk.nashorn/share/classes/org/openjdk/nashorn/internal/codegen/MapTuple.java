@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.Symbol;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.Symbol;
 
 /**
  * A tuple of values used for map creation

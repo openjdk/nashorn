@@ -23,30 +23,30 @@
  * questions.
  */
 
-package jdk.nashorn.tools;
+package org.openjdk.nashorn.tools;
 
-import jdk.nashorn.api.scripting.NashornException;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.Compiler.CompilationPhases;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.debug.ASTWriter;
-import jdk.nashorn.internal.ir.debug.PrintVisitor;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.objects.NativeSymbol;
-import jdk.nashorn.internal.parser.Parser;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.Property;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.ScriptingFunctions;
-import jdk.nashorn.internal.runtime.Symbol;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.NashornException;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.debug.ASTWriter;
+import org.openjdk.nashorn.internal.ir.debug.PrintVisitor;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.objects.NativeSymbol;
+import org.openjdk.nashorn.internal.parser.Parser;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.Property;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.ScriptingFunctions;
+import org.openjdk.nashorn.internal.runtime.Symbol;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -69,7 +69,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 
 /**
  * Command line Shell for processing JavaScript files.
@@ -79,7 +79,7 @@ public class Shell implements PartialParser {
     /**
      * Resource name for properties file
      */
-    private static final String MESSAGE_RESOURCE = "jdk.nashorn.tools.resources.Shell";
+    private static final String MESSAGE_RESOURCE = "org.openjdk.nashorn.tools.resources.Shell";
     /**
      * Shell message bundle.
      */

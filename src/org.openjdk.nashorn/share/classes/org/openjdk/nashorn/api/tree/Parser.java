@@ -23,15 +23,15 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.file.Path;
-import jdk.nashorn.api.scripting.NashornException;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.NashornException;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 
 /**
  * Represents nashorn ECMAScript parser instance.

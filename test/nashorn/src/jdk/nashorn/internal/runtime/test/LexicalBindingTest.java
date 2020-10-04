@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.annotations.Test;
 
 import javax.script.Bindings;
@@ -40,7 +40,7 @@ import static org.testng.Assert.assertEquals;
  * Top-level lexical binding tests.
  *
  * @test
- * @run testng jdk.nashorn.internal.runtime.test.LexicalBindingTest
+ * @run testng org.openjdk.nashorn.internal.runtime.test.LexicalBindingTest
  */
 @SuppressWarnings("javadoc")
 public class LexicalBindingTest {

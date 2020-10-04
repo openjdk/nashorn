@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.javaaccess.test;
+package org.openjdk.nashorn.api.javaaccess.test;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
@@ -37,8 +37,8 @@ import org.testng.annotations.Test;
 
 /**
  * @test
- * @build jdk.nashorn.api.javaaccess.test.SharedObject jdk.nashorn.api.javaaccess.test.Person jdk.nashorn.api.javaaccess.test.StringAccessTest
- * @run testng/othervm jdk.nashorn.api.javaaccess.test.StringAccessTest
+ * @build org.openjdk.nashorn.api.javaaccess.test.SharedObject org.openjdk.nashorn.api.javaaccess.test.Person org.openjdk.nashorn.api.javaaccess.test.StringAccessTest
+ * @run testng/othervm org.openjdk.nashorn.api.javaaccess.test.StringAccessTest
  */
 @SuppressWarnings("javadoc")
 public class StringAccessTest {
@@ -56,7 +56,7 @@ public class StringAccessTest {
         e = m.getEngineByName("nashorn");
         o = new SharedObject();
         e.put("o", o);
-        e.eval("var SharedObject = Packages.jdk.nashorn.api.javaaccess.test.SharedObject;");
+        e.eval("var SharedObject = Packages.org.openjdk.nashorn.api.javaaccess.test.SharedObject;");
     }
 
     @AfterClass

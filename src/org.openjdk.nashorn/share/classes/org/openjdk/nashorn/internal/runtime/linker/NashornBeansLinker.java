@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -49,11 +49,11 @@ import jdk.dynalink.linker.MethodHandleTransformer;
 import jdk.dynalink.linker.support.DefaultInternalObjectFilter;
 import jdk.dynalink.linker.support.Lookup;
 import jdk.dynalink.linker.support.SimpleLinkRequest;
-import jdk.nashorn.api.scripting.ScriptUtils;
-import jdk.nashorn.internal.runtime.ConsString;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.ScriptUtils;
+import org.openjdk.nashorn.internal.runtime.ConsString;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * This linker delegates to a {@code BeansLinker} but passes it a special linker services object that has a modified

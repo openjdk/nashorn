@@ -28,7 +28,7 @@
  * @run
  */
 
-var NashornScriptEngineFactory = Java.type("jdk.nashorn.api.scripting.NashornScriptEngineFactory");
+var NashornScriptEngineFactory = Java.type("org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory");
 var e = new NashornScriptEngineFactory().getScriptEngine("-ot=false");
 try {
     e.eval("with(new JavaImporter(java.util)){x}");

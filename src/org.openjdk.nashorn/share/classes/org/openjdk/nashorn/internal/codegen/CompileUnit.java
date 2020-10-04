@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -33,9 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import jdk.nashorn.internal.ir.CompileUnitHolder;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
+import org.openjdk.nashorn.internal.ir.CompileUnitHolder;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
 
 /**
   * Used to track split class compilation. Note that instances of the class are serializable, but all fields are

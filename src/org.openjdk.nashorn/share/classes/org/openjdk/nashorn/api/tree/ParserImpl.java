@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,16 +33,16 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
-import jdk.nashorn.api.scripting.NashornException;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ParserException;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.NashornException;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 final class ParserImpl implements Parser {
 
@@ -184,9 +184,9 @@ final class ParserImpl implements Parser {
         return new IRTranslator().translate(modFunc);
     }
 
-    private jdk.nashorn.internal.parser.Parser makeParser(final Source source, final DiagnosticListener listener) {
+    private org.openjdk.nashorn.internal.parser.Parser makeParser(final Source source, final DiagnosticListener listener) {
         final ErrorManager errMgr = listener != null ? new ListenerErrorManager(listener) : new Context.ThrowErrorManager();
-        return new jdk.nashorn.internal.parser.Parser(env, source, errMgr);
+        return new org.openjdk.nashorn.internal.parser.Parser(env, source, errMgr);
     }
 
     private static class ListenerErrorManager extends ErrorManager {

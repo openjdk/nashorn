@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects;
+package org.openjdk.nashorn.internal.objects;
 
-import jdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.runtime.Undefined;
 
 import java.util.Collections;
 import java.util.HashMap;

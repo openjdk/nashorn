@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import static java.lang.Character.DECIMAL_DIGIT_NUMBER;
 import static java.lang.Character.LOWERCASE_LETTER;

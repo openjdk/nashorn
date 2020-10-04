@@ -22,10 +22,10 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.ClassNode;
+import org.openjdk.nashorn.internal.ir.ClassNode;
 
 final class ClassExpressionTreeImpl extends ExpressionTreeImpl implements ClassExpressionTree {
 

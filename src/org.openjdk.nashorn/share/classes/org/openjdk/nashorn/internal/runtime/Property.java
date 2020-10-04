@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.runtime.PropertyDescriptor.CONFIGURABLE;
-import static jdk.nashorn.internal.runtime.PropertyDescriptor.ENUMERABLE;
-import static jdk.nashorn.internal.runtime.PropertyDescriptor.WRITABLE;
+import static org.openjdk.nashorn.internal.runtime.PropertyDescriptor.CONFIGURABLE;
+import static org.openjdk.nashorn.internal.runtime.PropertyDescriptor.ENUMERABLE;
+import static org.openjdk.nashorn.internal.runtime.PropertyDescriptor.WRITABLE;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.SwitchPoint;
 import java.util.Objects;
-import jdk.nashorn.internal.codegen.ObjectClassGenerator;
+import org.openjdk.nashorn.internal.codegen.ObjectClassGenerator;
 
 /**
  * This is the abstract superclass representing a JavaScript Property.

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -46,33 +46,33 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.Compiler.CompilationPhases;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.codegen.FunctionSignature;
-import jdk.nashorn.internal.codegen.Namespace;
-import jdk.nashorn.internal.codegen.OptimisticTypesPersistence;
-import jdk.nashorn.internal.codegen.TypeMap;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.ForNode;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.LexicalContext;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.SwitchNode;
-import jdk.nashorn.internal.ir.Symbol;
-import jdk.nashorn.internal.ir.TryNode;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.parser.Parser;
-import jdk.nashorn.internal.parser.Token;
-import jdk.nashorn.internal.parser.TokenType;
-import jdk.nashorn.internal.runtime.linker.NameCodec;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.codegen.FunctionSignature;
+import org.openjdk.nashorn.internal.codegen.Namespace;
+import org.openjdk.nashorn.internal.codegen.OptimisticTypesPersistence;
+import org.openjdk.nashorn.internal.codegen.TypeMap;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.ForNode;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.LexicalContext;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.SwitchNode;
+import org.openjdk.nashorn.internal.ir.Symbol;
+import org.openjdk.nashorn.internal.ir.TryNode;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.parser.Parser;
+import org.openjdk.nashorn.internal.parser.Token;
+import org.openjdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.runtime.linker.NameCodec;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 /**
  * This is a subclass that represents a script function that may be regenerated,
  * for example with specialization based on call site types, or lazily generated.

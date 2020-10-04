@@ -28,7 +28,7 @@
  * @run
  */
 
-var ScriptUtils = Java.type("jdk.nashorn.api.scripting.ScriptUtils");
+var ScriptUtils = Java.type("org.openjdk.nashorn.api.scripting.ScriptUtils");
 obj = { valueOf: function() { print("hello"); return 43.3; } };
 
 // object to double

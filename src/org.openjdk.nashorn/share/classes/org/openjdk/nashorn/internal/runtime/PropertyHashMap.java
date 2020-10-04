@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * Immutable hash map implementation for properties. Properties are keyed on strings

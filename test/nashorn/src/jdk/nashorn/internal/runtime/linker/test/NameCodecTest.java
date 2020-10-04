@@ -22,15 +22,15 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.linker.test;
+package org.openjdk.nashorn.internal.runtime.linker.test;
 
 import static org.testng.Assert.assertEquals;
 
-import jdk.nashorn.internal.runtime.linker.NameCodec;
+import org.openjdk.nashorn.internal.runtime.linker.NameCodec;
 import org.testng.annotations.Test;
 
 /**
- * Test for jdk.nashorn.intenal.runtime.linker.NameCodec.java. This test is
+ * Test for org.openjdk.nashorn.intenal.runtime.linker.NameCodec.java. This test is
  * derived from BytecodeNameTest.java from (older) mlvm code @
  * http://hg.openjdk.java.net/mlvm/mlvm/file/tip/netbeans/meth/test/sun/invoke/util/BytecodeNameTest.java
  *

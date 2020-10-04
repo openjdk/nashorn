@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,10 +31,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import jdk.internal.org.objectweb.asm.Type;
-import jdk.nashorn.internal.tools.nasgen.MemberInfo.Kind;
+import org.openjdk.nashorn.internal.tools.nasgen.MemberInfo.Kind;
 
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.OBJ_ANNO_PKG;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.RUNTIME_PKG;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.OBJ_ANNO_PKG;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.RUNTIME_PKG;
 
 /**
  * All annotation information from a class that is annotated with

@@ -34,8 +34,8 @@
  * <p>Nashorn script engines implement the optional {@link javax.script.Invocable} and {@link javax.script.Compilable}
  * interfaces, allowing for efficient pre-compilation and repeated execution of scripts. In addition,
  * this package provides nashorn specific extension classes, interfaces and methods. See
- * {@link jdk.nashorn.api.scripting.NashornScriptEngineFactory} for further details.
+ * {@link org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory} for further details.
  *
  * @since 1.8u40
  */
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;

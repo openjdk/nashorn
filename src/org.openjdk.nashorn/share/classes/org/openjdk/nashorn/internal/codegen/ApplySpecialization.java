@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.ARGUMENTS_VAR;
-import static jdk.nashorn.internal.codegen.CompilerConstants.EXPLODED_ARGUMENT_PREFIX;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.ARGUMENTS_VAR;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.EXPLODED_ARGUMENT_PREFIX;
 
 import java.lang.invoke.MethodType;
 import java.net.URL;
@@ -36,19 +36,19 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jdk.nashorn.internal.ir.AccessNode;
-import jdk.nashorn.internal.ir.CallNode;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.ir.AccessNode;
+import org.openjdk.nashorn.internal.ir.CallNode;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * An optimization that attempts to turn applies into calls. This pattern

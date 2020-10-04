@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.linker.test;
+package org.openjdk.nashorn.internal.runtime.linker.test;
 
 import java.util.Collection;
 import java.util.Deque;
@@ -35,11 +35,11 @@ import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.internal.runtime.Context;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -291,8 +291,8 @@ public class JavaAdapterTest {
         e.eval("function convertObjectFromGlobalScope(){ return new java.util.concurrent.Callable(o).call(); }", e.getBindings(ScriptContext.GLOBAL_SCOPE));
         e.eval("function convertFuncFromEngineScope(){ return new java.util.concurrent.Callable(g).call(); }", e.getBindings(ScriptContext.ENGINE_SCOPE));
         e.eval("function convertFuncFromGlobalScope(){ return new java.util.concurrent.Callable(g).call(); }", e.getBindings(ScriptContext.GLOBAL_SCOPE));
-        e.eval("function convertParamFromEngineScope(){ return Java.type('jdk.nashorn.internal.runtime.linker.test.JavaAdapterTest').m(f);}", e.getBindings(ScriptContext.ENGINE_SCOPE));
-        e.eval("function convertParamFromGlobalScope(){ return Java.type('jdk.nashorn.internal.runtime.linker.test.JavaAdapterTest').m(f);}", e.getBindings(ScriptContext.GLOBAL_SCOPE));
+        e.eval("function convertParamFromEngineScope(){ return Java.type('org.openjdk.nashorn.internal.runtime.linker.test.JavaAdapterTest').m(f);}", e.getBindings(ScriptContext.ENGINE_SCOPE));
+        e.eval("function convertParamFromGlobalScope(){ return Java.type('org.openjdk.nashorn.internal.runtime.linker.test.JavaAdapterTest').m(f);}", e.getBindings(ScriptContext.GLOBAL_SCOPE));
 
         e.eval("var o = { call: function () { return 'ok from o'; } }", e.getBindings(ScriptContext.ENGINE_SCOPE));
         e.eval("function g() { return 'ok from g'; }", e.getBindings(ScriptContext.ENGINE_SCOPE));

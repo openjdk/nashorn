@@ -17,18 +17,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isSingleline;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.TokenType;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isSingleline;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.TokenType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 class Lexer extends ScannerSupport {
     protected final ScanEnvironment env;

@@ -23,18 +23,18 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker.test;
+package org.openjdk.nashorn.internal.runtime.linker.test;
 
-import jdk.nashorn.api.scripting.AbstractJSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @test
  * @bug 8184723
- * @summary jdk.nashorn.internal.runtime.linker.JSObjectLinker.callToApply erroneously asserts given arguments
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.linker
- * @run main/othervm -ea jdk.nashorn.internal.runtime.linker.test.JDK_8184723_Test
+ * @summary org.openjdk.nashorn.internal.runtime.linker.JSObjectLinker.callToApply erroneously asserts given arguments
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.linker
+ * @run main/othervm -ea org.openjdk.nashorn.internal.runtime.linker.test.JDK_8184723_Test
  */
 
 public class JDK_8184723_Test {

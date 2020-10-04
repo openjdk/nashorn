@@ -23,36 +23,36 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.BlockStatement;
-import jdk.nashorn.internal.ir.CaseNode;
-import jdk.nashorn.internal.ir.EmptyNode;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IfNode;
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.Statement;
-import jdk.nashorn.internal.ir.SwitchNode;
-import jdk.nashorn.internal.ir.TernaryNode;
-import jdk.nashorn.internal.ir.UnaryNode;
-import jdk.nashorn.internal.ir.VarNode;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.BlockStatement;
+import org.openjdk.nashorn.internal.ir.CaseNode;
+import org.openjdk.nashorn.internal.ir.EmptyNode;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IfNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.ir.LiteralNode.ArrayLiteralNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.SwitchNode;
+import org.openjdk.nashorn.internal.ir.TernaryNode;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.ir.VarNode;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
 
 /**
  * Simple constant folding pass, executed before IR is starting to be lowered.

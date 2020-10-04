@@ -23,28 +23,28 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.Compiler.SCRIPTS_PACKAGE;
-import static jdk.nashorn.internal.codegen.CompilerConstants.ALLOCATE;
-import static jdk.nashorn.internal.codegen.CompilerConstants.INIT_ARGUMENTS;
-import static jdk.nashorn.internal.codegen.CompilerConstants.INIT_MAP;
-import static jdk.nashorn.internal.codegen.CompilerConstants.INIT_SCOPE;
-import static jdk.nashorn.internal.codegen.CompilerConstants.JAVA_THIS;
-import static jdk.nashorn.internal.codegen.CompilerConstants.JS_OBJECT_DUAL_FIELD_PREFIX;
-import static jdk.nashorn.internal.codegen.CompilerConstants.JS_OBJECT_SINGLE_FIELD_PREFIX;
-import static jdk.nashorn.internal.codegen.CompilerConstants.className;
-import static jdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.JSType.CONVERT_OBJECT;
-import static jdk.nashorn.internal.runtime.JSType.CONVERT_OBJECT_OPTIMISTIC;
-import static jdk.nashorn.internal.runtime.JSType.GET_UNDEFINED;
-import static jdk.nashorn.internal.runtime.JSType.TYPE_DOUBLE_INDEX;
-import static jdk.nashorn.internal.runtime.JSType.TYPE_INT_INDEX;
-import static jdk.nashorn.internal.runtime.JSType.TYPE_OBJECT_INDEX;
-import static jdk.nashorn.internal.runtime.JSType.TYPE_UNDEFINED_INDEX;
-import static jdk.nashorn.internal.runtime.JSType.getAccessorTypeIndex;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
+import static org.openjdk.nashorn.internal.codegen.Compiler.SCRIPTS_PACKAGE;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.ALLOCATE;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.INIT_ARGUMENTS;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.INIT_MAP;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.INIT_SCOPE;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.JAVA_THIS;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.JS_OBJECT_DUAL_FIELD_PREFIX;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.JS_OBJECT_SINGLE_FIELD_PREFIX;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.className;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.JSType.CONVERT_OBJECT;
+import static org.openjdk.nashorn.internal.runtime.JSType.CONVERT_OBJECT_OPTIMISTIC;
+import static org.openjdk.nashorn.internal.runtime.JSType.GET_UNDEFINED;
+import static org.openjdk.nashorn.internal.runtime.JSType.TYPE_DOUBLE_INDEX;
+import static org.openjdk.nashorn.internal.runtime.JSType.TYPE_INT_INDEX;
+import static org.openjdk.nashorn.internal.runtime.JSType.TYPE_OBJECT_INDEX;
+import static org.openjdk.nashorn.internal.runtime.JSType.TYPE_UNDEFINED_INDEX;
+import static org.openjdk.nashorn.internal.runtime.JSType.getAccessorTypeIndex;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -53,21 +53,21 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import jdk.nashorn.internal.codegen.ClassEmitter.Flag;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.runtime.AccessorProperty;
-import jdk.nashorn.internal.runtime.AllocationStrategy;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.FunctionScope;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptEnvironment;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.Undefined;
-import jdk.nashorn.internal.runtime.UnwarrantedOptimismException;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.codegen.ClassEmitter.Flag;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.runtime.AccessorProperty;
+import org.openjdk.nashorn.internal.runtime.AllocationStrategy;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.FunctionScope;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
 
 /**
  * Generates the ScriptObject subclass structure with fields for a user objects.

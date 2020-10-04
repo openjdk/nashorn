@@ -22,10 +22,10 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.Statement;
 
 /**
  * Used for keeping state when needed in the parser.

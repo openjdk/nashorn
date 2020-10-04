@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.types;
+package org.openjdk.nashorn.internal.codegen.types;
 
 import jdk.internal.org.objectweb.asm.MethodVisitor;
 

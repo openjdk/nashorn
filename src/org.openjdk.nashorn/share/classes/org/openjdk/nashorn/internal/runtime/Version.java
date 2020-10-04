@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -52,7 +52,7 @@ public final class Version {
         return version("version_string"); // E.g. "9.1.2.3-ea-4+nashorn-testing"
     }
 
-    private static final String   VERSION_RB_NAME = "jdk.nashorn.internal.runtime.resources.version";
+    private static final String   VERSION_RB_NAME = "org.openjdk.nashorn.internal.runtime.resources.version";
     private static ResourceBundle versionRB;
 
     private static String version(final String key) {

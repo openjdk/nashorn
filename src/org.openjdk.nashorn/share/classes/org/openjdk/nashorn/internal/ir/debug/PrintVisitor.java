@@ -23,36 +23,36 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir.debug;
+package org.openjdk.nashorn.internal.ir.debug;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.BlockStatement;
-import jdk.nashorn.internal.ir.BreakNode;
-import jdk.nashorn.internal.ir.CaseNode;
-import jdk.nashorn.internal.ir.CatchNode;
-import jdk.nashorn.internal.ir.ContinueNode;
-import jdk.nashorn.internal.ir.ExpressionStatement;
-import jdk.nashorn.internal.ir.ForNode;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.IfNode;
-import jdk.nashorn.internal.ir.JoinPredecessor;
-import jdk.nashorn.internal.ir.JoinPredecessorExpression;
-import jdk.nashorn.internal.ir.LabelNode;
-import jdk.nashorn.internal.ir.LocalVariableConversion;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.SplitNode;
-import jdk.nashorn.internal.ir.Statement;
-import jdk.nashorn.internal.ir.SwitchNode;
-import jdk.nashorn.internal.ir.ThrowNode;
-import jdk.nashorn.internal.ir.TryNode;
-import jdk.nashorn.internal.ir.UnaryNode;
-import jdk.nashorn.internal.ir.VarNode;
-import jdk.nashorn.internal.ir.WhileNode;
-import jdk.nashorn.internal.ir.WithNode;
-import jdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.BlockStatement;
+import org.openjdk.nashorn.internal.ir.BreakNode;
+import org.openjdk.nashorn.internal.ir.CaseNode;
+import org.openjdk.nashorn.internal.ir.CatchNode;
+import org.openjdk.nashorn.internal.ir.ContinueNode;
+import org.openjdk.nashorn.internal.ir.ExpressionStatement;
+import org.openjdk.nashorn.internal.ir.ForNode;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.IfNode;
+import org.openjdk.nashorn.internal.ir.JoinPredecessor;
+import org.openjdk.nashorn.internal.ir.JoinPredecessorExpression;
+import org.openjdk.nashorn.internal.ir.LabelNode;
+import org.openjdk.nashorn.internal.ir.LocalVariableConversion;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.SplitNode;
+import org.openjdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.SwitchNode;
+import org.openjdk.nashorn.internal.ir.ThrowNode;
+import org.openjdk.nashorn.internal.ir.TryNode;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.ir.VarNode;
+import org.openjdk.nashorn.internal.ir.WhileNode;
+import org.openjdk.nashorn.internal.ir.WithNode;
+import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
 
 /**
  * Print out the AST as human readable source code.

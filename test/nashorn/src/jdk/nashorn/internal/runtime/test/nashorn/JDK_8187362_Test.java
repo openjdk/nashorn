@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import javax.script.ScriptException;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
@@ -35,8 +35,8 @@ import org.testng.annotations.Test;
  * @test
  * @bug 8187362
  * @summary Nashorn unsigned right shift operator unexpectedly returns floating-point
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @run testng jdk.nashorn.internal.runtime.test.JDK_8187362_Test
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @run testng org.openjdk.nashorn.internal.runtime.test.JDK_8187362_Test
  */
 public class JDK_8187362_Test {
 

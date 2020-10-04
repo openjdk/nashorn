@@ -23,14 +23,14 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.staticCall;
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCall;
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.getProgramPoint;
-import static jdk.nashorn.internal.runtime.logging.DebugLogger.quote;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCall;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCall;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.getProgramPoint;
+import static org.openjdk.nashorn.internal.runtime.logging.DebugLogger.quote;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -44,12 +44,12 @@ import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.DynamicLinker;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
-import jdk.nashorn.internal.lookup.Lookup;
-import jdk.nashorn.internal.lookup.MethodHandleFactory;
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.lookup.Lookup;
+import org.openjdk.nashorn.internal.lookup.MethodHandleFactory;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
 
 /**
  * Each context owns one of these. This is basically table of accessors

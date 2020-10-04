@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.ir.Node.NO_FINISH;
-import static jdk.nashorn.internal.ir.Node.NO_LINE_NUMBER;
-import static jdk.nashorn.internal.ir.Node.NO_TOKEN;
+import static org.openjdk.nashorn.internal.ir.Node.NO_FINISH;
+import static org.openjdk.nashorn.internal.ir.Node.NO_LINE_NUMBER;
+import static org.openjdk.nashorn.internal.ir.Node.NO_TOKEN;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -36,34 +36,34 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import jdk.nashorn.internal.ir.AccessNode;
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.Block;
-import jdk.nashorn.internal.ir.BlockLexicalContext;
-import jdk.nashorn.internal.ir.BreakNode;
-import jdk.nashorn.internal.ir.CallNode;
-import jdk.nashorn.internal.ir.CaseNode;
-import jdk.nashorn.internal.ir.ContinueNode;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.ExpressionStatement;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.GetSplitState;
-import jdk.nashorn.internal.ir.IdentNode;
-import jdk.nashorn.internal.ir.IfNode;
-import jdk.nashorn.internal.ir.JumpStatement;
-import jdk.nashorn.internal.ir.JumpToInlinedFinally;
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.ReturnNode;
-import jdk.nashorn.internal.ir.SetSplitState;
-import jdk.nashorn.internal.ir.SplitNode;
-import jdk.nashorn.internal.ir.SplitReturn;
-import jdk.nashorn.internal.ir.Statement;
-import jdk.nashorn.internal.ir.SwitchNode;
-import jdk.nashorn.internal.ir.VarNode;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
-import jdk.nashorn.internal.parser.Token;
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.ir.AccessNode;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.Block;
+import org.openjdk.nashorn.internal.ir.BlockLexicalContext;
+import org.openjdk.nashorn.internal.ir.BreakNode;
+import org.openjdk.nashorn.internal.ir.CallNode;
+import org.openjdk.nashorn.internal.ir.CaseNode;
+import org.openjdk.nashorn.internal.ir.ContinueNode;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.ExpressionStatement;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.GetSplitState;
+import org.openjdk.nashorn.internal.ir.IdentNode;
+import org.openjdk.nashorn.internal.ir.IfNode;
+import org.openjdk.nashorn.internal.ir.JumpStatement;
+import org.openjdk.nashorn.internal.ir.JumpToInlinedFinally;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.ReturnNode;
+import org.openjdk.nashorn.internal.ir.SetSplitState;
+import org.openjdk.nashorn.internal.ir.SplitNode;
+import org.openjdk.nashorn.internal.ir.SplitReturn;
+import org.openjdk.nashorn.internal.ir.Statement;
+import org.openjdk.nashorn.internal.ir.SwitchNode;
+import org.openjdk.nashorn.internal.ir.VarNode;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.parser.Token;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 /**
  * A node visitor that replaces {@link SplitNode}s with anonymous function invocations and some additional constructs

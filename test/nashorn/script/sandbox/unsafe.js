@@ -57,7 +57,7 @@ try {
 }
 
 try {
-    var cl = Packages.jdk.nashorn.internal.runtime.Context.class;
+    var cl = Packages.org.openjdk.nashorn.internal.runtime.Context.class;
     var unsafe = cl.getClassLoader().loadClass("sun.misc.Unsafe");
 } catch (e) {
     check(e);

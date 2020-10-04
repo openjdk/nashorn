@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ContinueNode;
+import org.openjdk.nashorn.internal.ir.ContinueNode;
 
 final class ContinueTreeImpl extends StatementTreeImpl implements ContinueTree {
     private final String label;

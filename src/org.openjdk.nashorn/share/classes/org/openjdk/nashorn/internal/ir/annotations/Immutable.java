@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir.annotations;
+package org.openjdk.nashorn.internal.ir.annotations;
 
 /**
  * Tag for nodes that are immutable. To be immutable all fields must be

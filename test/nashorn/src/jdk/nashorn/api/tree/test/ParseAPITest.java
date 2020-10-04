@@ -22,24 +22,24 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree.test;
+package org.openjdk.nashorn.api.tree.test;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import jdk.nashorn.api.tree.Parser;
-import jdk.nashorn.api.tree.SimpleTreeVisitorES5_1;
-import jdk.nashorn.api.tree.Tree;
+import org.openjdk.nashorn.api.tree.Parser;
+import org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1;
+import org.openjdk.nashorn.api.tree.Tree;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Test for nashorn Parser API (jdk.nashorn.api.tree.*)
+ * Test for nashorn Parser API (org.openjdk.nashorn.api.tree.*)
  *
  * @test
- * @run testng jdk.nashorn.api.tree.test.ParseAPITest
+ * @run testng org.openjdk.nashorn.api.tree.test.ParseAPITest
  */
 public class ParseAPITest {
 

@@ -30,8 +30,8 @@
  * @run
  */
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES6");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6");
 var parser = Parser.create("--language=es6"); 
 var ast = parser.parse("test.js", "(class {});", print);
 var reachedClassExpr = false;

@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.runtime.PropertyHashMap.EMPTY_HASHMAP;
-import static jdk.nashorn.internal.runtime.arrays.ArrayIndex.getArrayIndex;
-import static jdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
+import static org.openjdk.nashorn.internal.runtime.PropertyHashMap.EMPTY_HASHMAP;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex.getArrayIndex;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,8 +45,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.LongAdder;
-import jdk.nashorn.internal.runtime.options.Options;
-import jdk.nashorn.internal.scripts.JO;
+import org.openjdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.scripts.JO;
 
 /**
  * Map of object properties. The PropertyMap is the "template" for JavaScript object

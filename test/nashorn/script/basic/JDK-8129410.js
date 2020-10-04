@@ -28,7 +28,7 @@
  * @run
  */
 
-var VarArgConstructor = Java.type("jdk.nashorn.test.models.VarArgConstructor");
+var VarArgConstructor = Java.type("org.openjdk.nashorn.test.models.VarArgConstructor");
 var VarArgConstructorExtended = Java.extend(VarArgConstructor, {});
 
 // If the fix didn't work we wouldn't even get past the constructor invocation

@@ -22,13 +22,13 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import java.util.Arrays;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

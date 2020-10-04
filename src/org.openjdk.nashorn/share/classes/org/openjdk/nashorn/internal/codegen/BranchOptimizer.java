@@ -23,21 +23,21 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.Condition.EQ;
-import static jdk.nashorn.internal.codegen.Condition.GE;
-import static jdk.nashorn.internal.codegen.Condition.GT;
-import static jdk.nashorn.internal.codegen.Condition.LE;
-import static jdk.nashorn.internal.codegen.Condition.LT;
-import static jdk.nashorn.internal.codegen.Condition.NE;
-import static jdk.nashorn.internal.parser.TokenType.NOT;
+import static org.openjdk.nashorn.internal.codegen.Condition.EQ;
+import static org.openjdk.nashorn.internal.codegen.Condition.GE;
+import static org.openjdk.nashorn.internal.codegen.Condition.GT;
+import static org.openjdk.nashorn.internal.codegen.Condition.LE;
+import static org.openjdk.nashorn.internal.codegen.Condition.LT;
+import static org.openjdk.nashorn.internal.codegen.Condition.NE;
+import static org.openjdk.nashorn.internal.parser.TokenType.NOT;
 
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.JoinPredecessorExpression;
-import jdk.nashorn.internal.ir.LocalVariableConversion;
-import jdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.JoinPredecessorExpression;
+import org.openjdk.nashorn.internal.ir.LocalVariableConversion;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
 
 /**
  * Branch optimizer for CodeGenerator. Given a jump condition this helper

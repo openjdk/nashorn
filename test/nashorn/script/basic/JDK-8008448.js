@@ -22,7 +22,7 @@
  */
 
 /**
- * JDK-8008448: Add coverage test for jdk.nashorn.internal.ir.debug.JSONWriter
+ * JDK-8008448: Add coverage test for org.openjdk.nashorn.internal.ir.debug.JSONWriter
  * Ensure that all parseable files can be parsed using parser API.
  *
  * @test
@@ -33,7 +33,7 @@
 
 var File = Java.type("java.io.File");
 var FilenameFilter = Java.type("java.io.FilenameFilter");
-var SourceHelper = Java.type("jdk.nashorn.test.models.SourceHelper")
+var SourceHelper = Java.type("org.openjdk.nashorn.test.models.SourceHelper")
 
 // Filter out non .js files
 var files = new File(__DIR__).listFiles(new FilenameFilter() {

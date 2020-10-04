@@ -130,6 +130,6 @@ $PRINT_ASM_FLAGS \
 -Xms2G -Xmx2G \
 -XX:TypeProfileLevel=222 \
 -cp $CLASSPATH:../build/test/classes/ \
-jdk.nashorn.tools.Shell $ENABLE_TIME_FLAGS ${@}
+org.openjdk.nashorn.tools.Shell $ENABLE_TIME_FLAGS ${@}
 
 

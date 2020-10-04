@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 /**
  * If your ScriptObject or similar PropertyAccess implementation only provides the most

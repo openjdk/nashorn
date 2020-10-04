@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.performance;
+package org.openjdk.nashorn.internal.performance;
 
 import java.io.File;
 import java.io.FileOutputStream;

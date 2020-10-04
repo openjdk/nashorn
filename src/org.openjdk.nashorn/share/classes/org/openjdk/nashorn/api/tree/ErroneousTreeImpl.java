@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ErrorNode;
+import org.openjdk.nashorn.internal.ir.ErrorNode;
 
 final class ErroneousTreeImpl extends ExpressionTreeImpl implements ErroneousTree {
     ErroneousTreeImpl(final ErrorNode errorNode) {

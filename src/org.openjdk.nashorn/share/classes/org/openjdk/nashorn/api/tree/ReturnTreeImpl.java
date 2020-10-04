@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ReturnNode;
+import org.openjdk.nashorn.internal.ir.ReturnNode;
 
 final class ReturnTreeImpl extends StatementTreeImpl implements ReturnTree {
     private final ExpressionTree expr;

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.CatchNode;
+import org.openjdk.nashorn.internal.ir.CatchNode;
 
 final class CatchTreeImpl extends TreeImpl implements CatchTree {
     private final ExpressionTree param;

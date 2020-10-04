@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.ir.annotations.Immutable;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 /**
  * IR representation for executing bare expressions. Basically, an expression

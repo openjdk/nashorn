@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_CHECK_COMPILE_MSG;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_COMPARE;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_COMPILE_FAIL;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_RUN_FAIL;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_FORK;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_IGNORE_STD_ERROR;
-import static jdk.nashorn.internal.test.framework.TestConfig.OPTIONS_RUN;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FAIL_LIST;
-import static jdk.nashorn.internal.test.framework.TestConfig.TEST_JS_SHARED_CONTEXT;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_CHECK_COMPILE_MSG;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_COMPARE;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_COMPILE_FAIL;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_EXPECT_RUN_FAIL;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_FORK;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_IGNORE_STD_ERROR;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.OPTIONS_RUN;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_FAIL_LIST;
+import static org.openjdk.nashorn.internal.test.framework.TestConfig.TEST_JS_SHARED_CONTEXT;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;

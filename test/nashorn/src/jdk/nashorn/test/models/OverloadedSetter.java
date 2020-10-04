@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 public class OverloadedSetter {
     private String color;

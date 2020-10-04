@@ -23,22 +23,22 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Map;
 import javax.script.Bindings;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.objects.NativeArray;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.objects.NativeArray;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -47,11 +47,11 @@ import org.testng.annotations.Test;
  * @test
  * @bug 8078414
  * @summary Test that arbitrary classes can't be converted to mirror's superclasses/interfaces.
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.linker
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.options
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.objects
- * @run testng jdk.nashorn.internal.runtime.test.JDK_8078414_Test
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.linker
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.options
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.objects
+ * @run testng org.openjdk.nashorn.internal.runtime.test.JDK_8078414_Test
  */
 public class JDK_8078414_Test {
     private static Context cx;

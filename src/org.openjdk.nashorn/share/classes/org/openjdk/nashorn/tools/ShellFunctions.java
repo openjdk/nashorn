@@ -23,19 +23,19 @@
  * questions.
  */
 
-package jdk.nashorn.tools;
+package org.openjdk.nashorn.tools;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptingFunctions;
-import jdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ScriptingFunctions;
+import org.openjdk.nashorn.internal.objects.Global;
 
 /**
  * Global functions supported only in shell interactive mode.

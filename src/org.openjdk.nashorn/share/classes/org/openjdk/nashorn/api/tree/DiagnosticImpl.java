@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.parser.Token;
-import jdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.parser.Token;
+import org.openjdk.nashorn.internal.runtime.ParserException;
 
 final class DiagnosticImpl implements Diagnostic {
     private final ParserException exp;

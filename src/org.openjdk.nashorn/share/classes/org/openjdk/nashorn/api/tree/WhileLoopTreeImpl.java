@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.WhileNode;
+import org.openjdk.nashorn.internal.ir.WhileNode;
 
 final class WhileLoopTreeImpl extends StatementTreeImpl implements WhileLoopTree {
     private final ExpressionTree cond;

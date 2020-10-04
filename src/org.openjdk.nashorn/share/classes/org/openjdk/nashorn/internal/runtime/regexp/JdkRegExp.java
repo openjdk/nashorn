@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.regexp;
+package org.openjdk.nashorn.internal.runtime.regexp;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.MULTILINE;
@@ -32,7 +32,7 @@ import static java.util.regex.Pattern.UNICODE_CASE;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import jdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.ParserException;
 
 /**
  * Default regular expression implementation based on java.util.regex package.

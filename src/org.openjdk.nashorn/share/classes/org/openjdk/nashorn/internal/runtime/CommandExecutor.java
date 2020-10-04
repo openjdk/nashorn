@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -45,8 +45,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static jdk.nashorn.internal.runtime.CommandExecutor.RedirectType.*;
-import static jdk.nashorn.internal.runtime.ECMAErrors.rangeError;
+import static org.openjdk.nashorn.internal.runtime.CommandExecutor.RedirectType.*;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.rangeError;
 
 /**
  * The CommandExecutor class provides support for Nashorn's $EXEC

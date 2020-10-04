@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
 import static jdk.dynalink.StandardNamespace.ELEMENT;
 import static jdk.dynalink.StandardNamespace.METHOD;
@@ -53,9 +53,9 @@ import jdk.dynalink.Operation;
 import jdk.dynalink.SecureLookupSupplier;
 import jdk.dynalink.StandardNamespace;
 import jdk.dynalink.StandardOperation;
-import jdk.nashorn.internal.ir.debug.NashornTextifier;
-import jdk.nashorn.internal.runtime.AccessControlContextFactory;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.ir.debug.NashornTextifier;
+import org.openjdk.nashorn.internal.runtime.AccessControlContextFactory;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * Nashorn-specific implementation of Dynalink's {@link CallSiteDescriptor}.

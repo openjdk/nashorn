@@ -29,7 +29,7 @@
  * @option -scripting
  */
 
-var type = Java.type("jdk.nashorn.test.models.JDK_8184241Test");
+var type = Java.type("org.openjdk.nashorn.test.models.JDK_8184241Test");
 var extendedtype = Java.extend(type);
 try {
     var obj = new extendedtype({});

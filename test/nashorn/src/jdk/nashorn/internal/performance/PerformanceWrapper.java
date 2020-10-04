@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.performance;
+package org.openjdk.nashorn.internal.performance;
 
 import java.io.OutputStream;
 import java.util.concurrent.Callable;
@@ -31,13 +31,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 @SuppressWarnings("javadoc")
-public class PerformanceWrapper extends jdk.nashorn.tools.Shell {
+public class PerformanceWrapper extends org.openjdk.nashorn.tools.Shell {
 
     int _numberOfIterations;
     int _runsPerIteration;
@@ -86,7 +86,7 @@ public class PerformanceWrapper extends jdk.nashorn.tools.Shell {
     @Override
     protected Object apply(final ScriptFunction target, final Object self) {
         if (_runsPerIteration == 0 && _numberOfIterations == 0) {
-            final Global global = jdk.nashorn.internal.runtime.Context.getGlobal();
+            final Global global = org.openjdk.nashorn.internal.runtime.Context.getGlobal();
             final ScriptFunction _target = target;
             final Object _self = self;
 

@@ -65,7 +65,7 @@ print("eval is java function? " + Java.isJavaFunction(eval));
 print("println is java function? " + Java.isJavaFunction(println));
 print("getProperty is java function? " + Java.isJavaFunction(getProperty));
 
-var JSObject = Java.type("jdk.nashorn.api.scripting.JSObject");
+var JSObject = Java.type("org.openjdk.nashorn.api.scripting.JSObject");
 print("callable JSObject is function? " +
     Java.isJavaFunction(new JSObject() {
         isFunction: function() true,

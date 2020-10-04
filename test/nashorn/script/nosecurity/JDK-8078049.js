@@ -541,9 +541,9 @@ var spill = {
     p499: { code: 499, category: m }
 };
 
-var AccessorProperty = Java.type("jdk.nashorn.internal.runtime.AccessorProperty");
-var SpillProperty    = Java.type("jdk.nashorn.internal.runtime.SpillProperty");
-var PropertyMap = Java.type("jdk.nashorn.internal.runtime.PropertyMap");
+var AccessorProperty = Java.type("org.openjdk.nashorn.internal.runtime.AccessorProperty");
+var SpillProperty    = Java.type("org.openjdk.nashorn.internal.runtime.SpillProperty");
+var PropertyMap = Java.type("org.openjdk.nashorn.internal.runtime.PropertyMap");
 var findPropertyMethod = PropertyMap.class.getMethod("findProperty", java.lang.Object.class);
 
 Assert.assertTrue(Object.keys(fields).length === 3);

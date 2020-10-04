@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
 import java.lang.invoke.MethodHandle;
 import jdk.dynalink.beans.StaticClass;
 import jdk.dynalink.linker.LinkerServices;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 
 /**
  * Utilities that are to be called from script code.

@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 import java.util.List;
 import java.util.Map;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
 import org.testng.Assert;
 
 public class Jdk8072596TestSubject {

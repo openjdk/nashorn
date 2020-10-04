@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import jdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
 
 /**
  * Manages constants needed by code generation.  Objects are maintained in an

@@ -17,34 +17,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAll;
-import static jdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
-import static jdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsOnAt;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isFindCondition;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isIgnoreCase;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isMultiline;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode.newAltNode;
-import static jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAll;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsOnAt;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isFindCondition;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isIgnoreCase;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isMultiline;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode.newAltNode;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode.isRepeatInfinite;
 import java.util.HashSet;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.Node;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.StackPopLevel;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.ObjPtr;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.Node;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.StackPopLevel;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.TargetInfo;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.ObjPtr;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 final class Analyser extends Parser {
 

@@ -23,19 +23,19 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.test;
+package org.openjdk.nashorn.internal.codegen.test;
 
-import static jdk.nashorn.internal.runtime.Source.readFully;
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.readFully;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

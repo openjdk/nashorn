@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.V1_7;
-import static jdk.nashorn.internal.codegen.CompilerConstants.CONSTANTS;
-import static jdk.nashorn.internal.codegen.CompilerConstants.CREATE_PROGRAM_FUNCTION;
-import static jdk.nashorn.internal.codegen.CompilerConstants.SOURCE;
-import static jdk.nashorn.internal.codegen.CompilerConstants.STRICT_MODE;
-import static jdk.nashorn.internal.runtime.CodeStore.newCodeStore;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CONSTANTS;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CREATE_PROGRAM_FUNCTION;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.SOURCE;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.STRICT_MODE;
+import static org.openjdk.nashorn.internal.runtime.CodeStore.newCodeStore;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 
 import java.io.File;
 import java.io.InputStream;
@@ -89,25 +89,25 @@ import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassWriter;
 import jdk.internal.org.objectweb.asm.Opcodes;
 import jdk.internal.org.objectweb.asm.util.CheckClassAdapter;
-import jdk.nashorn.api.scripting.ClassFilter;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.WeakValueCache;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.Compiler.CompilationPhases;
-import jdk.nashorn.internal.codegen.ObjectClassGenerator;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.ir.debug.ASTWriter;
-import jdk.nashorn.internal.ir.debug.PrintVisitor;
-import jdk.nashorn.internal.lookup.MethodHandleFactory;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.parser.Parser;
-import jdk.nashorn.internal.runtime.events.RuntimeEvent;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
-import jdk.nashorn.internal.runtime.options.LoggingOption.LoggerInfo;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.api.scripting.ClassFilter;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.internal.WeakValueCache;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
+import org.openjdk.nashorn.internal.codegen.ObjectClassGenerator;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.debug.ASTWriter;
+import org.openjdk.nashorn.internal.ir.debug.PrintVisitor;
+import org.openjdk.nashorn.internal.lookup.MethodHandleFactory;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.parser.Parser;
+import org.openjdk.nashorn.internal.runtime.events.RuntimeEvent;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.internal.runtime.options.LoggingOption.LoggerInfo;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 import jdk.internal.misc.Unsafe;
 
 /**
@@ -1041,7 +1041,7 @@ public final class Context {
      * @see AccessorProperty
      * @see ScriptObject
      *
-     * @param fullName  full name of class, e.g. jdk.nashorn.internal.objects.JO2P1 contains 2 fields and 1 parameter.
+     * @param fullName  full name of class, e.g. org.openjdk.nashorn.internal.objects.JO2P1 contains 2 fields and 1 parameter.
      *
      * @return the {@code Class<?>} for this structure
      *
@@ -1150,7 +1150,7 @@ public final class Context {
 
     /**
      * Lookup a Java class. This is used for JSR-223 stuff linking in from
-     * {@code jdk.nashorn.internal.objects.NativeJava} and {@code jdk.nashorn.internal.runtime.NativeJavaPackage}
+     * {@code org.openjdk.nashorn.internal.objects.NativeJava} and {@code org.openjdk.nashorn.internal.runtime.NativeJavaPackage}
      *
      * @param fullName full name of class to load
      *

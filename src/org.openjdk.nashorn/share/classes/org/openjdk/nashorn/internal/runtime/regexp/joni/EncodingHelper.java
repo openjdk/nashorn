@@ -17,11 +17,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
 import java.util.Arrays;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
 
 @SuppressWarnings("javadoc")
 public final class EncodingHelper {

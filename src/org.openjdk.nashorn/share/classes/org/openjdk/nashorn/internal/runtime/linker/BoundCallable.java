@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
 import java.util.Arrays;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * Represents a Nashorn callable bound to a receiver and optionally arguments. Note that objects of this class

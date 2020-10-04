@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,11 +52,11 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.WeakHashMap;
-import jdk.nashorn.api.scripting.URLReader;
-import jdk.nashorn.internal.parser.Token;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
-import jdk.nashorn.internal.runtime.logging.Loggable;
-import jdk.nashorn.internal.runtime.logging.Logger;
+import org.openjdk.nashorn.api.scripting.URLReader;
+import org.openjdk.nashorn.internal.parser.Token;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.runtime.logging.Loggable;
+import org.openjdk.nashorn.internal.runtime.logging.Logger;
 /**
  * Source objects track the origin of JavaScript entities.
  */
@@ -745,7 +745,7 @@ public final class Source implements Loggable {
      * Get the content of this source as a char array. Note that the underlying array is returned instead of a
      * clone; modifying the char array will cause modification to the source; this should not be done. While
      * there is an apparent danger that we allow unfettered access to an underlying mutable array, the
-     * {@code Source} class is in a restricted {@code jdk.nashorn.internal.*} package and as such it is
+     * {@code Source} class is in a restricted {@code org.openjdk.nashorn.internal.*} package and as such it is
      * inaccessible by external actors in an environment with a security manager. Returning a clone would be
      * detrimental to performance.
      * @return content the content of this source as a char array

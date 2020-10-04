@@ -28,8 +28,8 @@
  * @run
  */
 
-var ScriptUtils = Java.type("jdk.nashorn.api.scripting.ScriptUtils");
-var ScriptObjectMirror = Java.type("jdk.nashorn.api.scripting.ScriptObjectMirror");
+var ScriptUtils = Java.type("org.openjdk.nashorn.api.scripting.ScriptUtils");
+var ScriptObjectMirror = Java.type("org.openjdk.nashorn.api.scripting.ScriptObjectMirror");
 
 var obj = { foo: 34, bar: 'hello' };
 

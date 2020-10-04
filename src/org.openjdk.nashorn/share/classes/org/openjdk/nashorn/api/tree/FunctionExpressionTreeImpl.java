@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
 
 final class FunctionExpressionTreeImpl extends ExpressionTreeImpl
     implements FunctionExpressionTree {

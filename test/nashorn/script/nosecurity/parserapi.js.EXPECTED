@@ -5063,7 +5063,7 @@
             {
               "endPosition": "1305",
               "kind": "STRING_LITERAL",
-              "value": "jdk.nashorn.api.tree.Diagnostic",
+              "value": "org.openjdk.nashorn.api.tree.Diagnostic",
               "startPosition": "1274"
             }
           ],
@@ -5110,7 +5110,7 @@
             {
               "endPosition": "1390",
               "kind": "STRING_LITERAL",
-              "value": "jdk.nashorn.api.tree.SimpleTreeVisitorES5_1",
+              "value": "org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1",
               "startPosition": "1347"
             }
           ],
@@ -5157,7 +5157,7 @@
             {
               "endPosition": "1444",
               "kind": "STRING_LITERAL",
-              "value": "jdk.nashorn.api.tree.Tree",
+              "value": "org.openjdk.nashorn.api.tree.Tree",
               "startPosition": "1419"
             }
           ],
@@ -5510,7 +5510,7 @@
                         {
                           "endPosition": "1887",
                           "kind": "STRING_LITERAL",
-                          "value": "jdk.nashorn.api.tree.Parser",
+                          "value": "org.openjdk.nashorn.api.tree.Parser",
                           "startPosition": "1860"
                         }
                       ],

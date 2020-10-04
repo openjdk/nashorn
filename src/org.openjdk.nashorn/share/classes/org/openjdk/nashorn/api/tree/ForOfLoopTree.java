@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 /**
  * A tree node for <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-for-in-and-for-of-statements">for..of statement</a>.

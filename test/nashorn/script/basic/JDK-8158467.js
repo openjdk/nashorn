@@ -29,7 +29,7 @@
  * @run
  */
 
-var Factory = Java.type("jdk.nashorn.api.scripting.NashornScriptEngineFactory");
+var Factory = Java.type("org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory");
 var fac = new Factory();
 
 // This script has to be given RuntimePermission("nashorn.setConfig")
@@ -76,7 +76,7 @@ try {
 
 // should throw SecurityException!
 try {
-    e.eval("Java.type('jdk.nashorn.internal.Context')");
+    e.eval("Java.type('org.openjdk.nashorn.internal.Context')");
 } catch (ex) {
     print(ex);
 }
@@ -85,7 +85,7 @@ try {
 // "app loader" [and not platform loader which loads nashorn]
 e.eval(<<EOF
 try {
-    Java.type('jdk.nashorn.api.scripting.JSObject');
+    Java.type('org.openjdk.nashorn.api.scripting.JSObject');
 } catch (ex) {
     output(ex);
 }

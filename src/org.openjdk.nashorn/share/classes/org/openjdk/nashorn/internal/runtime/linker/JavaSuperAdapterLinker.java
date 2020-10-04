@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.linker;
+package org.openjdk.nashorn.internal.runtime.linker;
 
 import static jdk.dynalink.StandardNamespace.METHOD;
 import static jdk.dynalink.StandardOperation.GET;
-import static jdk.nashorn.internal.runtime.linker.JavaAdapterBytecodeGenerator.SUPER_PREFIX;
+import static org.openjdk.nashorn.internal.runtime.linker.JavaAdapterBytecodeGenerator.SUPER_PREFIX;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -40,7 +40,7 @@ import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
 import jdk.dynalink.linker.TypeBasedGuardingDynamicLinker;
 import jdk.dynalink.linker.support.Lookup;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
 
 /**
  * A linker for instances of {@code JavaSuperAdapter}. Only links {@code getMethod} calls, by forwarding them to the

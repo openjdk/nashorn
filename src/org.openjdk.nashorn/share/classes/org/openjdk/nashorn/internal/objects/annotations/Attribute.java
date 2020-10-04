@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.objects.annotations;
+package org.openjdk.nashorn.internal.objects.annotations;
 
 /**
  * Attributes for JavaScript properties. The negative logic "NOT_xxx" is because the
@@ -32,13 +32,13 @@ package jdk.nashorn.internal.objects.annotations;
 
 public interface Attribute {
     /** Flag for non-writable properties */
-    public static final int NOT_WRITABLE     = jdk.nashorn.internal.runtime.Property.NOT_WRITABLE;
+    public static final int NOT_WRITABLE     = org.openjdk.nashorn.internal.runtime.Property.NOT_WRITABLE;
 
     /** Flag for non-enumerable properties */
-    public static final int NOT_ENUMERABLE   = jdk.nashorn.internal.runtime.Property.NOT_ENUMERABLE;
+    public static final int NOT_ENUMERABLE   = org.openjdk.nashorn.internal.runtime.Property.NOT_ENUMERABLE;
 
     /** Flag for non-configurable properties */
-    public static final int NOT_CONFIGURABLE = jdk.nashorn.internal.runtime.Property.NOT_CONFIGURABLE;
+    public static final int NOT_CONFIGURABLE = org.openjdk.nashorn.internal.runtime.Property.NOT_CONFIGURABLE;
 
     /**
      * Flag for accessor (getter/setter) properties as opposed to data properties.
@@ -48,7 +48,7 @@ public interface Attribute {
      * such as Map.prototype.size in ES6, not value properties that happen to be implemented by getter/setter
      * such as the "length" properties of String or Array objects.</p>
      */
-    public static final int IS_ACCESSOR = jdk.nashorn.internal.runtime.Property.IS_ACCESSOR_PROPERTY;
+    public static final int IS_ACCESSOR = org.openjdk.nashorn.internal.runtime.Property.IS_ACCESSOR_PROPERTY;
 
     /** Read-only, non-configurable property */
     public static final int CONSTANT = NOT_WRITABLE | NOT_CONFIGURABLE;

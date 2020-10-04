@@ -36,7 +36,7 @@
 // To test, start another engine (testEngine) with a time logger and ensure the
 // logger exists.
 
-var NashornFactory = new (Java.type('jdk.nashorn.api.scripting.NashornScriptEngineFactory'))(),
+var NashornFactory = new (Java.type('org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory'))(),
     testEngine     = NashornFactory.getScriptEngine("-scripting", "--log=time")
 
 if (!testEngine.eval('$OPTIONS._loggers.time')) {
@@ -48,7 +48,7 @@ if (!testEngine.eval('$OPTIONS._loggers.time')) {
 // and verify the testEngine still has time logging, but no compiler logging.
 
 var script = <<EOS
-    var F = new (Java.type('jdk.nashorn.api.scripting.NashornScriptEngineFactory'))(),
+    var F = new (Java.type('org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory'))(),
         e = F.getScriptEngine('-scripting', '--log=compiler')
     if (!e.eval('$OPTIONS._loggers.compiler')) {
         throw 'e does not have compiler logger'

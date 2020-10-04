@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleDescriptor.Modifier;
@@ -36,7 +36,7 @@ import java.util.Set;
  *
  */
 final class ScriptLoader extends NashornLoader {
-    private static final String NASHORN_PKG_PREFIX = "jdk.nashorn.internal.";
+    private static final String NASHORN_PKG_PREFIX = "org.openjdk.nashorn.internal.";
 
     private volatile boolean structureAccessAdded;
     private final Context context;

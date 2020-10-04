@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
-import jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
+import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
 
 /**
  * Interface used by AccessNodes, IndexNodes and IdentNodes to signal that when evaluated, their value will be treated

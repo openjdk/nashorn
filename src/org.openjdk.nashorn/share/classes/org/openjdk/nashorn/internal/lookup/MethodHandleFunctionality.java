@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.lookup;
+package org.openjdk.nashorn.internal.lookup;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

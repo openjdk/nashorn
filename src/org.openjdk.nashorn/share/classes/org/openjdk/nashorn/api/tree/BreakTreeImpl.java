@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.BreakNode;
+import org.openjdk.nashorn.internal.ir.BreakNode;
 
 final class BreakTreeImpl extends StatementTreeImpl implements BreakTree {
     private final String label;

@@ -43,12 +43,12 @@ NASGEN_OPTIONS := \
     --add-exports java.base/jdk.internal.org.objectweb.asm.util=ALL-UNNAMED \
     #
 
-# Run nasgen to modify classes in jdk.nashorn.internal.objects package
+# Run nasgen to modify classes in org.openjdk.nashorn.internal.objects package
 $(NASGEN_RUN_FILE): $(BUILD_NASGEN) $($(MODULE))
 	$(ECHO) Running nasgen
 	$(JAVA_SMALL) $(NASGEN_OPTIONS) \
-	    jdk.nashorn.internal.tools.nasgen.Main $(@D) \
-	    jdk.nashorn.internal.objects $(@D)
+	    org.openjdk.nashorn.internal.tools.nasgen.Main $(@D) \
+	    org.openjdk.nashorn.internal.objects $(@D)
 	$(TOUCH) $@
 
 TARGETS += $(NASGEN_RUN_FILE)

@@ -29,10 +29,10 @@
  * @run
  */
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var ExpressionStatementTree = Java.type("jdk.nashorn.api.tree.ExpressionStatementTree");
-var FunctionDeclarationTree = Java.type("jdk.nashorn.api.tree.FunctionDeclarationTree");
-var VariableTree = Java.type("jdk.nashorn.api.tree.VariableTree");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var ExpressionStatementTree = Java.type("org.openjdk.nashorn.api.tree.ExpressionStatementTree");
+var FunctionDeclarationTree = Java.type("org.openjdk.nashorn.api.tree.FunctionDeclarationTree");
+var VariableTree = Java.type("org.openjdk.nashorn.api.tree.VariableTree");
 
 var parser = Parser.create();
 

@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.regexp.joni.test;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.test;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.testng.annotations.Test;
 
 /**
  * Joni coverage tests
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.regexp.joni
- * @run testng jdk.nashorn.internal.runtime.regexp.joni.test.JoniTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.regexp.joni
+ * @run testng org.openjdk.nashorn.internal.runtime.regexp.joni.test.JoniTest
  */
 @SuppressWarnings("javadoc")
 public class JoniTest {

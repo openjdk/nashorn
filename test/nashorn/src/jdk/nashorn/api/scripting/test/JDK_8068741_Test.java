@@ -23,16 +23,16 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import javax.script.ScriptEngineFactory;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
  * @test
- * @run testng jdk.nashorn.api.scripting.test.JDK_8068741_Test
+ * @run testng org.openjdk.nashorn.api.scripting.test.JDK_8068741_Test
  * @bug 8068741
  * @summary javax.script.ScriptEngineFactory.getMethodCallSyntax() spec allows null passed as an object
  */

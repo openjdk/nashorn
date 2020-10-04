@@ -17,21 +17,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
-import static jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper.isNewLine;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isFindCondition;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isFindLongest;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isFindNotEmpty;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isNotBol;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isNotEol;
-import static jdk.nashorn.internal.runtime.regexp.joni.Option.isPosixRegion;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.BitStatus.bsAt;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.EncodingHelper.isNewLine;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isFindCondition;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isFindLongest;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isFindNotEmpty;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isNotBol;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isNotEol;
+import static org.openjdk.nashorn.internal.runtime.regexp.joni.Option.isPosixRegion;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 
 class ByteCodeMachine extends StackMachine {
     private int bestLen;          // return value

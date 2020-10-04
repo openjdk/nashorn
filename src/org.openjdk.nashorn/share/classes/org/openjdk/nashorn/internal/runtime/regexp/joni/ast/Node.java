@@ -17,12 +17,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni.ast;
+package org.openjdk.nashorn.internal.runtime.regexp.joni.ast;
 
 import java.util.Set;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
-import jdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Config;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.WarnCallback;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
 
 @SuppressWarnings("javadoc")
 public abstract class Node implements NodeType {

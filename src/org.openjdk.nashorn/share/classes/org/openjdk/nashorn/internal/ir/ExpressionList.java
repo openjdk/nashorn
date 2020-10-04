@@ -23,13 +23,13 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir;
+package org.openjdk.nashorn.internal.ir;
 
 import java.util.Collections;
 import java.util.List;
 
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.visitor.NodeVisitor;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
 
 /**
  * IR for CoverParenthesizedExpressionAndArrowParameterList, used only during parsing.

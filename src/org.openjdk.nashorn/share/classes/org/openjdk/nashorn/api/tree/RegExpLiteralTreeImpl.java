@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.LiteralNode;
-import jdk.nashorn.internal.parser.Lexer;
+import org.openjdk.nashorn.internal.ir.LiteralNode;
+import org.openjdk.nashorn.internal.parser.Lexer;
 
 final class RegExpLiteralTreeImpl extends ExpressionTreeImpl
     implements RegExpLiteralTree {

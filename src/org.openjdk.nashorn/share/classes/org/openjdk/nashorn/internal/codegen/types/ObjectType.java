@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.types;
+package org.openjdk.nashorn.internal.codegen.types;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.ACONST_NULL;
 import static jdk.internal.org.objectweb.asm.Opcodes.ALOAD;
@@ -31,16 +31,16 @@ import static jdk.internal.org.objectweb.asm.Opcodes.ARETURN;
 import static jdk.internal.org.objectweb.asm.Opcodes.ASTORE;
 import static jdk.internal.org.objectweb.asm.Opcodes.CHECKCAST;
 import static jdk.internal.org.objectweb.asm.Opcodes.GETSTATIC;
-import static jdk.nashorn.internal.codegen.CompilerConstants.className;
-import static jdk.nashorn.internal.codegen.CompilerConstants.typeDescriptor;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.className;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.typeDescriptor;
 
 import java.lang.invoke.MethodHandle;
 import jdk.internal.org.objectweb.asm.Handle;
 import jdk.internal.org.objectweb.asm.MethodVisitor;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.Undefined;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.Undefined;
 
 /**
  * Type class: OBJECT This is the object type, used for all object types. It can

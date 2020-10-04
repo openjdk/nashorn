@@ -23,18 +23,18 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
-import static jdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_OPTIMISTIC;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
+import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_OPTIMISTIC;
 
 import java.util.Arrays;
 import java.util.EnumSet;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.Symbol;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.UnwarrantedOptimismException;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.Symbol;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * A scope call or get operation that can be shared by several call sites. This generates a static

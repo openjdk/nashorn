@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import jdk.nashorn.tools.Shell;
+import org.openjdk.nashorn.tools.Shell;
 
 /**
  * A script evaluator that uses a fresh Nashorn Context to evaluate scripts.

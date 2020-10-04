@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,7 +38,7 @@ import java.lang.invoke.MethodType;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
+import org.openjdk.nashorn.internal.runtime.linker.LinkerCallSite;
 
 
 /**

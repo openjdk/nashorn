@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.types;
+package org.openjdk.nashorn.internal.codegen.types;
 
 /**
  * This is a numeric type, i.e. NUMBER, LONG, INT, INT32.

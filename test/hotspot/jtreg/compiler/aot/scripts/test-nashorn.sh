@@ -36,8 +36,8 @@ FILE="empty.js"
 TIMEFORMAT="%3R"
 N=5
 
-rm -f libjdk.nashorn.$SO_TYPE
-$JAVA_HOME/bin/jaotc --info --compile-commands org.openjdk.nashorn-list.txt --module org.openjdk.nashorn --output libjdk.nashorn.$SO_TYPE || exit 1
+rm -f liborg.openjdk.nashorn.$SO_TYPE
+$JAVA_HOME/bin/jaotc --info --compile-commands org.openjdk.nashorn-list.txt --module org.openjdk.nashorn --output liborg.openjdk.nashorn.$SO_TYPE || exit 1
 
 echo "Tiered C1:"
 for i in `seq 1 $N`; do
@@ -57,7 +57,7 @@ done
 
 echo "Tiered AOT:"
 for i in `seq 1 $N`; do
-    time $JAVA_HOME/bin/jjs $JAVA_OPTS -J-XX:+UnlockDiagnosticVMOptions -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseAOTStrictLoading -J-XX:AOTLibrary=./libjdk.nashorn.$SO_TYPE $FILE
+    time $JAVA_HOME/bin/jjs $JAVA_OPTS -J-XX:+UnlockDiagnosticVMOptions -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseAOTStrictLoading -J-XX:AOTLibrary=./liborg.openjdk.nashorn.$SO_TYPE $FILE
     if [ $? -ne 0 ]; then
         exit 1
     fi
@@ -65,10 +65,10 @@ done
 
 echo "Tiered AOT -Xshare:on:"
 for i in `seq 1 $N`; do
-    time $JAVA_HOME/bin/jjs $JAVA_OPTS -J-Xshare:on -J-XX:+UnlockDiagnosticVMOptions -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseAOTStrictLoading -J-XX:AOTLibrary=./libjdk.nashorn.$SO_TYPE $FILE
+    time $JAVA_HOME/bin/jjs $JAVA_OPTS -J-Xshare:on -J-XX:+UnlockDiagnosticVMOptions -J-XX:+UnlockExperimentalVMOptions -J-XX:+UseAOTStrictLoading -J-XX:AOTLibrary=./liborg.openjdk.nashorn.$SO_TYPE $FILE
     if [ $? -ne 0 ]; then
         exit 1
     fi
 done
 
-rm -f libjdk.nashorn.$SO_TYPE
+rm -f liborg.openjdk.nashorn.$SO_TYPE

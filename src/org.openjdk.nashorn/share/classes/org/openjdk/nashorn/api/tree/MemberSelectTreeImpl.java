@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.AccessNode;
+import org.openjdk.nashorn.internal.ir.AccessNode;
 
 final class MemberSelectTreeImpl extends ExpressionTreeImpl
     implements MemberSelectTree {

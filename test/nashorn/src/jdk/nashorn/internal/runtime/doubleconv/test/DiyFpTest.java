@@ -30,7 +30,7 @@
 //
 // Copyright 2006-2008 the V8 project authors. All rights reserved.
 
-package jdk.nashorn.internal.runtime.doubleconv.test;
+package org.openjdk.nashorn.internal.runtime.doubleconv.test;
 
 import org.testng.annotations.Test;
 
@@ -44,8 +44,8 @@ import static org.testng.Assert.assertTrue;
  * DiyFp class tests
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
- * @run testng jdk.nashorn.internal.runtime.doubleconv.test.DiyFpTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.doubleconv:open
+ * @run testng org.openjdk.nashorn.internal.runtime.doubleconv.test.DiyFpTest
  */
 @SuppressWarnings("javadoc")
 public class DiyFpTest {
@@ -55,7 +55,7 @@ public class DiyFpTest {
 
     static {
         try {
-            DiyFp = Class.forName("jdk.nashorn.internal.runtime.doubleconv.DiyFp");
+            DiyFp = Class.forName("org.openjdk.nashorn.internal.runtime.doubleconv.DiyFp");
             ctor = DiyFp.getDeclaredConstructor(long.class, int.class);
             ctor.setAccessible(true);
         } catch (final Exception e) {

@@ -37,7 +37,7 @@
  *
  * <pre>
  * <code>
- * import jdk.nashorn.api.tree.*;
+ * import org.openjdk.nashorn.api.tree.*;
  * import java.io.File;
  *
  * // Simple example that prints warning on 'with' statements
@@ -70,5 +70,5 @@
  *
  * @since 9
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 

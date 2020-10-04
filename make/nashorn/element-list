@@ -262,8 +262,8 @@ jdk.net
 jdk.nio
 module:jdk.rmic
 module:org.openjdk.nashorn
-jdk.nashorn.api.scripting
-jdk.nashorn.api.tree
+org.openjdk.nashorn.api.scripting
+org.openjdk.nashorn.api.tree
 module:jdk.sctp
 com.sun.nio.sctp
 module:jdk.security.auth

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.Expression;
 
 abstract class ExpressionTreeImpl extends TreeImpl implements ExpressionTree {
     ExpressionTreeImpl(final Expression expr) {

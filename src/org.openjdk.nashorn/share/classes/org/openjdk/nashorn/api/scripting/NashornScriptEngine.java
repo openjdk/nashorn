@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
-import static jdk.nashorn.internal.runtime.Source.sourceFor;
+import static org.openjdk.nashorn.internal.runtime.Source.sourceFor;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -51,15 +51,15 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
-import jdk.nashorn.internal.objects.Global;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.ScriptFunction;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.ScriptRuntime;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.linker.JavaAdapterFactory;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.objects.Global;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.ScriptFunction;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.linker.JavaAdapterFactory;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * JSR-223 compliant script engine for Nashorn. Instances are not created directly, but rather returned through
@@ -96,7 +96,7 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
     private final Global              global;
 
     // Nashorn script engine error message management
-    private static final String MESSAGES_RESOURCE = "jdk.nashorn.api.scripting.resources.Messages";
+    private static final String MESSAGES_RESOURCE = "org.openjdk.nashorn.api.scripting.resources.Messages";
 
     private static final ResourceBundle MESSAGES_BUNDLE;
     static {

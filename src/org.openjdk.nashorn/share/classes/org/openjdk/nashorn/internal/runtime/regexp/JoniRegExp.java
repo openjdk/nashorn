@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.regexp;
+package org.openjdk.nashorn.internal.runtime.regexp;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import jdk.nashorn.internal.runtime.ParserException;
-import jdk.nashorn.internal.runtime.regexp.joni.Matcher;
-import jdk.nashorn.internal.runtime.regexp.joni.Option;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
-import jdk.nashorn.internal.runtime.regexp.joni.Region;
-import jdk.nashorn.internal.runtime.regexp.joni.Syntax;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
+import org.openjdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Matcher;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Option;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Regex;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Region;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Syntax;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 
 /**
  * Regular expression implementation based on the Joni engine from the JRuby project.

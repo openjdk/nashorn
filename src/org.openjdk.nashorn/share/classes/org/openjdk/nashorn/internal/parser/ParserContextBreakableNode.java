@@ -22,9 +22,9 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
-import jdk.nashorn.internal.ir.BreakNode;
+import org.openjdk.nashorn.internal.ir.BreakNode;
 
 /**
  * An interface that is implemented by ParserContextNodes that can

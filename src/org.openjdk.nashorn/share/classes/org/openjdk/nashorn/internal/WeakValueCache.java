@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal;
+package org.openjdk.nashorn.internal;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

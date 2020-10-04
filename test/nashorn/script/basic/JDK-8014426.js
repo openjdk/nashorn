@@ -29,7 +29,7 @@
  */
 
 function runScriptEngine() {
-    var fac    = new Packages.jdk.nashorn.api.scripting.NashornScriptEngineFactory();
+    var fac    = new Packages.org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory();
     var engine = fac.getScriptEngine();
     engine.eval(
 "try {\n\

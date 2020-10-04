@@ -28,7 +28,7 @@
  * @run
  */
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
 var constAsVarParser = Parser.create("--const-as-var");
 var parser = Parser.create();
 

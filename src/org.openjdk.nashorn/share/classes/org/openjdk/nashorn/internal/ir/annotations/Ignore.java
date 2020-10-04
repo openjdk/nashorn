@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir.annotations;
+package org.openjdk.nashorn.internal.ir.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import jdk.nashorn.internal.ir.debug.ASTWriter;
+import org.openjdk.nashorn.internal.ir.debug.ASTWriter;
 
 /**
  * This signifies a node that should be ignored in traversal, for example
@@ -35,7 +35,7 @@ import jdk.nashorn.internal.ir.debug.ASTWriter;
  * has no actual IR representations, but yet reside in the node.
  *
  * @see ASTWriter
- * @see jdk.nashorn.internal.ir.Node
+ * @see org.openjdk.nashorn.internal.ir.Node
  */
 @Retention(value=RetentionPolicy.RUNTIME)
 public @interface Ignore {

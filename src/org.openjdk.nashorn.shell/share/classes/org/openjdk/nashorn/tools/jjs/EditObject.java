@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.tools.jjs;
+package org.openjdk.nashorn.tools.jjs;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.ServiceLoader;
-import jdk.nashorn.api.scripting.AbstractJSObject;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
 import jdk.internal.editor.spi.BuildInEditorProvider;
-import jdk.nashorn.internal.runtime.JSType;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 /*
  * "edit" top level script function which shows an external Window

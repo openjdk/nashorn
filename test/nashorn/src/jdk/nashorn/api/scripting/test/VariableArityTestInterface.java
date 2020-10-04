@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 @SuppressWarnings("javadoc")
 public interface VariableArityTestInterface {

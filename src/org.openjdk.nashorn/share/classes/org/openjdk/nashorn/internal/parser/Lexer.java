@@ -23,44 +23,44 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
-import static jdk.nashorn.internal.parser.TokenType.ADD;
-import static jdk.nashorn.internal.parser.TokenType.BINARY_NUMBER;
-import static jdk.nashorn.internal.parser.TokenType.COMMENT;
-import static jdk.nashorn.internal.parser.TokenType.DECIMAL;
-import static jdk.nashorn.internal.parser.TokenType.DIRECTIVE_COMMENT;
-import static jdk.nashorn.internal.parser.TokenType.EOF;
-import static jdk.nashorn.internal.parser.TokenType.EOL;
-import static jdk.nashorn.internal.parser.TokenType.ERROR;
-import static jdk.nashorn.internal.parser.TokenType.ESCSTRING;
-import static jdk.nashorn.internal.parser.TokenType.EXECSTRING;
-import static jdk.nashorn.internal.parser.TokenType.FLOATING;
-import static jdk.nashorn.internal.parser.TokenType.FUNCTION;
-import static jdk.nashorn.internal.parser.TokenType.HEXADECIMAL;
-import static jdk.nashorn.internal.parser.TokenType.LBRACE;
-import static jdk.nashorn.internal.parser.TokenType.LPAREN;
-import static jdk.nashorn.internal.parser.TokenType.OCTAL;
-import static jdk.nashorn.internal.parser.TokenType.OCTAL_LEGACY;
-import static jdk.nashorn.internal.parser.TokenType.RBRACE;
-import static jdk.nashorn.internal.parser.TokenType.REGEX;
-import static jdk.nashorn.internal.parser.TokenType.RPAREN;
-import static jdk.nashorn.internal.parser.TokenType.STRING;
-import static jdk.nashorn.internal.parser.TokenType.TEMPLATE;
-import static jdk.nashorn.internal.parser.TokenType.TEMPLATE_HEAD;
-import static jdk.nashorn.internal.parser.TokenType.TEMPLATE_MIDDLE;
-import static jdk.nashorn.internal.parser.TokenType.TEMPLATE_TAIL;
-import static jdk.nashorn.internal.parser.TokenType.XML;
+import static org.openjdk.nashorn.internal.parser.TokenType.ADD;
+import static org.openjdk.nashorn.internal.parser.TokenType.BINARY_NUMBER;
+import static org.openjdk.nashorn.internal.parser.TokenType.COMMENT;
+import static org.openjdk.nashorn.internal.parser.TokenType.DECIMAL;
+import static org.openjdk.nashorn.internal.parser.TokenType.DIRECTIVE_COMMENT;
+import static org.openjdk.nashorn.internal.parser.TokenType.EOF;
+import static org.openjdk.nashorn.internal.parser.TokenType.EOL;
+import static org.openjdk.nashorn.internal.parser.TokenType.ERROR;
+import static org.openjdk.nashorn.internal.parser.TokenType.ESCSTRING;
+import static org.openjdk.nashorn.internal.parser.TokenType.EXECSTRING;
+import static org.openjdk.nashorn.internal.parser.TokenType.FLOATING;
+import static org.openjdk.nashorn.internal.parser.TokenType.FUNCTION;
+import static org.openjdk.nashorn.internal.parser.TokenType.HEXADECIMAL;
+import static org.openjdk.nashorn.internal.parser.TokenType.LBRACE;
+import static org.openjdk.nashorn.internal.parser.TokenType.LPAREN;
+import static org.openjdk.nashorn.internal.parser.TokenType.OCTAL;
+import static org.openjdk.nashorn.internal.parser.TokenType.OCTAL_LEGACY;
+import static org.openjdk.nashorn.internal.parser.TokenType.RBRACE;
+import static org.openjdk.nashorn.internal.parser.TokenType.REGEX;
+import static org.openjdk.nashorn.internal.parser.TokenType.RPAREN;
+import static org.openjdk.nashorn.internal.parser.TokenType.STRING;
+import static org.openjdk.nashorn.internal.parser.TokenType.TEMPLATE;
+import static org.openjdk.nashorn.internal.parser.TokenType.TEMPLATE_HEAD;
+import static org.openjdk.nashorn.internal.parser.TokenType.TEMPLATE_MIDDLE;
+import static org.openjdk.nashorn.internal.parser.TokenType.TEMPLATE_TAIL;
+import static org.openjdk.nashorn.internal.parser.TokenType.XML;
 
 import java.io.Serializable;
 
-import jdk.nashorn.internal.runtime.ECMAErrors;
-import jdk.nashorn.internal.runtime.ErrorManager;
-import jdk.nashorn.internal.runtime.JSErrorType;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.ParserException;
-import jdk.nashorn.internal.runtime.Source;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.runtime.ECMAErrors;
+import org.openjdk.nashorn.internal.runtime.ErrorManager;
+import org.openjdk.nashorn.internal.runtime.JSErrorType;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.Source;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * Responsible for converting source content into a stream of tokens.

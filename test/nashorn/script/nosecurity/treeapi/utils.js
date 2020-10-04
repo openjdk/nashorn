@@ -26,11 +26,11 @@
  * @subtest
  */
 
-var parser = Java.type('jdk.nashorn.api.tree.Parser');
-var tree = Java.type('jdk.nashorn.api.tree.Tree');
+var parser = Java.type('org.openjdk.nashorn.api.tree.Parser');
+var tree = Java.type('org.openjdk.nashorn.api.tree.Tree');
 var list = Java.type('java.util.List');
-var visitor = Java.type('jdk.nashorn.api.tree.SimpleTreeVisitorES5_1');
-var visitor_es6 = Java.type('jdk.nashorn.api.tree.SimpleTreeVisitorES6');
+var visitor = Java.type('org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1');
+var visitor_es6 = Java.type('org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6');
 var file = Java.type('java.io.File')
 var cls = Java.type('java.lang.Class')
 

@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.runtime.JSType.isString;
+import static org.openjdk.nashorn.internal.runtime.JSType.isString;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

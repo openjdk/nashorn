@@ -23,11 +23,11 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.ECMAErrors.typeError;
-import static jdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
+import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,8 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
-import jdk.nashorn.internal.objects.NativeArray;
-import static jdk.nashorn.internal.runtime.ECMAErrors.rangeError;
+import org.openjdk.nashorn.internal.objects.NativeArray;
+import static org.openjdk.nashorn.internal.runtime.ECMAErrors.rangeError;
 
 /**
  * Global functions supported only in scripting mode.

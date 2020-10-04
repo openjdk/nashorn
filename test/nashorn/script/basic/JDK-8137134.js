@@ -28,7 +28,7 @@
  * @run
  */
 
-var B = Java.type("jdk.nashorn.test.models.B");
+var B = Java.type("org.openjdk.nashorn.test.models.B");
 var b1 = new B() {}
 print(b1.a());
 print(b1.b());

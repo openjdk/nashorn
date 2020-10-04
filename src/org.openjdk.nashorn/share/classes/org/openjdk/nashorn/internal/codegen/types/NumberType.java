@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen.types;
+package org.openjdk.nashorn.internal.codegen.types;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.DADD;
 import static jdk.internal.org.objectweb.asm.Opcodes.DCMPG;
@@ -38,12 +38,12 @@ import static jdk.internal.org.objectweb.asm.Opcodes.DREM;
 import static jdk.internal.org.objectweb.asm.Opcodes.DRETURN;
 import static jdk.internal.org.objectweb.asm.Opcodes.DSTORE;
 import static jdk.internal.org.objectweb.asm.Opcodes.DSUB;
-import static jdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
-import static jdk.nashorn.internal.runtime.JSType.UNDEFINED_DOUBLE;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
+import static org.openjdk.nashorn.internal.runtime.JSType.UNDEFINED_DOUBLE;
 
 import jdk.internal.org.objectweb.asm.MethodVisitor;
-import jdk.nashorn.internal.codegen.CompilerConstants;
-import jdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.codegen.CompilerConstants;
+import org.openjdk.nashorn.internal.runtime.JSType;
 
 class NumberType extends NumericType {
     private static final long serialVersionUID = 1L;

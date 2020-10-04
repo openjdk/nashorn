@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -40,9 +40,9 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.api.scripting.URLReader;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.openjdk.nashorn.api.scripting.URLReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -845,7 +845,7 @@ public class ScopeTest {
         boolean ret;
 
         // Why 16 is the upper limit of this loop? The default nashorn dynalink megamorphic threshold is 16.
-        // See jdk.nashorn.internal.runtime.linker.Bootstrap.NASHORN_DEFAULT_UNSTABLE_RELINK_THRESHOLD
+        // See org.openjdk.nashorn.internal.runtime.linker.Bootstrap.NASHORN_DEFAULT_UNSTABLE_RELINK_THRESHOLD
         // We do, 'eval' of the same in this loop twice. So, 16*2 = 32 times that callsite in the script
         // is exercised - much beyond the default megamorphic threshold.
 

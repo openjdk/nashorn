@@ -22,11 +22,11 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
-import static jdk.nashorn.internal.lookup.Lookup.MH;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
-import static jdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
+import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
+import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.isValid;
 
 import java.lang.invoke.CallSite;
 import java.lang.invoke.MethodHandle;
@@ -44,16 +44,16 @@ import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import jdk.dynalink.linker.GuardedInvocation;
-import jdk.nashorn.internal.codegen.Compiler;
-import jdk.nashorn.internal.codegen.Compiler.CompilationPhases;
-import jdk.nashorn.internal.codegen.TypeMap;
-import jdk.nashorn.internal.codegen.types.ArrayType;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.FunctionNode;
-import jdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
-import jdk.nashorn.internal.runtime.events.RecompilationEvent;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
-import jdk.nashorn.internal.runtime.logging.DebugLogger;
+import org.openjdk.nashorn.internal.codegen.Compiler;
+import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
+import org.openjdk.nashorn.internal.codegen.TypeMap;
+import org.openjdk.nashorn.internal.codegen.types.ArrayType;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.objects.annotations.SpecializedFunction.LinkLogic;
+import org.openjdk.nashorn.internal.runtime.events.RecompilationEvent;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
 
 /**
  * An version of a JavaScript function, native or JavaScript.

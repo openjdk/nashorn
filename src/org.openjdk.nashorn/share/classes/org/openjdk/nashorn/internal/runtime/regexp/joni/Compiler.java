@@ -17,20 +17,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import jdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.Node;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.AnchorNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.EncloseNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.Node;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.QuantifierNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.NodeType;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
 
 abstract class Compiler implements ErrorMessages {
     protected final Analyser analyser;

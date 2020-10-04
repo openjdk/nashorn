@@ -30,7 +30,7 @@
 //
 // Copyright 2006-2008 the V8 project authors. All rights reserved.
 
-package jdk.nashorn.internal.runtime.doubleconv.test;
+package org.openjdk.nashorn.internal.runtime.doubleconv.test;
 
 import org.testng.annotations.Test;
 
@@ -44,8 +44,8 @@ import static org.testng.Assert.assertTrue;
  * IeeeDouble tests
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
- * @run testng jdk.nashorn.internal.runtime.doubleconv.test.IeeeDoubleTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.doubleconv:open
+ * @run testng org.openjdk.nashorn.internal.runtime.doubleconv.test.IeeeDoubleTest
  */
 @SuppressWarnings({"unchecked", "javadoc"})
 public class IeeeDoubleTest {
@@ -71,8 +71,8 @@ public class IeeeDoubleTest {
 
     static {
         try {
-            final Class<?> IeeeDouble = Class.forName("jdk.nashorn.internal.runtime.doubleconv.IeeeDouble");
-            final Class DiyFp = Class.forName("jdk.nashorn.internal.runtime.doubleconv.DiyFp");
+            final Class<?> IeeeDouble = Class.forName("org.openjdk.nashorn.internal.runtime.doubleconv.IeeeDouble");
+            final Class DiyFp = Class.forName("org.openjdk.nashorn.internal.runtime.doubleconv.DiyFp");
             asDiyFp = method(IeeeDouble, "asDiyFp", long.class);
             asNormalizedDiyFp = method(IeeeDouble, "asNormalizedDiyFp", long.class);
             doubleToLong = method(IeeeDouble, "doubleToLong", double.class);

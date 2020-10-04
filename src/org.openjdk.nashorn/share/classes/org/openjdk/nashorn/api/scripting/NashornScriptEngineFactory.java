@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting;
+package org.openjdk.nashorn.api.scripting;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.Version;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.Version;
 
 /**
  * JSR-223 compliant script engine factory for Nashorn. The engine answers for:

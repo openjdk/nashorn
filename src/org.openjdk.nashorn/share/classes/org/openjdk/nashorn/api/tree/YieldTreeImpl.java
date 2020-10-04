@@ -22,11 +22,11 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.Expression;
-import jdk.nashorn.internal.ir.UnaryNode;
-import jdk.nashorn.internal.parser.TokenType;
+import org.openjdk.nashorn.internal.ir.Expression;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.parser.TokenType;
 
 final class YieldTreeImpl extends ExpressionTreeImpl
         implements YieldTree {

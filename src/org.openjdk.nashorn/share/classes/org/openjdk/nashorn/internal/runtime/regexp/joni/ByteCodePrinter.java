@@ -17,13 +17,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import jdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.Arguments;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPSize;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.ast.CClassNode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.Arguments;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.constants.OPSize;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.InternalException;
 
 class ByteCodePrinter {
     final int[] code;

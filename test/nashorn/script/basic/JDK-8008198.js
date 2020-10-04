@@ -22,7 +22,7 @@
  */
 
 /**
- * JDK-8008198 : java.lang.AssertionError: Invalid break target class jdk.nashorn.internal.ir.TryNode
+ * JDK-8008198 : java.lang.AssertionError: Invalid break target class org.openjdk.nashorn.internal.ir.TryNode
  *
  * @test
  * @run

@@ -17,10 +17,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jdk.nashorn.internal.runtime.regexp.joni;
+package org.openjdk.nashorn.internal.runtime.regexp.joni;
 
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.encoding.IntHolder;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.exception.ErrorMessages;
 
 abstract class ScannerSupport extends IntHolder implements ErrorMessages {
 

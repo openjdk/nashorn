@@ -23,9 +23,9 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
-import jdk.nashorn.internal.ir.ThrowNode;
+import org.openjdk.nashorn.internal.ir.ThrowNode;
 
 final class ThrowTreeImpl extends StatementTreeImpl implements ThrowTree {
     private final ExpressionTree expr;

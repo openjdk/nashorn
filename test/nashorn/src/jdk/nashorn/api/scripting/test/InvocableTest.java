@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
@@ -42,8 +42,8 @@ import org.testng.annotations.Test;
  * Tests for javax.script.Invocable implementation of nashorn.
  *
  * @test
- * @build jdk.nashorn.api.scripting.test.VariableArityTestInterface jdk.nashorn.api.scripting.test.InvocableTest
- * @run testng jdk.nashorn.api.scripting.test.InvocableTest
+ * @build org.openjdk.nashorn.api.scripting.test.VariableArityTestInterface org.openjdk.nashorn.api.scripting.test.InvocableTest
+ * @run testng org.openjdk.nashorn.api.scripting.test.InvocableTest
  */
 @SuppressWarnings("javadoc")
 public class InvocableTest {

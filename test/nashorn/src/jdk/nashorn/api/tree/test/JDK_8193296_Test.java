@@ -22,14 +22,14 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.api.tree.test;
+package org.openjdk.nashorn.api.tree.test;
 
-import jdk.nashorn.api.tree.CompilationUnitTree;
-import jdk.nashorn.api.tree.ExpressionStatementTree;
-import jdk.nashorn.api.tree.FunctionCallTree;
-import jdk.nashorn.api.tree.Parser;
-import jdk.nashorn.api.tree.Tree;
-import jdk.nashorn.api.tree.UnaryTree;
+import org.openjdk.nashorn.api.tree.CompilationUnitTree;
+import org.openjdk.nashorn.api.tree.ExpressionStatementTree;
+import org.openjdk.nashorn.api.tree.FunctionCallTree;
+import org.openjdk.nashorn.api.tree.Parser;
+import org.openjdk.nashorn.api.tree.Tree;
+import org.openjdk.nashorn.api.tree.UnaryTree;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,7 +37,7 @@ import org.testng.annotations.Test;
  * @test
  * @bug 8184723
  * @summary Parser should not eagerly transform delete expressions
- * @run testng jdk.nashorn.api.tree.test.JDK_8193296_Test
+ * @run testng org.openjdk.nashorn.api.tree.test.JDK_8193296_Test
  */
 public class JDK_8193296_Test {
     @Test

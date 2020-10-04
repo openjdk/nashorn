@@ -23,10 +23,10 @@
  * questions.
  */
 
-package jdk.nashorn.api.tree;
+package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import jdk.nashorn.internal.ir.SwitchNode;
+import org.openjdk.nashorn.internal.ir.SwitchNode;
 
 final class SwitchTreeImpl extends StatementTreeImpl implements SwitchTree {
     private final ExpressionTree expr;

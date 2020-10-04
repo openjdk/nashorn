@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.tools.nasgen;
+package org.openjdk.nashorn.internal.tools.nasgen;
 
 import static jdk.internal.org.objectweb.asm.Opcodes.ACC_FINAL;
 import static jdk.internal.org.objectweb.asm.Opcodes.ACC_PRIVATE;
@@ -31,42 +31,42 @@ import static jdk.internal.org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static jdk.internal.org.objectweb.asm.Opcodes.ACC_STATIC;
 import static jdk.internal.org.objectweb.asm.Opcodes.H_INVOKESTATIC;
 import static jdk.internal.org.objectweb.asm.Opcodes.H_INVOKEVIRTUAL;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_CREATE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_CREATE_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.ARRAYLIST_INIT_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.ARRAYLIST_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.CLINIT;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTIONS_EMPTY_LIST;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTIONS_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_ADD;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_ADD_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.DEFAULT_INIT_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.GETTER_PREFIX;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.GET_CLASS_NAME;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.GET_CLASS_NAME_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.INIT;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.LIST_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.NATIVESYMBOL_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_FIELD_NAME;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_NEWMAP;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_NEWMAP_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN_SPECS_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETARITY;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETARITY_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETDOCUMENTATIONKEY;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETDOCUMENTATIONKEY_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_TYPE;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SETTER_PREFIX;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SYMBOL_DESC;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.SYMBOL_PREFIX;
-import static jdk.nashorn.internal.tools.nasgen.StringConstants.TYPE_OBJECT;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_CREATE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_CREATE_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.ACCESSORPROPERTY_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.ARRAYLIST_INIT_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.ARRAYLIST_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.CLINIT;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTIONS_EMPTY_LIST;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTIONS_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_ADD;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_ADD_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.COLLECTION_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.DEFAULT_INIT_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.GETTER_PREFIX;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.GET_CLASS_NAME;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.GET_CLASS_NAME_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.INIT;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.LIST_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.NATIVESYMBOL_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.OBJECT_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_FIELD_NAME;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_NEWMAP;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_NEWMAP_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.PROPERTYMAP_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_CREATEBUILTIN_SPECS_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETARITY;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETARITY_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETDOCUMENTATIONKEY;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_SETDOCUMENTATIONKEY_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SCRIPTFUNCTION_TYPE;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SETTER_PREFIX;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SYMBOL_DESC;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.SYMBOL_PREFIX;
+import static org.openjdk.nashorn.internal.tools.nasgen.StringConstants.TYPE_OBJECT;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -79,7 +79,7 @@ import jdk.internal.org.objectweb.asm.FieldVisitor;
 import jdk.internal.org.objectweb.asm.Handle;
 import jdk.internal.org.objectweb.asm.MethodVisitor;
 import jdk.internal.org.objectweb.asm.Type;
-import jdk.nashorn.internal.tools.nasgen.MemberInfo.Kind;
+import org.openjdk.nashorn.internal.tools.nasgen.MemberInfo.Kind;
 
 /**
  * Base class for class generator classes.

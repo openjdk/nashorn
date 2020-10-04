@@ -28,7 +28,7 @@
  * @run
  */
 
-var PropertyBind = Java.type("jdk.nashorn.test.models.PropertyBind")
+var PropertyBind = Java.type("org.openjdk.nashorn.test.models.PropertyBind")
 var bean = new PropertyBind
 
 var obj1 = {}

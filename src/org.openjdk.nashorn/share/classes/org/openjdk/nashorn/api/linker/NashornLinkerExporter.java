@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.api.linker;
+package org.openjdk.nashorn.api.linker;
 
 import java.util.List;
 import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.GuardingDynamicLinkerExporter;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
+import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 
 /**
  * This linker exporter is a service provider that exports Nashorn Dynalink

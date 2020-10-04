@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.models;
+package org.openjdk.nashorn.internal.test.models;
 
 /**
  * Acts as a restricted interface implemented by a restricted class.

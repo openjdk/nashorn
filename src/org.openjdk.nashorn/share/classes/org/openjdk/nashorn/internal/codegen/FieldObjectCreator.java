@@ -23,25 +23,25 @@
  * questions.
  */
 
-package jdk.nashorn.internal.codegen;
+package org.openjdk.nashorn.internal.codegen;
 
-import static jdk.nashorn.internal.codegen.CompilerConstants.ARGUMENTS;
-import static jdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
-import static jdk.nashorn.internal.codegen.CompilerConstants.typeDescriptor;
-import static jdk.nashorn.internal.codegen.ObjectClassGenerator.PRIMITIVE_FIELD_TYPE;
-import static jdk.nashorn.internal.codegen.ObjectClassGenerator.getFieldName;
-import static jdk.nashorn.internal.codegen.ObjectClassGenerator.getPaddedFieldCount;
-import static jdk.nashorn.internal.runtime.arrays.ArrayIndex.getArrayIndex;
-import static jdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.ARGUMENTS;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
+import static org.openjdk.nashorn.internal.codegen.CompilerConstants.typeDescriptor;
+import static org.openjdk.nashorn.internal.codegen.ObjectClassGenerator.PRIMITIVE_FIELD_TYPE;
+import static org.openjdk.nashorn.internal.codegen.ObjectClassGenerator.getFieldName;
+import static org.openjdk.nashorn.internal.codegen.ObjectClassGenerator.getPaddedFieldCount;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex.getArrayIndex;
+import static org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex.isValidArrayIndex;
 
 import java.util.List;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.Symbol;
-import jdk.nashorn.internal.runtime.Context;
-import jdk.nashorn.internal.runtime.JSType;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.Symbol;
+import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.JSType;
+import org.openjdk.nashorn.internal.runtime.PropertyMap;
+import org.openjdk.nashorn.internal.runtime.ScriptObject;
+import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
 
 /**
  * Analyze an object's characteristics for appropriate code generation. This
@@ -49,7 +49,7 @@ import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
  * to assign to the various fields in the object. This is done by the generated code
  *
  * @param <T> the value type for the fields being written on object creation, e.g. Node
- * @see jdk.nashorn.internal.ir.Node
+ * @see org.openjdk.nashorn.internal.ir.Node
  */
 public abstract class FieldObjectCreator<T> extends ObjectCreator<T> {
 

@@ -22,12 +22,12 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.codegen.types.Type;
 
 /**
  * This exception is thrown from an optimistic operation, e.g. an integer add,

@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.nashorn.internal.runtime.test;
+package org.openjdk.nashorn.internal.runtime.test;
 
 import static org.testng.Assert.fail;
 import java.io.ByteArrayOutputStream;
@@ -34,7 +34,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleScriptContext;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -43,7 +43,7 @@ import org.testng.annotations.Test;
  * @test
  * @bug 8037378
  * @summary Sanity tests for no persistence caching
- * @run testng/othervm jdk.nashorn.internal.runtime.test.NoPersistenceCachingTest
+ * @run testng/othervm org.openjdk.nashorn.internal.runtime.test.NoPersistenceCachingTest
  */
 @SuppressWarnings("javadoc")
 public class NoPersistenceCachingTest {

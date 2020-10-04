@@ -23,17 +23,17 @@
  * questions.
  */
 
-package jdk.nashorn.internal.parser;
+package org.openjdk.nashorn.internal.parser;
 
-import static jdk.nashorn.internal.parser.TokenKind.BINARY;
-import static jdk.nashorn.internal.parser.TokenKind.BRACKET;
-import static jdk.nashorn.internal.parser.TokenKind.FUTURE;
-import static jdk.nashorn.internal.parser.TokenKind.FUTURESTRICT;
-import static jdk.nashorn.internal.parser.TokenKind.IR;
-import static jdk.nashorn.internal.parser.TokenKind.KEYWORD;
-import static jdk.nashorn.internal.parser.TokenKind.LITERAL;
-import static jdk.nashorn.internal.parser.TokenKind.SPECIAL;
-import static jdk.nashorn.internal.parser.TokenKind.UNARY;
+import static org.openjdk.nashorn.internal.parser.TokenKind.BINARY;
+import static org.openjdk.nashorn.internal.parser.TokenKind.BRACKET;
+import static org.openjdk.nashorn.internal.parser.TokenKind.FUTURE;
+import static org.openjdk.nashorn.internal.parser.TokenKind.FUTURESTRICT;
+import static org.openjdk.nashorn.internal.parser.TokenKind.IR;
+import static org.openjdk.nashorn.internal.parser.TokenKind.KEYWORD;
+import static org.openjdk.nashorn.internal.parser.TokenKind.LITERAL;
+import static org.openjdk.nashorn.internal.parser.TokenKind.SPECIAL;
+import static org.openjdk.nashorn.internal.parser.TokenKind.UNARY;
 
 import java.util.Locale;
 

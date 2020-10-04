@@ -55,7 +55,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package jdk.nashorn.internal.runtime.doubleconv.test;
+package org.openjdk.nashorn.internal.runtime.doubleconv.test;
 
 import org.testng.annotations.Test;
 
@@ -69,8 +69,8 @@ import static org.testng.Assert.assertTrue;
  * Bignum class tests
  *
  * @test
- * @modules org.openjdk.nashorn/jdk.nashorn.internal.runtime.doubleconv:open
- * @run testng jdk.nashorn.internal.runtime.doubleconv.test.BignumTest
+ * @modules org.openjdk.nashorn/org.openjdk.nashorn.internal.runtime.doubleconv:open
+ * @run testng org.openjdk.nashorn.internal.runtime.doubleconv.test.BignumTest
  */
 @SuppressWarnings("javadoc")
 public class BignumTest {
@@ -80,7 +80,7 @@ public class BignumTest {
 
     static {
         try {
-            Bignum = Class.forName("jdk.nashorn.internal.runtime.doubleconv.Bignum");
+            Bignum = Class.forName("org.openjdk.nashorn.internal.runtime.doubleconv.Bignum");
             ctor = Bignum.getDeclaredConstructor();
             ctor.setAccessible(true);
         } catch (final Exception e) {

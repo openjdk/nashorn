@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.test.framework;
+package org.openjdk.nashorn.internal.test.framework;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -42,7 +42,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import jdk.nashorn.tools.Shell;
+import org.openjdk.nashorn.tools.Shell;
 import org.testng.Assert;
 import org.testng.ITest;
 import org.testng.annotations.Test;

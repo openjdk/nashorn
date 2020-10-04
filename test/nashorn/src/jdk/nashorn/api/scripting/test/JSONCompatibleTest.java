@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.api.scripting.test;
+package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -33,15 +33,15 @@ import java.util.List;
 import java.util.Map;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.JSObject;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
  * @test
- * @run testng jdk.nashorn.api.scripting.test.JSONCompatibleTest
+ * @run testng org.openjdk.nashorn.api.scripting.test.JSONCompatibleTest
  */
 public class JSONCompatibleTest {
 

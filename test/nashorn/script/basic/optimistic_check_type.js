@@ -29,7 +29,7 @@
  * @run
  */
 
-var inspect = Java.type("jdk.nashorn.test.tools.StaticTypeInspector").inspect
+var inspect = Java.type("org.openjdk.nashorn.test.tools.StaticTypeInspector").inspect
 var a=3, b=2.3, c=true, d;
 var x = { a: 2, b:0, c:undefined}
 var trees = new Array("redwood", "bay", "cedar", "oak");

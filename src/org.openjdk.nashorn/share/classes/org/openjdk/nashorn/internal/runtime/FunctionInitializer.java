@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime;
+package org.openjdk.nashorn.internal.runtime;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,10 +31,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.invoke.MethodType;
 import java.util.Map;
-import jdk.nashorn.internal.codegen.CompileUnit;
-import jdk.nashorn.internal.codegen.FunctionSignature;
-import jdk.nashorn.internal.codegen.types.Type;
-import jdk.nashorn.internal.ir.FunctionNode;
+import org.openjdk.nashorn.internal.codegen.CompileUnit;
+import org.openjdk.nashorn.internal.codegen.FunctionSignature;
+import org.openjdk.nashorn.internal.codegen.types.Type;
+import org.openjdk.nashorn.internal.ir.FunctionNode;
 
 /**
  * Class that contains information allowing us to look up a method handle implementing a JavaScript function

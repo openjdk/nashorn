@@ -34,7 +34,7 @@ import com.sun.jdi.*;
 import com.sun.jdi.event.*;
 import com.sun.jdi.request.*;
 
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import javax.script.*;
 
 import java.io.PrintStream;
@@ -44,7 +44,7 @@ import java.io.PrintStream;
 
 // The debugger  tries to set a breakpoint in Nashorn internal DEBUGGER method.
 // When the breakpoint is reached, it looks for stack frame whose method's
-// declaring type name starts with jdk.nashorn.internal.scripts.Script$.
+// declaring type name starts with org.openjdk.nashorn.internal.scripts.Script$.
 // (nashorn dynamically generated classes)
 // It then pops stack frames using the ThreadReference.popFrames() call, up to
 // and including the above stackframe.
@@ -211,12 +211,12 @@ public class NashornPopFrameTest extends TestScaffold {
     }
 
     // Find stack frame whose method's declaring type name starts with
-    // jdk.nashorn.internal.scripts.Script$ and return that frame
+    // org.openjdk.nashorn.internal.scripts.Script$ and return that frame
     private static StackFrame findScriptFrame(ThreadReference t) throws IncompatibleThreadStateException {
         for (int i = 0; i < t.frameCount(); i++) {
             StackFrame sf = t.frame(i);
             String typeName = sf.location().method().declaringType().name();
-            if (typeName.startsWith("jdk.nashorn.internal.scripts.Script$")) {
+            if (typeName.startsWith("org.openjdk.nashorn.internal.scripts.Script$")) {
                 out.println("Agent: in findScriptFrame: TypeName = " + typeName);
                 return sf;
             }

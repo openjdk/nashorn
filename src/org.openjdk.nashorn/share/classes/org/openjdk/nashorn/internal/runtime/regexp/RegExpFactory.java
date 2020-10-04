@@ -23,13 +23,13 @@
  * questions.
  */
 
-package jdk.nashorn.internal.runtime.regexp;
+package org.openjdk.nashorn.internal.runtime.regexp;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
-import jdk.nashorn.internal.runtime.ParserException;
-import jdk.nashorn.internal.runtime.options.Options;
+import org.openjdk.nashorn.internal.runtime.ParserException;
+import org.openjdk.nashorn.internal.runtime.options.Options;
 
 /**
  * Factory class for regular expressions. This class creates instances of {@link JdkRegExp}.

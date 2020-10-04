@@ -29,7 +29,7 @@
  */
 
 
-var AbstractJSObject = Java.type("jdk.nashorn.api.scripting.AbstractJSObject");
+var AbstractJSObject = Java.type("org.openjdk.nashorn.api.scripting.AbstractJSObject");
 var JavaStringArray = Java.type("java.lang.String[]");
 var JavaArrayList = Java.type("java.util.ArrayList");
 

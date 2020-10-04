@@ -31,13 +31,13 @@
 
 var js1 = "var tuple = { func : function f(x) { if (x) { print('true'); { print('block_under-true'); } } else { print('false'); } } }";
 
-var Parser            = Java.type("jdk.nashorn.internal.parser.Parser");
-var ASTWriter         = Java.type("jdk.nashorn.internal.ir.debug.ASTWriter");
-var Context           = Java.type("jdk.nashorn.internal.runtime.Context");
-var ScriptEnvironment = Java.type("jdk.nashorn.internal.runtime.ScriptEnvironment");
-var Source            = Java.type("jdk.nashorn.internal.runtime.Source");
-var FunctionNode      = Java.type("jdk.nashorn.internal.ir.FunctionNode");
-var ThrowErrorManager = Java.type("jdk.nashorn.internal.runtime.Context$ThrowErrorManager");
+var Parser            = Java.type("org.openjdk.nashorn.internal.parser.Parser");
+var ASTWriter         = Java.type("org.openjdk.nashorn.internal.ir.debug.ASTWriter");
+var Context           = Java.type("org.openjdk.nashorn.internal.runtime.Context");
+var ScriptEnvironment = Java.type("org.openjdk.nashorn.internal.runtime.ScriptEnvironment");
+var Source            = Java.type("org.openjdk.nashorn.internal.runtime.Source");
+var FunctionNode      = Java.type("org.openjdk.nashorn.internal.ir.FunctionNode");
+var ThrowErrorManager = Java.type("org.openjdk.nashorn.internal.runtime.Context$ThrowErrorManager");
 var System            = Java.type("java.lang.System");
 
 var toArrayMethod = ASTWriter.class.getMethod("toArray");

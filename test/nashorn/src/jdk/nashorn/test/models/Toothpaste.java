@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.test.models;
+package org.openjdk.nashorn.test.models;
 
 @SuppressWarnings("javadoc")
 public abstract class Toothpaste {

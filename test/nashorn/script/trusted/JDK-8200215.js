@@ -28,7 +28,7 @@
  * @run
  */
 
-var NashornScriptEngineFactory = Java.type("jdk.nashorn.api.scripting.NashornScriptEngineFactory");
+var NashornScriptEngineFactory = Java.type("org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory");
 var factory = new NashornScriptEngineFactory();
 var engine = factory.getScriptEngine("-strict", "--language=es6");
 var bindings = engine.createBindings();

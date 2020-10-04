@@ -23,12 +23,12 @@
  * questions.
  */
 
-package jdk.nashorn.internal.ir.visitor;
+package org.openjdk.nashorn.internal.ir.visitor;
 
-import jdk.nashorn.internal.ir.BinaryNode;
-import jdk.nashorn.internal.ir.LexicalContext;
-import jdk.nashorn.internal.ir.Node;
-import jdk.nashorn.internal.ir.UnaryNode;
+import org.openjdk.nashorn.internal.ir.BinaryNode;
+import org.openjdk.nashorn.internal.ir.LexicalContext;
+import org.openjdk.nashorn.internal.ir.Node;
+import org.openjdk.nashorn.internal.ir.UnaryNode;
 
 /**
  * Like NodeVisitor but navigating further into operators.
