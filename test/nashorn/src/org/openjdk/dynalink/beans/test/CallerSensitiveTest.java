@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.dynalink.beans.test;
+package org.openjdk.dynalink.beans.test;
 
 import jdk.dynalink.beans.BeansLinker;
 import org.openjdk.nashorn.test.models.ClassLoaderAware;

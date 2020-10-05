@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.dynalink.test;
+package org.openjdk.dynalink.test;
 
 public class ArrayRunnableTest {
     private Runnable[] r;

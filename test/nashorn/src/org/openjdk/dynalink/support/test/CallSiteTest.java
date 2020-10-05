@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.dynalink.support.test;
+package org.openjdk.dynalink.support.test;
 
 import static jdk.dynalink.StandardNamespace.PROPERTY;
 import static jdk.dynalink.StandardOperation.GET;

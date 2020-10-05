@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package jdk.dynalink.test;
+package org.openjdk.dynalink.test;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;

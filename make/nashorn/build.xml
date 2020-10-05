@@ -342,13 +342,13 @@
       <fileset dir="${build.test.classes.dir}" includes="**/internal/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/test/tools/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/models/**"/>
-      <fileset dir="${build.test.classes.dir}" includes="**/jdk/dynalink/test/Trusted**"/>
+      <fileset dir="${build.test.classes.dir}" includes="**/org/openjdk/dynalink/test/Trusted**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/META-INF/**"/>
     </jar>
 
     <!-- tests that check nashorn script engine (jsr-223) API and dynalink API -->
     <jar jarfile="${nashorn.api.tests.jar}">
-      <fileset dir="${build.test.classes.dir}" includes="**/jdk/dynalink/**" excludes="**/jdk/dynalink/test/Trusted**"/>
+      <fileset dir="${build.test.classes.dir}" includes="**/org/openjdk/dynalink/**" excludes="**/org/openjdk/dynalink/test/Trusted**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/api/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/META-INF/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/resources/*.js"/>

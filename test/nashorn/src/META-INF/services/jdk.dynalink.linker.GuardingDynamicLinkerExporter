@@ -1,3 +1,3 @@
-jdk.dynalink.test.UntrustedGuardingDynamicLinkerExporter
-jdk.dynalink.test.TrustedGuardingDynamicLinkerExporter
-jdk.dynalink.test.TrustedUnderscoreNameLinkerExporter
+org.openjdk.dynalink.test.UntrustedGuardingDynamicLinkerExporter
+org.openjdk.dynalink.test.TrustedGuardingDynamicLinkerExporter
+org.openjdk.dynalink.test.TrustedUnderscoreNameLinkerExporter

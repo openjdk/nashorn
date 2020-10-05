@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.dynalink.linker.support.test;
+package org.openjdk.dynalink.linker.support.test;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

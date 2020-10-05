@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.dynalink.test;
+package org.openjdk.dynalink.test;
 
 import java.util.List;
 import jdk.dynalink.linker.GuardingDynamicLinker;

@@ -22,7 +22,7 @@
  * or visit www.oracle.com if you need additional information or have any
  * questions.
  */
-package jdk.dynalink.beans.test;
+package org.openjdk.dynalink.beans.test;
 
 import static jdk.dynalink.StandardNamespace.ELEMENT;
 import static jdk.dynalink.StandardNamespace.METHOD;
