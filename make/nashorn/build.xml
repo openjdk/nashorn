@@ -183,11 +183,7 @@
     <delete file="${basedir}/NashornProfile.txt"/>
   </target>
 
-  <target name="compile" depends="get-deps" description="Compiles nashorn">
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
+  <target name="compile-nashorn" depends="get-deps" description="Compiles nashorn">
     <javac srcdir="${nashorn.module.src.dir}"
            destdir="${nashorn.module.classes.dir}"
            debug="${javac.debug}"
@@ -199,25 +195,7 @@
       <compilerarg value="-Xdiags:verbose"/>
       <compilerarg value="-parameters"/>
     </javac>
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
-    <javac srcdir="${nashorn.shell.module.src.dir}"
-           destdir="${nashorn.shell.module.classes.dir}"
-           debug="${javac.debug}"
-           encoding="${javac.encoding}"
-           includeantruntime="false" fork="true">
-      <compilerarg value="-Xlint:all"/>
-      <compilerarg value="-XDignore.symbol.file"/>
-      <compilerarg value="-Xdiags:verbose"/>
-      <compilerarg value="-parameters"/>
-      <compilerarg line="${nashorn.override.option}"/>
-    </javac>
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
+
      <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/api/scripting/resources">
        <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/api/scripting/resources/"/>
     </copy>
@@ -228,16 +206,30 @@
        <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/tools/resources/"/>
     </copy>
     <copy file="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/codegen"/>
-    <copy todir="${nashorn.shell.module.classes.dir}/org/openjdk/nashorn/tools/jjs/resources">
-       <fileset dir="${nashorn.shell.module.src.dir}/org/openjdk/nashorn/tools/jjs/resources/"/>
-    </copy>
-
     <echo message="version_string=${nashorn.fullversion}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties"/>
     <echo file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
     <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
   </target>
+  
+  <target name="compile-shell" depends="jar-nashorn">  
+    <javac srcdir="${nashorn.shell.module.src.dir}"
+           destdir="${nashorn.shell.module.classes.dir}"
+           debug="${javac.debug}"
+           encoding="${javac.encoding}"
+           includeantruntime="false" fork="true">
+      <compilerarg value="-Xlint:all"/>
+      <compilerarg value="-XDignore.symbol.file"/>
+      <compilerarg value="-Xdiags:verbose"/>
+      <compilerarg value="-parameters"/>
+      <compilerarg line="--module-path ${dist.dir}"/>
+      <compilerarg line="${nashorn.shell.module.imports}"/>
+    </javac>
+    <copy todir="${nashorn.shell.module.classes.dir}/org/openjdk/nashorn/tools/jjs/resources">
+       <fileset dir="${nashorn.shell.module.src.dir}/org/openjdk/nashorn/tools/jjs/resources/"/>
+    </copy>
+  </target>
 
-  <target name="jar" depends="compile, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
+  <target name="jar-nashorn" depends="compile-nashorn, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
     <jar jarfile="${nashorn.jar}" index="true" filesetmanifest="merge">
       <fileset dir="${nashorn.module.classes.dir}"/>
       <manifest>
@@ -251,11 +243,16 @@
         </section>
       </manifest>
     </jar>
+  </target>
+  
+  <target name="jar-shell" depends="compile-shell">
     <jar jarfile="${jjs.jar}">
       <fileset dir="${nashorn.shell.module.classes.dir}"/>
     </jar>
   </target>
 
+  <target name="jar" depends="jar-nashorn, jar-shell"/>
+  
   <target name="use-promoted-nashorn" depends="init">
     <delete file="${dist.dir}/nashorn.jar"/>
     <copy file="${java.home}/lib/ext/nashorn.jar" todir="${dist.dir}"/>
@@ -306,7 +303,7 @@
           excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
   </target>
 
-  <target name="compile-test" depends="compile, run-nasgen" if="testng.available">
+  <target name="compile-test" depends="compile-nashorn, run-nasgen, compile-shell" if="testng.available">
     <!-- testng task -->
     <taskdef name="testng" classname="org.testng.TestNGAntTask"
         classpath="${testng.ant.classpath}"/>
