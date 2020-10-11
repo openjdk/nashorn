@@ -39,6 +39,5 @@ module org.openjdk.nashorn.shell {
     requires jdk.internal.le;
     requires org.openjdk.nashorn;
     requires jdk.internal.ed;
-    uses jdk.internal.editor.spi.BuildInEditorProvider;
 }
 
