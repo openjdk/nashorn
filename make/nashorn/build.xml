@@ -159,10 +159,10 @@
     <mkdir dir="${build.test.classes.dir}"/>
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${dist.javadoc.dir}"/>
+    <property name="dist.dir.resolved" location="${dist.dir}"/>
   </target>
   
   <target name="get-deps" depends="prepare">
-    <property name="deps.dir" location="${build.dir}/dependencies"/> 
     <property name="asm.version" value="7.3.1"/>
     <mkdir dir="${deps.dir}"/>
     <get dest="${deps.dir}" skipexisting="true">
@@ -263,13 +263,10 @@
   <target name="javadoc" depends="jar" unless="test.class">
     <javadoc destdir="${dist.javadoc.dir}" use="yes"
         windowtitle="${nashorn.product.name} ${nashorn.version}"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true"> 
-      <arg value="--patch-module"/>
-      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
+        additionalparam="-quiet" failonerror="true" useexternalfile="true"
+        sourcepath="${nashorn.module.src.dir}" modulenames="org.openjdk.nashorn"
+        modulepath="${deps.dir}">
       <arg value="${javadoc.option}"/>
-      <fileset dir="${nashorn.module.src.dir}" includes="**/*.java"/>
       <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
     </javadoc>
   </target>
@@ -303,7 +300,7 @@
           excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
   </target>
 
-  <target name="compile-test" depends="compile-nashorn, run-nasgen, compile-shell" if="testng.available">
+  <target name="compile-test" depends="jar" if="testng.available">
     <!-- testng task -->
     <taskdef name="testng" classname="org.testng.TestNGAntTask"
         classpath="${testng.ant.classpath}"/>
@@ -314,7 +311,8 @@
            debug="${javac.debug}"
            encoding="${javac.encoding}"
            includeantruntime="false" fork="true">
-        <compilerarg line="${nashorn.override.option}"/>
+        <compilerarg line="--module-path ${deps.dir}:${dist.dir.resolved}"/>   
+        <compilerarg line="--add-modules org.openjdk.nashorn"/>   
         <compilerarg value="-Xlint:unchecked"/>
         <compilerarg value="-Xlint:deprecation"/>
         <compilerarg value="-Xdiags:verbose"/>
@@ -370,9 +368,15 @@ package.access=sun.misc.,\
   </target>
 
   <target name="generate-policy-file" depends="prepare">
+    <property name="nashorn.jar.resolved" location="${nashorn.jar}"/>
+    <property name="jjs.jar.resolved" location="${jjs.jar}"/>
     <echo file="${build.dir}/nashorn.policy">
 
-grant codeBase "file:/${basedir}/${nashorn.module.classes.dir}" {
+grant codeBase "file:/${basedir}/${nashorn.jar}" {
+    permission java.security.AllPermission;
+};
+
+grant codeBase "file:/${basedir}/${jjs.jar}" {
     permission java.security.AllPermission;
 };
 
