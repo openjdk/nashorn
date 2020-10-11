@@ -5045,7 +5045,7 @@
     {
       "expression": {
         "expression": {
-          "endPosition": "1307",
+          "endPosition": "1315",
           "kind": "FUNCTION_INVOCATION",
           "functionSelect": {
             "identifier": "type",
@@ -5061,7 +5061,7 @@
           },
           "arguments": [
             {
-              "endPosition": "1305",
+              "endPosition": "1313",
               "kind": "STRING_LITERAL",
               "value": "org.openjdk.nashorn.api.tree.Diagnostic",
               "startPosition": "1274"
@@ -5069,7 +5069,7 @@
           ],
           "startPosition": "1263"
         },
-        "endPosition": "1307",
+        "endPosition": "1315",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "Diagnostic",
@@ -5085,482 +5085,482 @@
         },
         "startPosition": "1243"
       },
-      "endPosition": "1307",
+      "endPosition": "1315",
       "kind": "EXPRESSION_STATEMENT",
       "startPosition": "1243"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1392",
+          "endPosition": "1408",
           "kind": "FUNCTION_INVOCATION",
           "functionSelect": {
             "identifier": "type",
             "expression": {
-              "endPosition": "1340",
+              "endPosition": "1348",
               "kind": "IDENTIFIER",
               "name": "Java",
-              "startPosition": "1336"
+              "startPosition": "1344"
             },
-            "endPosition": "1345",
+            "endPosition": "1353",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1336"
+            "startPosition": "1344"
           },
           "arguments": [
             {
-              "endPosition": "1390",
+              "endPosition": "1406",
               "kind": "STRING_LITERAL",
               "value": "org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1",
-              "startPosition": "1347"
+              "startPosition": "1355"
             }
           ],
-          "startPosition": "1336"
+          "startPosition": "1344"
         },
-        "endPosition": "1392",
+        "endPosition": "1408",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "SimpleTreeVisitor",
           "expression": {
-            "endPosition": "1315",
+            "endPosition": "1323",
             "kind": "IDENTIFIER",
             "name": "Parser",
-            "startPosition": "1309"
+            "startPosition": "1317"
           },
-          "endPosition": "1333",
+          "endPosition": "1341",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1309"
+          "startPosition": "1317"
         },
-        "startPosition": "1309"
+        "startPosition": "1317"
       },
-      "endPosition": "1392",
+      "endPosition": "1408",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1309"
+      "startPosition": "1317"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1446",
+          "endPosition": "1470",
           "kind": "FUNCTION_INVOCATION",
           "functionSelect": {
             "identifier": "type",
             "expression": {
-              "endPosition": "1412",
+              "endPosition": "1428",
               "kind": "IDENTIFIER",
               "name": "Java",
-              "startPosition": "1408"
+              "startPosition": "1424"
             },
-            "endPosition": "1417",
+            "endPosition": "1433",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1408"
+            "startPosition": "1424"
           },
           "arguments": [
             {
-              "endPosition": "1444",
+              "endPosition": "1468",
               "kind": "STRING_LITERAL",
               "value": "org.openjdk.nashorn.api.tree.Tree",
-              "startPosition": "1419"
+              "startPosition": "1435"
             }
           ],
-          "startPosition": "1408"
+          "startPosition": "1424"
         },
-        "endPosition": "1446",
+        "endPosition": "1470",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "Tree",
           "expression": {
-            "endPosition": "1400",
+            "endPosition": "1416",
             "kind": "IDENTIFIER",
             "name": "Parser",
-            "startPosition": "1394"
+            "startPosition": "1410"
           },
-          "endPosition": "1405",
+          "endPosition": "1421",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1394"
+          "startPosition": "1410"
         },
-        "startPosition": "1394"
+        "startPosition": "1410"
       },
-      "endPosition": "1446",
+      "endPosition": "1470",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1394"
+      "startPosition": "1410"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1489",
+          "endPosition": "1513",
           "kind": "FUNCTION_INVOCATION",
           "functionSelect": {
             "identifier": "type",
             "expression": {
-              "endPosition": "1466",
+              "endPosition": "1490",
               "kind": "IDENTIFIER",
               "name": "Java",
-              "startPosition": "1462"
+              "startPosition": "1486"
             },
-            "endPosition": "1471",
+            "endPosition": "1495",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1462"
+            "startPosition": "1486"
           },
           "arguments": [
             {
-              "endPosition": "1487",
+              "endPosition": "1511",
               "kind": "STRING_LITERAL",
               "value": "java.util.List",
-              "startPosition": "1473"
+              "startPosition": "1497"
             }
           ],
-          "startPosition": "1462"
+          "startPosition": "1486"
         },
-        "endPosition": "1489",
+        "endPosition": "1513",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "List",
           "expression": {
-            "endPosition": "1454",
+            "endPosition": "1478",
             "kind": "IDENTIFIER",
             "name": "Parser",
-            "startPosition": "1448"
+            "startPosition": "1472"
           },
-          "endPosition": "1459",
+          "endPosition": "1483",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1448"
+          "startPosition": "1472"
         },
-        "startPosition": "1448"
+        "startPosition": "1472"
       },
-      "endPosition": "1489",
+      "endPosition": "1513",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1448"
+      "startPosition": "1472"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1532",
+          "endPosition": "1556",
           "kind": "FUNCTION_INVOCATION",
           "functionSelect": {
             "identifier": "type",
             "expression": {
-              "endPosition": "1509",
+              "endPosition": "1533",
               "kind": "IDENTIFIER",
               "name": "Java",
-              "startPosition": "1505"
+              "startPosition": "1529"
             },
-            "endPosition": "1514",
+            "endPosition": "1538",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1505"
+            "startPosition": "1529"
           },
           "arguments": [
             {
-              "endPosition": "1530",
+              "endPosition": "1554",
               "kind": "STRING_LITERAL",
               "value": "java.lang.Enum",
-              "startPosition": "1516"
+              "startPosition": "1540"
             }
           ],
-          "startPosition": "1505"
+          "startPosition": "1529"
         },
-        "endPosition": "1532",
+        "endPosition": "1556",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "Enum",
           "expression": {
-            "endPosition": "1497",
+            "endPosition": "1521",
             "kind": "IDENTIFIER",
             "name": "Parser",
-            "startPosition": "1491"
+            "startPosition": "1515"
           },
-          "endPosition": "1502",
+          "endPosition": "1526",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1491"
+          "startPosition": "1515"
         },
-        "startPosition": "1491"
+        "startPosition": "1515"
       },
-      "endPosition": "1532",
+      "endPosition": "1556",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1491"
+      "startPosition": "1515"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1659",
+          "endPosition": "1683",
           "kind": "FUNCTION_EXPRESSION",
           "body": {
-            "endPosition": "1805",
+            "endPosition": "1829",
             "kind": "BLOCK",
             "statements": [
               {
-                "endPosition": "1718",
+                "endPosition": "1742",
                 "kind": "VARIABLE",
                 "binding": {
-                  "endPosition": "1673",
+                  "endPosition": "1697",
                   "kind": "IDENTIFIER",
                   "name": "tree",
-                  "startPosition": "1669"
+                  "startPosition": "1693"
                 },
-                "startPosition": "1665",
+                "startPosition": "1689",
                 "initializer": {
-                  "endPosition": "1718",
+                  "endPosition": "1742",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "parse",
                     "expression": {
                       "identifier": "_parser",
                       "expression": {
-                        "endPosition": "1680",
+                        "endPosition": "1704",
                         "kind": "IDENTIFIER",
                         "this": "true",
                         "name": "this",
-                        "startPosition": "1676"
+                        "startPosition": "1700"
                       },
-                      "endPosition": "1688",
+                      "endPosition": "1712",
                       "kind": "MEMBER_SELECT",
-                      "startPosition": "1676"
+                      "startPosition": "1700"
                     },
-                    "endPosition": "1694",
+                    "endPosition": "1718",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "1676"
+                    "startPosition": "1700"
                   },
                   "arguments": [
                     {
-                      "endPosition": "1699",
+                      "endPosition": "1723",
                       "kind": "IDENTIFIER",
                       "name": "name",
-                      "startPosition": "1695"
+                      "startPosition": "1719"
                     },
                     {
-                      "endPosition": "1707",
+                      "endPosition": "1731",
                       "kind": "IDENTIFIER",
                       "name": "script",
-                      "startPosition": "1701"
+                      "startPosition": "1725"
                     },
                     {
-                      "endPosition": "1717",
+                      "endPosition": "1741",
                       "kind": "IDENTIFIER",
                       "name": "listener",
-                      "startPosition": "1709"
+                      "startPosition": "1733"
                     }
                   ],
-                  "startPosition": "1676"
+                  "startPosition": "1700"
                 }
               },
               {
                 "expression": {
-                  "endPosition": "1773",
+                  "endPosition": "1797",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "accept",
                     "expression": {
-                      "endPosition": "1728",
+                      "endPosition": "1752",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "1724"
+                      "startPosition": "1748"
                     },
-                    "endPosition": "1735",
+                    "endPosition": "1759",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "1724"
+                    "startPosition": "1748"
                   },
                   "arguments": [
                     {
                       "constructorExpression": {
-                        "endPosition": "1766",
+                        "endPosition": "1790",
                         "kind": "FUNCTION_INVOCATION",
                         "functionSelect": {
                           "identifier": "SimpleTreeVisitor",
                           "expression": {
-                            "endPosition": "1746",
+                            "endPosition": "1770",
                             "kind": "IDENTIFIER",
                             "name": "Parser",
-                            "startPosition": "1740"
+                            "startPosition": "1764"
                           },
-                          "endPosition": "1764",
+                          "endPosition": "1788",
                           "kind": "MEMBER_SELECT",
-                          "startPosition": "1740"
+                          "startPosition": "1764"
                         },
                         "arguments": [],
-                        "startPosition": "1746"
+                        "startPosition": "1770"
                       },
-                      "endPosition": "1766",
+                      "endPosition": "1790",
                       "kind": "NEW",
-                      "startPosition": "1736"
+                      "startPosition": "1760"
                     },
                     {
-                      "endPosition": "1772",
+                      "endPosition": "1796",
                       "kind": "NULL_LITERAL",
-                      "startPosition": "1768"
+                      "startPosition": "1792"
                     }
                   ],
-                  "startPosition": "1724"
+                  "startPosition": "1748"
                 },
-                "endPosition": "1773",
+                "endPosition": "1797",
                 "kind": "EXPRESSION_STATEMENT",
-                "startPosition": "1724"
+                "startPosition": "1748"
               },
               {
                 "expression": {
-                  "endPosition": "1804",
+                  "endPosition": "1828",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "convert",
                     "expression": {
-                      "endPosition": "1790",
+                      "endPosition": "1814",
                       "kind": "IDENTIFIER",
                       "this": "true",
                       "name": "this",
-                      "startPosition": "1786"
+                      "startPosition": "1810"
                     },
-                    "endPosition": "1798",
+                    "endPosition": "1822",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "1786"
+                    "startPosition": "1810"
                   },
                   "arguments": [
                     {
-                      "endPosition": "1803",
+                      "endPosition": "1827",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "1799"
+                      "startPosition": "1823"
                     }
                   ],
-                  "startPosition": "1786"
+                  "startPosition": "1810"
                 },
-                "endPosition": "1805",
+                "endPosition": "1829",
                 "kind": "RETURN",
-                "startPosition": "1779"
+                "startPosition": "1803"
               }
             ],
-            "startPosition": "1659"
+            "startPosition": "1683"
           },
           "strict": "false",
-          "startPosition": "1659",
+          "startPosition": "1683",
           "parameters": [
             {
-              "endPosition": "1639",
+              "endPosition": "1663",
               "kind": "IDENTIFIER",
               "name": "name",
-              "startPosition": "1635"
+              "startPosition": "1659"
             },
             {
-              "endPosition": "1647",
+              "endPosition": "1671",
               "kind": "IDENTIFIER",
               "name": "script",
-              "startPosition": "1641"
+              "startPosition": "1665"
             },
             {
-              "endPosition": "1657",
+              "endPosition": "1681",
               "kind": "IDENTIFIER",
               "name": "listener",
-              "startPosition": "1649"
+              "startPosition": "1673"
             }
           ]
         },
-        "endPosition": "1659",
+        "endPosition": "1683",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "parse",
           "expression": {
             "identifier": "prototype",
             "expression": {
-              "endPosition": "1607",
+              "endPosition": "1631",
               "kind": "IDENTIFIER",
               "name": "Parser",
-              "startPosition": "1601"
+              "startPosition": "1625"
             },
-            "endPosition": "1617",
+            "endPosition": "1641",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1601"
+            "startPosition": "1625"
           },
-          "endPosition": "1623",
+          "endPosition": "1647",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1601"
+          "startPosition": "1625"
         },
-        "startPosition": "1601"
+        "startPosition": "1625"
       },
-      "endPosition": "1807",
+      "endPosition": "1831",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1601"
+      "startPosition": "1625"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "1836",
+          "endPosition": "1860",
           "kind": "FUNCTION_EXPRESSION",
           "body": {
-            "endPosition": "1899",
+            "endPosition": "1931",
             "kind": "BLOCK",
             "statements": [
               {
                 "expression": {
-                  "endPosition": "1898",
+                  "endPosition": "1930",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "create",
                     "expression": {
-                      "endPosition": "1889",
+                      "endPosition": "1921",
                       "kind": "FUNCTION_INVOCATION",
                       "functionSelect": {
                         "identifier": "type",
                         "expression": {
-                          "endPosition": "1853",
+                          "endPosition": "1877",
                           "kind": "IDENTIFIER",
                           "name": "Java",
-                          "startPosition": "1849"
+                          "startPosition": "1873"
                         },
-                        "endPosition": "1858",
+                        "endPosition": "1882",
                         "kind": "MEMBER_SELECT",
-                        "startPosition": "1849"
+                        "startPosition": "1873"
                       },
                       "arguments": [
                         {
-                          "endPosition": "1887",
+                          "endPosition": "1919",
                           "kind": "STRING_LITERAL",
                           "value": "org.openjdk.nashorn.api.tree.Parser",
-                          "startPosition": "1860"
+                          "startPosition": "1884"
                         }
                       ],
-                      "startPosition": "1849"
+                      "startPosition": "1873"
                     },
-                    "endPosition": "1896",
+                    "endPosition": "1928",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "1849"
+                    "startPosition": "1873"
                   },
                   "arguments": [],
-                  "startPosition": "1896"
+                  "startPosition": "1928"
                 },
-                "endPosition": "1899",
+                "endPosition": "1931",
                 "kind": "RETURN",
-                "startPosition": "1842"
+                "startPosition": "1866"
               }
             ],
-            "startPosition": "1836"
+            "startPosition": "1860"
           },
           "strict": "false",
-          "startPosition": "1836",
+          "startPosition": "1860",
           "parameters": []
         },
-        "endPosition": "1836",
+        "endPosition": "1860",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "create",
           "expression": {
-            "endPosition": "1815",
+            "endPosition": "1839",
             "kind": "IDENTIFIER",
             "name": "Parser",
-            "startPosition": "1809"
+            "startPosition": "1833"
           },
-          "endPosition": "1822",
+          "endPosition": "1846",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1809"
+          "startPosition": "1833"
         },
-        "startPosition": "1809"
+        "startPosition": "1833"
       },
-      "endPosition": "1901",
+      "endPosition": "1933",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1809"
+      "startPosition": "1833"
     },
     {
       "expression": {
         "expression": {
-          "endPosition": "2016",
+          "endPosition": "2048",
           "kind": "FUNCTION_EXPRESSION",
           "body": {
-            "endPosition": "3634",
+            "endPosition": "3666",
             "kind": "BLOCK",
             "statements": [
               {
@@ -5568,236 +5568,236 @@
                   "leftOperand": {
                     "leftOperand": {
                       "expression": {
-                        "endPosition": "2031",
+                        "endPosition": "2063",
                         "kind": "IDENTIFIER",
                         "name": "tree",
-                        "startPosition": "2027"
+                        "startPosition": "2059"
                       },
-                      "endPosition": "2031",
+                      "endPosition": "2063",
                       "kind": "LOGICAL_COMPLEMENT",
-                      "startPosition": "2026"
+                      "startPosition": "2058"
                     },
-                    "endPosition": "2057",
+                    "endPosition": "2089",
                     "kind": "CONDITIONAL_OR",
                     "rightOperand": {
                       "leftOperand": {
                         "expression": {
-                          "endPosition": "2046",
+                          "endPosition": "2078",
                           "kind": "IDENTIFIER",
                           "name": "tree",
-                          "startPosition": "2042"
+                          "startPosition": "2074"
                         },
-                        "endPosition": "2046",
+                        "endPosition": "2078",
                         "kind": "TYPEOF",
-                        "startPosition": "2035"
+                        "startPosition": "2067"
                       },
-                      "endPosition": "2057",
+                      "endPosition": "2089",
                       "kind": "NOT_EQUAL_TO",
                       "rightOperand": {
-                        "endPosition": "2057",
+                        "endPosition": "2089",
                         "kind": "STRING_LITERAL",
                         "value": "object",
-                        "startPosition": "2051"
+                        "startPosition": "2083"
                       },
-                      "startPosition": "2035"
+                      "startPosition": "2067"
                     },
-                    "startPosition": "2026"
+                    "startPosition": "2058"
                   },
-                  "endPosition": "2092",
+                  "endPosition": "2124",
                   "kind": "CONDITIONAL_OR",
                   "rightOperand": {
                     "leftOperand": {
-                      "endPosition": "2066",
+                      "endPosition": "2098",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "2062"
+                      "startPosition": "2094"
                     },
                     "expression": {
-                      "endPosition": "2066",
+                      "endPosition": "2098",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "2062"
+                      "startPosition": "2094"
                     },
-                    "endPosition": "2092",
+                    "endPosition": "2124",
                     "kind": "INSTANCE_OF",
                     "rightOperand": {
                       "identifier": "Long",
                       "expression": {
                         "identifier": "lang",
                         "expression": {
-                          "endPosition": "2082",
+                          "endPosition": "2114",
                           "kind": "IDENTIFIER",
                           "name": "java",
-                          "startPosition": "2078"
+                          "startPosition": "2110"
                         },
-                        "endPosition": "2087",
+                        "endPosition": "2119",
                         "kind": "MEMBER_SELECT",
-                        "startPosition": "2078"
+                        "startPosition": "2110"
                       },
-                      "endPosition": "2092",
+                      "endPosition": "2124",
                       "kind": "MEMBER_SELECT",
-                      "startPosition": "2078"
+                      "startPosition": "2110"
                     },
                     "type": {
                       "identifier": "Long",
                       "expression": {
                         "identifier": "lang",
                         "expression": {
-                          "endPosition": "2082",
+                          "endPosition": "2114",
                           "kind": "IDENTIFIER",
                           "name": "java",
-                          "startPosition": "2078"
+                          "startPosition": "2110"
                         },
-                        "endPosition": "2087",
+                        "endPosition": "2119",
                         "kind": "MEMBER_SELECT",
-                        "startPosition": "2078"
+                        "startPosition": "2110"
                       },
-                      "endPosition": "2092",
+                      "endPosition": "2124",
                       "kind": "MEMBER_SELECT",
-                      "startPosition": "2078"
+                      "startPosition": "2110"
                     },
-                    "startPosition": "2062"
+                    "startPosition": "2094"
                   },
-                  "startPosition": "2026"
+                  "startPosition": "2058"
                 },
-                "endPosition": "2122",
+                "endPosition": "2154",
                 "kind": "IF",
-                "startPosition": "2022",
+                "startPosition": "2054",
                 "thenStatement": {
-                  "endPosition": "2122",
+                  "endPosition": "2154",
                   "kind": "BLOCK",
                   "statements": [
                     {
                       "expression": {
-                        "endPosition": "2115",
+                        "endPosition": "2147",
                         "kind": "IDENTIFIER",
                         "name": "tree",
-                        "startPosition": "2111"
+                        "startPosition": "2143"
                       },
-                      "endPosition": "2116",
+                      "endPosition": "2148",
                       "kind": "RETURN",
-                      "startPosition": "2104"
+                      "startPosition": "2136"
                     }
                   ],
-                  "startPosition": "2094"
+                  "startPosition": "2126"
                 }
               },
               {
-                "endPosition": "2169",
+                "endPosition": "2201",
                 "kind": "VARIABLE",
                 "binding": {
-                  "endPosition": "2135",
+                  "endPosition": "2167",
                   "kind": "IDENTIFIER",
                   "name": "obj",
-                  "startPosition": "2132"
+                  "startPosition": "2164"
                 },
-                "startPosition": "2128",
+                "startPosition": "2160",
                 "initializer": {
-                  "endPosition": "2169",
+                  "endPosition": "2201",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "bindProperties",
                     "expression": {
-                      "endPosition": "2144",
+                      "endPosition": "2176",
                       "kind": "IDENTIFIER",
                       "name": "Object",
-                      "startPosition": "2138"
+                      "startPosition": "2170"
                     },
-                    "endPosition": "2159",
+                    "endPosition": "2191",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "2138"
+                    "startPosition": "2170"
                   },
                   "arguments": [
                     {
-                      "endPosition": "2162",
+                      "endPosition": "2194",
                       "kind": "OBJECT_LITERAL",
-                      "startPosition": "2160",
+                      "startPosition": "2192",
                       "properties": []
                     },
                     {
-                      "endPosition": "2168",
+                      "endPosition": "2200",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "2164"
+                      "startPosition": "2196"
                     }
                   ],
-                  "startPosition": "2138"
+                  "startPosition": "2170"
                 }
               },
               {
-                "endPosition": "2190",
+                "endPosition": "2222",
                 "kind": "VARIABLE",
                 "binding": {
-                  "endPosition": "2185",
+                  "endPosition": "2217",
                   "kind": "IDENTIFIER",
                   "name": "result",
-                  "startPosition": "2179"
+                  "startPosition": "2211"
                 },
-                "startPosition": "2175",
+                "startPosition": "2207",
                 "initializer": {
-                  "endPosition": "2190",
+                  "endPosition": "2222",
                   "kind": "OBJECT_LITERAL",
-                  "startPosition": "2188",
+                  "startPosition": "2220",
                   "properties": []
                 }
               },
               {
-                "endPosition": "2206",
+                "endPosition": "2238",
                 "kind": "VARIABLE",
                 "binding": {
-                  "endPosition": "2206",
+                  "endPosition": "2238",
                   "kind": "IDENTIFIER",
                   "name": "i",
-                  "startPosition": "2205"
+                  "startPosition": "2237"
                 },
-                "startPosition": "2201"
+                "startPosition": "2233"
               },
               {
                 "expression": {
-                  "endPosition": "2213",
+                  "endPosition": "2245",
                   "kind": "IDENTIFIER",
                   "name": "obj",
-                  "startPosition": "2210"
+                  "startPosition": "2242"
                 },
-                "endPosition": "3615",
+                "endPosition": "3647",
                 "kind": "FOR_IN_LOOP",
                 "forEach": "false",
                 "variable": {
-                  "endPosition": "2206",
+                  "endPosition": "2238",
                   "kind": "IDENTIFIER",
                   "name": "i",
-                  "startPosition": "2205"
+                  "startPosition": "2237"
                 },
                 "statement": {
-                  "endPosition": "3615",
+                  "endPosition": "3647",
                   "kind": "BLOCK",
                   "statements": [
                     {
-                      "endPosition": "2241",
+                      "endPosition": "2273",
                       "kind": "VARIABLE",
                       "binding": {
-                        "endPosition": "2232",
+                        "endPosition": "2264",
                         "kind": "IDENTIFIER",
                         "name": "val",
-                        "startPosition": "2229"
+                        "startPosition": "2261"
                       },
-                      "startPosition": "2225",
+                      "startPosition": "2257",
                       "initializer": {
                         "expression": {
-                          "endPosition": "2238",
+                          "endPosition": "2270",
                           "kind": "IDENTIFIER",
                           "name": "obj",
-                          "startPosition": "2235"
+                          "startPosition": "2267"
                         },
-                        "endPosition": "2241",
+                        "endPosition": "2273",
                         "kind": "ARRAY_ACCESS",
                         "index": {
-                          "endPosition": "2240",
+                          "endPosition": "2272",
                           "kind": "IDENTIFIER",
                           "name": "i",
-                          "startPosition": "2239"
+                          "startPosition": "2271"
                         },
-                        "startPosition": "2235"
+                        "startPosition": "2267"
                       }
                     },
                     {
@@ -5805,1002 +5805,1002 @@
                         "leftOperand": {
                           "leftOperand": {
                             "expression": {
-                              "endPosition": "2384",
+                              "endPosition": "2416",
                               "kind": "IDENTIFIER",
                               "name": "val",
-                              "startPosition": "2381"
+                              "startPosition": "2413"
                             },
-                            "endPosition": "2384",
+                            "endPosition": "2416",
                             "kind": "TYPEOF",
-                            "startPosition": "2374"
+                            "startPosition": "2406"
                           },
-                          "endPosition": "2397",
+                          "endPosition": "2429",
                           "kind": "EQUAL_TO",
                           "rightOperand": {
-                            "endPosition": "2397",
+                            "endPosition": "2429",
                             "kind": "STRING_LITERAL",
                             "value": "boolean",
-                            "startPosition": "2390"
+                            "startPosition": "2422"
                           },
-                          "startPosition": "2374"
+                          "startPosition": "2406"
                         },
-                        "endPosition": "2414",
+                        "endPosition": "2446",
                         "kind": "CONDITIONAL_AND",
                         "rightOperand": {
                           "leftOperand": {
-                            "endPosition": "2405",
+                            "endPosition": "2437",
                             "kind": "IDENTIFIER",
                             "name": "val",
-                            "startPosition": "2402"
+                            "startPosition": "2434"
                           },
-                          "endPosition": "2414",
+                          "endPosition": "2446",
                           "kind": "EQUAL_TO",
                           "rightOperand": {
-                            "endPosition": "2414",
+                            "endPosition": "2446",
                             "kind": "BOOLEAN_LITERAL",
                             "value": "false",
-                            "startPosition": "2409"
+                            "startPosition": "2441"
                           },
-                          "startPosition": "2402"
+                          "startPosition": "2434"
                         },
-                        "startPosition": "2374"
+                        "startPosition": "2406"
                       },
-                      "endPosition": "2881",
+                      "endPosition": "2913",
                       "kind": "IF",
-                      "startPosition": "2370",
+                      "startPosition": "2402",
                       "thenStatement": {
-                        "endPosition": "2881",
+                        "endPosition": "2913",
                         "kind": "BLOCK",
                         "statements": [
                           {
                             "cases": [
                               {
                                 "expression": {
-                                  "endPosition": "2473",
+                                  "endPosition": "2505",
                                   "kind": "STRING_LITERAL",
                                   "value": "computed",
-                                  "startPosition": "2465"
+                                  "startPosition": "2497"
                                 },
-                                "endPosition": "2475",
+                                "endPosition": "2507",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2459"
+                                "startPosition": "2491"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2504",
+                                  "endPosition": "2536",
                                   "kind": "STRING_LITERAL",
                                   "value": "static",
-                                  "startPosition": "2498"
+                                  "startPosition": "2530"
                                 },
-                                "endPosition": "2506",
+                                "endPosition": "2538",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2492"
+                                "startPosition": "2524"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2542",
+                                  "endPosition": "2574",
                                   "kind": "STRING_LITERAL",
                                   "value": "restParameter",
-                                  "startPosition": "2529"
+                                  "startPosition": "2561"
                                 },
-                                "endPosition": "2544",
+                                "endPosition": "2576",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2523"
+                                "startPosition": "2555"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2571",
+                                  "endPosition": "2603",
                                   "kind": "STRING_LITERAL",
                                   "value": "this",
-                                  "startPosition": "2567"
+                                  "startPosition": "2599"
                                 },
-                                "endPosition": "2573",
+                                "endPosition": "2605",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2561"
+                                "startPosition": "2593"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2601",
+                                  "endPosition": "2633",
                                   "kind": "STRING_LITERAL",
                                   "value": "super",
-                                  "startPosition": "2596"
+                                  "startPosition": "2628"
                                 },
-                                "endPosition": "2603",
+                                "endPosition": "2635",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2590"
-                              },
-                              {
-                                "expression": {
-                                  "endPosition": "2630",
-                                  "kind": "STRING_LITERAL",
-                                  "value": "star",
-                                  "startPosition": "2626"
-                                },
-                                "endPosition": "2632",
-                                "kind": "CASE",
-                                "statements": [],
-                                "startPosition": "2620"
+                                "startPosition": "2622"
                               },
                               {
                                 "expression": {
                                   "endPosition": "2662",
                                   "kind": "STRING_LITERAL",
-                                  "value": "default",
-                                  "startPosition": "2655"
+                                  "value": "star",
+                                  "startPosition": "2658"
                                 },
                                 "endPosition": "2664",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2649"
+                                "startPosition": "2652"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2702",
+                                  "endPosition": "2694",
                                   "kind": "STRING_LITERAL",
-                                  "value": "starDefaultStar",
+                                  "value": "default",
                                   "startPosition": "2687"
                                 },
-                                "endPosition": "2704",
+                                "endPosition": "2696",
                                 "kind": "CASE",
                                 "statements": [],
                                 "startPosition": "2681"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2732",
+                                  "endPosition": "2734",
+                                  "kind": "STRING_LITERAL",
+                                  "value": "starDefaultStar",
+                                  "startPosition": "2719"
+                                },
+                                "endPosition": "2736",
+                                "kind": "CASE",
+                                "statements": [],
+                                "startPosition": "2713"
+                              },
+                              {
+                                "expression": {
+                                  "endPosition": "2764",
                                   "kind": "STRING_LITERAL",
                                   "value": "arrow",
-                                  "startPosition": "2727"
+                                  "startPosition": "2759"
                                 },
-                                "endPosition": "2734",
+                                "endPosition": "2766",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2721"
+                                "startPosition": "2753"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2766",
+                                  "endPosition": "2798",
                                   "kind": "STRING_LITERAL",
                                   "value": "generator",
-                                  "startPosition": "2757"
+                                  "startPosition": "2789"
                                 },
-                                "endPosition": "2768",
+                                "endPosition": "2800",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2751"
+                                "startPosition": "2783"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2794",
+                                  "endPosition": "2826",
                                   "kind": "STRING_LITERAL",
                                   "value": "let",
-                                  "startPosition": "2791"
+                                  "startPosition": "2823"
                                 },
-                                "endPosition": "2796",
+                                "endPosition": "2828",
                                 "kind": "CASE",
                                 "statements": [],
-                                "startPosition": "2785"
+                                "startPosition": "2817"
                               },
                               {
                                 "expression": {
-                                  "endPosition": "2824",
+                                  "endPosition": "2856",
                                   "kind": "STRING_LITERAL",
                                   "value": "const",
-                                  "startPosition": "2819"
+                                  "startPosition": "2851"
                                 },
-                                "endPosition": "2856",
+                                "endPosition": "2888",
                                 "kind": "CASE",
                                 "statements": [
                                   {
-                                    "endPosition": "2856",
+                                    "endPosition": "2888",
                                     "kind": "CONTINUE",
-                                    "startPosition": "2847"
+                                    "startPosition": "2879"
                                   }
                                 ],
-                                "startPosition": "2813"
+                                "startPosition": "2845"
                               }
                             ],
                             "expression": {
-                              "endPosition": "2439",
+                              "endPosition": "2471",
                               "kind": "IDENTIFIER",
                               "name": "i",
-                              "startPosition": "2438"
+                              "startPosition": "2470"
                             },
-                            "endPosition": "2871",
+                            "endPosition": "2903",
                             "kind": "SWITCH",
-                            "startPosition": "2430"
+                            "startPosition": "2462"
                           }
                         ],
-                        "startPosition": "2416"
+                        "startPosition": "2448"
                       }
                     },
                     {
                       "condition": {
                         "leftOperand": {
-                          "endPosition": "2898",
+                          "endPosition": "2930",
                           "kind": "IDENTIFIER",
                           "name": "val",
-                          "startPosition": "2895"
+                          "startPosition": "2927"
                         },
                         "expression": {
-                          "endPosition": "2898",
+                          "endPosition": "2930",
                           "kind": "IDENTIFIER",
                           "name": "val",
-                          "startPosition": "2895"
+                          "startPosition": "2927"
                         },
-                        "endPosition": "2921",
+                        "endPosition": "2953",
                         "kind": "INSTANCE_OF",
                         "rightOperand": {
                           "identifier": "Tree",
                           "expression": {
-                            "endPosition": "2916",
+                            "endPosition": "2948",
                             "kind": "IDENTIFIER",
                             "name": "Parser",
-                            "startPosition": "2910"
+                            "startPosition": "2942"
                           },
-                          "endPosition": "2921",
+                          "endPosition": "2953",
                           "kind": "MEMBER_SELECT",
-                          "startPosition": "2910"
+                          "startPosition": "2942"
                         },
                         "type": {
                           "identifier": "Tree",
                           "expression": {
-                            "endPosition": "2916",
+                            "endPosition": "2948",
                             "kind": "IDENTIFIER",
                             "name": "Parser",
-                            "startPosition": "2910"
+                            "startPosition": "2942"
                           },
-                          "endPosition": "2921",
+                          "endPosition": "2953",
                           "kind": "MEMBER_SELECT",
-                          "startPosition": "2910"
+                          "startPosition": "2942"
                         },
-                        "startPosition": "2895"
+                        "startPosition": "2927"
                       },
                       "elseStatement": {
                         "condition": {
                           "leftOperand": {
-                            "endPosition": "2990",
+                            "endPosition": "3022",
                             "kind": "IDENTIFIER",
                             "name": "val",
-                            "startPosition": "2987"
+                            "startPosition": "3019"
                           },
                           "expression": {
-                            "endPosition": "2990",
+                            "endPosition": "3022",
                             "kind": "IDENTIFIER",
                             "name": "val",
-                            "startPosition": "2987"
+                            "startPosition": "3019"
                           },
-                          "endPosition": "3013",
+                          "endPosition": "3045",
                           "kind": "INSTANCE_OF",
                           "rightOperand": {
                             "identifier": "List",
                             "expression": {
-                              "endPosition": "3008",
+                              "endPosition": "3040",
                               "kind": "IDENTIFIER",
                               "name": "Parser",
-                              "startPosition": "3002"
+                              "startPosition": "3034"
                             },
-                            "endPosition": "3013",
+                            "endPosition": "3045",
                             "kind": "MEMBER_SELECT",
-                            "startPosition": "3002"
+                            "startPosition": "3034"
                           },
                           "type": {
                             "identifier": "List",
                             "expression": {
-                              "endPosition": "3008",
+                              "endPosition": "3040",
                               "kind": "IDENTIFIER",
                               "name": "Parser",
-                              "startPosition": "3002"
+                              "startPosition": "3034"
                             },
-                            "endPosition": "3013",
+                            "endPosition": "3045",
                             "kind": "MEMBER_SELECT",
-                            "startPosition": "3002"
+                            "startPosition": "3034"
                           },
-                          "startPosition": "2987"
+                          "startPosition": "3019"
                         },
                         "elseStatement": {
-                          "endPosition": "3609",
+                          "endPosition": "3641",
                           "kind": "BLOCK",
                           "statements": [
                             {
                               "cases": [
                                 {
                                   "expression": {
-                                    "endPosition": "3265",
+                                    "endPosition": "3297",
                                     "kind": "STRING_LITERAL",
                                     "value": "number",
-                                    "startPosition": "3259"
+                                    "startPosition": "3291"
                                   },
-                                  "endPosition": "3267",
+                                  "endPosition": "3299",
                                   "kind": "CASE",
                                   "statements": [],
-                                  "startPosition": "3253"
-                                },
-                                {
-                                  "expression": {
-                                    "endPosition": "3296",
-                                    "kind": "STRING_LITERAL",
-                                    "value": "string",
-                                    "startPosition": "3290"
-                                  },
-                                  "endPosition": "3298",
-                                  "kind": "CASE",
-                                  "statements": [],
-                                  "startPosition": "3284"
+                                  "startPosition": "3285"
                                 },
                                 {
                                   "expression": {
                                     "endPosition": "3328",
                                     "kind": "STRING_LITERAL",
-                                    "value": "boolean",
-                                    "startPosition": "3321"
+                                    "value": "string",
+                                    "startPosition": "3322"
                                   },
-                                  "endPosition": "3402",
+                                  "endPosition": "3330",
+                                  "kind": "CASE",
+                                  "statements": [],
+                                  "startPosition": "3316"
+                                },
+                                {
+                                  "expression": {
+                                    "endPosition": "3360",
+                                    "kind": "STRING_LITERAL",
+                                    "value": "boolean",
+                                    "startPosition": "3353"
+                                  },
+                                  "endPosition": "3434",
                                   "kind": "CASE",
                                   "statements": [
                                     {
                                       "expression": {
                                         "expression": {
-                                          "endPosition": "3374",
+                                          "endPosition": "3406",
                                           "kind": "FUNCTION_INVOCATION",
                                           "functionSelect": {
-                                            "endPosition": "3369",
+                                            "endPosition": "3401",
                                             "kind": "IDENTIFIER",
                                             "name": "String",
-                                            "startPosition": "3363"
+                                            "startPosition": "3395"
                                           },
                                           "arguments": [
                                             {
-                                              "endPosition": "3373",
+                                              "endPosition": "3405",
                                               "kind": "IDENTIFIER",
                                               "name": "val",
-                                              "startPosition": "3370"
+                                              "startPosition": "3402"
                                             }
                                           ],
-                                          "startPosition": "3363"
+                                          "startPosition": "3395"
                                         },
-                                        "endPosition": "3374",
+                                        "endPosition": "3406",
                                         "kind": "ASSIGNMENT",
                                         "variable": {
                                           "expression": {
-                                            "endPosition": "3357",
+                                            "endPosition": "3389",
                                             "kind": "IDENTIFIER",
                                             "name": "result",
-                                            "startPosition": "3351"
+                                            "startPosition": "3383"
                                           },
-                                          "endPosition": "3360",
+                                          "endPosition": "3392",
                                           "kind": "ARRAY_ACCESS",
                                           "index": {
-                                            "endPosition": "3359",
+                                            "endPosition": "3391",
                                             "kind": "IDENTIFIER",
                                             "name": "i",
-                                            "startPosition": "3358"
+                                            "startPosition": "3390"
                                           },
-                                          "startPosition": "3351"
+                                          "startPosition": "3383"
                                         },
-                                        "startPosition": "3351"
+                                        "startPosition": "3383"
                                       },
-                                      "endPosition": "3374",
+                                      "endPosition": "3406",
                                       "kind": "EXPRESSION_STATEMENT",
-                                      "startPosition": "3351"
+                                      "startPosition": "3383"
                                     },
                                     {
-                                      "endPosition": "3402",
+                                      "endPosition": "3434",
                                       "kind": "BREAK",
-                                      "startPosition": "3396"
+                                      "startPosition": "3428"
                                     }
                                   ],
-                                  "startPosition": "3315"
+                                  "startPosition": "3347"
                                 },
                                 {
-                                  "endPosition": "3585",
+                                  "endPosition": "3617",
                                   "kind": "CASE",
                                   "statements": [
                                     {
                                       "condition": {
                                         "leftOperand": {
                                           "leftOperand": {
-                                            "endPosition": "3455",
+                                            "endPosition": "3487",
                                             "kind": "IDENTIFIER",
                                             "name": "val",
-                                            "startPosition": "3452"
+                                            "startPosition": "3484"
                                           },
                                           "expression": {
-                                            "endPosition": "3455",
+                                            "endPosition": "3487",
                                             "kind": "IDENTIFIER",
                                             "name": "val",
-                                            "startPosition": "3452"
+                                            "startPosition": "3484"
                                           },
-                                          "endPosition": "3481",
+                                          "endPosition": "3513",
                                           "kind": "INSTANCE_OF",
                                           "rightOperand": {
                                             "identifier": "Long",
                                             "expression": {
                                               "identifier": "lang",
                                               "expression": {
-                                                "endPosition": "3471",
+                                                "endPosition": "3503",
                                                 "kind": "IDENTIFIER",
                                                 "name": "java",
-                                                "startPosition": "3467"
+                                                "startPosition": "3499"
                                               },
-                                              "endPosition": "3476",
+                                              "endPosition": "3508",
                                               "kind": "MEMBER_SELECT",
-                                              "startPosition": "3467"
+                                              "startPosition": "3499"
                                             },
-                                            "endPosition": "3481",
+                                            "endPosition": "3513",
                                             "kind": "MEMBER_SELECT",
-                                            "startPosition": "3467"
+                                            "startPosition": "3499"
                                           },
                                           "type": {
                                             "identifier": "Long",
                                             "expression": {
                                               "identifier": "lang",
                                               "expression": {
-                                                "endPosition": "3471",
+                                                "endPosition": "3503",
                                                 "kind": "IDENTIFIER",
                                                 "name": "java",
-                                                "startPosition": "3467"
+                                                "startPosition": "3499"
                                               },
-                                              "endPosition": "3476",
+                                              "endPosition": "3508",
                                               "kind": "MEMBER_SELECT",
-                                              "startPosition": "3467"
+                                              "startPosition": "3499"
                                             },
-                                            "endPosition": "3481",
+                                            "endPosition": "3513",
                                             "kind": "MEMBER_SELECT",
-                                            "startPosition": "3467"
+                                            "startPosition": "3499"
                                           },
-                                          "startPosition": "3452"
+                                          "startPosition": "3484"
                                         },
-                                        "endPosition": "3511",
+                                        "endPosition": "3543",
                                         "kind": "CONDITIONAL_OR",
                                         "rightOperand": {
                                           "leftOperand": {
-                                            "endPosition": "3488",
+                                            "endPosition": "3520",
                                             "kind": "IDENTIFIER",
                                             "name": "val",
-                                            "startPosition": "3485"
+                                            "startPosition": "3517"
                                           },
                                           "expression": {
-                                            "endPosition": "3488",
+                                            "endPosition": "3520",
                                             "kind": "IDENTIFIER",
                                             "name": "val",
-                                            "startPosition": "3485"
+                                            "startPosition": "3517"
                                           },
-                                          "endPosition": "3511",
+                                          "endPosition": "3543",
                                           "kind": "INSTANCE_OF",
                                           "rightOperand": {
                                             "identifier": "Enum",
                                             "expression": {
-                                              "endPosition": "3506",
+                                              "endPosition": "3538",
                                               "kind": "IDENTIFIER",
                                               "name": "Parser",
-                                              "startPosition": "3500"
+                                              "startPosition": "3532"
                                             },
-                                            "endPosition": "3511",
+                                            "endPosition": "3543",
                                             "kind": "MEMBER_SELECT",
-                                            "startPosition": "3500"
+                                            "startPosition": "3532"
                                           },
                                           "type": {
                                             "identifier": "Enum",
                                             "expression": {
-                                              "endPosition": "3506",
+                                              "endPosition": "3538",
                                               "kind": "IDENTIFIER",
                                               "name": "Parser",
-                                              "startPosition": "3500"
+                                              "startPosition": "3532"
                                             },
-                                            "endPosition": "3511",
+                                            "endPosition": "3543",
                                             "kind": "MEMBER_SELECT",
-                                            "startPosition": "3500"
+                                            "startPosition": "3532"
                                           },
-                                          "startPosition": "3485"
+                                          "startPosition": "3517"
                                         },
-                                        "startPosition": "3452"
+                                        "startPosition": "3484"
                                       },
-                                      "endPosition": "3585",
+                                      "endPosition": "3617",
                                       "kind": "IF",
-                                      "startPosition": "3448",
+                                      "startPosition": "3480",
                                       "thenStatement": {
-                                        "endPosition": "3585",
+                                        "endPosition": "3617",
                                         "kind": "BLOCK",
                                         "statements": [
                                           {
                                             "expression": {
                                               "expression": {
-                                                "endPosition": "3562",
+                                                "endPosition": "3594",
                                                 "kind": "FUNCTION_INVOCATION",
                                                 "functionSelect": {
-                                                  "endPosition": "3557",
+                                                  "endPosition": "3589",
                                                   "kind": "IDENTIFIER",
                                                   "name": "String",
-                                                  "startPosition": "3551"
+                                                  "startPosition": "3583"
                                                 },
                                                 "arguments": [
                                                   {
-                                                    "endPosition": "3561",
+                                                    "endPosition": "3593",
                                                     "kind": "IDENTIFIER",
                                                     "name": "val",
-                                                    "startPosition": "3558"
+                                                    "startPosition": "3590"
                                                   }
                                                 ],
-                                                "startPosition": "3551"
+                                                "startPosition": "3583"
                                               },
-                                              "endPosition": "3562",
+                                              "endPosition": "3594",
                                               "kind": "ASSIGNMENT",
                                               "variable": {
                                                 "expression": {
-                                                  "endPosition": "3545",
+                                                  "endPosition": "3577",
                                                   "kind": "IDENTIFIER",
                                                   "name": "result",
-                                                  "startPosition": "3539"
+                                                  "startPosition": "3571"
                                                 },
-                                                "endPosition": "3548",
+                                                "endPosition": "3580",
                                                 "kind": "ARRAY_ACCESS",
                                                 "index": {
-                                                  "endPosition": "3547",
+                                                  "endPosition": "3579",
                                                   "kind": "IDENTIFIER",
                                                   "name": "i",
-                                                  "startPosition": "3546"
+                                                  "startPosition": "3578"
                                                 },
-                                                "startPosition": "3539"
+                                                "startPosition": "3571"
                                               },
-                                              "startPosition": "3539"
+                                              "startPosition": "3571"
                                             },
-                                            "endPosition": "3562",
+                                            "endPosition": "3594",
                                             "kind": "EXPRESSION_STATEMENT",
-                                            "startPosition": "3539"
+                                            "startPosition": "3571"
                                           }
                                         ],
-                                        "startPosition": "3513"
+                                        "startPosition": "3545"
                                       }
                                     }
                                   ],
-                                  "startPosition": "3419"
+                                  "startPosition": "3451"
                                 }
                               ],
                               "expression": {
                                 "expression": {
-                                  "endPosition": "3233",
+                                  "endPosition": "3265",
                                   "kind": "IDENTIFIER",
                                   "name": "val",
-                                  "startPosition": "3230"
+                                  "startPosition": "3262"
                                 },
-                                "endPosition": "3233",
+                                "endPosition": "3265",
                                 "kind": "TYPEOF",
-                                "startPosition": "3223"
+                                "startPosition": "3255"
                               },
-                              "endPosition": "3599",
+                              "endPosition": "3631",
                               "kind": "SWITCH",
-                              "startPosition": "3215"
+                              "startPosition": "3247"
                             }
                           ],
-                          "startPosition": "3201"
+                          "startPosition": "3233"
                         },
-                        "endPosition": "3609",
+                        "endPosition": "3641",
                         "kind": "IF",
-                        "startPosition": "2983",
+                        "startPosition": "3015",
                         "thenStatement": {
-                          "endPosition": "3195",
+                          "endPosition": "3227",
                           "kind": "BLOCK",
                           "statements": [
                             {
-                              "endPosition": "3060",
+                              "endPosition": "3092",
                               "kind": "VARIABLE",
                               "binding": {
-                                "endPosition": "3036",
+                                "endPosition": "3068",
                                 "kind": "IDENTIFIER",
                                 "name": "arr",
-                                "startPosition": "3033"
+                                "startPosition": "3065"
                               },
-                              "startPosition": "3029",
+                              "startPosition": "3061",
                               "initializer": {
                                 "constructorExpression": {
-                                  "endPosition": "3060",
+                                  "endPosition": "3092",
                                   "kind": "FUNCTION_INVOCATION",
                                   "functionSelect": {
-                                    "endPosition": "3048",
+                                    "endPosition": "3080",
                                     "kind": "IDENTIFIER",
                                     "name": "Array",
-                                    "startPosition": "3043"
+                                    "startPosition": "3075"
                                   },
                                   "arguments": [
                                     {
-                                      "endPosition": "3059",
+                                      "endPosition": "3091",
                                       "kind": "FUNCTION_INVOCATION",
                                       "functionSelect": {
                                         "identifier": "size",
                                         "expression": {
-                                          "endPosition": "3052",
+                                          "endPosition": "3084",
                                           "kind": "IDENTIFIER",
                                           "name": "val",
-                                          "startPosition": "3049"
+                                          "startPosition": "3081"
                                         },
-                                        "endPosition": "3057",
+                                        "endPosition": "3089",
                                         "kind": "MEMBER_SELECT",
-                                        "startPosition": "3049"
+                                        "startPosition": "3081"
                                       },
                                       "arguments": [],
-                                      "startPosition": "3049"
+                                      "startPosition": "3081"
                                     }
                                   ],
-                                  "startPosition": "3043"
+                                  "startPosition": "3075"
                                 },
-                                "endPosition": "3060",
+                                "endPosition": "3092",
                                 "kind": "NEW",
-                                "startPosition": "3039"
+                                "startPosition": "3071"
                               }
                             },
                             {
-                              "endPosition": "3084",
+                              "endPosition": "3116",
                               "kind": "VARIABLE",
                               "binding": {
-                                "endPosition": "3084",
+                                "endPosition": "3116",
                                 "kind": "IDENTIFIER",
                                 "name": "j",
-                                "startPosition": "3083"
+                                "startPosition": "3115"
                               },
-                              "startPosition": "3079"
+                              "startPosition": "3111"
                             },
                             {
                               "expression": {
-                                "endPosition": "3091",
+                                "endPosition": "3123",
                                 "kind": "IDENTIFIER",
                                 "name": "val",
-                                "startPosition": "3088"
+                                "startPosition": "3120"
                               },
-                              "endPosition": "3155",
+                              "endPosition": "3187",
                               "kind": "FOR_IN_LOOP",
                               "forEach": "false",
                               "variable": {
-                                "endPosition": "3084",
+                                "endPosition": "3116",
                                 "kind": "IDENTIFIER",
                                 "name": "j",
-                                "startPosition": "3083"
+                                "startPosition": "3115"
                               },
                               "statement": {
-                                "endPosition": "3155",
+                                "endPosition": "3187",
                                 "kind": "BLOCK",
                                 "statements": [
                                   {
                                     "expression": {
                                       "expression": {
-                                        "endPosition": "3140",
+                                        "endPosition": "3172",
                                         "kind": "FUNCTION_INVOCATION",
                                         "functionSelect": {
                                           "identifier": "convert",
                                           "expression": {
-                                            "endPosition": "3124",
+                                            "endPosition": "3156",
                                             "kind": "IDENTIFIER",
                                             "this": "true",
                                             "name": "this",
-                                            "startPosition": "3120"
+                                            "startPosition": "3152"
                                           },
-                                          "endPosition": "3132",
+                                          "endPosition": "3164",
                                           "kind": "MEMBER_SELECT",
-                                          "startPosition": "3120"
+                                          "startPosition": "3152"
                                         },
                                         "arguments": [
                                           {
                                             "expression": {
-                                              "endPosition": "3136",
+                                              "endPosition": "3168",
                                               "kind": "IDENTIFIER",
                                               "name": "val",
-                                              "startPosition": "3133"
+                                              "startPosition": "3165"
                                             },
-                                            "endPosition": "3139",
+                                            "endPosition": "3171",
                                             "kind": "ARRAY_ACCESS",
                                             "index": {
-                                              "endPosition": "3138",
+                                              "endPosition": "3170",
                                               "kind": "IDENTIFIER",
                                               "name": "j",
-                                              "startPosition": "3137"
+                                              "startPosition": "3169"
                                             },
-                                            "startPosition": "3133"
+                                            "startPosition": "3165"
                                           }
                                         ],
-                                        "startPosition": "3120"
+                                        "startPosition": "3152"
                                       },
-                                      "endPosition": "3140",
+                                      "endPosition": "3172",
                                       "kind": "ASSIGNMENT",
                                       "variable": {
                                         "expression": {
-                                          "endPosition": "3114",
+                                          "endPosition": "3146",
                                           "kind": "IDENTIFIER",
                                           "name": "arr",
-                                          "startPosition": "3111"
+                                          "startPosition": "3143"
                                         },
-                                        "endPosition": "3117",
+                                        "endPosition": "3149",
                                         "kind": "ARRAY_ACCESS",
                                         "index": {
-                                          "endPosition": "3116",
+                                          "endPosition": "3148",
                                           "kind": "IDENTIFIER",
                                           "name": "j",
-                                          "startPosition": "3115"
+                                          "startPosition": "3147"
                                         },
-                                        "startPosition": "3111"
+                                        "startPosition": "3143"
                                       },
-                                      "startPosition": "3111"
+                                      "startPosition": "3143"
                                     },
-                                    "endPosition": "3140",
+                                    "endPosition": "3172",
                                     "kind": "EXPRESSION_STATEMENT",
-                                    "startPosition": "3111"
+                                    "startPosition": "3143"
                                   }
                                 ],
-                                "startPosition": "3093"
+                                "startPosition": "3125"
                               },
-                              "startPosition": "3074"
+                              "startPosition": "3106"
                             },
                             {
                               "expression": {
                                 "expression": {
-                                  "endPosition": "3184",
+                                  "endPosition": "3216",
                                   "kind": "IDENTIFIER",
                                   "name": "arr",
-                                  "startPosition": "3181"
+                                  "startPosition": "3213"
                                 },
-                                "endPosition": "3184",
+                                "endPosition": "3216",
                                 "kind": "ASSIGNMENT",
                                 "variable": {
                                   "expression": {
-                                    "endPosition": "3175",
+                                    "endPosition": "3207",
                                     "kind": "IDENTIFIER",
                                     "name": "result",
-                                    "startPosition": "3169"
+                                    "startPosition": "3201"
                                   },
-                                  "endPosition": "3178",
+                                  "endPosition": "3210",
                                   "kind": "ARRAY_ACCESS",
                                   "index": {
-                                    "endPosition": "3177",
+                                    "endPosition": "3209",
                                     "kind": "IDENTIFIER",
                                     "name": "i",
-                                    "startPosition": "3176"
+                                    "startPosition": "3208"
                                   },
-                                  "startPosition": "3169"
+                                  "startPosition": "3201"
                                 },
-                                "startPosition": "3169"
+                                "startPosition": "3201"
                               },
-                              "endPosition": "3184",
+                              "endPosition": "3216",
                               "kind": "EXPRESSION_STATEMENT",
-                              "startPosition": "3169"
+                              "startPosition": "3201"
                             }
                           ],
-                          "startPosition": "3015"
+                          "startPosition": "3047"
                         }
                       },
-                      "endPosition": "3609",
+                      "endPosition": "3641",
                       "kind": "IF",
-                      "startPosition": "2891",
+                      "startPosition": "2923",
                       "thenStatement": {
-                        "endPosition": "2977",
+                        "endPosition": "3009",
                         "kind": "BLOCK",
                         "statements": [
                           {
                             "expression": {
                               "expression": {
-                                "endPosition": "2966",
+                                "endPosition": "2998",
                                 "kind": "FUNCTION_INVOCATION",
                                 "functionSelect": {
                                   "identifier": "convert",
                                   "expression": {
-                                    "endPosition": "2953",
+                                    "endPosition": "2985",
                                     "kind": "IDENTIFIER",
                                     "this": "true",
                                     "name": "this",
-                                    "startPosition": "2949"
+                                    "startPosition": "2981"
                                   },
-                                  "endPosition": "2961",
+                                  "endPosition": "2993",
                                   "kind": "MEMBER_SELECT",
-                                  "startPosition": "2949"
+                                  "startPosition": "2981"
                                 },
                                 "arguments": [
                                   {
-                                    "endPosition": "2965",
+                                    "endPosition": "2997",
                                     "kind": "IDENTIFIER",
                                     "name": "val",
-                                    "startPosition": "2962"
+                                    "startPosition": "2994"
                                   }
                                 ],
-                                "startPosition": "2949"
+                                "startPosition": "2981"
                               },
-                              "endPosition": "2966",
+                              "endPosition": "2998",
                               "kind": "ASSIGNMENT",
                               "variable": {
                                 "expression": {
-                                  "endPosition": "2943",
+                                  "endPosition": "2975",
                                   "kind": "IDENTIFIER",
                                   "name": "result",
-                                  "startPosition": "2937"
+                                  "startPosition": "2969"
                                 },
-                                "endPosition": "2946",
+                                "endPosition": "2978",
                                 "kind": "ARRAY_ACCESS",
                                 "index": {
-                                  "endPosition": "2945",
+                                  "endPosition": "2977",
                                   "kind": "IDENTIFIER",
                                   "name": "i",
-                                  "startPosition": "2944"
+                                  "startPosition": "2976"
                                 },
-                                "startPosition": "2937"
+                                "startPosition": "2969"
                               },
-                              "startPosition": "2937"
+                              "startPosition": "2969"
                             },
-                            "endPosition": "2966",
+                            "endPosition": "2998",
                             "kind": "EXPRESSION_STATEMENT",
-                            "startPosition": "2937"
+                            "startPosition": "2969"
                           }
                         ],
-                        "startPosition": "2923"
+                        "startPosition": "2955"
                       }
                     }
                   ],
-                  "startPosition": "2215"
+                  "startPosition": "2247"
                 },
-                "startPosition": "2196"
+                "startPosition": "2228"
               },
               {
                 "expression": {
-                  "endPosition": "3633",
+                  "endPosition": "3665",
                   "kind": "IDENTIFIER",
                   "name": "result",
-                  "startPosition": "3627"
+                  "startPosition": "3659"
                 },
-                "endPosition": "3634",
+                "endPosition": "3666",
                 "kind": "RETURN",
-                "startPosition": "3620"
+                "startPosition": "3652"
               }
             ],
-            "startPosition": "2016"
+            "startPosition": "2048"
           },
           "strict": "false",
-          "startPosition": "2016",
+          "startPosition": "2048",
           "parameters": [
             {
-              "endPosition": "2014",
+              "endPosition": "2046",
               "kind": "IDENTIFIER",
               "name": "tree",
-              "startPosition": "2010"
+              "startPosition": "2042"
             }
           ]
         },
-        "endPosition": "2016",
+        "endPosition": "2048",
         "kind": "ASSIGNMENT",
         "variable": {
           "identifier": "convert",
           "expression": {
             "identifier": "prototype",
             "expression": {
-              "endPosition": "1980",
+              "endPosition": "2012",
               "kind": "IDENTIFIER",
               "name": "Parser",
-              "startPosition": "1974"
+              "startPosition": "2006"
             },
-            "endPosition": "1990",
+            "endPosition": "2022",
             "kind": "MEMBER_SELECT",
-            "startPosition": "1974"
+            "startPosition": "2006"
           },
-          "endPosition": "1998",
+          "endPosition": "2030",
           "kind": "MEMBER_SELECT",
-          "startPosition": "1974"
+          "startPosition": "2006"
         },
-        "startPosition": "1974"
+        "startPosition": "2006"
       },
-      "endPosition": "3636",
+      "endPosition": "3668",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "1974"
+      "startPosition": "2006"
     },
     {
-      "endPosition": "4366",
+      "endPosition": "4398",
       "kind": "FUNCTION",
       "name": {
-        "endPosition": "3659",
+        "endPosition": "3691",
         "kind": "IDENTIFIER",
         "name": "processFiles",
-        "startPosition": "3647"
+        "startPosition": "3679"
       },
       "body": {
-        "endPosition": "4364",
+        "endPosition": "4396",
         "kind": "BLOCK",
         "statements": [
           {
-            "endPosition": "3710",
+            "endPosition": "3742",
             "kind": "VARIABLE",
             "binding": {
-              "endPosition": "3682",
+              "endPosition": "3714",
               "kind": "IDENTIFIER",
               "name": "File",
-              "startPosition": "3678"
+              "startPosition": "3710"
             },
-            "startPosition": "3674",
+            "startPosition": "3706",
             "initializer": {
-              "endPosition": "3710",
+              "endPosition": "3742",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
                 "identifier": "type",
                 "expression": {
-                  "endPosition": "3689",
+                  "endPosition": "3721",
                   "kind": "IDENTIFIER",
                   "name": "Java",
-                  "startPosition": "3685"
+                  "startPosition": "3717"
                 },
-                "endPosition": "3694",
+                "endPosition": "3726",
                 "kind": "MEMBER_SELECT",
-                "startPosition": "3685"
+                "startPosition": "3717"
               },
               "arguments": [
                 {
-                  "endPosition": "3708",
+                  "endPosition": "3740",
                   "kind": "STRING_LITERAL",
                   "value": "java.io.File",
-                  "startPosition": "3696"
+                  "startPosition": "3728"
                 }
               ],
-              "startPosition": "3685"
+              "startPosition": "3717"
             }
           },
           {
-            "endPosition": "3766",
+            "endPosition": "3798",
             "kind": "VARIABLE",
             "binding": {
-              "endPosition": "3725",
+              "endPosition": "3757",
               "kind": "IDENTIFIER",
               "name": "files",
-              "startPosition": "3720"
+              "startPosition": "3752"
             },
-            "startPosition": "3716",
+            "startPosition": "3748",
             "initializer": {
-              "endPosition": "3766",
+              "endPosition": "3798",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
                 "identifier": "listFiles",
                 "expression": {
                   "constructorExpression": {
-                    "endPosition": "3754",
+                    "endPosition": "3786",
                     "kind": "FUNCTION_INVOCATION",
                     "functionSelect": {
-                      "endPosition": "3736",
+                      "endPosition": "3768",
                       "kind": "IDENTIFIER",
                       "name": "File",
-                      "startPosition": "3732"
+                      "startPosition": "3764"
                     },
                     "arguments": [
                       {
                         "leftOperand": {
-                          "endPosition": "3744",
+                          "endPosition": "3776",
                           "kind": "IDENTIFIER",
                           "name": "__DIR__",
-                          "startPosition": "3737"
+                          "startPosition": "3769"
                         },
-                        "endPosition": "3753",
+                        "endPosition": "3785",
                         "kind": "PLUS",
                         "rightOperand": {
-                          "endPosition": "3753",
+                          "endPosition": "3785",
                           "kind": "IDENTIFIER",
                           "name": "subdir",
-                          "startPosition": "3747"
+                          "startPosition": "3779"
                         },
-                        "startPosition": "3737"
+                        "startPosition": "3769"
                       }
                     ],
-                    "startPosition": "3732"
+                    "startPosition": "3764"
                   },
-                  "endPosition": "3754",
+                  "endPosition": "3786",
                   "kind": "NEW",
-                  "startPosition": "3728"
+                  "startPosition": "3760"
                 },
-                "endPosition": "3764",
+                "endPosition": "3796",
                 "kind": "MEMBER_SELECT",
-                "startPosition": "3728"
+                "startPosition": "3760"
               },
               "arguments": [],
-              "startPosition": "3728"
+              "startPosition": "3760"
             }
           },
           {
             "expression": {
-              "endPosition": "3800",
+              "endPosition": "3832",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
                 "identifier": "sort",
@@ -6809,782 +6809,782 @@
                   "expression": {
                     "identifier": "util",
                     "expression": {
-                      "endPosition": "3776",
+                      "endPosition": "3808",
                       "kind": "IDENTIFIER",
                       "name": "java",
-                      "startPosition": "3772"
+                      "startPosition": "3804"
                     },
-                    "endPosition": "3781",
+                    "endPosition": "3813",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "3772"
+                    "startPosition": "3804"
                   },
-                  "endPosition": "3788",
+                  "endPosition": "3820",
                   "kind": "MEMBER_SELECT",
-                  "startPosition": "3772"
+                  "startPosition": "3804"
                 },
-                "endPosition": "3793",
+                "endPosition": "3825",
                 "kind": "MEMBER_SELECT",
-                "startPosition": "3772"
+                "startPosition": "3804"
               },
               "arguments": [
                 {
-                  "endPosition": "3799",
+                  "endPosition": "3831",
                   "kind": "IDENTIFIER",
                   "name": "files",
-                  "startPosition": "3794"
+                  "startPosition": "3826"
                 }
               ],
-              "startPosition": "3772"
+              "startPosition": "3804"
             },
-            "endPosition": "3800",
+            "endPosition": "3832",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "3772"
+            "startPosition": "3804"
           },
           {
-            "endPosition": "3824",
+            "endPosition": "3856",
             "kind": "VARIABLE",
             "binding": {
-              "endPosition": "3824",
+              "endPosition": "3856",
               "kind": "IDENTIFIER",
               "name": "file",
-              "startPosition": "3820"
+              "startPosition": "3852"
             },
-            "startPosition": "3816"
+            "startPosition": "3848"
           },
           {
             "expression": {
-              "endPosition": "3833",
+              "endPosition": "3865",
               "kind": "IDENTIFIER",
               "name": "files",
-              "startPosition": "3828"
+              "startPosition": "3860"
             },
-            "endPosition": "4364",
+            "endPosition": "4396",
             "kind": "FOR_IN_LOOP",
             "forEach": "true",
             "variable": {
-              "endPosition": "3824",
+              "endPosition": "3856",
               "kind": "IDENTIFIER",
               "name": "file",
-              "startPosition": "3820"
+              "startPosition": "3852"
             },
             "statement": {
-              "endPosition": "4364",
+              "endPosition": "4396",
               "kind": "BLOCK",
               "statements": [
                 {
                   "condition": {
-                    "endPosition": "3874",
+                    "endPosition": "3906",
                     "kind": "FUNCTION_INVOCATION",
                     "functionSelect": {
                       "identifier": "endsWith",
                       "expression": {
                         "identifier": "name",
                         "expression": {
-                          "endPosition": "3853",
+                          "endPosition": "3885",
                           "kind": "IDENTIFIER",
                           "name": "file",
-                          "startPosition": "3849"
+                          "startPosition": "3881"
                         },
-                        "endPosition": "3858",
+                        "endPosition": "3890",
                         "kind": "MEMBER_SELECT",
-                        "startPosition": "3849"
+                        "startPosition": "3881"
                       },
-                      "endPosition": "3867",
+                      "endPosition": "3899",
                       "kind": "MEMBER_SELECT",
-                      "startPosition": "3849"
+                      "startPosition": "3881"
                     },
                     "arguments": [
                       {
-                        "endPosition": "3872",
+                        "endPosition": "3904",
                         "kind": "STRING_LITERAL",
                         "value": ".js",
-                        "startPosition": "3869"
+                        "startPosition": "3901"
                       }
                     ],
-                    "startPosition": "3849"
+                    "startPosition": "3881"
                   },
-                  "endPosition": "4358",
+                  "endPosition": "4390",
                   "kind": "IF",
-                  "startPosition": "3845",
+                  "startPosition": "3877",
                   "thenStatement": {
-                    "endPosition": "4358",
+                    "endPosition": "4390",
                     "kind": "BLOCK",
                     "statements": [
                       {
-                        "endPosition": "3918",
+                        "endPosition": "3950",
                         "kind": "VARIABLE",
                         "binding": {
-                          "endPosition": "3900",
+                          "endPosition": "3932",
                           "kind": "IDENTIFIER",
                           "name": "script",
-                          "startPosition": "3894"
+                          "startPosition": "3926"
                         },
-                        "startPosition": "3890",
+                        "startPosition": "3922",
                         "initializer": {
-                          "endPosition": "3918",
+                          "endPosition": "3950",
                           "kind": "FUNCTION_INVOCATION",
                           "functionSelect": {
-                            "endPosition": "3912",
+                            "endPosition": "3944",
                             "kind": "IDENTIFIER",
                             "name": "readFully",
-                            "startPosition": "3903"
+                            "startPosition": "3935"
                           },
                           "arguments": [
                             {
-                              "endPosition": "3917",
+                              "endPosition": "3949",
                               "kind": "IDENTIFIER",
                               "name": "file",
-                              "startPosition": "3913"
+                              "startPosition": "3945"
                             }
                           ],
-                          "startPosition": "3903"
+                          "startPosition": "3935"
                         }
                       },
                       {
-                        "endPosition": "3957",
+                        "endPosition": "3989",
                         "kind": "VARIABLE",
                         "binding": {
-                          "endPosition": "3942",
+                          "endPosition": "3974",
                           "kind": "IDENTIFIER",
                           "name": "parser",
-                          "startPosition": "3936"
+                          "startPosition": "3968"
                         },
-                        "startPosition": "3932",
+                        "startPosition": "3964",
                         "initializer": {
                           "constructorExpression": {
-                            "endPosition": "3957",
+                            "endPosition": "3989",
                             "kind": "FUNCTION_INVOCATION",
                             "functionSelect": {
-                              "endPosition": "3955",
+                              "endPosition": "3987",
                               "kind": "IDENTIFIER",
                               "name": "Parser",
-                              "startPosition": "3949"
+                              "startPosition": "3981"
                             },
                             "arguments": [],
-                            "startPosition": "3949"
+                            "startPosition": "3981"
                           },
-                          "endPosition": "3957",
+                          "endPosition": "3989",
                           "kind": "NEW",
-                          "startPosition": "3945"
+                          "startPosition": "3977"
                         }
                       },
                       {
-                        "endPosition": "4218",
+                        "endPosition": "4250",
                         "kind": "VARIABLE",
                         "binding": {
-                          "endPosition": "3979",
+                          "endPosition": "4011",
                           "kind": "IDENTIFIER",
                           "name": "tree",
-                          "startPosition": "3975"
+                          "startPosition": "4007"
                         },
-                        "startPosition": "3971",
+                        "startPosition": "4003",
                         "initializer": {
-                          "endPosition": "4218",
+                          "endPosition": "4250",
                           "kind": "FUNCTION_INVOCATION",
                           "functionSelect": {
                             "identifier": "parse",
                             "expression": {
-                              "endPosition": "3988",
+                              "endPosition": "4020",
                               "kind": "IDENTIFIER",
                               "name": "parser",
-                              "startPosition": "3982"
+                              "startPosition": "4014"
                             },
-                            "endPosition": "3994",
+                            "endPosition": "4026",
                             "kind": "MEMBER_SELECT",
-                            "startPosition": "3982"
+                            "startPosition": "4014"
                           },
                           "arguments": [
                             {
                               "leftOperand": {
                                 "leftOperand": {
-                                  "endPosition": "4001",
+                                  "endPosition": "4033",
                                   "kind": "IDENTIFIER",
                                   "name": "subdir",
-                                  "startPosition": "3995"
+                                  "startPosition": "4027"
                                 },
-                                "endPosition": "4006",
+                                "endPosition": "4038",
                                 "kind": "PLUS",
                                 "rightOperand": {
-                                  "endPosition": "4006",
+                                  "endPosition": "4038",
                                   "kind": "STRING_LITERAL",
                                   "value": "/",
-                                  "startPosition": "4005"
+                                  "startPosition": "4037"
                                 },
-                                "startPosition": "3995"
+                                "startPosition": "4027"
                               },
-                              "endPosition": "4019",
+                              "endPosition": "4051",
                               "kind": "PLUS",
                               "rightOperand": {
                                 "identifier": "name",
                                 "expression": {
-                                  "endPosition": "4014",
+                                  "endPosition": "4046",
                                   "kind": "IDENTIFIER",
                                   "name": "file",
-                                  "startPosition": "4010"
+                                  "startPosition": "4042"
                                 },
-                                "endPosition": "4019",
+                                "endPosition": "4051",
                                 "kind": "MEMBER_SELECT",
-                                "startPosition": "4010"
+                                "startPosition": "4042"
                               },
-                              "startPosition": "3995"
+                              "startPosition": "4027"
                             },
                             {
-                              "endPosition": "4027",
+                              "endPosition": "4059",
                               "kind": "IDENTIFIER",
                               "name": "script",
-                              "startPosition": "4021"
+                              "startPosition": "4053"
                             },
                             {
-                              "endPosition": "4066",
+                              "endPosition": "4098",
                               "kind": "FUNCTION_EXPRESSION",
                               "body": {
-                                "endPosition": "4199",
+                                "endPosition": "4231",
                                 "kind": "BLOCK",
                                 "statements": [
-                                  {
-                                    "expression": {
-                                      "endPosition": "4166",
-                                      "kind": "FUNCTION_INVOCATION",
-                                      "functionSelect": {
-                                        "endPosition": "4093",
-                                        "kind": "IDENTIFIER",
-                                        "name": "print",
-                                        "startPosition": "4088"
-                                      },
-                                      "arguments": [
-                                        {
-                                          "endPosition": "4165",
-                                          "kind": "FUNCTION_INVOCATION",
-                                          "functionSelect": {
-                                            "identifier": "replace",
-                                            "expression": {
-                                              "endPosition": "4145",
-                                              "kind": "FUNCTION_INVOCATION",
-                                              "functionSelect": {
-                                                "identifier": "stringify",
-                                                "expression": {
-                                                  "endPosition": "4098",
-                                                  "kind": "IDENTIFIER",
-                                                  "name": "JSON",
-                                                  "startPosition": "4094"
-                                                },
-                                                "endPosition": "4108",
-                                                "kind": "MEMBER_SELECT",
-                                                "startPosition": "4094"
-                                              },
-                                              "arguments": [
-                                                {
-                                                  "endPosition": "4135",
-                                                  "kind": "FUNCTION_INVOCATION",
-                                                  "functionSelect": {
-                                                    "identifier": "convert",
-                                                    "expression": {
-                                                      "endPosition": "4115",
-                                                      "kind": "IDENTIFIER",
-                                                      "name": "parser",
-                                                      "startPosition": "4109"
-                                                    },
-                                                    "endPosition": "4123",
-                                                    "kind": "MEMBER_SELECT",
-                                                    "startPosition": "4109"
-                                                  },
-                                                  "arguments": [
-                                                    {
-                                                      "endPosition": "4134",
-                                                      "kind": "IDENTIFIER",
-                                                      "name": "diagnostic",
-                                                      "startPosition": "4124"
-                                                    }
-                                                  ],
-                                                  "startPosition": "4109"
-                                                },
-                                                {
-                                                  "endPosition": "4141",
-                                                  "kind": "NULL_LITERAL",
-                                                  "startPosition": "4137"
-                                                },
-                                                {
-                                                  "endPosition": "4144",
-                                                  "kind": "NUMBER_LITERAL",
-                                                  "value": "2",
-                                                  "startPosition": "4143"
-                                                }
-                                              ],
-                                              "startPosition": "4094"
-                                            },
-                                            "endPosition": "4153",
-                                            "kind": "MEMBER_SELECT",
-                                            "startPosition": "4094"
-                                          },
-                                          "arguments": [
-                                            {
-                                              "endPosition": "4160",
-                                              "kind": "REGEXP_LITERAL",
-                                              "options": "g",
-                                              "pattern": "\\\\r",
-                                              "startPosition": "4154"
-                                            },
-                                            {
-                                              "endPosition": "4163",
-                                              "kind": "STRING_LITERAL",
-                                              "value": "",
-                                              "startPosition": "4163"
-                                            }
-                                          ],
-                                          "startPosition": "4153"
-                                        }
-                                      ],
-                                      "startPosition": "4088"
-                                    },
-                                    "endPosition": "4166",
-                                    "kind": "EXPRESSION_STATEMENT",
-                                    "startPosition": "4088"
-                                  },
                                   {
                                     "expression": {
                                       "endPosition": "4198",
                                       "kind": "FUNCTION_INVOCATION",
                                       "functionSelect": {
-                                        "endPosition": "4193",
+                                        "endPosition": "4125",
                                         "kind": "IDENTIFIER",
                                         "name": "print",
-                                        "startPosition": "4188"
+                                        "startPosition": "4120"
                                       },
                                       "arguments": [
                                         {
-                                          "endPosition": "4196",
-                                          "kind": "STRING_LITERAL",
-                                          "value": ",",
-                                          "startPosition": "4195"
+                                          "endPosition": "4197",
+                                          "kind": "FUNCTION_INVOCATION",
+                                          "functionSelect": {
+                                            "identifier": "replace",
+                                            "expression": {
+                                              "endPosition": "4177",
+                                              "kind": "FUNCTION_INVOCATION",
+                                              "functionSelect": {
+                                                "identifier": "stringify",
+                                                "expression": {
+                                                  "endPosition": "4130",
+                                                  "kind": "IDENTIFIER",
+                                                  "name": "JSON",
+                                                  "startPosition": "4126"
+                                                },
+                                                "endPosition": "4140",
+                                                "kind": "MEMBER_SELECT",
+                                                "startPosition": "4126"
+                                              },
+                                              "arguments": [
+                                                {
+                                                  "endPosition": "4167",
+                                                  "kind": "FUNCTION_INVOCATION",
+                                                  "functionSelect": {
+                                                    "identifier": "convert",
+                                                    "expression": {
+                                                      "endPosition": "4147",
+                                                      "kind": "IDENTIFIER",
+                                                      "name": "parser",
+                                                      "startPosition": "4141"
+                                                    },
+                                                    "endPosition": "4155",
+                                                    "kind": "MEMBER_SELECT",
+                                                    "startPosition": "4141"
+                                                  },
+                                                  "arguments": [
+                                                    {
+                                                      "endPosition": "4166",
+                                                      "kind": "IDENTIFIER",
+                                                      "name": "diagnostic",
+                                                      "startPosition": "4156"
+                                                    }
+                                                  ],
+                                                  "startPosition": "4141"
+                                                },
+                                                {
+                                                  "endPosition": "4173",
+                                                  "kind": "NULL_LITERAL",
+                                                  "startPosition": "4169"
+                                                },
+                                                {
+                                                  "endPosition": "4176",
+                                                  "kind": "NUMBER_LITERAL",
+                                                  "value": "2",
+                                                  "startPosition": "4175"
+                                                }
+                                              ],
+                                              "startPosition": "4126"
+                                            },
+                                            "endPosition": "4185",
+                                            "kind": "MEMBER_SELECT",
+                                            "startPosition": "4126"
+                                          },
+                                          "arguments": [
+                                            {
+                                              "endPosition": "4192",
+                                              "kind": "REGEXP_LITERAL",
+                                              "options": "g",
+                                              "pattern": "\\\\r",
+                                              "startPosition": "4186"
+                                            },
+                                            {
+                                              "endPosition": "4195",
+                                              "kind": "STRING_LITERAL",
+                                              "value": "",
+                                              "startPosition": "4195"
+                                            }
+                                          ],
+                                          "startPosition": "4185"
                                         }
                                       ],
-                                      "startPosition": "4188"
+                                      "startPosition": "4120"
                                     },
                                     "endPosition": "4198",
                                     "kind": "EXPRESSION_STATEMENT",
-                                    "startPosition": "4188"
+                                    "startPosition": "4120"
+                                  },
+                                  {
+                                    "expression": {
+                                      "endPosition": "4230",
+                                      "kind": "FUNCTION_INVOCATION",
+                                      "functionSelect": {
+                                        "endPosition": "4225",
+                                        "kind": "IDENTIFIER",
+                                        "name": "print",
+                                        "startPosition": "4220"
+                                      },
+                                      "arguments": [
+                                        {
+                                          "endPosition": "4228",
+                                          "kind": "STRING_LITERAL",
+                                          "value": ",",
+                                          "startPosition": "4227"
+                                        }
+                                      ],
+                                      "startPosition": "4220"
+                                    },
+                                    "endPosition": "4230",
+                                    "kind": "EXPRESSION_STATEMENT",
+                                    "startPosition": "4220"
                                   }
                                 ],
-                                "startPosition": "4066"
+                                "startPosition": "4098"
                               },
                               "strict": "false",
-                              "startPosition": "4066",
+                              "startPosition": "4098",
                               "parameters": [
                                 {
-                                  "endPosition": "4064",
+                                  "endPosition": "4096",
                                   "kind": "IDENTIFIER",
                                   "name": "diagnostic",
-                                  "startPosition": "4054"
+                                  "startPosition": "4086"
                                 }
                               ]
                             }
                           ],
-                          "startPosition": "3982"
+                          "startPosition": "4014"
                         }
                       },
                       {
                         "condition": {
                           "leftOperand": {
-                            "endPosition": "4241",
+                            "endPosition": "4273",
                             "kind": "IDENTIFIER",
                             "name": "tree",
-                            "startPosition": "4237"
+                            "startPosition": "4269"
                           },
-                          "endPosition": "4249",
+                          "endPosition": "4281",
                           "kind": "NOT_EQUAL_TO",
                           "rightOperand": {
-                            "endPosition": "4249",
+                            "endPosition": "4281",
                             "kind": "NULL_LITERAL",
-                            "startPosition": "4245"
+                            "startPosition": "4277"
                           },
-                          "startPosition": "4237"
+                          "startPosition": "4269"
                         },
-                        "endPosition": "4348",
+                        "endPosition": "4380",
                         "kind": "IF",
-                        "startPosition": "4233",
+                        "startPosition": "4265",
                         "thenStatement": {
-                          "endPosition": "4348",
+                          "endPosition": "4380",
                           "kind": "BLOCK",
                           "statements": [
                             {
                               "expression": {
-                                "endPosition": "4305",
+                                "endPosition": "4337",
                                 "kind": "FUNCTION_INVOCATION",
                                 "functionSelect": {
-                                  "endPosition": "4274",
+                                  "endPosition": "4306",
                                   "kind": "IDENTIFIER",
                                   "name": "print",
-                                  "startPosition": "4269"
+                                  "startPosition": "4301"
                                 },
                                 "arguments": [
                                   {
-                                    "endPosition": "4304",
+                                    "endPosition": "4336",
                                     "kind": "FUNCTION_INVOCATION",
                                     "functionSelect": {
                                       "identifier": "stringify",
                                       "expression": {
-                                        "endPosition": "4279",
+                                        "endPosition": "4311",
                                         "kind": "IDENTIFIER",
                                         "name": "JSON",
-                                        "startPosition": "4275"
+                                        "startPosition": "4307"
                                       },
-                                      "endPosition": "4289",
+                                      "endPosition": "4321",
                                       "kind": "MEMBER_SELECT",
-                                      "startPosition": "4275"
+                                      "startPosition": "4307"
                                     },
                                     "arguments": [
                                       {
-                                        "endPosition": "4294",
+                                        "endPosition": "4326",
                                         "kind": "IDENTIFIER",
                                         "name": "tree",
-                                        "startPosition": "4290"
+                                        "startPosition": "4322"
                                       },
                                       {
-                                        "endPosition": "4300",
+                                        "endPosition": "4332",
                                         "kind": "NULL_LITERAL",
-                                        "startPosition": "4296"
+                                        "startPosition": "4328"
                                       },
                                       {
-                                        "endPosition": "4303",
+                                        "endPosition": "4335",
                                         "kind": "NUMBER_LITERAL",
                                         "value": "2",
-                                        "startPosition": "4302"
+                                        "startPosition": "4334"
                                       }
                                     ],
-                                    "startPosition": "4275"
+                                    "startPosition": "4307"
                                   }
                                 ],
-                                "startPosition": "4269"
+                                "startPosition": "4301"
                               },
-                              "endPosition": "4305",
+                              "endPosition": "4337",
                               "kind": "EXPRESSION_STATEMENT",
-                              "startPosition": "4269"
+                              "startPosition": "4301"
                             },
                             {
                               "expression": {
-                                "endPosition": "4333",
+                                "endPosition": "4365",
                                 "kind": "FUNCTION_INVOCATION",
                                 "functionSelect": {
-                                  "endPosition": "4328",
+                                  "endPosition": "4360",
                                   "kind": "IDENTIFIER",
                                   "name": "print",
-                                  "startPosition": "4323"
+                                  "startPosition": "4355"
                                 },
                                 "arguments": [
                                   {
-                                    "endPosition": "4331",
+                                    "endPosition": "4363",
                                     "kind": "STRING_LITERAL",
                                     "value": ",",
-                                    "startPosition": "4330"
+                                    "startPosition": "4362"
                                   }
                                 ],
-                                "startPosition": "4323"
+                                "startPosition": "4355"
                               },
-                              "endPosition": "4333",
+                              "endPosition": "4365",
                               "kind": "EXPRESSION_STATEMENT",
-                              "startPosition": "4323"
+                              "startPosition": "4355"
                             }
                           ],
-                          "startPosition": "4251"
+                          "startPosition": "4283"
                         }
                       }
                     ],
-                    "startPosition": "3876"
+                    "startPosition": "3908"
                   }
                 }
               ],
-              "startPosition": "3835"
+              "startPosition": "3867"
             },
-            "startPosition": "3806"
+            "startPosition": "3838"
           }
         ],
-        "startPosition": "3668"
+        "startPosition": "3700"
       },
       "strict": "false",
-      "startPosition": "3638",
+      "startPosition": "3670",
       "parameters": [
         {
-          "endPosition": "3666",
+          "endPosition": "3698",
           "kind": "IDENTIFIER",
           "name": "subdir",
-          "startPosition": "3660"
+          "startPosition": "3692"
         }
       ]
     },
     {
-      "endPosition": "4710",
+      "endPosition": "4742",
       "kind": "FUNCTION",
       "name": {
-        "endPosition": "4421",
+        "endPosition": "4453",
         "kind": "IDENTIFIER",
         "name": "main",
-        "startPosition": "4417"
+        "startPosition": "4449"
       },
       "body": {
-        "endPosition": "4708",
+        "endPosition": "4740",
         "kind": "BLOCK",
         "statements": [
           {
             "expression": {
-              "endPosition": "4440",
+              "endPosition": "4472",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4435",
+                "endPosition": "4467",
                 "kind": "IDENTIFIER",
                 "name": "print",
-                "startPosition": "4430"
+                "startPosition": "4462"
               },
               "arguments": [
                 {
-                  "endPosition": "4438",
+                  "endPosition": "4470",
                   "kind": "STRING_LITERAL",
                   "value": "[",
-                  "startPosition": "4437"
+                  "startPosition": "4469"
                 }
               ],
-              "startPosition": "4430"
+              "startPosition": "4462"
             },
-            "endPosition": "4440",
+            "endPosition": "4472",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "4430"
+            "startPosition": "4462"
           },
           {
             "expression": {
-              "endPosition": "4474",
+              "endPosition": "4506",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4459",
+                "endPosition": "4491",
                 "kind": "IDENTIFIER",
                 "name": "processFiles",
-                "startPosition": "4447"
+                "startPosition": "4479"
               },
               "arguments": [
                 {
-                  "endPosition": "4472",
+                  "endPosition": "4504",
                   "kind": "STRING_LITERAL",
                   "value": "parsertests",
-                  "startPosition": "4461"
+                  "startPosition": "4493"
                 }
               ],
-              "startPosition": "4447"
+              "startPosition": "4479"
             },
-            "endPosition": "4474",
+            "endPosition": "4506",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "4447"
+            "startPosition": "4479"
           },
           {
             "expression": {
-              "endPosition": "4515",
+              "endPosition": "4547",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4492",
+                "endPosition": "4524",
                 "kind": "IDENTIFIER",
                 "name": "processFiles",
-                "startPosition": "4480"
+                "startPosition": "4512"
               },
               "arguments": [
                 {
-                  "endPosition": "4513",
+                  "endPosition": "4545",
                   "kind": "STRING_LITERAL",
                   "value": "parsernegativetests",
-                  "startPosition": "4494"
+                  "startPosition": "4526"
                 }
               ],
-              "startPosition": "4480"
+              "startPosition": "4512"
             },
-            "endPosition": "4515",
+            "endPosition": "4547",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "4480"
+            "startPosition": "4512"
           },
           {
-            "endPosition": "4584",
+            "endPosition": "4616",
             "kind": "VARIABLE",
             "binding": {
-              "endPosition": "4562",
+              "endPosition": "4594",
               "kind": "IDENTIFIER",
               "name": "script",
-              "startPosition": "4556"
+              "startPosition": "4588"
             },
-            "startPosition": "4552",
+            "startPosition": "4584",
             "initializer": {
-              "endPosition": "4584",
+              "endPosition": "4616",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4574",
+                "endPosition": "4606",
                 "kind": "IDENTIFIER",
                 "name": "readFully",
-                "startPosition": "4565"
+                "startPosition": "4597"
               },
               "arguments": [
                 {
-                  "endPosition": "4583",
+                  "endPosition": "4615",
                   "kind": "IDENTIFIER",
                   "name": "__FILE__",
-                  "startPosition": "4575"
+                  "startPosition": "4607"
                 }
               ],
-              "startPosition": "4565"
+              "startPosition": "4597"
             }
           },
           {
-            "endPosition": "4649",
+            "endPosition": "4681",
             "kind": "VARIABLE",
             "binding": {
-              "endPosition": "4598",
+              "endPosition": "4630",
               "kind": "IDENTIFIER",
               "name": "tree",
-              "startPosition": "4594"
+              "startPosition": "4626"
             },
-            "startPosition": "4590",
+            "startPosition": "4622",
             "initializer": {
-              "endPosition": "4649",
+              "endPosition": "4681",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
                 "identifier": "parse",
                 "expression": {
                   "constructorExpression": {
-                    "endPosition": "4613",
+                    "endPosition": "4645",
                     "kind": "FUNCTION_INVOCATION",
                     "functionSelect": {
-                      "endPosition": "4611",
+                      "endPosition": "4643",
                       "kind": "IDENTIFIER",
                       "name": "Parser",
-                      "startPosition": "4605"
+                      "startPosition": "4637"
                     },
                     "arguments": [],
-                    "startPosition": "4605"
+                    "startPosition": "4637"
                   },
-                  "endPosition": "4613",
+                  "endPosition": "4645",
                   "kind": "NEW",
-                  "startPosition": "4601"
+                  "startPosition": "4633"
                 },
-                "endPosition": "4619",
+                "endPosition": "4651",
                 "kind": "MEMBER_SELECT",
-                "startPosition": "4601"
+                "startPosition": "4633"
               },
               "arguments": [
                 {
-                  "endPosition": "4633",
+                  "endPosition": "4665",
                   "kind": "STRING_LITERAL",
                   "value": "parserapi.js",
-                  "startPosition": "4621"
+                  "startPosition": "4653"
                 },
                 {
-                  "endPosition": "4642",
+                  "endPosition": "4674",
                   "kind": "IDENTIFIER",
                   "name": "script",
-                  "startPosition": "4636"
+                  "startPosition": "4668"
                 },
                 {
-                  "endPosition": "4648",
+                  "endPosition": "4680",
                   "kind": "NULL_LITERAL",
-                  "startPosition": "4644"
+                  "startPosition": "4676"
                 }
               ],
-              "startPosition": "4601"
+              "startPosition": "4633"
             }
           },
           {
             "expression": {
-              "endPosition": "4691",
+              "endPosition": "4723",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4660",
+                "endPosition": "4692",
                 "kind": "IDENTIFIER",
                 "name": "print",
-                "startPosition": "4655"
+                "startPosition": "4687"
               },
               "arguments": [
                 {
-                  "endPosition": "4690",
+                  "endPosition": "4722",
                   "kind": "FUNCTION_INVOCATION",
                   "functionSelect": {
                     "identifier": "stringify",
                     "expression": {
-                      "endPosition": "4665",
+                      "endPosition": "4697",
                       "kind": "IDENTIFIER",
                       "name": "JSON",
-                      "startPosition": "4661"
+                      "startPosition": "4693"
                     },
-                    "endPosition": "4675",
+                    "endPosition": "4707",
                     "kind": "MEMBER_SELECT",
-                    "startPosition": "4661"
+                    "startPosition": "4693"
                   },
                   "arguments": [
                     {
-                      "endPosition": "4680",
+                      "endPosition": "4712",
                       "kind": "IDENTIFIER",
                       "name": "tree",
-                      "startPosition": "4676"
+                      "startPosition": "4708"
                     },
                     {
-                      "endPosition": "4686",
+                      "endPosition": "4718",
                       "kind": "NULL_LITERAL",
-                      "startPosition": "4682"
+                      "startPosition": "4714"
                     },
                     {
-                      "endPosition": "4689",
+                      "endPosition": "4721",
                       "kind": "NUMBER_LITERAL",
                       "value": "2",
-                      "startPosition": "4688"
+                      "startPosition": "4720"
                     }
                   ],
-                  "startPosition": "4661"
+                  "startPosition": "4693"
                 }
               ],
-              "startPosition": "4655"
+              "startPosition": "4687"
             },
-            "endPosition": "4691",
+            "endPosition": "4723",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "4655"
+            "startPosition": "4687"
           },
           {
             "expression": {
-              "endPosition": "4707",
+              "endPosition": "4739",
               "kind": "FUNCTION_INVOCATION",
               "functionSelect": {
-                "endPosition": "4702",
+                "endPosition": "4734",
                 "kind": "IDENTIFIER",
                 "name": "print",
-                "startPosition": "4697"
+                "startPosition": "4729"
               },
               "arguments": [
                 {
-                  "endPosition": "4705",
+                  "endPosition": "4737",
                   "kind": "STRING_LITERAL",
                   "value": "]",
-                  "startPosition": "4704"
+                  "startPosition": "4736"
                 }
               ],
-              "startPosition": "4697"
+              "startPosition": "4729"
             },
-            "endPosition": "4707",
+            "endPosition": "4739",
             "kind": "EXPRESSION_STATEMENT",
-            "startPosition": "4697"
+            "startPosition": "4729"
           }
         ],
-        "startPosition": "4424"
+        "startPosition": "4456"
       },
       "strict": "false",
-      "startPosition": "4408",
+      "startPosition": "4440",
       "parameters": []
     },
     {
       "expression": {
-        "endPosition": "4718",
+        "endPosition": "4750",
         "kind": "FUNCTION_INVOCATION",
         "functionSelect": {
-          "endPosition": "4716",
+          "endPosition": "4748",
           "kind": "IDENTIFIER",
           "name": "main",
-          "startPosition": "4712"
+          "startPosition": "4744"
         },
         "arguments": [],
-        "startPosition": "4712"
+        "startPosition": "4744"
       },
-      "endPosition": "4718",
+      "endPosition": "4750",
       "kind": "EXPRESSION_STATEMENT",
-      "startPosition": "4712"
+      "startPosition": "4744"
     }
   ],
   "sourceName": "parserapi.js",
