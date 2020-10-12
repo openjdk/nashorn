@@ -362,7 +362,7 @@
 
 package.access=sun.misc.,\
     sun.reflect.,\
-    org.openjdk.nashorn.internal.
+    org.openjdk.nashorn.internal.test
 
     </echo>
   </target>
@@ -422,7 +422,6 @@ grant codeBase "file:/${file.reference.bsh.jar}" {
 grant codeBase "file:/${file.reference.snakeyaml.jar}" {
     permission java.security.AllPermission;
 };
-
 
 grant codeBase "file:/${basedir}/${test.script.dir}/trusted/*" {
     permission java.security.AllPermission;
