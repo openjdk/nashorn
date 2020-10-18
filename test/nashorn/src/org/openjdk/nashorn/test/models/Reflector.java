@@ -29,7 +29,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.api.scripting.AbstractJSObject;
 
 /**
  * Few tests reflectively invoke or read fields of Nashorn classes
@@ -40,7 +40,7 @@ import org.openjdk.nashorn.internal.runtime.Context;
  */
 public final class Reflector {
     private Reflector() {}
-    private static final Module NASHORN_MOD = Context.class.getModule();
+    private static final Module NASHORN_MOD = AbstractJSObject.class.getModule();
 
     public static void setAccessible(Executable e) {
         if (e.getDeclaringClass().getModule() != NASHORN_MOD) {
