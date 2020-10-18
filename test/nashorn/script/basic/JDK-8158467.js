@@ -74,9 +74,9 @@ try {
     print(ex);
 }
 
-// should throw SecurityException!
+// should throw ClassNotFoundException!
 try {
-    e.eval("Java.type('org.openjdk.nashorn.internal.Context')");
+    e.eval("Java.type('org.openjdk.nashorn.internal.runtime.Context')");
 } catch (ex) {
     print(ex);
 }
