@@ -108,7 +108,7 @@ import org.openjdk.nashorn.internal.runtime.logging.Loggable;
 import org.openjdk.nashorn.internal.runtime.logging.Logger;
 import org.openjdk.nashorn.internal.runtime.options.LoggingOption.LoggerInfo;
 import org.openjdk.nashorn.internal.runtime.options.Options;
-import jdk.internal.misc.Unsafe;
+import sun.misc.Unsafe;
 
 /**
  * This class manages the global state of execution. Context is immutable.
@@ -318,11 +318,28 @@ public final class Context {
     private final WeakValueCache<CodeSource, Class<?>> anonymousHostClasses = new WeakValueCache<>();
 
     private static final class AnonymousContextCodeInstaller extends ContextCodeInstaller {
-        private static final Unsafe UNSAFE = Unsafe.getUnsafe();
+        private static final MethodHandle DEFINE_ANONYMOUS_CLASS = getDefineAnonymousClass();
         private static final String ANONYMOUS_HOST_CLASS_NAME = Compiler.SCRIPTS_PACKAGE.replace('/', '.') + ".AnonymousHost";
         private static final byte[] ANONYMOUS_HOST_CLASS_BYTES = getAnonymousHostClassBytes();
 
         private final Class<?> hostClass;
+
+        private static MethodHandle getDefineAnonymousClass() {
+            // Can't reference the Unsafe class at all outside of the doPrivileged block,
+            // not even as a type of the return value, hence we just export a MethodHandle
+            // out of it.
+            return AccessController.doPrivileged((PrivilegedAction<MethodHandle>) () -> {
+                try {
+                    final MethodHandle mh = MethodHandles.lookup().findVirtual(Unsafe.class, "defineAnonymousClass",
+                        MethodType.methodType(Class.class, Class.class, byte[].class, Object[].class));
+                    final Field f = Unsafe.class.getDeclaredField("theUnsafe");
+                    f.setAccessible(true);
+                    return mh.bindTo(f.get(null));
+                } catch (ReflectiveOperationException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
 
         private AnonymousContextCodeInstaller(final Context context, final CodeSource codeSource, final Class<?> hostClass) {
             super(context, codeSource);
@@ -332,7 +349,13 @@ public final class Context {
         @Override
         public Class<?> install(final String className, final byte[] bytecode) {
             ANONYMOUS_INSTALLED_SCRIPT_COUNT.increment();
-            return UNSAFE.defineAnonymousClass(hostClass, bytecode, null);
+            try {
+                return (Class<?>)DEFINE_ANONYMOUS_CLASS.invokeExact(hostClass, bytecode, (Object[])null);
+            } catch (RuntimeException | Error e) {
+                throw e;
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @Override
