@@ -23,7 +23,7 @@
  questions.
 -->
 
-<project name="nashorn" default="test" basedir="../..">
+<project name="nashorn" xmlns:ivy="antlib:org.apache.ivy.ant" default="test" basedir="../..">
   <import file="build-nasgen.xml"/>
   <import file="code_coverage.xml"/>
 
@@ -115,11 +115,11 @@
    </target>
   
 
-  <!-- check minimum ant version required to be 1.9.5 -->
+  <!-- check minimum ant version required to be 1.9.9 -->
   <target name="check-ant-version">
-    <property name="ant.version.required" value="1.9.5"/>
+    <property name="ant.version.required" value="1.9.9"/>
     <antversion property="ant.current.version" />
-    <fail message="The current ant version, ${ant.current.version}, is too old. Please use 1.9.5 or above.">
+    <fail message="The current ant version, ${ant.current.version}, is too old. Please use 1.9.9 or above.">
         <condition>
             <not>
                 <antversion atleast="${ant.version.required}"/>
@@ -162,16 +162,22 @@
     <property name="dist.dir.resolved" location="${dist.dir}"/>
   </target>
   
-  <target name="get-deps" depends="prepare">
-    <property name="asm.version" value="7.3.1"/>
+  <target name="get-ivy" depends="prepare">
+    <property name="ivy.install.version" value="2.5.0"/>
+    <property name="ivy.jar.dir" location="${build.dir}/ivy"/>
+    <property name="ivy.jar.file" location="${ivy.jar.dir}/ivy.jar"/>
+    <mkdir dir="${ivy.jar.dir}"/>
+    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
+    <path id="ivy.lib.path">
+      <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+  </target>
+  
+  <target name="get-deps" depends="get-ivy">
     <mkdir dir="${deps.dir}"/>
-    <get dest="${deps.dir}" skipexisting="true">
-      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm/${asm.version}/asm-${asm.version}.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-analysis/${asm.version}/asm-analysis-${asm.version}.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-commons/${asm.version}/asm-commons-${asm.version}.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/${asm.version}/asm-tree-${asm.version}.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/ow2/asm/asm-util/${asm.version}/asm-util-${asm.version}.jar"/>
-    </get>
+    <ivy:resolve file="make/nashorn/ivy-core.xml"/>
+    <ivy:retrieve pattern="${deps.dir}/[artifact].[ext]" sync="true" type="jar"/>
   </target>
   
   <target name="clean" depends="init, clean-nasgen, init-cc-cleanup">
@@ -253,51 +259,34 @@
 
   <target name="jar" depends="jar-nashorn, jar-shell"/>
   
-  <target name="use-promoted-nashorn" depends="init">
-    <delete file="${dist.dir}/nashorn.jar"/>
-    <copy file="${java.home}/lib/ext/nashorn.jar" todir="${dist.dir}"/>
-    <property name="compile.suppress.jar" value="defined"/>
-  </target>
-
   <!-- generate javadoc for Nashorn classes -->
-  <target name="javadoc" depends="jar" unless="test.class">
+  <target name="javadoc" depends="jar-nashorn" unless="test.class">
     <javadoc destdir="${dist.javadoc.dir}" use="yes"
         windowtitle="${nashorn.product.name} ${nashorn.version}"
         additionalparam="-quiet" failonerror="true" useexternalfile="true"
         sourcepath="${nashorn.module.src.dir}" modulenames="org.openjdk.nashorn"
+        packagenames="org.openjdk.nashorn.api.scripting,org.openjdk.nashorn.api.tree"
         modulepath="${deps.dir}">
       <arg value="${javadoc.option}"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
+      <link href="https://docs.oracle.com/en/java/javase/15/docs/api"/>
     </javadoc>
   </target>
-
-  <!-- generate javadoc only for nashorn extension api classes -->
-  <target name="nashornapi" depends="jar">
-    <mkdir dir="${dist.nashornapi.javadoc.dir}"/>
-    <javadoc destdir="${dist.nashornapi.javadoc.dir}" use="yes"
-        windowtitle="${nashorn.product.name} ${nashorn.version}"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true">
-      <arg value="--patch-module"/>
-      <arg value="org.openjdk.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
-      <arg value="${javadoc.option}"/>
-      <fileset dir="${nashorn.module.src.dir}" includes="org/openjdk/nashorn/api/**/*.java"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
-    </javadoc>
-  </target>
-
-  <target name="javadocapi" depends="nashornapi"/>
-
-  <!-- generate all docs -->
-  <target name="docs" depends="javadoc"/>
 
   <!-- create .zip and .tar.gz for nashorn binaries and scripts. -->
-  <target name="dist" depends="jar">
-      <zip destfile="${build.zip}" basedir=".."
-          excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
-      <tar destfile="${build.gzip}" basedir=".." compression="gzip"
-          excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
+  <target name="artifacts" depends="jar-nashorn, javadoc">
+    <property name="artifacts.dir" location="${build.dir}/artifacts"/>
+    <mkdir dir="${artifacts.dir}"/>
+    <property name="ivy.deliver.revision" value="${nashorn.version}"/>
+    <ivy:deliver deliverpattern="${artifacts.dir}/ivy-[revision].xml"/>
+    <ivy:makepom ivyfile="${artifacts.dir}/ivy-${nashorn.version}.xml" pomfile="${artifacts.dir}/nashorn-core-${nashorn.version}.pom"/>
+    <copy file="${nashorn.jar}" tofile="${artifacts.dir}/nashorn-core-${nashorn.version}.jar"/>
+    <jar jarfile="${artifacts.dir}/nashorn-core-${nashorn.version}-javadoc.jar">
+      <fileset dir="${dist.javadoc.dir}"/>
+    </jar>
+    <jar jarfile="${artifacts.dir}/nashorn-core-${nashorn.version}-sources.jar">
+      <fileset dir="${nashorn.module.src.dir}"/>
+      <fileset dir="${basedir}" includes="LICENSE, ADDITIONAL_LICENSE_INFO"/>
+    </jar>
   </target>
 
   <target name="compile-test" depends="jar" if="testng.available">
@@ -705,7 +694,7 @@ grant codeBase "file:/${basedir}/${test.script.dir}/basic/JDK-8158467.js" {
       </java>
   </target>
 
-  <target name="all" depends="test, docs"
+  <target name="all" depends="test, javadoc"
       description="Build, test and generate docs for nashorn"/>
 
   <target name="run" depends="jar"
