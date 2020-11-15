@@ -69,7 +69,7 @@ final class StructureLoader extends NashornLoader {
                             .packages(Set.of(SCRIPTS_PKG))
                             .build();
 
-        final Module mod = Context.createModuleTrusted(descriptor, this);
+        final Module mod = Context.createModuleTrusted(NASHORN_MODULE.getLayer(), descriptor, this);
         loadModuleManipulator();
         return mod;
     }

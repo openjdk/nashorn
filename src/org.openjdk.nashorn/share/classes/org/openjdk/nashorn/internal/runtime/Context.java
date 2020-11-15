@@ -1350,18 +1350,6 @@ public final class Context {
      * Creates a module layer with one module that is defined to the given class
      * loader.
      *
-     * @param descriptor the module descriptor for the newly created module
-     * @param loader the class loader of the module
-     * @return the new Module
-     */
-    static Module createModuleTrusted(final ModuleDescriptor descriptor, final ClassLoader loader) {
-        return createModuleTrusted(ModuleLayer.boot(), descriptor, loader);
-    }
-
-    /**
-     * Creates a module layer with one module that is defined to the given class
-     * loader.
-     *
      * @param parent the parent layer of the new module
      * @param descriptor the module descriptor for the newly created module
      * @param loader the class loader of the module
