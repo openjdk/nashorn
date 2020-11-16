@@ -23,7 +23,7 @@
  questions.
 -->
 
-<project name="nashorn" xmlns:ivy="antlib:org.apache.ivy.ant" default="test" basedir="../..">
+<project name="nashorn" default="test" basedir="../..">
   <import file="build-nasgen.xml"/>
   <import file="code_coverage.xml"/>
 
@@ -52,6 +52,7 @@
       <available file="/usr/local/bin/git"/>
     </condition>
     <!-- check if TestNG and dependencies are available, and download them if they aren't -->
+    <property name="repo.url" value="https://repo1.maven.org/maven2"/>
     <antcall target="get-testng"/>
     <condition property="testng.available" value="true">
       <and>
@@ -147,7 +148,6 @@
     <echo message="run.test.jvmargs.octane=${run.test.jvmargs.octane}"/>
     <echo message="run.test.xms=${run.test.xms}"/>
     <echo message="run.test.xmx=${run.test.xmx}"/>
-
   </target>
 
   <target name="prepare" depends="init">
@@ -162,22 +162,16 @@
     <property name="dist.dir.resolved" location="${dist.dir}"/>
   </target>
   
-  <target name="get-ivy" depends="prepare">
-    <property name="ivy.install.version" value="2.5.0"/>
-    <property name="ivy.jar.dir" location="${build.dir}/ivy"/>
-    <property name="ivy.jar.file" location="${ivy.jar.dir}/ivy.jar"/>
-    <mkdir dir="${ivy.jar.dir}"/>
-    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
-    <path id="ivy.lib.path">
-      <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
-    </path>
-    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
-  </target>
-  
-  <target name="get-deps" depends="get-ivy">
-    <mkdir dir="${deps.dir}"/>
-    <ivy:resolve file="make/nashorn/ivy-core.xml"/>
-    <ivy:retrieve pattern="${deps.dir}/[artifact].[ext]" sync="true" type="jar"/>
+  <target name="get-deps" depends="prepare">
+    <property name="asm.version" value="7.3.1"/>
+    <property name="asm.url" value="${repo.url}/org/ow2/asm"/>
+    <get dest="${deps.dir}" skipexisting="true">
+      <url url="${asm.url}/asm/${asm.version}/asm-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-analysis/${asm.version}/asm-analysis-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-commons/${asm.version}/asm-commons-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-tree/${asm.version}/asm-tree-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-util/${asm.version}/asm-util-${asm.version}.jar"/>
+    </get>
   </target>
   
   <target name="clean" depends="init, clean-nasgen, init-cc-cleanup">
@@ -276,10 +270,14 @@
   <target name="artifacts" depends="jar-nashorn, javadoc">
     <property name="artifacts.dir" location="${build.dir}/artifacts"/>
     <mkdir dir="${artifacts.dir}"/>
-    <property name="ivy.deliver.revision" value="${nashorn.version}"/>
-    <ivy:deliver deliverpattern="${artifacts.dir}/ivy-[revision].xml"/>
-    <ivy:makepom ivyfile="${artifacts.dir}/ivy-${nashorn.version}.xml" pomfile="${artifacts.dir}/nashorn-core-${nashorn.version}.pom"/>
-    <copy file="${nashorn.jar}" tofile="${artifacts.dir}/nashorn-core-${nashorn.version}.jar"/>
+    
+    <property name="resolved.pom.file" location="${artifacts.dir}/nashorn-core-${nashorn.version}.pom"/>
+    <copy file="${nashorn.jar}" tofile="${artifacts.dir}/nashorn-core-${nashorn.version}.jar" force="true"/>
+    <copy file="make/nashorn/nashorn-core.pom" tofile="${resolved.pom.file}"/>
+    <replace file="${resolved.pom.file}">
+      <replacefilter token="ASM_VERSION" value="${asm.version}"/>
+      <replacefilter token="NASHORN_VERSION" value="${nashorn.version}"/>
+    </replace>
     <jar jarfile="${artifacts.dir}/nashorn-core-${nashorn.version}-javadoc.jar">
       <fileset dir="${dist.javadoc.dir}"/>
     </jar>
@@ -814,10 +812,10 @@ grant codeBase "file:/${basedir}/${test.script.dir}/basic/JDK-8158467.js" {
   <!-- download and install testng.jar -->
   <target name="get-testng">
     <get dest="${test.lib}" skipexisting="true">
-      <url url="https://repo1.maven.org/maven2/org/testng/testng/6.8/testng-6.8.jar"/>
-      <url url="https://repo1.maven.org/maven2/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
-      <url url="https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
+      <url url="${repo.url}/org/testng/testng/6.8/testng-6.8.jar"/>
+      <url url="${repo.url}/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
+      <url url="${repo.url}/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
+      <url url="${repo.url}/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
     </get>
   </target>
 
