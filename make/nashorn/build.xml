@@ -31,7 +31,7 @@
     <!-- set default values to run.test.jvmargs.external property -->
     <condition property="run.test.jvmargs.external" value="">
      <not><isset property="run.test.jvmargs.external"/></not>
-    </condition>     
+    </condition>
     <!-- loading locally defined resources and properties. NB they owerwrite default ones defined later -->
     <property file="${user.home}/.nashorn.project.local.properties"/>
 
@@ -114,7 +114,7 @@
      </not>
     </condition>
    </target>
-  
+
 
   <!-- check minimum ant version required to be 1.9.9 -->
   <target name="check-ant-version">
@@ -161,7 +161,7 @@
     <mkdir dir="${dist.javadoc.dir}"/>
     <property name="dist.dir.resolved" location="${dist.dir}"/>
   </target>
-  
+
   <target name="get-deps" depends="prepare">
     <property name="asm.version" value="7.3.1"/>
     <property name="asm.url" value="${repo.url}/org/ow2/asm"/>
@@ -173,7 +173,7 @@
       <url url="${asm.url}/asm-util/${asm.version}/asm-util-${asm.version}.jar"/>
     </get>
   </target>
-  
+
   <target name="clean" depends="init, clean-nasgen, init-cc-cleanup">
     <delete includeemptydirs="true">
       <fileset dir="${build.dir}" erroronmissingdir="false"/>
@@ -210,8 +210,8 @@
     <echo file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
     <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
   </target>
-  
-  <target name="compile-shell" depends="jar-nashorn">  
+
+  <target name="compile-shell" depends="jar-nashorn">
     <javac srcdir="${nashorn.shell.module.src.dir}"
            destdir="${nashorn.shell.module.classes.dir}"
            debug="${javac.debug}"
@@ -244,7 +244,7 @@
       </manifest>
     </jar>
   </target>
-  
+
   <target name="jar-shell" depends="compile-shell">
     <jar jarfile="${jjs.jar}">
       <fileset dir="${nashorn.shell.module.classes.dir}"/>
@@ -252,7 +252,7 @@
   </target>
 
   <target name="jar" depends="jar-nashorn, jar-shell"/>
-  
+
   <!-- generate javadoc for Nashorn classes -->
   <target name="javadoc" depends="jar-nashorn" unless="test.class">
     <javadoc destdir="${dist.javadoc.dir}" use="yes"
@@ -270,7 +270,7 @@
   <target name="artifacts" depends="jar-nashorn, javadoc">
     <property name="artifacts.dir" location="${build.dir}/artifacts"/>
     <mkdir dir="${artifacts.dir}"/>
-    
+
     <property name="resolved.pom.file" location="${artifacts.dir}/nashorn-core-${nashorn.version}.pom"/>
     <copy file="${nashorn.jar}" tofile="${artifacts.dir}/nashorn-core-${nashorn.version}.jar" force="true"/>
     <copy file="make/nashorn/nashorn-core.pom" tofile="${resolved.pom.file}"/>
@@ -298,8 +298,8 @@
            debug="${javac.debug}"
            encoding="${javac.encoding}"
            includeantruntime="false" fork="true">
-        <compilerarg line="--module-path ${deps.dir}:${dist.dir.resolved}"/>   
-        <compilerarg line="--add-modules org.openjdk.nashorn"/>   
+        <compilerarg line="--module-path ${deps.dir}:${dist.dir.resolved}"/>
+        <compilerarg line="--add-modules org.openjdk.nashorn"/>
         <compilerarg value="-Xlint:unchecked"/>
         <compilerarg value="-Xlint:deprecation"/>
         <compilerarg value="-Xdiags:verbose"/>
