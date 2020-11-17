@@ -115,4 +115,3 @@ public final class ParserException extends NashornException {
         throw ECMAErrors.asEcmaException(global, this);
     }
 }
-

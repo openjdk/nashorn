@@ -48,4 +48,3 @@ public class ES6ASTVisitor{
         }
 
 }
-

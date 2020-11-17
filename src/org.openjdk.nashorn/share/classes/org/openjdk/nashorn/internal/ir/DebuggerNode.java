@@ -60,4 +60,3 @@ public final class DebuggerNode extends Statement {
         sb.append("debugger");
     }
 }
-

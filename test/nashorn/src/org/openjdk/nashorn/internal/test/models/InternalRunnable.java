@@ -69,4 +69,3 @@ public class InternalRunnable implements Runnable, RestrictedRunnable {
         throw new AssertionError();
     }
 }
-

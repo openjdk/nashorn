@@ -98,5 +98,3 @@ public final class NativeSyntaxError extends ScriptObject {
         return new NativeSyntaxError(msg);
     }
 }
-
-

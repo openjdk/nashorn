@@ -131,4 +131,3 @@ public final class WithNode extends LexicalContextStatement {
         return Node.replaceInLexicalContext(lc, this, new WithNode(this, expression, body));
     }
 }
-

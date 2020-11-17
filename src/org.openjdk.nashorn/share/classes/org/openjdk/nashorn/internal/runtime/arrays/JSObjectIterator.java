@@ -78,4 +78,3 @@ class JSObjectIterator extends ArrayLikeIterator<Object> {
         throw new NoSuchElementException();
     }
 }
-

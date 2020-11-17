@@ -32,4 +32,3 @@ package org.openjdk.nashorn.test.models;
 public interface VarArgConsumer {
     public void apply(Object... o);
 }
-

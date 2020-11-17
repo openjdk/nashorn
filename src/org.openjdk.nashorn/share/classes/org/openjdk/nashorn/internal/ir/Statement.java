@@ -106,4 +106,3 @@ public abstract class Statement extends Node implements Terminal {
         return isTerminal() || hasGoto();
     }
 }
-

@@ -299,4 +299,3 @@ final class CodeGeneratorLexicalContext extends LexicalContext {
         return methodEmitters.peek().defineTemporaryLocalVariable(type.getSlots());
     }
 }
-

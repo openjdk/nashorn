@@ -223,5 +223,3 @@ public abstract class AbstractIterator extends ScriptObject {
 
     }
 }
-
-

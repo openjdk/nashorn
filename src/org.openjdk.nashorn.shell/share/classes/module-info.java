@@ -40,4 +40,3 @@ module org.openjdk.nashorn.shell {
     requires org.openjdk.nashorn;
     requires jdk.internal.ed;
 }
-

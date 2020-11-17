@@ -59,4 +59,3 @@ public interface ForOfLoopTree extends LoopTree {
     @Override
     StatementTree getStatement();
 }
-

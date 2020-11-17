@@ -62,4 +62,3 @@ function parse(/*code, [name], [location]*/) {
             }
         });
 }
-

@@ -85,4 +85,3 @@ public class JO extends ScriptObject {
         return new JO(map);
     }
 }
-

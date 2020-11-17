@@ -385,4 +385,3 @@ final class Splitter extends SimpleNodeVisitor implements Loggable {
         return node == outermost;
     }
 }
-

@@ -85,4 +85,3 @@ public class JD extends ScriptObject {
         return new JD(map);
     }
 }
-

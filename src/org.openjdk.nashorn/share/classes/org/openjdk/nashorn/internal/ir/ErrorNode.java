@@ -65,4 +65,3 @@ public final class ErrorNode extends Expression {
         sb.append("<error>");
     }
 }
-

@@ -71,4 +71,3 @@ public class ArrayConversionPreferences {
     public boolean testArrayOverMap(final Object[] x) { return true; }
     public boolean testArrayOverMap(final Map x) { return false; }
 }
-

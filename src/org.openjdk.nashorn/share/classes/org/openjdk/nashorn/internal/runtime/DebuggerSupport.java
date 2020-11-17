@@ -389,5 +389,3 @@ final class DebuggerSupport {
         return sb.toString();
     }
 }
-
-

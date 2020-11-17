@@ -32,4 +32,3 @@ public final class ObjPtr<T> {
     public T p;
 
 }
-

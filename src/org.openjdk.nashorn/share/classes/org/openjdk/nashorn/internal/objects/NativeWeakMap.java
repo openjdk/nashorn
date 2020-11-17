@@ -178,5 +178,3 @@ public class NativeWeakMap extends ScriptObject {
     }
 
 }
-
-

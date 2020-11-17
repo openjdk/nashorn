@@ -362,4 +362,3 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
         return MH.findStatic(MethodHandles.lookup(), NashornLinker.class, name, MH.type(rtype, types));
     }
 }
-

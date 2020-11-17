@@ -159,4 +159,3 @@ public interface PropertyDescriptor {
      */
     public boolean hasAndEquals(PropertyDescriptor otherDesc);
 }
-
