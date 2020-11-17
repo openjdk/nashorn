@@ -1,0 +1,20 @@
+[general]
+project=nashorn
+jbs=JDK
+
+[checks]
+error=author,committer,reviewers,executable,symlink,whitespace
+
+[census]
+version=0
+domain=openjdk.org
+
+[checks "whitespace"]
+files=.*\.cpp|.*\.hpp|.*\.c|.*\.h|.*\.java
+
+[checks "reviewers"]
+reviewers=1
+ignore=duke
+
+[checks "committer"]
+role=committer
