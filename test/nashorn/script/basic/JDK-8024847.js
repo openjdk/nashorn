@@ -39,7 +39,7 @@ arr = null;
 jarr = null;
 
 // external JSObjects
-var JSObject = Java.type("jdk.nashorn.api.scripting.JSObject");
+var JSObject = Java.type("org.openjdk.nashorn.api.scripting.JSObject");
 var arr = new JSObject() {
     getMember: function(name) {
         return name == "length"? 4 : undefined;

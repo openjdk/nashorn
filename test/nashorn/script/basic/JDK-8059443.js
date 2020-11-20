@@ -31,7 +31,7 @@
  * @run
  */
 
-var NullProvider = Java.type("jdk.nashorn.test.models.NullProvider");
+var NullProvider = Java.type("org.openjdk.nashorn.test.models.NullProvider");
 
 try {
     if (!NullProvider.getBoolean()) { print("yay"); }

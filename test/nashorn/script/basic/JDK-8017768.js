@@ -29,7 +29,7 @@
  */
 
 print(Java.type("java.awt.geom.Arc2D.Float") === Java.type("java.awt.geom.Arc2D$Float"))
-var iisc = Java.type("jdk.nashorn.test.models.OuterClass$InnerStaticClass$InnerInnerStaticClass")
-print(Java.type("jdk.nashorn.test.models.OuterClass.InnerStaticClass.InnerInnerStaticClass") === iisc)
-print(Java.type("jdk.nashorn.test.models.OuterClass$InnerStaticClass.InnerInnerStaticClass") === iisc)
-print(Java.type("jdk.nashorn.test.models.OuterClass.InnerStaticClass$InnerInnerStaticClass") === iisc)
+var iisc = Java.type("org.openjdk.nashorn.test.models.OuterClass$InnerStaticClass$InnerInnerStaticClass")
+print(Java.type("org.openjdk.nashorn.test.models.OuterClass.InnerStaticClass.InnerInnerStaticClass") === iisc)
+print(Java.type("org.openjdk.nashorn.test.models.OuterClass$InnerStaticClass.InnerInnerStaticClass") === iisc)
+print(Java.type("org.openjdk.nashorn.test.models.OuterClass.InnerStaticClass$InnerInnerStaticClass") === iisc)

@@ -44,7 +44,7 @@ EOF)
 // reviver function from mirror world!
 JSON.parse('{ "foo" : 44, "bar" : "hello" }', reviver)
 
-var AJO = Java.type("jdk.nashorn.api.scripting.AbstractJSObject")
+var AJO = Java.type("org.openjdk.nashorn.api.scripting.AbstractJSObject")
 // reviver function as a JSObject function
 JSON.parse('{ "nashorn" : "hello" }', new AJO() {
     isFunction: function() true,

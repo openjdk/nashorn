@@ -29,14 +29,14 @@
  */
 
 // Invoke a setter using []. It's important that the setter returns void.
-var pb = new (Java.type("jdk.nashorn.test.models.PropertyBind"))
+var pb = new (Java.type("org.openjdk.nashorn.test.models.PropertyBind"))
 var n = "writeOnly";
 pb[n] = 2;
 Assert.assertEquals(pb.peekWriteOnly(), 2);
 
 // Invoke an overloaded setter using []. It's important that one of the 
 // overloads returns void.
-var os = new (Java.type("jdk.nashorn.test.models.OverloadedSetter"))
+var os = new (Java.type("org.openjdk.nashorn.test.models.OverloadedSetter"))
 var n2 = "color";
 os[n2] = 3; // exercise int overload
 Assert.assertEquals(os.peekColor(), "3");

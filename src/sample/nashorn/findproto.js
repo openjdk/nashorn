@@ -46,8 +46,8 @@ if (!file.exists()) {
 }
 
 var Files = Java.type("java.nio.file.Files");
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
 
 var parser = Parser.create("-scripting", "--const-as-var");
 var protoFound = false;

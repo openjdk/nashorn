@@ -219,7 +219,7 @@
 
   <target name="-define-nashorn-task">
     <ant dir="${nashorntask.dir}" inheritAll="false"/>
-    <taskdef name="nashorn" classname="jdk.nashorn.ant.NashornTask"
+    <taskdef name="nashorn" classname="org.openjdk.nashorn.ant.NashornTask"
         classpath="${nashorntask.dist.dir}/nashorntask.jar"/>
   </target>
 

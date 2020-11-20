@@ -29,7 +29,7 @@
  * @run
  */
 
-var inspect = Java.type("jdk.nashorn.test.tools.StaticTypeInspector").inspect
+var inspect = Java.type("org.openjdk.nashorn.test.tools.StaticTypeInspector").inspect
 var a = 3, b, c;
 var x = { a: 2, b:1, c: 7, d: -1}
 var y = { a: Number.MAX_VALUE, b: Number.POSITIVE_INFINITY, c: "Hello", d: undefined}

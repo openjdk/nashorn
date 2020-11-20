@@ -30,7 +30,7 @@
 
 Assert.assertTrue(java.math.RoundingMode.UP == "UP");
 
-var JSObject = Java.type("jdk.nashorn.api.scripting.JSObject");
+var JSObject = Java.type("org.openjdk.nashorn.api.scripting.JSObject");
 
 // Adds an "isFunction" member to the JSObject that returns the specified value
 function addIsFunction(isFunction, obj) {

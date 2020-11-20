@@ -28,7 +28,7 @@
  * @run
  */
 
-var f = Java.type("jdk.nashorn.test.models.FunctionalInterfaceProvider").getImpl();
+var f = Java.type("org.openjdk.nashorn.test.models.FunctionalInterfaceProvider").getImpl();
 
 var s = "a";
 s += "b";

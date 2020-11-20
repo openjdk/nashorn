@@ -24,7 +24,7 @@
 #
 
 NASGEN_SRC := $(TOPDIR)/make/nashorn/buildtools/nasgen/src
-ASM_SRC := $(TOPDIR)/src/java.base/share/classes/jdk/internal/org/objectweb/asm
+ASM_SRC := $(TOPDIR)/src/java.base/share/classes/org/objectweb/asm
 
 # Build nasgen
 $(eval $(call SetupJavaCompilation, BUILD_NASGEN, \
@@ -39,16 +39,16 @@ NASGEN_RUN_FILE := $(NASHORN_CLASSES_DIR)/_the.nasgen.run
 NASGEN_OPTIONS := \
     -cp $(BUILDTOOLS_OUTPUTDIR)/nasgen_classes \
     --patch-module java.base=$(BUILDTOOLS_OUTPUTDIR)/nasgen_classes \
-    --add-exports java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED \
-    --add-exports java.base/jdk.internal.org.objectweb.asm.util=ALL-UNNAMED \
+    --add-exports java.base/org.objectweb.asm=ALL-UNNAMED \
+    --add-exports java.base/org.objectweb.asm.util=ALL-UNNAMED \
     #
 
-# Run nasgen to modify classes in jdk.nashorn.internal.objects package
+# Run nasgen to modify classes in org.openjdk.nashorn.internal.objects package
 $(NASGEN_RUN_FILE): $(BUILD_NASGEN) $($(MODULE))
 	$(ECHO) Running nasgen
 	$(JAVA_SMALL) $(NASGEN_OPTIONS) \
-	    jdk.nashorn.internal.tools.nasgen.Main $(@D) \
-	    jdk.nashorn.internal.objects $(@D)
+	    org.openjdk.nashorn.internal.tools.nasgen.Main $(@D) \
+	    org.openjdk.nashorn.internal.objects $(@D)
 	$(TOUCH) $@
 
 TARGETS += $(NASGEN_RUN_FILE)

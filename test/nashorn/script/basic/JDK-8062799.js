@@ -29,7 +29,7 @@
  */
 
 (function() {
-    var inspect = Java.type("jdk.nashorn.test.tools.StaticTypeInspector").inspect;
+    var inspect = Java.type("org.openjdk.nashorn.test.tools.StaticTypeInspector").inspect;
     
     var b = true;
     var i = 1;

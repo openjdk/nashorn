@@ -33,7 +33,7 @@
 
 // This sample demonstrats how to expose a
 // script friendly object from your java code
-// by implementing jdk.nashorn.api.scripting.JSObject
+// by implementing org.openjdk.nashorn.api.scripting.JSObject
 
 // compile the java program
 `javac BufferArray.java`;

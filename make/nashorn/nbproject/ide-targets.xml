@@ -30,7 +30,7 @@
         <nbjpdastart addressproperty="jpda.address" name="nashorn" transport="dt_socket">
             <classpath path="${run.test.classpath}"/>
         </nbjpdastart>
-        <java classname="jdk.nashorn.tools.Shell" classpath="${run.test.classpath}" dir="samples" fork="true">
+        <java classname="org.openjdk.nashorn.tools.Shell" classpath="${run.test.classpath}" dir="samples" fork="true">
 	    <jvmarg line="-Dnashorn.optimistic"/>
             <jvmarg line="${nashorn.override.path}"/> 
             <jvmarg line="${run.test.jvmargs}"/>

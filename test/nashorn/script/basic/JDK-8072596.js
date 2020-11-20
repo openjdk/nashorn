@@ -34,7 +34,7 @@ Assert.assertEquals(arr.length, 2);
 Assert.assertEquals(arr[0], "hello");
 Assert.assertEquals(arr[1], "world");
 
-var Jdk8072596TestSubject = Java.type("jdk.nashorn.test.models.Jdk8072596TestSubject");
+var Jdk8072596TestSubject = Java.type("org.openjdk.nashorn.test.models.Jdk8072596TestSubject");
 var testSubject = new Jdk8072596TestSubject({bar: 0});
 testSubject.test1(true, {foo: 1}, {bar: 2});
 testSubject.test2(true, {foo: 1}, {bar: 2}, {baz: 3}, {bing: 4});

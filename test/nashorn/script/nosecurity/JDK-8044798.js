@@ -33,9 +33,9 @@
 
 var Arrays = Java.type("java.util.Arrays");
 var CharArray = Java.type("char[]");
-var Reflector = Java.type("jdk.nashorn.test.models.Reflector");
-var DebuggerSupport = Java.type("jdk.nashorn.internal.runtime.DebuggerSupport");
-var DebuggerValueDesc = Java.type("jdk.nashorn.internal.runtime.DebuggerSupport.DebuggerValueDesc");
+var Reflector = Java.type("org.openjdk.nashorn.test.models.Reflector");
+var DebuggerSupport = Java.type("org.openjdk.nashorn.internal.runtime.DebuggerSupport");
+var DebuggerValueDesc = Java.type("org.openjdk.nashorn.internal.runtime.DebuggerSupport.DebuggerValueDesc");
 
 var valueDescFields = DebuggerValueDesc.class.declaredFields;
 Arrays.sort(valueDescFields, function(f1, f2) f1.name.compareTo(f2.name));
@@ -118,12 +118,12 @@ printValue(this);
 // The below are not part of DebuggerSupport. But we need these to
 // test DebuggerSupport.getSourceInfo etc. which need compiled script class
 
-var Source = Java.type("jdk.nashorn.internal.runtime.Source");
-var Context = Java.type("jdk.nashorn.internal.runtime.Context");
-var ThrowErrorManager = Java.type("jdk.nashorn.internal.runtime.Context.ThrowErrorManager");
-var contextCls = java.lang.Class.forName("jdk.nashorn.internal.runtime.Context");
+var Source = Java.type("org.openjdk.nashorn.internal.runtime.Source");
+var Context = Java.type("org.openjdk.nashorn.internal.runtime.Context");
+var ThrowErrorManager = Java.type("org.openjdk.nashorn.internal.runtime.Context.ThrowErrorManager");
+var contextCls = java.lang.Class.forName("org.openjdk.nashorn.internal.runtime.Context");
 var sourceCls = Source.class;
-var errorMgrCls = Java.type("jdk.nashorn.internal.runtime.ErrorManager").class;
+var errorMgrCls = Java.type("org.openjdk.nashorn.internal.runtime.ErrorManager").class;
 var booleanCls = Java.type("java.lang.Boolean").TYPE;
 var stringCls = Java.type("java.lang.String").class;
 
@@ -140,7 +140,7 @@ var scriptCls = compileMethod.invoke(getContextMethod.invoke(null),
     sourceForMethod.invoke(null, "test", "print('hello')"),
     ThrowErrorManager.class.newInstance(), false, false);
 
-var SCRIPT_CLASS_NAME_PREFIX = "jdk.nashorn.internal.scripts.Script$";
+var SCRIPT_CLASS_NAME_PREFIX = "org.openjdk.nashorn.internal.scripts.Script$";
 print("script class name pattern satisfied? " +
     scriptCls.name.startsWith(SCRIPT_CLASS_NAME_PREFIX));
 

@@ -19,5 +19,5 @@
 # or visit www.oracle.com if you need additional information or have any
 # questions.
 
-exclude jdk.nashorn.internal.objects.*
-exclude jdk.nashorn.internal.ir.debug.*
+exclude org.openjdk.nashorn.internal.objects.*
+exclude org.openjdk.nashorn.internal.ir.debug.*

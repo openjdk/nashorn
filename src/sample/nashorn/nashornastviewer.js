@@ -56,8 +56,8 @@ var TreeView  = Java.type("javafx.scene.control.TreeView");
 var Enum = Java.type("java.lang.Enum");
 var File = Java.type("java.io.File");
 var List = Java.type("java.util.List");
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
-var Tree = Java.type("jdk.nashorn.api.tree.Tree");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
+var Tree = Java.type("org.openjdk.nashorn.api.tree.Tree");
 
 // Create a javafx TreeItem to view a AST node
 function treeItemForASTNode(ast, name) {

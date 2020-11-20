@@ -38,7 +38,7 @@
 // test will fail.
 
 var Arrays = Java.type("java.util.Arrays");
-var DebuggerSupport = Java.type("jdk.nashorn.internal.runtime.DebuggerSupport");
+var DebuggerSupport = Java.type("org.openjdk.nashorn.internal.runtime.DebuggerSupport");
 
 print(DebuggerSupport.class);
 print();
@@ -62,7 +62,7 @@ for each (var mth in methods) {
 }
 print();
 
-var DebuggerValueDesc = Java.type("jdk.nashorn.internal.runtime.DebuggerSupport.DebuggerValueDesc");
+var DebuggerValueDesc = Java.type("org.openjdk.nashorn.internal.runtime.DebuggerSupport.DebuggerValueDesc");
 print(DebuggerValueDesc.class);
 print();
 var fields = DebuggerValueDesc.class.declaredFields;
@@ -78,7 +78,7 @@ for each (var fld in fields) {
 }
 print();
 
-var SourceInfo = Java.type("jdk.nashorn.internal.runtime.DebuggerSupport.SourceInfo");
+var SourceInfo = Java.type("org.openjdk.nashorn.internal.runtime.DebuggerSupport.SourceInfo");
 print(SourceInfo.class);
 print();
 var fields = SourceInfo.class.declaredFields;

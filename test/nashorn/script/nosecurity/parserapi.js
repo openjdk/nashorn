@@ -35,9 +35,9 @@ function Parser() {
 }
 
 // Java types used
-Parser.Diagnostic = Java.type("jdk.nashorn.api.tree.Diagnostic");
-Parser.SimpleTreeVisitor = Java.type("jdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
-Parser.Tree = Java.type("jdk.nashorn.api.tree.Tree");
+Parser.Diagnostic = Java.type("org.openjdk.nashorn.api.tree.Diagnostic");
+Parser.SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES5_1");
+Parser.Tree = Java.type("org.openjdk.nashorn.api.tree.Tree");
 Parser.List = Java.type("java.util.List");
 Parser.Enum = Java.type("java.lang.Enum");
 
@@ -49,7 +49,7 @@ Parser.prototype.parse = function(name, script, listener) {
 }
 
 Parser.create = function() {
-    return Java.type("jdk.nashorn.api.tree.Parser").create();
+    return Java.type("org.openjdk.nashorn.api.tree.Parser").create();
 }
 
 // convert Nashorn parser Tree, Diagnostic as a script friendly object

@@ -28,12 +28,12 @@
  * @run
  */
 
-var BigAbstract = Java.type("jdk.nashorn.test.models.BigAbstract")
+var BigAbstract = Java.type("org.openjdk.nashorn.test.models.BigAbstract")
 try {
     new BigAbstract({});
 } catch (e) {
     Assert.assertTrue(e instanceof TypeError);
-    Assert.assertEquals(e.message, "Can not extend/implement [class jdk.nashorn.test.models.BigAbstract] because of java.lang.RuntimeException: Method code too large!");
+    Assert.assertEquals(e.message, "Can not extend/implement [class org.openjdk.nashorn.test.models.BigAbstract] because of java.lang.RuntimeException: Method code too large!");
 }
 try {
     BigAbstract.accept(function() { });

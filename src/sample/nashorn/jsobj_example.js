@@ -31,7 +31,7 @@
 
 // Flexible script object using AbstractJSObject subclass
 
-var AbstractJSObject = Java.type("jdk.nashorn.api.scripting.AbstractJSObject");
+var AbstractJSObject = Java.type("org.openjdk.nashorn.api.scripting.AbstractJSObject");
 
 // JSObject example that uses a map for properties and
 // falls back to with methods on a java object (for missing

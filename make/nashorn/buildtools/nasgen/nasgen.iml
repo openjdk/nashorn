@@ -33,7 +33,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="asm" />
+    <orderEntry type="library" name="dependencies" level="project" />
   </component>
 </module>
 

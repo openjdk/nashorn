@@ -29,6 +29,6 @@
  * @fork
  */
 
-var ASTVisitor = Java.type("jdk.nashorn.test.models.ES6ASTVisitor");
+var ASTVisitor = Java.type("org.openjdk.nashorn.test.models.ES6ASTVisitor");
 var testcode = "for (var i = 0; i < 100; i++) {\n print(i);\n}\n";
 ASTVisitor.visit(testcode);

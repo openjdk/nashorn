@@ -30,7 +30,7 @@
  */
 
 var SM = Java.type("javax.script.ScriptEngineManager");
-var AJSO = Java.type("jdk.nashorn.api.scripting.AbstractJSObject");
+var AJSO = Java.type("org.openjdk.nashorn.api.scripting.AbstractJSObject");
 var Supplier = Java.type("java.util.function.Supplier");
 
 var engine = new SM().getEngineByName("nashorn");

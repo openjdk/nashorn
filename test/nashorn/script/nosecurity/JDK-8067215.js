@@ -35,10 +35,10 @@ var intType    = Java.type("int");
 var doubleType = Java.type("double");
 var objectType = Java.type("java.lang.Object");
 
-var Context = Java.type("jdk.nashorn.internal.runtime.Context");
-var JSType  = Java.type("jdk.nashorn.internal.runtime.JSType");
-var Property = Java.type("jdk.nashorn.internal.runtime.Property");
-var PropertyMap  = Java.type("jdk.nashorn.internal.runtime.PropertyMap");
+var Context = Java.type("org.openjdk.nashorn.internal.runtime.Context");
+var JSType  = Java.type("org.openjdk.nashorn.internal.runtime.JSType");
+var Property = Java.type("org.openjdk.nashorn.internal.runtime.Property");
+var PropertyMap  = Java.type("org.openjdk.nashorn.internal.runtime.PropertyMap");
 
 // Class objects
 var objectCls = Java.type("java.lang.Object").class;

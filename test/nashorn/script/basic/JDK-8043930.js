@@ -28,7 +28,7 @@
  * @run
  */
 
-var NonPublicClass = Java.type("jdk.nashorn.test.models.NonPublicClass");
+var NonPublicClass = Java.type("org.openjdk.nashorn.test.models.NonPublicClass");
 try {
     var obj = new NonPublicClass();
     fail("Expected TypeError to be thrown!");

@@ -56,7 +56,7 @@
     <property name="run.test.cc.jvmargs" value=""/>
   </target>
 
-  <target name="prepare-to-be-instrumented" depends="compile" description="Prepares to_be_instrumented dir">
+  <target name="prepare-to-be-instrumented" depends="compile-nashorn" description="Prepares to_be_instrumented dir">
     <copy todir="${build.dir}/to_be_instrumented">
       <fileset dir="${build.classes.dir}">
         <include name="**/*.class"/>

@@ -29,7 +29,7 @@
  * @run
  */
 
-var Parser = Java.type("jdk.nashorn.api.tree.Parser");
+var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
 var scriptingParser = Parser.create("-scripting");
 var parser = Parser.create();
 

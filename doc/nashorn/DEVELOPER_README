@@ -344,7 +344,7 @@ For example: --log=codegen,fields:finest is equivalent to
 
 The following is an incomplete list of subsystems that currently
 support logging. Look for classes implementing
-jdk.nashorn.internal.runtime.logging.Loggable for more loggers.
+org.openjdk.nashorn.internal.runtime.logging.Loggable for more loggers.
 
 
 * compiler

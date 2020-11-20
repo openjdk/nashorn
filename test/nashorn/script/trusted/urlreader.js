@@ -5,11 +5,11 @@
  * @run
  */
 
-var URLReader = Java.type("jdk.nashorn.api.scripting.URLReader");
+var URLReader = Java.type("org.openjdk.nashorn.api.scripting.URLReader");
 var URL = Java.type("java.net.URL");
 var File = Java.type("java.io.File");
 var JString = Java.type("java.lang.String");
-var SourceHelper = Java.type("jdk.nashorn.test.models.SourceHelper");
+var SourceHelper = Java.type("org.openjdk.nashorn.test.models.SourceHelper");
 
 var url = new File(__FILE__).toURI().toURL();
 var reader = new URLReader(url);

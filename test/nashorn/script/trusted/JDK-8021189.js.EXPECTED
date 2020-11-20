@@ -1,1 +1,1 @@
-java.security.AccessControlException: access denied ("java.lang.RuntimePermission" "accessClassInPackage.jdk.nashorn.internal.test.models")
+java.security.AccessControlException: access denied ("java.lang.RuntimePermission" "accessClassInPackage.org.openjdk.nashorn.internal.test.models")

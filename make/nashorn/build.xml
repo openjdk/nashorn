@@ -31,7 +31,7 @@
     <!-- set default values to run.test.jvmargs.external property -->
     <condition property="run.test.jvmargs.external" value="">
      <not><isset property="run.test.jvmargs.external"/></not>
-    </condition>     
+    </condition>
     <!-- loading locally defined resources and properties. NB they owerwrite default ones defined later -->
     <property file="${user.home}/.nashorn.project.local.properties"/>
 
@@ -52,6 +52,7 @@
       <available file="/usr/local/bin/git"/>
     </condition>
     <!-- check if TestNG and dependencies are available, and download them if they aren't -->
+    <property name="repo.url" value="https://repo1.maven.org/maven2"/>
     <antcall target="get-testng"/>
     <condition property="testng.available" value="true">
       <and>
@@ -113,13 +114,13 @@
      </not>
     </condition>
    </target>
-  
 
-  <!-- check minimum ant version required to be 1.9.5 -->
+
+  <!-- check minimum ant version required to be 1.9.9 -->
   <target name="check-ant-version">
-    <property name="ant.version.required" value="1.9.5"/>
+    <property name="ant.version.required" value="1.9.9"/>
     <antversion property="ant.current.version" />
-    <fail message="The current ant version, ${ant.current.version}, is too old. Please use 1.9.5 or above.">
+    <fail message="The current ant version, ${ant.current.version}, is too old. Please use 1.9.9 or above.">
         <condition>
             <not>
                 <antversion atleast="${ant.version.required}"/>
@@ -147,19 +148,30 @@
     <echo message="run.test.jvmargs.octane=${run.test.jvmargs.octane}"/>
     <echo message="run.test.xms=${run.test.xms}"/>
     <echo message="run.test.xmx=${run.test.xmx}"/>
-
   </target>
 
   <target name="prepare" depends="init">
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.classes.dir}"/>
     <mkdir dir="${nashorn.module.classes.dir}"/>
-    <mkdir dir="${dynalink.module.classes.dir}"/>
     <mkdir dir="${nashorn.shell.module.classes.dir}"/>
     <mkdir dir="${nashorn.module.classes.dir}/META-INF/services"/>
     <mkdir dir="${build.test.classes.dir}"/>
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${dist.javadoc.dir}"/>
+    <property name="dist.dir.resolved" location="${dist.dir}"/>
+  </target>
+
+  <target name="get-deps" depends="prepare">
+    <property name="asm.version" value="7.3.1"/>
+    <property name="asm.url" value="${repo.url}/org/ow2/asm"/>
+    <get dest="${deps.dir}" skipexisting="true">
+      <url url="${asm.url}/asm/${asm.version}/asm-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-analysis/${asm.version}/asm-analysis-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-commons/${asm.version}/asm-commons-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-tree/${asm.version}/asm-tree-${asm.version}.jar"/>
+      <url url="${asm.url}/asm-util/${asm.version}/asm-util-${asm.version}.jar"/>
+    </get>
   </target>
 
   <target name="clean" depends="init, clean-nasgen, init-cc-cleanup">
@@ -171,36 +183,35 @@
     <delete file="${basedir}/NashornProfile.txt"/>
   </target>
 
-  <target name="compile" depends="prepare" description="Compiles nashorn">
-    <javac srcdir="${dynalink.module.src.dir}"
-           destdir="${dynalink.module.classes.dir}"
-           debug="${javac.debug}"
-           encoding="${javac.encoding}"
-           includeantruntime="false" fork="true">
-      <compilerarg value="-Xlint:all"/>
-      <compilerarg value="-XDignore.symbol.file"/>
-      <compilerarg value="-Xdiags:verbose"/>
-      <compilerarg value="-parameters"/>
-    </javac>
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
+  <target name="compile-nashorn" depends="get-deps" description="Compiles nashorn">
     <javac srcdir="${nashorn.module.src.dir}"
            destdir="${nashorn.module.classes.dir}"
            debug="${javac.debug}"
            encoding="${javac.encoding}"
            includeantruntime="false" fork="true">
+      <compilerarg line="--module-path ${deps.dir}"/>
       <compilerarg value="-Xlint:all"/>
       <compilerarg value="-XDignore.symbol.file"/>
       <compilerarg value="-Xdiags:verbose"/>
       <compilerarg value="-parameters"/>
-      <compilerarg line="${nashorn.override.option}"/>
     </javac>
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
+
+     <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/api/scripting/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/api/scripting/resources/"/>
+    </copy>
+    <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/runtime/resources/"/>
+    </copy>
+    <copy todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/tools/resources">
+       <fileset dir="${nashorn.module.src.dir}/org/openjdk/nashorn/tools/resources/"/>
+    </copy>
+    <copy file="${nashorn.module.src.dir}/org/openjdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/codegen"/>
+    <echo message="version_string=${nashorn.fullversion}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties"/>
+    <echo file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
+    <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/org/openjdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
+  </target>
+
+  <target name="compile-shell" depends="jar-nashorn">
     <javac srcdir="${nashorn.shell.module.src.dir}"
            destdir="${nashorn.shell.module.classes.dir}"
            debug="${javac.debug}"
@@ -210,36 +221,15 @@
       <compilerarg value="-XDignore.symbol.file"/>
       <compilerarg value="-Xdiags:verbose"/>
       <compilerarg value="-parameters"/>
-      <compilerarg line="${nashorn.override.option}"/>
+      <compilerarg line="--module-path ${dist.dir}"/>
+      <compilerarg line="${nashorn.shell.module.imports}"/>
     </javac>
-    <!-- patch-module does not like module-info.class files! -->
-    <delete>
-      <fileset dir="${build.classes.dir}" includes="**/module-info.class"/>
-    </delete>
-     <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/api/scripting/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/api/scripting/resources/"/>
+    <copy todir="${nashorn.shell.module.classes.dir}/org/openjdk/nashorn/tools/jjs/resources">
+       <fileset dir="${nashorn.shell.module.src.dir}/org/openjdk/nashorn/tools/jjs/resources/"/>
     </copy>
-    <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/internal/runtime/resources/"/>
-    </copy>
-    <copy todir="${nashorn.module.classes.dir}/jdk/nashorn/tools/resources">
-       <fileset dir="${nashorn.module.src.dir}/jdk/nashorn/tools/resources/"/>
-    </copy>
-    <copy file="${dynalink.module.src.dir}/jdk/dynalink/support/messages.properties" todir="${dynalink.module.classes.dir}/jdk/dynalink/support"/>
-    <copy file="${nashorn.module.src.dir}/jdk/nashorn/internal/codegen/anchor.properties" todir="${nashorn.module.classes.dir}/jdk/nashorn/internal/codegen"/>
-    <copy todir="${nashorn.shell.module.classes.dir}/jdk/nashorn/tools/jjs/resources">
-       <fileset dir="${nashorn.shell.module.src.dir}/jdk/nashorn/tools/jjs/resources/"/>
-    </copy>
-
-    <echo message="version_string=${nashorn.fullversion}" file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties"/>
-    <echo file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties" append="true">${line.separator}</echo>
-    <echo message="version_short=${nashorn.version}" file="${nashorn.module.classes.dir}/jdk/nashorn/internal/runtime/resources/version.properties" append="true"/>
   </target>
 
-  <target name="jar" depends="compile, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
-    <jar jarfile="${dynalink.jar}">
-      <fileset dir="${dynalink.module.classes.dir}"/>
-    </jar>
+  <target name="jar-nashorn" depends="compile-nashorn, run-nasgen, generate-cc-template" description="Creates nashorn.jar" unless="compile.suppress.jar">
     <jar jarfile="${nashorn.jar}" index="true" filesetmanifest="merge">
       <fileset dir="${nashorn.module.classes.dir}"/>
       <manifest>
@@ -247,91 +237,57 @@
         <attribute name="Build-Jdk" value="${java.runtime.version}"/>
         <attribute name="Built-By" value="n/a"/>
         <attribute name="Created-By" value="Ant jar task"/>
-        <section name="jdk/nashorn/">
+        <section name="org/openjdk/nashorn/">
           <attribute name="Implementation-Title" value="${nashorn.product.name}"/>
           <attribute name="Implementation-Version" value="${nashorn.version}"/>
         </section>
       </manifest>
     </jar>
+  </target>
+
+  <target name="jar-shell" depends="compile-shell">
     <jar jarfile="${jjs.jar}">
       <fileset dir="${nashorn.shell.module.classes.dir}"/>
     </jar>
   </target>
 
-  <target name="use-promoted-nashorn" depends="init">
-    <delete file="${dist.dir}/nashorn.jar"/>
-    <copy file="${java.home}/lib/ext/nashorn.jar" todir="${dist.dir}"/>
-    <property name="compile.suppress.jar" value="defined"/>
-  </target>
+  <target name="jar" depends="jar-nashorn, jar-shell"/>
 
   <!-- generate javadoc for Nashorn classes -->
-  <target name="javadoc" depends="jar" unless="test.class">
+  <target name="javadoc" depends="jar-nashorn" unless="test.class">
     <javadoc destdir="${dist.javadoc.dir}" use="yes"
         windowtitle="${nashorn.product.name} ${nashorn.version}"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true"> 
-      <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
+        additionalparam="-quiet" failonerror="true" useexternalfile="true"
+        sourcepath="${nashorn.module.src.dir}" modulenames="org.openjdk.nashorn"
+        packagenames="org.openjdk.nashorn.api.scripting,org.openjdk.nashorn.api.tree"
+        modulepath="${deps.dir}">
       <arg value="${javadoc.option}"/>
-      <fileset dir="${nashorn.module.src.dir}" includes="**/*.java"/>
-      <fileset dir="${dynalink.module.src.dir}" includes="**/*.java"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
+      <link href="https://docs.oracle.com/en/java/javase/15/docs/api"/>
     </javadoc>
   </target>
-
-  <!-- generate javadoc only for nashorn extension api classes -->
-  <target name="nashornapi" depends="jar">
-    <mkdir dir="${dist.nashornapi.javadoc.dir}"/>
-    <javadoc destdir="${dist.nashornapi.javadoc.dir}" use="yes"
-        windowtitle="${nashorn.product.name} ${nashorn.version}"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true">
-      <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
-      <arg value="${javadoc.option}"/>
-      <fileset dir="${nashorn.module.src.dir}" includes="jdk/nashorn/api/**/*.java"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
-    </javadoc>
-  </target>
-
-  <!-- generate javadoc only for Dynalink API classes -->
-  <target name="dynalinkapi" depends="jar">
-    <mkdir dir="${dist.dynalinkapi.javadoc.dir}"/>
-    <javadoc destdir="${dist.dynalinkapi.javadoc.dir}" use="yes"
-        windowtitle="Dynalink"
-        additionalparam="-quiet" failonerror="true" useexternalfile="true">
-      <arg value="--patch-module"/>
-      <arg value="jdk.scripting.nashorn=${basedir}/${nashorn.module.src.dir}"/>
-      <arg value="--patch-module"/>
-      <arg value="jdk.dynalink=${basedir}/${dynalink.module.src.dir}"/>
-      <arg value="--module-source-path"/>
-      <arg value="."/>
-      <arg value="${javadoc.option}"/>
-      <fileset dir="${dynalink.module.src.dir}" includes="**/*.java"/>
-      <link offline="true" href="${javadoc.base.url}" packagelistLoc="${javadoc.element.list}"/>
-    </javadoc>
-  </target>
-
-  <target name="javadocapi" depends="nashornapi, dynalinkapi"/>
-
-  <!-- generate all docs -->
-  <target name="docs" depends="javadoc"/>
 
   <!-- create .zip and .tar.gz for nashorn binaries and scripts. -->
-  <target name="dist" depends="jar">
-      <zip destfile="${build.zip}" basedir=".."
-          excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
-      <tar destfile="${build.gzip}" basedir=".." compression="gzip"
-          excludes="nashorn/bin/*.sh" includes="nashorn/bin/** nashorn/dist/**"/>
+  <target name="artifacts" depends="jar-nashorn, javadoc">
+    <property name="artifacts.dir" location="${build.dir}/artifacts"/>
+    <mkdir dir="${artifacts.dir}"/>
+
+    <property name="resolved.pom.file" location="${artifacts.dir}/nashorn-core-${nashorn.version}.pom"/>
+    <copy file="${nashorn.jar}" tofile="${artifacts.dir}/nashorn-core-${nashorn.version}.jar" force="true"/>
+    <copy file="make/nashorn/nashorn-core.pom" tofile="${resolved.pom.file}"/>
+    <replace file="${resolved.pom.file}">
+      <replacefilter token="ASM_VERSION" value="${asm.version}"/>
+      <replacefilter token="NASHORN_VERSION" value="${nashorn.version}"/>
+    </replace>
+    <jar jarfile="${artifacts.dir}/nashorn-core-${nashorn.version}-javadoc.jar">
+      <fileset dir="${dist.javadoc.dir}"/>
+    </jar>
+    <jar jarfile="${artifacts.dir}/nashorn-core-${nashorn.version}-sources.jar">
+      <fileset dir="${nashorn.module.src.dir}"/>
+      <fileset dir="${basedir}" includes="LICENSE, ADDITIONAL_LICENSE_INFO"/>
+    </jar>
   </target>
 
-  <target name="compile-test" depends="compile, run-nasgen" if="testng.available">
+  <target name="compile-test" depends="jar" if="testng.available">
     <!-- testng task -->
     <taskdef name="testng" classname="org.testng.TestNGAntTask"
         classpath="${testng.ant.classpath}"/>
@@ -342,7 +298,8 @@
            debug="${javac.debug}"
            encoding="${javac.encoding}"
            includeantruntime="false" fork="true">
-        <compilerarg line="${nashorn.override.option}"/>
+        <compilerarg line="--module-path ${deps.dir}:${dist.dir.resolved}"/>
+        <compilerarg line="--add-modules org.openjdk.nashorn"/>
         <compilerarg value="-Xlint:unchecked"/>
         <compilerarg value="-Xlint:deprecation"/>
         <compilerarg value="-Xdiags:verbose"/>
@@ -353,16 +310,16 @@
        <fileset dir="${test.src.dir}/META-INF/services/"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/internal/runtime/test/resources">
-       <fileset dir="${test.src.dir}/jdk/nashorn/internal/runtime/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/internal/runtime/test/resources">
+       <fileset dir="${test.src.dir}/org/openjdk/nashorn/internal/runtime/test/resources"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/internal/runtime/doubleconv/test/resources">
-      <fileset dir="${test.src.dir}/jdk/nashorn/internal/runtime/doubleconv/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/internal/runtime/doubleconv/test/resources">
+      <fileset dir="${test.src.dir}/org/openjdk/nashorn/internal/runtime/doubleconv/test/resources"/>
     </copy>
 
-    <copy todir="${build.test.classes.dir}/jdk/nashorn/api/scripting/test/resources">
-       <fileset dir="${test.src.dir}/jdk/nashorn/api/scripting/test/resources"/>
+    <copy todir="${build.test.classes.dir}/org/openjdk/nashorn/api/scripting/test/resources">
+       <fileset dir="${test.src.dir}/org/openjdk/nashorn/api/scripting/test/resources"/>
     </copy>
 
     <!-- tests that check nashorn internals and internal API -->
@@ -370,13 +327,13 @@
       <fileset dir="${build.test.classes.dir}" includes="**/internal/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/test/tools/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/models/**"/>
-      <fileset dir="${build.test.classes.dir}" includes="**/jdk/dynalink/test/Trusted**"/>
+      <fileset dir="${build.test.classes.dir}" includes="**/org/openjdk/dynalink/test/Trusted**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/META-INF/**"/>
     </jar>
 
     <!-- tests that check nashorn script engine (jsr-223) API and dynalink API -->
     <jar jarfile="${nashorn.api.tests.jar}">
-      <fileset dir="${build.test.classes.dir}" includes="**/jdk/dynalink/**" excludes="**/jdk/dynalink/test/Trusted**"/>
+      <fileset dir="${build.test.classes.dir}" includes="**/org/openjdk/dynalink/**" excludes="**/org/openjdk/dynalink/test/Trusted**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/api/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/META-INF/**"/>
       <fileset dir="${build.test.classes.dir}" includes="**/resources/*.js"/>
@@ -392,19 +349,21 @@
 
 package.access=sun.misc.,\
     sun.reflect.,\
-    jdk.nashorn.internal.
+    org.openjdk.nashorn.internal.test
 
     </echo>
   </target>
 
   <target name="generate-policy-file" depends="prepare">
+    <property name="nashorn.jar.resolved" location="${nashorn.jar}"/>
+    <property name="jjs.jar.resolved" location="${jjs.jar}"/>
     <echo file="${build.dir}/nashorn.policy">
 
-grant codeBase "file:/${basedir}/${dynalink.module.classes.dir}" {
+grant codeBase "file:/${basedir}/${nashorn.jar}" {
     permission java.security.AllPermission;
 };
 
-grant codeBase "file:/${basedir}/${nashorn.module.classes.dir}" {
+grant codeBase "file:/${basedir}/${jjs.jar}" {
     permission java.security.AllPermission;
 };
 
@@ -450,7 +409,6 @@ grant codeBase "file:/${file.reference.bsh.jar}" {
 grant codeBase "file:/${file.reference.snakeyaml.jar}" {
     permission java.security.AllPermission;
 };
-
 
 grant codeBase "file:/${basedir}/${test.script.dir}/trusted/*" {
     permission java.security.AllPermission;
@@ -734,7 +692,7 @@ grant codeBase "file:/${basedir}/${test.script.dir}/basic/JDK-8158467.js" {
       </java>
   </target>
 
-  <target name="all" depends="test, docs"
+  <target name="all" depends="test, javadoc"
       description="Build, test and generate docs for nashorn"/>
 
   <target name="run" depends="jar"
@@ -854,10 +812,10 @@ grant codeBase "file:/${basedir}/${test.script.dir}/basic/JDK-8158467.js" {
   <!-- download and install testng.jar -->
   <target name="get-testng">
     <get dest="${test.lib}" skipexisting="true">
-      <url url="http://central.maven.org/maven2/org/testng/testng/6.8/testng-6.8.jar"/>
-      <url url="http://central.maven.org/maven2/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
-      <url url="http://central.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
-      <url url="http://central.maven.org/maven2/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
+      <url url="${repo.url}/org/testng/testng/6.8/testng-6.8.jar"/>
+      <url url="${repo.url}/com/beust/jcommander/1.27/jcommander-1.27.jar"/>
+      <url url="${repo.url}/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar"/>
+      <url url="${repo.url}/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar"/>
     </get>
   </target>
 

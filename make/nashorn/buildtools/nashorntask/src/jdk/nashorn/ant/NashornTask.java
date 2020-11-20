@@ -23,7 +23,7 @@
  * questions.
  */
 
-package jdk.nashorn.ant;
+package org.openjdk.nashorn.ant;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

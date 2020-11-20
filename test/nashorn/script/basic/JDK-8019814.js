@@ -48,10 +48,10 @@ Function("var x = x -= '' ");
 Function("return (null != [,,] <= this);");
 
 // java.lang.AssertionError: Only return value on stack allowed at return point
-// - depth=2 stack = jdk.nashorn.internal.codegen.Label$Stack@4bd0d62f
+// - depth=2 stack = org.openjdk.nashorn.internal.codegen.Label$Stack@4bd0d62f
 Function("x = 0.1, x\ntrue\n~this");
 
-// java.lang.AssertionError: node NaN ~ window class jdk.nashorn.internal.ir.BinaryNode
+// java.lang.AssertionError: node NaN ~ window class org.openjdk.nashorn.internal.ir.BinaryNode
 // has no symbol! [object] function _L1()
 Function("throw NaN\n~window;");
 
@@ -64,10 +64,10 @@ try {
     print(e.toString().replace(/\\/g, '/'));
 }
 
-// java.lang.AssertionError: stacks jdk.nashorn.internal.codegen.Label$Stack@4918f90f
-// is not equivalent with jdk.nashorn.internal.codegen.Label$Stack@5f9b21a1 at join point
+// java.lang.AssertionError: stacks org.openjdk.nashorn.internal.codegen.Label$Stack@4918f90f
+// is not equivalent with org.openjdk.nashorn.internal.codegen.Label$Stack@5f9b21a1 at join point
 Function("if((null ^ [1]) !== (this.yoyo(false))) {var NaN, x;x\n~[,,z1] }");
 
 // java.lang.AssertionError
-//    at jdk.nashorn.internal.codegen.Attr.enterFunctionBody(Attr.java:276)
+//    at org.openjdk.nashorn.internal.codegen.Attr.enterFunctionBody(Attr.java:276)
 Function("return (void ({ set each (x2)y }));");

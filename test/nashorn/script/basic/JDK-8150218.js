@@ -42,7 +42,7 @@ java.security.AccessController.doPrivileged(new java.security.PrivilegedAction(f
     // Even when more deeply nested
     Java.to([[[f]]], Java.type("java.lang.Runnable[][][]"))[0][0][0].run()
 
-    var rt = new (Java.type("jdk.dynalink.test.ArrayRunnableTest"))
+    var rt = new (Java.type("org.openjdk.dynalink.test.ArrayRunnableTest"))
     var n = "runnables"
 
     // Explicit array passed to vararg setter chosen at run time

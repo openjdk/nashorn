@@ -23,17 +23,17 @@
 
 /*
  * @test
- * @summary run CTW for all classes from jdk.scripting.nashorn module
+ * @summary run CTW for all classes from org.openjdk.nashorn module
  *
  * @library /test/lib / /testlibrary/ctw/src
  * @modules java.base/jdk.internal.access
  *          java.base/jdk.internal.jimage
  *          java.base/jdk.internal.misc
  *          java.base/jdk.internal.reflect
- * @modules jdk.scripting.nashorn
+ * @modules org.openjdk.nashorn
  *
  * @build sun.hotspot.WhiteBox
  * @run driver ClassFileInstaller sun.hotspot.WhiteBox
  *                                sun.hotspot.WhiteBox$WhiteBoxPermission
- * @run driver/timeout=7200 sun.hotspot.tools.ctw.CtwRunner modules:jdk.scripting.nashorn
+ * @run driver/timeout=7200 sun.hotspot.tools.ctw.CtwRunner modules:org.openjdk.nashorn
  */
