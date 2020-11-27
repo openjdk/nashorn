@@ -42,6 +42,20 @@ questions.
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <name>Attila Szegedi</name>
+      <email>szegedia@gmail.com</email>
+      <url>http://github.com/szegedi</url>
+    </developer>
+  </developers>
+  
+  <scm>
+    <connection>scm:git:git://github.com/openjdk/nashorn.git</connection>
+    <developerConnection>scm:git:ssh://github.com:openjdk/nashorn.git</developerConnection>
+    <url>http://github.com/openjdk/nashorn/tree/main</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.ow2.asm</groupId>
