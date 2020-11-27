@@ -24,15 +24,11 @@ Nashorn-related documents published by Oracle with Java 14:
 
   * [Nashorn User's Guide](https://docs.oracle.com/en/java/javase/14/nashorn/)
   * [Java Scripting Programmer's Guide](https://docs.oracle.com/en/java/javase/14/scripting/index.html)
-  * [Nashorn API Specification](https://docs.oracle.com/en/java/javase/14/docs/api/jdk.scripting.nashorn/module-summary.html)
+  * [Nashorn API Specification](https://docs.oracle.com/en/java/javase/14/docs/api/jdk.scripting.nashorn/module-summary.html) (substitute `org.openjdk.nashorn` in place of `jdk.scripting.nashorn` module name and `jdk.nashorn` package names.)
 
 Getting Started
 ===============
-What you see in this repository at the moment is the initial state after
-extracting Nashorn source code from the JDK. As such, it can not yet be
-cleanly built, and binaries are not yet available. Therefore you can 
-unfortunately not get started on the standalone Nashorn just yet. Both 
-of these will change soon, and we will replace this notice then.
+Latest version of Nashorn is available from [Maven Central](https://search.maven.org/artifact/org.openjdk.nashorn/nashorn-core/15.0/jar). Nashorn is only usable as a JPMS module, so make sure it and its transitive dependencies (Nashorn depends on several ASM JARs) are on your application's module path, or appropriately added to a module layer, or otherwise configured as modules.
 
 Contributing
 ============
