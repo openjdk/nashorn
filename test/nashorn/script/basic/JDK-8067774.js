@@ -30,7 +30,7 @@
 
 print((function (p) {
     var a, b;
-    
+
     a = p ? ((b = 1), b) : 0;
 
     return a;

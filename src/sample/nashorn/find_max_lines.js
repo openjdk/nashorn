@@ -49,8 +49,8 @@ function lines(p) {
     }
 }
 
-// walk files, map to file and lines, find the max    
-var obj = Files.find(path, Integer.MAX_VALUE, 
+// walk files, map to file and lines, find the max
+var obj = Files.find(path, Integer.MAX_VALUE,
     function(p, a) !p.toFile().isDirectory() && p.toString().endsWith(ext)).
 map(function(p) ({ path : p, lines: lines(p) })).
 max(function(x, y) x.lines - y.lines).get();

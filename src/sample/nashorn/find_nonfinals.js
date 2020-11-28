@@ -88,7 +88,7 @@ new JarFile(jarFile).stream().forEach(
             var clsName = name.substring(0, name.lastIndexOf('.class'));
             clsName = clsName.replace(/\//g, '.');
             try {
-                // don't initialize to avoid for possible initialization errors 
+                // don't initialize to avoid for possible initialization errors
                 var cls = Class.forName(clsName, false, ctxtLoader);
                 analyzeClass(cls);
             } catch (e) {

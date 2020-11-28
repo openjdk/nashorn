@@ -1,10 +1,10 @@
 function call() { [native code] }
 func.call.length = 1
-hello, 
+hello,
 world
-hello, 
+hello,
 world
-hello, 
+hello,
 world
 invokedynamic
  is great!

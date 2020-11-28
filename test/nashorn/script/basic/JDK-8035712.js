@@ -29,7 +29,7 @@
  */
 
 if ((typeof Assert) == "undefined") {
-    Assert = { 
+    Assert = {
         assertTrue: function(x) { if(!x) { throw "expected true" } },
         assertFalse: function(x) { if(x) { throw "expected false" } },
     };

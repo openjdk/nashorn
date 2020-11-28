@@ -29,6 +29,6 @@
  * @run
  */
 
-(function() {})() 
+(function() {})()
 
 var i = (function() { return 2 })()

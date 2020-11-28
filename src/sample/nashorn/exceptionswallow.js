@@ -39,7 +39,7 @@ if (arguments.length == 0) {
     print("Usage: jjs exceptionswallow.js -- <directory>");
     exit(1);
 }
- 
+
 // Java types used
 var File = Java.type("java.io.File");
 var Files = Java.type("java.nio.file.Files");
@@ -68,7 +68,7 @@ function printEmptyCatch() {
 
     // subclass SimpleTreeVisitor - to print empty catch
     var EmptyCatchFinder = Java.extend(TreeScanner);
-   
+
     function hasOnlyEmptyStats(stats) {
         var itr = stats.iterator();
         while (itr.hasNext()) {
@@ -79,7 +79,7 @@ function printEmptyCatch() {
 
         return true;
     }
- 
+
     var visitor = new EmptyCatchFinder() {
         // current CompilationUnitTree
         compUnit: null,
@@ -112,12 +112,12 @@ function printEmptyCatch() {
             }
         }
     }
- 
+
     for each (var cu in task.parse()) {
         cu.accept(visitor, null);
     }
 }
- 
+
 // for each ".java" file in directory (recursively) and check it!
 function main(dir) {
     Files.walk(dir.toPath()).
@@ -132,5 +132,5 @@ function main(dir) {
         }
       });
 }
- 
+
 main(new File(arguments[0]));

@@ -45,7 +45,7 @@ function bench(res) {
 	sum |= f();
     }
     if (sum == res) {
-	print("Verified OK"); 
+	print("Verified OK");
     } else {
 	print("Verification failed " + sum + " should be " + res);
     }

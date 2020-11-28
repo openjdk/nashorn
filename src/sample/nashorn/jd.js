@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// javap-like disassembler/decoder tool that disassembles/decodes 
+// javap-like disassembler/decoder tool that disassembles/decodes
 // java classes but with OpenJDK AsmTools disassembler/decoder syntax.
 // You need to build asmtool.jar from OpenJDK codetools project
 // specify it with -cp option.
@@ -84,7 +84,7 @@ if (res) {
         Files.copy(is, tmpPath, [ StandardCopyOption.REPLACE_EXISTING ]);
     } finally {
         is.close();
-    } 
+    }
 
     // invoke asmtools Main
     AsmTools.main([ tool, tmpPath.toString() ]);

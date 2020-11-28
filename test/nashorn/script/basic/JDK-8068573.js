@@ -34,7 +34,7 @@ var n = "writeOnly";
 pb[n] = 2;
 Assert.assertEquals(pb.peekWriteOnly(), 2);
 
-// Invoke an overloaded setter using []. It's important that one of the 
+// Invoke an overloaded setter using []. It's important that one of the
 // overloads returns void.
 var os = new (Java.type("org.openjdk.nashorn.test.models.OverloadedSetter"))
 var n2 = "color";
@@ -47,7 +47,7 @@ for each(var x in [42, "42"]) {
   Assert.assertEquals(os.peekColor(), "42");
 }
 
-// Invoke an overloaded method using [], repeatedly in the same call 
+// Invoke an overloaded method using [], repeatedly in the same call
 // site. It's important that one of the overloads returns void.
 var n3="foo";
 var param=["xyz", 1, "zyx", 2];

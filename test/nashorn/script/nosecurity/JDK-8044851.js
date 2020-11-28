@@ -44,7 +44,7 @@ var isSpillMethod = propertyCls.getMethod("isSpill");
 var getSlotMethod = propertyCls.getMethod("getSlot");
 
 function printProperty(value, property) {
-    print(value, getKeyMethod.invoke(property), 
+    print(value, getKeyMethod.invoke(property),
         isSpillMethod.invoke(property) ? "spill" : "field", getSlotMethod.invoke(property));
 }
 

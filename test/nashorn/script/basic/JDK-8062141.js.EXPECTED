@@ -59,9 +59,9 @@ SyntaxError: Invalid JSON: <json>:1:5 Expected , or ] but found eof
      ^
 {}
 {"a":"b"}
-SyntaxError: Invalid JSON: <json>:1:12 Expected , or } but found eof
-{ "a" : "b" 
-            ^
+SyntaxError: Invalid JSON: <json>:1:11 Expected , or } but found eof
+{ "a" : "b"
+           ^
 SyntaxError: Invalid JSON: <json>:1:8 Expected json literal but found }
 { "a" : }
         ^

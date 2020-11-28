@@ -243,7 +243,7 @@ deleted by script.
 import javax.script.*;
 import java.io.*;
 
-public class ScriptVars { 
+public class ScriptVars {
     public static void main(String[] args) throws Exception {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("nashorn");
@@ -252,7 +252,7 @@ public class ScriptVars {
         // expose File object as variable to script
         engine.<span class="methodref">put</span>("file", f);
 
-        // evaluate a script string. The script accesses "file" 
+        // evaluate a script string. The script accesses "file"
         // variable and calls method on it
         engine.eval("print(file.getAbsolutePath())");
     }
@@ -310,7 +310,7 @@ public class InvokeScriptMethod {
         ScriptEngine engine = manager.getEngineByName("nashorn");
 
         // JavaScript code in a String. This code defines a script object 'obj'
-        // with one method called 'hello'.        
+        // with one method called 'hello'.
         String script = "var obj = new Object(); obj.hello = function(name) { print('Hello, ' + name); }";
         // evaluate script
         engine.eval(script);
@@ -446,7 +446,7 @@ public class MultiScopes {
         newContext.setBindings(engine.createBindings(), ScriptContext.ENGINE_SCOPE);
         <span class="classref">Bindings</span> engineScope = newContext.<span class="methodref">getBindings</span>(ScriptContext.ENGINE_SCOPE);
 
-        // add new variable "x" to the new engineScope        
+        // add new variable "x" to the new engineScope
         engineScope.<span class="methodref">put</span>("x", "world");
 
         // execute the same script - but this time pass a different script context
@@ -468,7 +468,7 @@ script engine.
 <p>For the most part, accessing Java classes, objects and methods
 is straightforward. In particular field and method access from
 JavaScript is the same as it is from Java. We highlight important
-aspects of JavaScript Java access here. 
+aspects of JavaScript Java access here.
 The following examples are JavaScript snippets accessing Java. This
 section requires knowledge of JavaScript. This section can be
 skipped if you are planning to use some other JSR-223 scripting
@@ -485,13 +485,13 @@ language rather than JavaScript.</p>
  var stringArrayType = Java.type("java.lang.String[]")
  var int2DArrayType = Java.type("int[][]")
 </code>
-</pre> 
+</pre>
 
 Note that the name of the type is always a string for a fully qualified name. You can use any of these expressions to create new instances, e.g.:
 
 <pre><code>
  var anArrayList = new (Java.type("java.util.ArrayList"))
-</code></pre> 
+</code></pre>
 
 or
 
@@ -499,26 +499,26 @@ or
  var ArrayList = Java.type("java.util.ArrayList")
  var anArrayList = new ArrayList
  var anArrayListWithSize = new ArrayList(16)
-</code></pre> 
+</code></pre>
 
 In the special case of inner classes, you can either use the JVM fully qualified name, meaning using the dollar sign in the class name, or you can use the dot:
 
 <pre><code>
  var ftype = Java.type("java.awt.geom.Arc2D$Float")
-</code></pre> 
- 
+</code></pre>
+
 and
- 
+
 <pre><code>
  var ftype = Java.type("java.awt.geom.Arc2D.Float")
-</code></pre> 
+</code></pre>
 
 both work. Note however that using the dollar sign is faster, as Java.type first tries to resolve the class name as it is originally specified, and the internal JVM names for inner classes use the dollar sign. If you use the dot, Java.type will internally get a ClassNotFoundException and subsequently retry by changing the last dot to dollar sign. As a matter of fact, it'll keep replacing dots with dollar signs until it either successfully loads the class or runs out of all dots in the name. This way it can correctly resolve and load even multiply nested inner classes with the dot notation. Again, this will be slower than using the dollar signs in the name. An alternative way to access the inner class is as a property of the outer class:
 
 <pre><code>
  var arctype = Java.type("java.awt.geom.Arc2D")
  var ftype = arctype.Float
-</code></pre> 
+</code></pre>
 <p>
 You can access both static and non-static inner classes. If you want to create an instance of a non-static inner class, remember to pass an instance of its outer class as the first argument to the constructor.
 </p>
@@ -528,7 +528,7 @@ static fields and methods of the classes:
 <pre><code>
  var File = Java.type("java.io.File")
  File.createTempFile("nashorn", ".tmp")
-</code></pre> 
+</code></pre>
 <p>
 Methods with names of the form <code>isXxx()</code>, <code>getXxx()</code>, and <code>setXxx()</code> can also be used as properties, for both instances and statics.
 </p>
@@ -544,7 +544,7 @@ A type object returned from <code>Java.type</code> is distinct from a <code>java
  print("Type is not same as instance's getClass(): " + (a.getClass() !== ArrayList))
  print("Type's `class` property is same as instance getClass(): " + (a.getClass() === ArrayList.class))
  print("Type is same as instance getClass()'s `static` property: " + (a.getClass().static === ArrayList))
-</code></pre> 
+</code></pre>
 <p>
 You can think of the type object as similar to the class names as used in Java source code: you use them as the
 arguments to the <code>new</code> and <code>instanceof</code> operators and as the namespace for the static fields
@@ -565,7 +565,7 @@ classes.</p>
 
 // load compatibility script
 load("nashorn:mozilla_compat.js");
-// Import Java packages and classes 
+// Import Java packages and classes
 // like import package.*; in Java
 <span class="functionref">importPackage</span>(java.awt);
 // like import java.awt.Frame in Java
@@ -631,7 +631,7 @@ print(a[0]);
 </pre>
 <p>
 It is also possible to convert between JavaScript and Java arrays.
-Given a JavaScript array and a Java type, <code>Java.to</code> returns a Java array with the same initial contents, and with the specified array type. 
+Given a JavaScript array and a Java type, <code>Java.to</code> returns a Java array with the same initial contents, and with the specified array type.
 </p>
 <pre><code>
  var anArray = [1, "13", false]
@@ -641,7 +641,7 @@ Given a JavaScript array and a Java type, <code>Java.to</code> returns a Java ar
  print(javaIntArray[2]) // prints 0, as boolean false was converted to number 0 as per ECMAScript ToNumber conversion
 </code></pre>
 <p>
-You can use either a string or a type object returned from <code>Java.type()</code> to specify the type of the array. 
+You can use either a string or a type object returned from <code>Java.type()</code> to specify the type of the array.
 You can also omit the array type, in which case a <code>Object[]</code> will be created.
 </p>
 <p>
@@ -734,7 +734,7 @@ Here, <code>Timer.schedule()</code> expects a <code>TimerTask</code> as its argu
 <h3>Extending Concrete Java Classes</h3>
 <p>
 To extend a concrete Java class, you have to use <code>Java.extend</code> function.
-<code>Java.extend</code> returns a type object for a subclass of the specified Java class (or implementation of the specified interface) that acts as a script-to-Java adapter for it.  
+<code>Java.extend</code> returns a type object for a subclass of the specified Java class (or implementation of the specified interface) that acts as a script-to-Java adapter for it.
 </p>
 <pre><code>
 // <a href="source/javaextend.js">javaextend.js</a>
@@ -757,14 +757,14 @@ printSizeInvokedArrayList.size();
 printAddInvokedArrayList.add(33, 33);
 </code></pre>
 <p>
-The reason you must use <code>Java.extend()</code> with concrete classes is that with concrete classes, there can be a 
+The reason you must use <code>Java.extend()</code> with concrete classes is that with concrete classes, there can be a
 syntactic ambiguity if you just invoke their constructor. Consider this example:
 </p>
 <pre><code>
 var t = new java.lang.Thread({ run: function() { print("Hello!") } })
 </code></pre>
 <p>
-If we allowed subclassing of concrete classes with constructor syntax, Nashorn couldn't tell if you're creating a new 
+If we allowed subclassing of concrete classes with constructor syntax, Nashorn couldn't tell if you're creating a new
 <code>Thread</code> and passing it a <code>Runnable</code> at this point, or you are subclassing <code>Thread</code> and
 passing it a new implementation for its own <code>run()</code> method.
 </p>
@@ -773,13 +773,13 @@ passing it a new implementation for its own <code>run()</code> method.
 <h3>Implementing Multiple Interfaces</h3>
 <p>
 <code>Java.extend</code> can in fact take a list of multiple types. At most one of the types can be a class, and the rest must
-be interfaces (the class doesn't have to be the first in the list). You will get back an object that extends the class and 
+be interfaces (the class doesn't have to be the first in the list). You will get back an object that extends the class and
 implements all the interfaces. (Obviously, if you only specify interfaces and no class, the object will extend <code>java.lang.Object</code>).
 <hr>
 <a name="classBoundImplementations" id="classBoundImplementations"></a>
 <h3>Class-Bound Implementations</h3>
 <p>
-The methods shown so far for extending Java classes and implementing interfaces &ndash; passing an implementation JavaScript object 
+The methods shown so far for extending Java classes and implementing interfaces &ndash; passing an implementation JavaScript object
 or function to a constructor, or using <code>Java.extend</code> with <code>new</code> &ndash; all produce classes that take an
 extra JavaScript object parameter in their constructors that specifies the implementation. The implementation is therefore always bound
 to the actual instance being created with <code>new</code>, and not to the whole class. This has some advantages, for example in the
@@ -869,30 +869,30 @@ We share the same class: true
 overload resolution occurs at compile time (performed by javac).
 When calling Java methods from Nashorn, the appropriate method will be
 selected based on the argument types at invocation time. You do not need
-to do anything special &ndash; the correct Java method overload variant 
+to do anything special &ndash; the correct Java method overload variant
 is selected based automatically. You still have the option of explicitly
-specifying a particular overload variant. Reasons for this include 
-either running into a genuine ambiguity with actual argument types, or 
+specifying a particular overload variant. Reasons for this include
+either running into a genuine ambiguity with actual argument types, or
 rarely reasons of performance &ndash; if you specify the actual overload
 then the engine doesn't have to perform resolution during invocation.
 Individual overloads of a Java methods are exposed as special properties
-with the name of the method followed with its signature in parentheses. 
+with the name of the method followed with its signature in parentheses.
 You can invoke them like this:</p>
 <pre><code>
 // <a href="source/overload.js">overload.js</a>
 
 var out = java.lang.System.out;
 
-// select a particular print function 
+// select a particular print function
 out["println(Object)"]("hello");
 </code>
 </pre>
 <p>
-Note that you normally don't even have to use qualified class names in 
+Note that you normally don't even have to use qualified class names in
 the signatures as long as the unqualified name of the type is sufficient
 for uniquely identifying the signature. In practice this means that only
-in the extremely unlikely case that two overloads only differ in 
-parameter types that have identical unqualified names but come from 
+in the extremely unlikely case that two overloads only differ in
+parameter types that have identical unqualified names but come from
 different packages would you need to use the fully qualified name of the
 class.
 </p>
@@ -912,7 +912,7 @@ Every JavaScript object is also a <code>java.util.Map</code> so APIs receiving m
 When numbers are passed to a Java API, they will be converted to the expected target numeric type, either boxed or
 primitive, but if the target type is less specific, say <code>Number</code> or <code>Object</code>, you can only
 count on them being a <code>Number</code>, and have to test specifically for whether it's a boxed <code>Double</code>,
-<code>Integer</code>, <code>Long</code>, etc. &ndash; it can be any of these due to internal optimizations. Also, you 
+<code>Integer</code>, <code>Long</code>, etc. &ndash; it can be any of these due to internal optimizations. Also, you
 can pass any JavaScript value to a Java API expecting either a boxed or primitive number; the JavaScript specification's
 <code>ToNumber</code> conversion algorithm will be applied to the value.
 </p>
@@ -925,7 +925,7 @@ conversions.
 Finally, a word of caution about strings. Due to internal performance optimizations of string operations, JavaScript strings are
 not always necessarily of type <code>java.lang.String</code>, but they will always be of type <code>java.lang.CharSequence</code>.
 If you pass them to a Java method that expects a <code>java.lang.String</code> parameter, then you will naturally receive a Java
-String, but if the signature of your method is more generic, i.e. it receives a <code>java.lang.Object</code> parameter, you can 
+String, but if the signature of your method is more generic, i.e. it receives a <code>java.lang.Object</code> parameter, you can
 end up with an object of private engine implementation class that implements <code>CharSequence</code> but is not a Java String.
 </p>
 <hr>
@@ -963,24 +963,24 @@ for the Java Platform</a></li>
 <td width="30%">
 <p><font size="-2">
 <a href="http://docs.oracle.com/javase/6/docs/legal/cpyr.html">Copyright ©</a> 2013, Oracle and/or its affiliates. All rights reserved.
-</font></p> 
+</font></p>
 </td>
 <td width="30%">
 <p align="right"><font size="-2"><a href="http://download.oracle.com/javase/feedback.html">Contact Us</a></font></p><font size="-2">
 </font></td>
 </tr>
-</tbody></table> 
+</tbody></table>
 <div class="hr"><hr></div>
 </div>
 
 <!-- Start SiteCatalyst code   -->
 <script language="JavaScript" src="Java%20Scripting%20Programmer%27s%20Guide_files/s_code_download.js"></script>
 <script language="JavaScript" src="Java%20Scripting%20Programmer%27s%20Guide_files/s_code.js"></script>
- 
+
 <!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
 <!--  Below code will send the info to Omniture server -->
 <script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
- 
+
 <!-- End SiteCatalyst code -->
 
 

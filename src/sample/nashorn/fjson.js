@@ -46,7 +46,7 @@ var obj = FlexiJSON.parse(<<EOF
     regex: /gdfg/i, // regexp literal
 
     str: <<END
-Multiple line strings via nashorn 
+Multiple line strings via nashorn
 -scripting mode extension as well
 END
 }

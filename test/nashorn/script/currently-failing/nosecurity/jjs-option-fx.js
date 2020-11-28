@@ -22,14 +22,14 @@
  */
 
 /**
- * JDK-8144113: Nashorn: enable jjs testing. 
+ * JDK-8144113: Nashorn: enable jjs testing.
  * check -fx option.
  * @test
  * @option -scripting
  * @run
  * @summary Test -fx flag and its basic functionality
  * the JavaFX primary stage is available to Nashorn as a global property $STAGE with -fx
- * used this to check with and without -fx 
+ * used this to check with and without -fx
  */
 
 load(__DIR__ + "jjs-common.js")

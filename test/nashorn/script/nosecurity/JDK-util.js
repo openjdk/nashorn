@@ -69,7 +69,7 @@ function rm(pathname) {
     if (!Files.deleteIfExists(Path))
         print("File \"${pathname}\" doesn't exist")
 }
-    
+
 
 
 /**
@@ -77,7 +77,7 @@ function rm(pathname) {
  * Supports only two outputs,windows(C:\dir\) and mixed(C:/dir/)
  */
 function cygpath(path,mode) {
-   
+
     var newpath = path
     if(path.startsWith("/cygdrive/")){
         var str = path.substring(10)
@@ -91,7 +91,7 @@ function cygpath(path,mode) {
     else {
         newpath = newpath.replaceAll('\\\\','/')
         return newpath
-    }                   
+    }
 
 }
 
@@ -110,5 +110,5 @@ function toShellPath(path) {
     }else {
         return path
     }
-} 
+}
 

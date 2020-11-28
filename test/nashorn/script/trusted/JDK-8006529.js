@@ -167,7 +167,7 @@ function test(f) {
         var expectedValue = !!assertions[assertion]
         var actualValue = invoke(functionNodeMethods[assertion], f)
         if(actualValue !== expectedValue) {
-            throw "Expected " + assertion + " === " + expectedValue + ", got " + actualValue + " for " + f + ":" 
+            throw "Expected " + assertion + " === " + expectedValue + ", got " + actualValue + " for " + f + ":"
                 + invoke(debugIdMethod, null, f);
         }
     }

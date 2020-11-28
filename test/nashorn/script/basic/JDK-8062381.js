@@ -38,7 +38,7 @@ function f1() {
     print(s.charCodeAt());
 }
 
-function f2() {    
+function f2() {
     for (var i = 0; i < len; i++) {
 	print(s.charCodeAt("" + i));
     }

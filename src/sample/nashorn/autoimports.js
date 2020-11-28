@@ -33,11 +33,11 @@
 
 /*
  * It is tedious to import Java classes used in a script. Sometimes it is easier
- * use simple names of java classes and have a script auto import Java classes. 
+ * use simple names of java classes and have a script auto import Java classes.
  * You can load this script at the start of an interactive jjs session or at the
- * start of your script. This script defines a __noSuchProperty__ hook to auto 
+ * start of your script. This script defines a __noSuchProperty__ hook to auto
  * import Java classes as needed and when they are referred to for the first time
- * in your script. You can also call the "autoimports" function to print script 
+ * in your script. You can also call the "autoimports" function to print script
  * statements that you need to use in your script, i.e., have the function generate
  * a script to import Java classes used by your script so far. After running your
  * script, you can call autoimports to get the exact Java imports you need and replace
@@ -122,7 +122,7 @@
                     }
                 }
             }
-        } 
+        }
     });
 
     var imports = new ArrayList();

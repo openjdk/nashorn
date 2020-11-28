@@ -76,7 +76,7 @@ static Method "<clinit>":"()V"
         return linker.link(
             new SimpleRelinkableCallSite(
                 new CallSiteDescriptor(
-                    MethodHandles.publicLookup(), 
+                    MethodHandles.publicLookup(),
                     new NamedOperation(StandardOperation.GET_PROPERTY, name), type)
             )
         );

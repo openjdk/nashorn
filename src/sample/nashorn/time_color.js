@@ -66,7 +66,7 @@ function start(stage) {
     var root = new Group();
     var label = new Label("time");
     label.textFill = Color.WHITE;
-    root.children.add(label); 
+    root.children.add(label);
     stage.scene = new Scene(root, 700, 500);
 
     setInterval(function() {

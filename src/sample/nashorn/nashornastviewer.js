@@ -67,7 +67,7 @@ function treeItemForASTNode(ast, name) {
     for (var prop in ast) {
        var node = ast[prop];
        var type = typeof node;
- 
+
        if (node == null || type == "function") {
            // skip nulls and Java methods
            continue;
@@ -81,7 +81,7 @@ function treeItemForASTNode(ast, name) {
            subitem = new TreeItem(prop);
            for (var i = 0; i < len; i++) {
                var li = treeItemForASTNode(node.get(i), String(i));
-               subitem.children.add(li); 
+               subitem.children.add(li);
            }
        } else if (node instanceof Enum || type != 'object') {
            subitem = new TreeItem(prop + ": " + node);

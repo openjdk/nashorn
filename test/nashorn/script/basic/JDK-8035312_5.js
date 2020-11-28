@@ -35,7 +35,7 @@ try {
     b.push(4);
 } catch (e) {
     print("length = " + b.length);
-    print("i caught an error"); 
+    print("i caught an error");
 }
 print(b);
 print(b[3]);
@@ -45,9 +45,9 @@ var c = [1,2,3];
 Object.freeze(c);
 
 for (var i = 0; i < 5; i++) {
-    try { 
+    try {
 	c.pop();
-    } catch (e) { 
+    } catch (e) {
 	print("length = " + c.length);
 	print("I caught an error");
 	print(c);

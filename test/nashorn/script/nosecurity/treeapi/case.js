@@ -37,7 +37,7 @@ switch (e) {
     case 1:
     case 2:
     case 3:
-        break; 
+        break;
     default:
 }
 label:

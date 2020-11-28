@@ -29,8 +29,8 @@
  */
 
 (function (x){
-    switch(x) { 
-       case 44: for (var x in {}) {x}; print("1"); 
+    switch(x) {
+       case 44: for (var x in {}) {x}; print("1");
        case 44: print("2");
     }
 })(44);

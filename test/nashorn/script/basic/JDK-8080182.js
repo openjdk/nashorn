@@ -28,14 +28,14 @@
  * @run
  */
 
-function Random() { 
+function Random() {
     this.toString = function() {
         return (Math.random() * 100).toString();
     }
 }
 
 for (var i = 0; i < 100; ++i) {
-    var arr = []; 
+    var arr = [];
 
     for (var j = 0; j < 64; ++j) {
         arr[j] = new Random();

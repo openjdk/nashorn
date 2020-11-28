@@ -78,10 +78,10 @@ EOF, "text/html");
                    print("you clicked OK " + wv.engine.executeScript("okCount"));
                };
                // attach text to button
-               var t = document.createTextNode("Click Me!"); 
+               var t = document.createTextNode("Click Me!");
                btn.appendChild(t);
                // attach button to the document
-               document.body.appendChild(btn); 
+               document.body.appendChild(btn);
            }
         }
     );

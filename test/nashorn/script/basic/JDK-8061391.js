@@ -34,7 +34,7 @@ var maxJavaInt = 0x7fffffff;
 var ia = [1, 2, 3, 4];
 var la = [maxJavaInt + 1000, maxJavaInt + 2000, maxJavaInt + 3000, maxJavaInt + 4000];
 var da = [1.1, 2.2, 3.3, 4.4];
-var oa = ["one", "two", "three", "four"];  
+var oa = ["one", "two", "three", "four"];
 
 var aa = [ia, la, da, oa];
 
@@ -46,7 +46,7 @@ function concats() {
     print(da);
     print(oa);
     print(aa);
-    
+
     for (var i = 0; i < aa.length; i++) {
 	print(aa[i].concat(aa[i][0]));
 	for (var j = 0; j < aa.length ; j++) {
@@ -63,30 +63,30 @@ function concats_inline() {
     print(da);
     print(oa);
     print(aa);
-    
+
     print(aa[0].concat(aa[0]));
     print(aa[0].concat(aa[1]));
     print(aa[0].concat(aa[2]));
     print(aa[0].concat(aa[3]));
-    print(aa[0].concat(aa[0][0]));    
+    print(aa[0].concat(aa[0][0]));
 
     print(aa[1].concat(aa[0]));
     print(aa[1].concat(aa[1]));
     print(aa[1].concat(aa[2]));
     print(aa[1].concat(aa[3]));
-    print(aa[1].concat(aa[1][0]));    
+    print(aa[1].concat(aa[1][0]));
 
     print(aa[2].concat(aa[0]));
     print(aa[2].concat(aa[1]));
     print(aa[2].concat(aa[2]));
     print(aa[2].concat(aa[3]));
-    print(aa[2].concat(aa[2][0]));    
+    print(aa[2].concat(aa[2][0]));
 
     print(aa[3].concat(aa[0]));
     print(aa[3].concat(aa[1]));
     print(aa[3].concat(aa[2]));
     print(aa[3].concat(aa[3]));
-    print(aa[3].concat(aa[3][0]));    
+    print(aa[3].concat(aa[3][0]));
 }
 
 concats();

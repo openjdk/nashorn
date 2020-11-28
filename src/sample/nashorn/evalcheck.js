@@ -53,6 +53,6 @@ ast.accept(visitor = new (Java.extend(SimpleTreeVisitor)) {
            var line = this.lineMap.getLineNumber(pos);
            var column = this.lineMap.getColumnNumber(pos);
            print("eval call found @ " + line + ":" + column);
-       } 
-    } 
+       }
+    }
 }, null);

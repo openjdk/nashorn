@@ -92,11 +92,11 @@ try {
 try {
     n(1,2,3);
 } catch (e) {
-    print(e);    
+    print(e);
 }
 
 try {
     n(1,2,3,4);
 } catch (e) {
-    print(e);   
+    print(e);
 }

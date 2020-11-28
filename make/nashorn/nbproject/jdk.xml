@@ -2,27 +2,27 @@
 <!--
  Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
- 
+
  This code is free software; you can redistribute it and/or modify it
  under the terms of the GNU General Public License version 2 only, as
  published by the Free Software Foundation.
- 
+
  This code is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  version 2 for more details (a copy is included in the LICENSE file that
  accompanied this code).
- 
+
  You should have received a copy of the GNU General Public License version
  2 along with this work; if not, write to the Free Software Foundation,
  Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- 
+
  Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
  or visit www.oracle.com if you need additional information or have any
  questions.
 -->
 
-    
+
     <description>
         Permits selection of a JDK to use when building and running project.
         See: http://www.netbeans.org/issues/show_bug.cgi?id=64160
@@ -58,7 +58,7 @@
         <common:property name="nbjdk.home" value="platforms.${nbjdk.active}.home"/>
         <common:property name="nbjdk.javac.tmp" value="platforms.${nbjdk.active}.javac"/>
         <condition property=".exe" value=".exe">
-            <os family="windows"/> 
+            <os family="windows"/>
         </condition>
         <property name=".exe" value=""/>
         <condition property="nbjdk.javac" value="${nbjdk.home}/bin/javac${.exe}">
@@ -86,7 +86,7 @@
                 <available file="${nbjdk.javac}" type="file"/>
                 <available file="${nbjdk.java}" type="file"/>
                 <available file="${nbjdk.javadoc}" type="file"/>
-                
+
             </and>
         </condition>
         <echo level="verbose">nbjdk.active=${nbjdk.active} nbjdk.home=${nbjdk.home} nbjdk.java=${nbjdk.java} nbjdk.javac=${nbjdk.javac} nbjdk.javadoc=${nbjdk.javadoc} nbjdk.bootclasspath=${nbjdk.bootclasspath} nbjdk.valid=${nbjdk.valid} have-jdk-1.4=${have-jdk-1.4} have-jdk-1.5=${have-jdk-1.5}</echo>
@@ -98,8 +98,8 @@
     </target>
 
     <target name="-jdk-presetdef-basic" depends="-jdk-preinit" if="nbjdk.valid" unless="nbjdk.presetdef.basic.done">
-        
-        
+
+
         <macrodef name="javac-presetdef">
             <attribute name="javacval"/>
             <sequential>
@@ -157,7 +157,7 @@
     </target>
 
     <target name="-jdk-default" unless="nbjdk.active-or-nbjdk.home">
-        
+
         <property name="java.home.parent" location="${java.home}/.."/>
         <condition property="nbjdk.home" value="${java.home.parent}">
             <available file="${java.home.parent}/lib/tools.jar" type="file"/>
@@ -165,11 +165,11 @@
         <condition property="nbjdk.home" value="${java.home}">
             <available file="${java.home}/lib/tools.jar" type="file"/>
         </condition>
-        
+
         <condition property="nbjdk.home" value="/Library/Java/Home">
             <available file="/Library/Java/Home" type="dir"/>
         </condition>
-        
+
         <property name="nbjdk.home" location="${java.home.parent}"/>
         <property name="nbjdk.home.defaulted" value="true"/>
     </target>

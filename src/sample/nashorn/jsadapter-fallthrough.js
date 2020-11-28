@@ -42,7 +42,7 @@ function wrapDate(d) {
                 return d.minusDays(1)
             }
             // fall-through: forward all other, non-adapted method calls
-            var args = [d].concat(Array.prototype.slice.call(arguments, 1)) 
+            var args = [d].concat(Array.prototype.slice.call(arguments, 1))
             return Function.call.apply(d[arguments[0]], args)
         }
     }

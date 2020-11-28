@@ -31,21 +31,21 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 // See also https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html
- 
+
 if (! $OPTIONS._fx) {
     print("Usage: jjs -fx fxml_example.js");
     exit(1);
 }
- 
+
 // inline FXML document here
 var fxml = <<EOF
- 
+
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
- 
+
 <VBox xmlns:fx="http://javafx.com/fxml">
     <children>
     <!-- ids will be used script later -->
@@ -56,31 +56,31 @@ var fxml = <<EOF
     <Button fx:id="clickButton" text="Click!"/>
     </children>
 </VBox>
- 
+
 EOF
- 
+
 // Java and FX classes used
 var ByteArrayInputStream = Java.type("java.io.ByteArrayInputStream");
 var FXMLLoader = Java.type("javafx.fxml.FXMLLoader");
 var Scene = Java.type("javafx.scene.Scene");
- 
+
 function start(stage) {
     var loader = new FXMLLoader();
     // load FXML from a string
     var root = loader.load(new ByteArrayInputStream(fxml.getBytes("UTF-8")));
- 
+
     // get the button and the text field controls
     var button = root.lookup("#clickButton");
     var textField = root.lookup("#nameText");
- 
+
     // event handler for button
     var clickCount = 0;
     button.onAction = function() {
         print(textField.text + ", you clicked me: " + ++clickCount + " time(s)");
     }
- 
+
     var scene = new Scene(root, 300, 275);
     stage.title = "FXML Example";
     stage.scene = scene;
     stage.show();
-} 
+}

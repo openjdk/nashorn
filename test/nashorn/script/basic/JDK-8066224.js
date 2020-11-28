@@ -28,11 +28,11 @@
  * @run
  */
 
-print((function(){ 
+print((function(){
     if(false ? 0 : '') {
         throw false;
     } else if (x = this) {
-        var x = x; 
+        var x = x;
     }
     return x === this;
 })())

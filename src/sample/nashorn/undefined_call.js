@@ -31,18 +31,18 @@
 
 // Nashorn extension: __noSuchMethod__
 // See also: https://wiki.openjdk.java.net/display/Nashorn/Nashorn+extensions#Nashornextensions-__noSuchMethod__
- 
+
 Object.prototype.__noSuchMethod__ = function(name) {
     print(name + " function is not defined in " + this);
- 
+
     // Nashorn extension: stack property
     // gives stack trace as a string
     print(new Error().stack);
 }
- 
+
 function func(obj) {
     obj.foo();
 }
- 
+
 func({});
-func(this); 
+func(this);

@@ -22,12 +22,12 @@
  */
 
 /**
- * JDK-8144113: Nashorn: enable jjs testing. 
+ * JDK-8144113: Nashorn: enable jjs testing.
  * check if jjs version is same as of java.
  * @test
  * @option -scripting
  * @run
- * @summary Test -version flag and its functionality 
+ * @summary Test -version flag and its functionality
  */
 
 

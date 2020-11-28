@@ -38,7 +38,7 @@ var altjLauncher = which('java')
 if (windows) {
     if(winCyg) {
         jLauncher = "${jHomePath}" + "/bin/java.exe"
-        jLauncher = cygpath(jLauncher,outPath.windows) 
+        jLauncher = cygpath(jLauncher,outPath.windows)
     }
     else {
         jLauncher = "${jHomePath}" + "\\bin\\java.exe"

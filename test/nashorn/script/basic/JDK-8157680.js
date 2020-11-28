@@ -53,7 +53,7 @@ JSON.parse('{ "nashorn" : "hello" }', new AJO() {
         if (name == "") return value
         print(name + " -> " + value)
         return value
-    } 
+    }
 })
 
 // compare function from the mirror world

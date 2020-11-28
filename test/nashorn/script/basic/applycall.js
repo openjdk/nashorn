@@ -34,9 +34,9 @@ function func(x, y) { print(x); print(y); }
 print(func.call);
 print("func.call.length = " + func.call.length);
 
-func.call(this, "hello, ", "world");
-func.apply(this, [ "hello, " , "world" ]);
-func("hello, ", "world");
+func.call(this, "hello,", "world");
+func.apply(this, [ "hello," , "world" ]);
+func("hello,", "world");
 
 // extension: you can pass java List to apply
 

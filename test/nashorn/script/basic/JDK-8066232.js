@@ -28,7 +28,7 @@
  * @run
  */
 
-(function () { 
+(function () {
     try {
         x;
     } catch(e if 1) {

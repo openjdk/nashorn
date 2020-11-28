@@ -22,7 +22,7 @@
  */
 
 /**
- * JDK-8144113: Nashorn: enable jjs testing. 
+ * JDK-8144113: Nashorn: enable jjs testing.
  * @test
  * @option -scripting
  * @run

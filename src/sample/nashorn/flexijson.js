@@ -30,13 +30,13 @@
  */
 
 /*
- * Hjson - "the Human JSON - A configuration file format that 
+ * Hjson - "the Human JSON - A configuration file format that
  * caters to humans and helps reduce the errors they make"
  * See also: http://hjson.org/
  *
  * I wanted to see if we can use Nashorn Parser API (jdk9) to support
  * similar flexible JSON extension with #nashorn. In this FlexiJSON.parse
- * implementation, Nashorn Parser API is used to validate that the 
+ * implementation, Nashorn Parser API is used to validate that the
  * extendable flexi JSON is "data only" (i.e., no executable code) and
  * then 'eval'ed to make an object out of it.
  *
@@ -75,7 +75,7 @@ FlexiJSON.SimpleTreeVisitor = FlexiJSON.treeType("SimpleTreeVisitorES5_1");
 // FlexiJSON.parse API
 
 FlexiJSON.parse = function(str) {
-    var parser = (typeof $OPTIONS == "undefined")? 
+    var parser = (typeof $OPTIONS == "undefined")?
         FlexiJSON.Parser.create() :
         FlexiJSON.Parser.create("-scripting");
 
@@ -153,7 +153,7 @@ FlexiJSON.parse = function(str) {
              var elements = node.sourceElements;
              if (elements.length > 1) {
                  this.throwError("more than one top level expression", node.sourceElements[1]);
-             } 
+             }
              var stat = node.sourceElements[0];
              if (! (stat instanceof FlexiJSON.ExpressionStatement)) {
                  this.throwError("only one top level expresion allowed", stat);

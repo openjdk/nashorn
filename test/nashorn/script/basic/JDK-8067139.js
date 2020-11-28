@@ -31,16 +31,16 @@
 // Test case for JDK-8067139
 // as well as for JDK-8030198 which is a duplicate.
 (function(){
-    var catchCount = 0; 
+    var catchCount = 0;
     try {
         (function (){
-            try { 
-                return; 
-            } catch(x) { 
+            try {
+                return;
+            } catch(x) {
                 ++catchCount;
-            } finally { 
-                throw 0; 
-            } 
+            } finally {
+                throw 0;
+            }
         })();
         Assert.fail(); // must throw
     } catch(e) {
@@ -50,13 +50,13 @@
 })();
 
 // Test case for JDK-8048862 which is a duplicate of this bug
-var ret = (function(o) { 
+var ret = (function(o) {
     try{
         with(o) {
             return x;
         }
     } finally {
-        try { 
+        try {
             return x;
         } catch(e) {
             Assert.assertTrue(e instanceof ReferenceError);

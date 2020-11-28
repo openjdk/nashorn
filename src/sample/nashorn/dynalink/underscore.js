@@ -31,7 +31,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// This script depends on underscore name to CamelCase name 
+// This script depends on underscore name to CamelCase name
 // translator dynalink linker! Without that linker, this script
 // will fail to run!
 

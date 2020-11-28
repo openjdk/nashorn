@@ -35,7 +35,7 @@ function isNashorn() {
     // "engine" variable is of type javax.script.ScriptEngine is defined
     // by nashorn jsr-223 engine. Check the name of the engine from
     // javax.script.ScriptEngineFactory associated
-    
+
     return engine.factory.engineName.contains("Nashorn");
   } catch (e) {
     // if engine or any of the properties are undefined

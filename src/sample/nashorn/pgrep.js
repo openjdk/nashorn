@@ -1,4 +1,4 @@
-#!/usr/bin/jjs --language=es6 
+#!/usr/bin/jjs --language=es6
 
 /*
  * Copyright (c) 2017, Oracle and/or its affiliates. All rights reserved.

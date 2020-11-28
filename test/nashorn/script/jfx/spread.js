@@ -1,21 +1,21 @@
 /*
  * Copyright (c) 2013, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
- * 
+ *
  * This code is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 only, as
  * published by the Free Software Foundation.
- * 
+ *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * version 2 for more details (a copy is included in the LICENSE file that
  * accompanied this code).
- * 
+ *
  * You should have received a copy of the GNU General Public License version
  * 2 along with this work; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- * 
+ *
  * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
  * or visit www.oracle.com if you need additional information or have any
  * questions.
@@ -28,7 +28,7 @@
  * @run
  * @fork
  */
- 
+
 TESTNAME = "spread";
 
 var WIDTH = 800;
@@ -57,7 +57,7 @@ var branch_bud_angle = 1;   // angle offset for split branch;
 
 var paper;                  // reference to graphics context
 var branches = Object();    // linked list of active branches
-var color_styles = [];      // pre-computed list of colors as styles. format: (r,g,b,a)    
+var color_styles = [];      // pre-computed list of colors as styles. format: (r,g,b,a)
 var direction_offset = 0;   // current direction offset in radians.  this is applied to all branches.
 var frame = 0;              // frame counter
 var timespent = 0;          // total time spent so far, used to calculate average frame render duration
@@ -89,8 +89,8 @@ function branch_add(branches, branch) {
 // use the center of the canvas
 function get_new_tree_center(width, height) {
     return {
-        x: 0.5 * width, 
-        y: 0.5 * height 
+        x: 0.5 * width,
+        y: 0.5 * height
     };
 }
 
@@ -110,15 +110,15 @@ function branch_update(branches, branch, paper) {
     paper.beginPath();
     paper.lineWidth = branch.width;
     paper.moveTo(branch.x, branch.y);
-    
+
     branch.width *= branch_shrink;
     branch.direction += direction_offset;
     branch.x += Math.cos(branch.direction) * branch.width;
     branch.y += Math.sin(branch.direction) * branch.width;
-    
+
     paper.lineTo(branch.x, branch.y);
     paper.stroke();
-    
+
     if (prefs.wrap) wrap_branch(branch, WIDTH, HEIGHT);
 
     if (branch.width < branch.original_width * branch_bud_size) {
@@ -139,20 +139,20 @@ function draw_frame() {
     if (frame++ % prefs.new_branch_frames == 0) {
         create_tree(branches, start_width, get_new_tree_center(WIDTH, HEIGHT), branch_count);
     }
-    
+
     direction_offset += (0.35 + (frame % 200) * 0.0015) * curviness - curviness / 2;
     direction_offset *= straighten_factor;
-    
+
     var branch = branches;
     var prev_branch = branches;
     while (branch = branch.next) {
         branch_update(branches, branch, paper);
-        
+
         if (branch.width < min_width) {
             // remove branch from list
             prev_branch.next = branch.next;
         }
-        
+
         prev_branch = branch;
     }
 }
@@ -166,7 +166,7 @@ function wrap_branch(branch, WIDTH, HEIGHT) {
 // for a < 0, b > 0, javascript returns a negative number for a % b
 // this is a variant of the % operator that adds b to the result in this case
 function positive_mod(a, b) {
-    // ECMA 262 11.5.3: Applying the % Operator 
+    // ECMA 262 11.5.3: Applying the % Operator
     // remainder operator does not convert operands to integers,
     // although negative results are possible
 

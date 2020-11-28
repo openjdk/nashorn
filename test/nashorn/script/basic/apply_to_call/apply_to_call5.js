@@ -53,7 +53,7 @@ print(x.c);
 
 print("Overwriting apply now");
 x.initialize.apply = function() { print("New function for apply - not a property"); }
-  
+
 test(4712);
 print(x.a);
 

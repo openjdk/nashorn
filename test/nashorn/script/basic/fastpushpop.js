@@ -36,7 +36,7 @@ a.push(6);
 print(a);
 
 var a2 = Object.defineProperty(a,"length", { writable: false });
-try { 
+try {
     a2.push(7);
 } catch (e) {
     print("first: " + (e instanceof TypeError));
@@ -51,7 +51,7 @@ b.push(6);
 print(b);
 
 var b2 = Object.defineProperty(b,"length", { writable: false });
-try { 
+try {
     b2.push(7);
 } catch (e) {
     print("second: " + (e instanceof TypeError));

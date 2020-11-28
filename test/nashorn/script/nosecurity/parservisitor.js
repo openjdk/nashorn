@@ -1,21 +1,21 @@
 /*
  * Copyright (c) 2015, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
- * 
+ *
  * This code is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 only, as
  * published by the Free Software Foundation.
- * 
+ *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * version 2 for more details (a copy is included in the LICENSE file that
  * accompanied this code).
- * 
+ *
  * You should have received a copy of the GNU General Public License version
  * 2 along with this work; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- * 
+ *
  * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
  * or visit www.oracle.com if you need additional information or have any
  * questions.
@@ -66,7 +66,7 @@ parse("assign.js", "x = 33",
     });
 
 function binaryExpr(name, code) {
-    parse(name, code, 
+    parse(name, code,
         new (Java.extend(SimpleTreeVisitor))() {
             visitBinary: function(bn) {
                 print("in visitBinary " + bn.kind + " " +
@@ -99,7 +99,7 @@ binaryExpr("cond_and.js", "3 && 2");
 binaryExpr("cond_or.js", "3 || 2");
 binaryExpr("comma", "3, 2");
 
-parse("block.js", "{ print('hello'); }", 
+parse("block.js", "{ print('hello'); }",
     new (Java.extend(SimpleTreeVisitor))() {
         visitBlock: function() {
             print("in visitBlock");
@@ -107,7 +107,7 @@ parse("block.js", "{ print('hello'); }",
     });
 
 
-parse("break.js", "while(true) { break; }", 
+parse("break.js", "while(true) { break; }",
     new (Java.extend(SimpleTreeVisitor))() {
         visitBreak: function() {
             print("in visitBreak");
@@ -115,7 +115,7 @@ parse("break.js", "while(true) { break; }",
     });
 
 function compAssignExpr(name, code) {
-    parse(name, code, 
+    parse(name, code,
         new (Java.extend(SimpleTreeVisitor))() {
             visitCompoundAssignment: function(bn) {
                 print("in visitCompoundAssignment " + bn.kind + " " +
@@ -136,98 +136,98 @@ compAssignExpr("and_assign.js", "x &= 3");
 compAssignExpr("xor_assign.js", "x ^= 3");
 compAssignExpr("or_assign.js", "x |= 3");
 
-parse("condexpr.js", "foo? x : y", 
+parse("condexpr.js", "foo? x : y",
     new (Java.extend(SimpleTreeVisitor))() {
         visitConditionalExpression: function() {
             print("in visitConditionalExpression");
         }
     });
 
-parse("continue.js", "while(true) { continue; }", 
+parse("continue.js", "while(true) { continue; }",
     new (Java.extend(SimpleTreeVisitor))() {
         visitContinue: function() {
             print("in visitContinue");
         }
     });
 
-parse("debugger.js", "debugger;", 
+parse("debugger.js", "debugger;",
     new (Java.extend(SimpleTreeVisitor))() {
         visitDebugger: function() {
             print("in visitDebugger");
         }
     });
 
-parse("dowhile.js", "do {} while(true)", 
+parse("dowhile.js", "do {} while(true)",
     new (Java.extend(SimpleTreeVisitor))() {
         visitDoWhileLoop: function() {
             print("in visitDoWhileLoop");
         }
     });
 
-parse("empty.js", ";", 
+parse("empty.js", ";",
     new (Java.extend(SimpleTreeVisitor))() {
         visitEmptyStatement: function() {
             print("in visitEmptyStatement");
         }
     });
 
-parse("exprstat.js", "2+3;", 
+parse("exprstat.js", "2+3;",
     new (Java.extend(SimpleTreeVisitor))() {
         visitExpressionStatement: function() {
             print("in visitExpressionStatement");
         }
     });
 
-parse("forin.js", "for(i in this) {}", 
+parse("forin.js", "for(i in this) {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitForInLoop: function() {
             print("in visitForInLoop");
         }
     });
 
-parse("for.js", "for(;;) {}", 
+parse("for.js", "for(;;) {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitForLoop: function() {
             print("in visitForLoop");
         }
     });
 
-parse("funccall.js", "func()", 
+parse("funccall.js", "func()",
     new (Java.extend(SimpleTreeVisitor))() {
         visitFunctionCall: function(fc) {
             print("in visitFunctionCall " + fc.functionSelect.name);
         }
     });
 
-parse("funcdecl.js", "function func() {}", 
+parse("funcdecl.js", "function func() {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitFunctionDeclaration: function(fd) {
             print("in visitFunctionDeclaration " + fd.name.name);
         }
     });
 
-parse("funcexpr.js", "x = function() {}", 
+parse("funcexpr.js", "x = function() {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitFunctionExpression: function() {
             print("in visitFunctionExpression");
         }
     });
 
-parse("ident.js", "this", 
+parse("ident.js", "this",
     new (Java.extend(SimpleTreeVisitor))() {
         visitIdentifier: function(ident) {
             print("in visitIdentifier " + ident.name);
         }
     });
 
-parse("if.js", "if (true) {}", 
+parse("if.js", "if (true) {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitIf: function() {
             print("in visitIf");
         }
     });
 
-parse("if2.js", "if (true) print('yes')", 
+parse("if2.js", "if (true) print('yes')",
     new (visitor = Java.extend(SimpleTreeVisitor))() {
         visitBlock: function(node, extra) {
             print("ERROR: No block expected here!");
@@ -235,14 +235,14 @@ parse("if2.js", "if (true) print('yes')",
         }
     });
 
-parse("instanceof.js", "this instanceof Object", 
+parse("instanceof.js", "this instanceof Object",
     new (Java.extend(SimpleTreeVisitor))() {
         visitInstanceOf: function() {
             print("in visitInstanceOf");
         }
     });
 
-parse("labeled.js", "foo: print('hello');", 
+parse("labeled.js", "foo: print('hello');",
     new (Java.extend(SimpleTreeVisitor))() {
         visitLabeledStatement: function() {
             print("in visitLabeledStatement");
@@ -250,7 +250,7 @@ parse("labeled.js", "foo: print('hello');",
     });
 
 function literalExpr(name, code) {
-    parse(name, code, 
+    parse(name, code,
         new (Java.extend(SimpleTreeVisitor))() {
             visitLiteral: function(ln) {
                 print("in visitLiteral " + ln.kind + " " + ln.value);
@@ -263,21 +263,21 @@ literalExpr("num.js", "3.14");
 literalExpr("str.js", "'hello'");
 literalExpr("null.js", "null");
 
-parse("memselect.js", "this.foo", 
+parse("memselect.js", "this.foo",
     new (Java.extend(SimpleTreeVisitor))() {
         visitMemberSelect: function(ms) {
             print("in visitMemberSelect " + ms.identifier);
         }
     });
 
-parse("new.js", "new Object()", 
+parse("new.js", "new Object()",
     new (Java.extend(SimpleTreeVisitor))() {
         visitNew: function() {
             print("in visitNew");
         }
     });
 
-parse("obj_literal.js", "({ foo: 343 })", 
+parse("obj_literal.js", "({ foo: 343 })",
     visitor = new (Java.extend(SimpleTreeVisitor))() {
         visitObjectLiteral: function(ol) {
             print("in visitObjectLiteral");
@@ -289,21 +289,21 @@ parse("obj_literal.js", "({ foo: 343 })",
         }
     });
 
-parse("regexp.js", "/[a-b]/i", 
+parse("regexp.js", "/[a-b]/i",
     new (Java.extend(SimpleTreeVisitor))() {
         visitRegExpLiteral: function(re) {
             print("in visitRegExpLiteral " + re.pattern + " " + re.options);
         }
     });
 
-parse("ret.js", "function func() { return 33 }", 
+parse("ret.js", "function func() { return 33 }",
     new (Java.extend(SimpleTreeVisitor))() {
         visitReturn: function(ret) {
             print("in visitReturn " + ret.expression.value);
         }
     });
 
-parse("switch.js", "switch(c) { case '1': break; default: }", 
+parse("switch.js", "switch(c) { case '1': break; default: }",
     visitor = new (Java.extend(SimpleTreeVisitor))() {
         visitSwitch: function(sn) {
             print("in visitSwitch");
@@ -319,14 +319,14 @@ parse("switch.js", "switch(c) { case '1': break; default: }",
         }
     });
 
-parse("throw.js", "throw 2", 
+parse("throw.js", "throw 2",
     new (Java.extend(SimpleTreeVisitor))() {
         visitThrow: function(tn) {
             print("in visitThrow " + tn.expression.value);
         }
     });
 
-parse("try.js", "try { func() } catch(e) {}", 
+parse("try.js", "try { func() } catch(e) {}",
     visitor = new (Java.extend(SimpleTreeVisitor))() {
         visitTry: function(tn) {
             print("in visitTry");
@@ -338,7 +338,7 @@ parse("try.js", "try { func() } catch(e) {}",
     });
 
 function unaryExpr(name, code) {
-    parse(name, code, 
+    parse(name, code,
         new (Java.extend(SimpleTreeVisitor))() {
             visitUnary: function(un) {
                 print("in visitUnary " + un.kind + " " + un.expression.name);
@@ -358,21 +358,21 @@ unaryExpr("delete.js", "delete x");
 unaryExpr("typeof.js", "typeof x");
 unaryExpr("void.js", "void x");
 
-parse("var.js", "var x = 34;", 
+parse("var.js", "var x = 34;",
     new (Java.extend(SimpleTreeVisitor))() {
         visitVariable: function(vn) {
             print("in visitVariable " + vn.binding.name + " = " + vn.initializer.value);
         }
     });
 
-parse("while.js", "while(true) {}", 
+parse("while.js", "while(true) {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitWhileLoop: function() {
             print("in visitWhileLoop");
         }
     });
 
-parse("with.js", "with({}) {}", 
+parse("with.js", "with({}) {}",
     new (Java.extend(SimpleTreeVisitor))() {
         visitWith: function() {
             print("in visitWith");

@@ -31,7 +31,7 @@
 
 // delete of scope vars is reported as error in strict mode.
 // This script finds scripts that such deletes. Scripts in
-// the specified directory are scanned. If no directory is 
+// the specified directory are scanned. If no directory is
 // specified, the current directory is scanned.
 
 if (arguments.length == 0) {
@@ -80,7 +80,7 @@ function checkFile(file) {
             if (node.kind == Tree.Kind.DELETE &&
                 node.expression instanceof IdentifierTree) {
                 this.printWarning(node, node.expression.name);
-            } 
+            }
             Java.super(visitor).visitUnary(node, extra);
         },
 

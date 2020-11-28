@@ -30,16 +30,16 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 // See also https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html
 
 // Simple script to "run" a .FXML file specified in
 // command line. FXML file is expected to have inline
 // fx:script to handle GUI events. i.e., self-contained
 // FXML file is assumed.
- 
+
 var file = arguments[0];
-var File = Java.type("java.io.File"); 
+var File = Java.type("java.io.File");
 if (!$OPTIONS._fx || !file || !new File(file).isFile()) {
     print("Usage: jjs -fx fxmlrunner.js -- <.fxml file> [width] [height]");
     exit(1);
@@ -52,7 +52,7 @@ var height = arguments[2]? parseInt(arguments[2]) : 300;
 // JavaFX classes used
 var FXMLLoader = Java.type("javafx.fxml.FXMLLoader");
 var Scene = Java.type("javafx.scene.Scene");
- 
+
 function start(stage) {
     // load FXML
     var root = FXMLLoader.load(new File(file).toURL());
@@ -61,4 +61,4 @@ function start(stage) {
     stage.title = file;
     stage.scene = scene;
     stage.show();
-} 
+}

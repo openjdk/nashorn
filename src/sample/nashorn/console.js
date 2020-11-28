@@ -32,7 +32,7 @@
 /**
  * Simple Web Console-like support for Nashorn. In addition to
  * Web console object methods, this console add methods of
- * java.io.Console as well. Note:not all web console methods are 
+ * java.io.Console as well. Note:not all web console methods are
  * implemented but useful subset is implemented.
  *
  * See also: https://developer.mozilla.org/en/docs/Web/API/console
@@ -92,7 +92,7 @@ if (typeof console == 'undefined') {
 
     console.assert = function(expr) {
         if (! expr) {
-            arguments[0] = "Assertion Failed:"; 
+            arguments[0] = "Assertion Failed:";
             consoleLog.apply(console, arguments);
             // now, stack trace at the end
             jconsole.format("%s\n", new Error().stack);
@@ -111,8 +111,8 @@ if (typeof console == 'undefined') {
             }
         }
     };
-   
-    // counter 
+
+    // counter
     console.count = function(label) {
         label = label? String(label) : "<no label>";
         jconsole.format("%s: %d\n",label, counter.get(label).intValue());

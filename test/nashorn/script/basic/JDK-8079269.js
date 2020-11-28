@@ -29,22 +29,22 @@
  */
 
 // m must be in scope so it's accessed with optimistic getters on scope
-var m = 1; 
+var m = 1;
 
 (function() {
-    return { 
-        p0: m, 
+    return {
+        p0: m,
         p1: m = "foo",
         p2: m
     }
 })();
 
-var n = 1; 
+var n = 1;
 
 // Test the spill object creator too
 (function() {
-    return { 
-        p0: n, 
+    return {
+        p0: n,
         p1: n = "foo",
         p2: n,
         p3: n,

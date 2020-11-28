@@ -45,7 +45,7 @@ function checkWiden(arr, value, name) {
         print(name + ": check widen for " + value);
         break;
     default:
-        print(name + ": check widen for " + value + 
+        print(name + ": check widen for " + value +
             " [" + Debug.getClass(value) + "]");
     }
 

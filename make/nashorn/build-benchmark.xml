@@ -96,7 +96,7 @@
   <target name="octane-earley-boyer-rhino" depends="jar">
     <run-one cond="octane.benchmark.earley-boyer" runtime="rhino"/>
   </target>
-  
+
   <!-- gbemu -->
   <target name="octane-gbemu" depends="octane-gbemu-nashorn"/>
   <target name="octane-gbemu-nashorn" depends="jar">
@@ -250,7 +250,7 @@
            return 0;
         }
       });
-      
+
       var runtime = project.getProperty("runtime");
 
       for (var i in props) {

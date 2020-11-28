@@ -33,12 +33,12 @@
  * Simple unzip tool using #nashorn and #java
  * zip fs file system interface.
  */
- 
+
 if (arguments.length == 0) {
     print("Usage: jjs zipfs.js -- <.zip/.jar file> [out dir]");
     exit(1);
 }
- 
+
 var File = Java.type("java.io.File");
 // output directory where zip is extracted
 var outDir = arguments[1];
@@ -50,15 +50,15 @@ if (!outDir) {
         exit(1);
     }
 }
- 
+
 var Files = Java.type("java.nio.file.Files");
 var FileSystems = Java.type("java.nio.file.FileSystems");
 var Paths = Java.type("java.nio.file.Paths");
- 
+
 var zipfile = Paths.get(arguments[0])
 var fs = FileSystems.newFileSystem(zipfile, null);
 var root = fs.rootDirectories[0];
- 
+
 // walk root and handle each Path
 Files.walk(root).forEach(
     function(p) {
@@ -74,6 +74,6 @@ Files.walk(root).forEach(
         }
     }
 );
- 
+
 // done
-fs.close(); 
+fs.close();

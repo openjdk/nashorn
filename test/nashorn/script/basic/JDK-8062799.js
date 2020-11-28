@@ -30,7 +30,7 @@
 
 (function() {
     var inspect = Java.type("org.openjdk.nashorn.test.tools.StaticTypeInspector").inspect;
-    
+
     var b = true;
     var i = 1;
     var d = 2.1;
@@ -40,7 +40,7 @@
     print(inspect(b || i, "b || i"));
     print(inspect(b || d, "b || d"));
     print(inspect(b || o, "b || o"));
-        
+
     print(inspect(i || b, "i || b"));
     print(inspect(i || i, "i || i"));
     print(inspect(i || d, "i || d"));
@@ -60,7 +60,7 @@
     print(inspect(b && i, "b && i"));
     print(inspect(b && d, "b && d"));
     print(inspect(b && o, "b && o"));
-        
+
     print(inspect(i && b, "i && b"));
     print(inspect(i && i, "i && i"));
     print(inspect(i && d, "i && d"));
@@ -77,6 +77,6 @@
     print(inspect(o && o, "o && o"));
 })();
 
-    
-    
-        
+
+
+

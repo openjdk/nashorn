@@ -22,7 +22,7 @@ launched.
 
 Example:
 
-> java -Dnashorn.args="--lazy-complation --log=compiler" large-java-app-with-nashorn.jar 
+> java -Dnashorn.args="--lazy-complation --log=compiler" large-java-app-with-nashorn.jar
 > ant -Dnashorn.args="--log=codegen" antjob
 
 SYSTEM PROPERTY: -Dnashorn.args.prepend=<string>
@@ -35,11 +35,11 @@ that can be overwritten.
 
 SYSTEM PROPERTY: -Dnashorn.unstable.relink.threshold=x
 
-NOTE: This property is deprecated in favor of the 
+NOTE: This property is deprecated in favor of the
 "--unstable-relink-threshold" command line option. It controls how many
 call site misses are allowed before a callsite is relinked with "apply"
-semantics to never change again. In the case of megamorphic callsites, 
-this is necessary, or the program would spend all its time swapping out 
+semantics to never change again. In the case of megamorphic callsites,
+this is necessary, or the program would spend all its time swapping out
 callsite targets. When neither the system property nor the command line
 option are specified, defaults to 8, or 16 with optimistic types turned
 on.
@@ -88,7 +88,7 @@ mailing list. TaggedArrays are basically a way to share data space
 between primitives and references, and have the GC understand this.
 
 
-SYSTEM PROPERTY: -Dnashorn.compiler.symbol.trace=[<x>[,*]], 
+SYSTEM PROPERTY: -Dnashorn.compiler.symbol.trace=[<x>[,*]],
   -Dnashorn.compiler.symbol.stacktrace=[<x>[,*]]
 
 When this property is set, creation and manipulation of any symbol
@@ -97,7 +97,7 @@ type assumption, bytecode local variable slot assignment and other
 data. This is useful if, for example, a symbol shows up as an Object,
 when you believe it should be a primitive. Usually there is an
 explanation for this, for example that it exists in the global scope
-and type analysis has to be more conservative. 
+and type analysis has to be more conservative.
 
 Several symbols names to watch can be specified by comma separation.
 
@@ -374,21 +374,21 @@ and jumps. It also shows the contents of the bytecode stack prior to
 each instruction being emitted. This is a good debugging aid. For
 example:
 
-[codegen] #41                       line:2 (f)_afc824e 
-[codegen] #42                           load symbol x slot=2 
-[codegen] #43  {1:O}                    load int 0 
-[codegen] #44  {2:I O}                  dynamic_runtime_call GT:ZOI_I args=2 returnType=boolean 
-[codegen] #45                              signature (Ljava/lang/Object;I)Z 
-[codegen] #46  {1:Z}                    ifeq  ternary_false_5402fe28 
-[codegen] #47                           load symbol x slot=2 
-[codegen] #48  {1:O}                    goto ternary_exit_107c1f2f 
-[codegen] #49                       ternary_false_5402fe28 
-[codegen] #50                           load symbol x slot=2 
-[codegen] #51  {1:O}                    convert object -> double 
-[codegen] #52  {1:D}                    neg 
-[codegen] #53  {1:D}                    convert double -> object 
-[codegen] #54  {1:O}                ternary_exit_107c1f2f 
-[codegen] #55  {1:O}                    return object 
+[codegen] #41                       line:2 (f)_afc824e
+[codegen] #42                           load symbol x slot=2
+[codegen] #43  {1:O}                    load int 0
+[codegen] #44  {2:I O}                  dynamic_runtime_call GT:ZOI_I args=2 returnType=boolean
+[codegen] #45                              signature (Ljava/lang/Object;I)Z
+[codegen] #46  {1:Z}                    ifeq  ternary_false_5402fe28
+[codegen] #47                           load symbol x slot=2
+[codegen] #48  {1:O}                    goto ternary_exit_107c1f2f
+[codegen] #49                       ternary_false_5402fe28
+[codegen] #50                           load symbol x slot=2
+[codegen] #51  {1:O}                    convert object -> double
+[codegen] #52  {1:D}                    neg
+[codegen] #53  {1:D}                    convert double -> object
+[codegen] #54  {1:O}                ternary_exit_107c1f2f
+[codegen] #55  {1:O}                    return object
 
 shows a ternary node being generated for the sequence "return x > 0 ?
 x : -x"
@@ -445,7 +445,7 @@ representation)
 This enables timers for various phases of script compilation. The timers
 will be dumped when the Nashorn process exits. We see a percentage value
 of how much time was spent not executing bytecode (i.e. compilation and
-internal tasks) at the end of the report. 
+internal tasks) at the end of the report.
 
 A finer level than "info" will show individual compilation timings as they
 happen.
@@ -453,7 +453,7 @@ happen.
 Here is an example:
 
 [time] Accumulated complation phase Timings:
-[time] 
+[time]
 [time] 'JavaScript Parsing'              1076 ms
 [time] 'Constant Folding'                 159 ms
 [time] 'Control Flow Lowering'            303 ms
@@ -466,7 +466,7 @@ Here is an example:
 [time] 'Local Variable Type Calculation'  526 ms
 [time] 'Bytecode Generation'             5177 ms
 [time] 'Class Installation'              1854 ms
-[time] 
+[time]
 [time] Total runtime: 11994 ms (Non-runtime: 11027 ms [91%])
 
 * methodhandles
@@ -514,7 +514,7 @@ A short summary follows:
 		param: [true|false]   default: false
 
 	-d, --dump-debug-dir (specify a destination directory to dump class files.)
-		param: <path>   
+		param: <path>
 
 	--debug-lines (Generate line number table in .class files.)
 		param: [true|false]   default: true
@@ -555,9 +555,9 @@ A short summary follows:
 	-l, --locale (Set Locale for script execution.)
 		param: <locale>   default: en-US
 
-	--log (Enable logging of a given level for a given number of sub systems. 
+	--log (Enable logging of a given level for a given number of sub systems.
 	      [for example: --log=fields:finest,codegen:info].)
-		param: <module:level>,*   
+		param: <module:level>,*
 
 	-nj, --no-java (Disable Java support.)
 		param: [true|false]   default: false
@@ -574,10 +574,10 @@ A short summary follows:
 	--print-ast (Print abstract syntax tree.)
 		param: [true|false]   default: false
 
-	-pc, --print-code (Print generated bytecode. If a directory is specified, nothing will 
-	                  be dumped to stderr. Also, in that case, .dot files will be generated 
+	-pc, --print-code (Print generated bytecode. If a directory is specified, nothing will
+	                  be dumped to stderr. Also, in that case, .dot files will be generated
 	                  for all functions or for the function with the specified name only.)
-		param: [dir:<output-dir>,function:<name>]   
+		param: [dir:<output-dir>,function:<name>]
 
 	--print-lower-ast (Print lowered abstract syntax tree.)
 		param: [true|false]   default: false
@@ -601,10 +601,10 @@ A short summary follows:
 		param: [true|false]   default: false
 
 	--stderr (Redirect stderr to a filename or to another tty, e.g. stdout.)
-		param: <output console>   
+		param: <output console>
 
 	--stdout (Redirect stdout to a filename or to another tty, e.g. stderr.)
-		param: <output console>   
+		param: <output console>
 
 	-strict (Run scripts in strict mode.)
 		param: [true|false]   default: false
@@ -612,12 +612,12 @@ A short summary follows:
 	-t, -timezone (Set timezone for script execution.)
 		param: <timezone>   default: Europe/Stockholm
 
-	-tcs, --trace-callsites (Enable callsite trace mode. Options are: miss [trace callsite misses] 
+	-tcs, --trace-callsites (Enable callsite trace mode. Options are: miss [trace callsite misses]
 	                         enterexit [trace callsite enter/exit], objects [print object properties].)
-		param: [=[option,]*]   
+		param: [=[option,]*]
 
-	-urt, --unstable-relink-threshold (Number of times a dynamic call site has to be relinked before it 
-	                                  is considered unstable, when the runtime will try to link it as 
+	-urt, --unstable-relink-threshold (Number of times a dynamic call site has to be relinked before it
+	                                  is considered unstable, when the runtime will try to link it as
 	                                  if it is megamorphic.)
 
 	--verify-code (Verify byte code before running.)

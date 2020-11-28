@@ -44,66 +44,66 @@
   },
   {
     "expression": "null",
-    "endPosition": "77",
+    "endPosition": "76",
     "kind": "CASE",
     "statements": [],
-    "startPosition": "69"
+    "startPosition": "68"
   },
   {
     "expression": {
-      "endPosition": "110",
+      "endPosition": "109",
       "kind": "NUMBER_LITERAL",
       "value": "1",
-      "startPosition": "109"
+      "startPosition": "108"
     },
-    "endPosition": "125",
+    "endPosition": "124",
     "kind": "CASE",
     "statements": [
       {
-        "endPosition": "125",
+        "endPosition": "124",
         "kind": "BREAK",
         "label": "null",
-        "startPosition": "120"
+        "startPosition": "119"
       }
     ],
-    "startPosition": "104"
+    "startPosition": "103"
   },
   {
     "expression": {
-      "endPosition": "136",
+      "endPosition": "135",
       "kind": "NUMBER_LITERAL",
       "value": "2",
-      "startPosition": "135"
+      "startPosition": "134"
     },
-    "endPosition": "157",
+    "endPosition": "156",
     "kind": "CASE",
     "statements": [
       {
-        "endPosition": "157",
+        "endPosition": "156",
         "kind": "BREAK",
         "label": "label",
-        "startPosition": "146"
+        "startPosition": "145"
       }
     ],
-    "startPosition": "130"
+    "startPosition": "129"
   },
   {
     "expression": {
-      "endPosition": "168",
+      "endPosition": "167",
       "kind": "NUMBER_LITERAL",
       "value": "3",
-      "startPosition": "167"
+      "startPosition": "166"
     },
-    "endPosition": "183",
+    "endPosition": "182",
     "kind": "CASE",
     "statements": [
       {
-        "endPosition": "183",
+        "endPosition": "182",
         "kind": "BREAK",
         "label": "null",
-        "startPosition": "178"
+        "startPosition": "177"
       }
     ],
-    "startPosition": "162"
+    "startPosition": "161"
   }
 ]

@@ -31,22 +31,22 @@
 
 // Sample for Collection.removeIf and Java.to
 // See http://docs.oracle.com/javase/8/docs/api/java/util/Collection.html#removeIf-java.util.function.Predicate-
- 
+
 var langs = [
     "java", "javascript",
     "C", "C#", "C++",
     "Erlang", "Haskell"
 ];
- 
+
 // convert script array to a Java List
 function asList(array) {
     return Java.to(array, java.util.List);
 }
- 
+
 // remove elements that satisfy a predicate
 // using Collection.removeIf(Predicate)
 asList(langs).removeIf(
     function(s) s.startsWith("C"));
- 
+
 // print modified array
 print(langs);

@@ -42,7 +42,7 @@ var l_add_foo2 = bind.call(l_add, null, "foo2");
 l_add_foo2();
 print("l=" + l);
 
-// Bind a POJO method retrieved from one instance to a different but 
+// Bind a POJO method retrieved from one instance to a different but
 // compatible instance.
 var l2 = new java.util.ArrayList();
 var l2_size = bind.call(l.size, l2);
@@ -52,7 +52,7 @@ print("l2_size()=" + l2_size());
 var construct_two = bind.call(java.lang.Integer, null, 2);
 print("Bound Integer(2) constructor: " + new construct_two())
 
-// Bind a @FunctionalInterface proxying to an object literal. NOTE: the 
+// Bind a @FunctionalInterface proxying to an object literal. NOTE: the
 // expected value of this.a is always "original" and never "bound". This
 // might seem counterintuitive, but we are not binding the apply()
 // function of the object literal that defines the BiFunction behaviour,
@@ -70,8 +70,8 @@ print((bind.call(f1, {a: "bound"}))(1, 2))
 print((bind.call(f1, {a: "bound"}, 3))(4))
 print((bind.call(f1, {a: "bound"}, 5, 6))())
 
-// Bind a @FunctionalInterface proxying to a function. With the same 
-// reasoning as above (binding the proxy vs. binding the JS function), 
+// Bind a @FunctionalInterface proxying to a function. With the same
+// reasoning as above (binding the proxy vs. binding the JS function),
 // the value of this.a will always be undefined, and never "bound".
 var f2 = new java.util.function.BiFunction(
     function(x, y) {

@@ -81,11 +81,11 @@ function treeItemForObject(element, name) {
            item.children.add(subitem);
        }
     }
-    
+
     return item;
 }
 
-// Ofcourse, the best default URL is cricket score :) 
+// Ofcourse, the best default URL is cricket score :)
 var DEFAULT_URL = "http://synd.cricbuzz.com/j2me/1.0/livematches.xml";
 
 var url = arguments.length == 0? DEFAULT_URL : arguments[0];

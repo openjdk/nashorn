@@ -39,7 +39,7 @@ if (arguments.length == 0) {
     print("Usage: jjs resourcetrysuggester.js -- <directory>");
     exit(1);
 }
- 
+
 // Java types used
 var ExpressionStatementTree = Java.type("com.sun.source.tree.ExpressionStatementTree");
 var File = Java.type("java.io.File");
@@ -70,7 +70,7 @@ function resourceTrySuggestions() {
 
     // subclass SimpleTreeVisitor - to print resource try suggestions
     var ResourceTrySuggester = Java.extend(TreeScanner);
-   
+
     function hasOnlyEmptyStats(stats) {
         var itr = stats.iterator();
         while (itr.hasNext()) {
@@ -100,7 +100,7 @@ function resourceTrySuggestions() {
         }
         return false;
     }
- 
+
     var visitor = new ResourceTrySuggester() {
         // current CompilationUnitTree
         compUnit: null,
@@ -132,12 +132,12 @@ function resourceTrySuggestions() {
             }
         }
     }
- 
+
     for each (var cu in task.parse()) {
         cu.accept(visitor, null);
     }
 }
- 
+
 // for each ".java" file in directory (recursively) and check it!
 function main(dir) {
     Files.walk(dir.toPath()).
@@ -152,5 +152,5 @@ function main(dir) {
         }
       });
 }
- 
+
 main(new File(arguments[0]));

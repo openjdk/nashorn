@@ -31,7 +31,7 @@
 
 // __proto__ magic property is non-standard. Use Object.getPrototypeOf
 // and Object.setPrototypeOf instead. This script finds __proto__
-// usage in scripts a given directory (recursively). If no directory 
+// usage in scripts a given directory (recursively). If no directory
 // is specified the current working directory is scanned for scripts.
 
 if (arguments.length == 0) {

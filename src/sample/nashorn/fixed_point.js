@@ -38,8 +38,8 @@ var Stream = Java.type("java.util.stream.Stream");
 function fixed_point(f, init_guess) {
   var tolerance = 0.00001;
   function close_enough(v1, v2) Math.abs(v1 - v2) < tolerance;
- 
-  var prev; 
+
+  var prev;
   return Stream.iterate(init_guess, f)
       .filter(function(x) {
           try {

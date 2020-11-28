@@ -88,7 +88,7 @@ const checkFile = function(file) {
             var column = this.lineMap.getColumnNumber(pos);
             print(`WARNING: ${msg} in ${file} @ ${line}:${column}`);
         },
-        
+
         printWithWarning(node) {
             this.printWarning(node, "'with' usage");
         },
@@ -125,9 +125,9 @@ const checkFile = function(file) {
                 const expr = lhs.expression;
                 if (expr instanceof MemberSelectTree &&
                     expr.expression instanceof IdentifierTree &&
-                    globals.has(expr.expression.name) && 
+                    globals.has(expr.expression.name) &&
                     "prototype" == expr.identifier) {
-                    this.printWarning(lhs, 
+                    this.printWarning(lhs,
                         `property set "${expr.expression.name}.prototype.${lhs.identifier}"`);
                 }
             }

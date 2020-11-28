@@ -32,7 +32,7 @@
 // Nashorn port of ColorfulCircles.java JavaFX animation example at
 // https://docs.oracle.com/javafx/2/get_started/ColorfulCircles.java.html
 // ColorfulCircles.java is under the following license terms:
- 
+
 /*
 * Copyright (c) 2011, 2012 Oracle and/or its affiliates.
 * All rights reserved. Use is subject to license terms.
@@ -64,27 +64,27 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
- 
+
 // Usage: jjs -fx colorfulcircles.fx
- 
+
 // Porting note: No imports - just load these fx scripts!
 load("fx:controls.js");
 load("fx:graphics.js");
- 
+
 // Porting note: whatever is inside
 // public void start(Stage primaryStage)
 // goes into "start" function
- 
+
 function start(primaryStage) {
     // Porting note: Replace types with 'var'. "Group root" becomes "var root".
     // and so on..
- 
+
     var root = new Group();
     var scene = new Scene(root, 800, 600, Color.BLACK);
     primaryStage.setScene(scene);
     var circles = new Group();
     // Porting note: for (int i = 0....) becomes for (var i = 0...)
- 
+
     for (var i = 0; i < 30; i++) {
         var circle = new Circle(150, Color.web("white", 0.05));
         circle.setStrokeType(StrokeType.OUTSIDE);
@@ -92,11 +92,11 @@ function start(primaryStage) {
         circle.setStrokeWidth(4);
         circles.getChildren().add(circle);
     }
- 
+
     // Porting note: There is no "f" suffix for float literals in JS.
     // LinearGradient(0f, 1f, 1f, 0f,..) becomes just
     // LinearGradient(0, 1, 1, 0,..)
- 
+
     // Porting note: LinearGradient's constructor is a varargs method
     // No need to create Stop[] just pass more Stop objects at the end!
     var colors = new Rectangle(scene.getWidth(), scene.getHeight(),
@@ -117,17 +117,17 @@ function start(primaryStage) {
     colors.setBlendMode(BlendMode.OVERLAY);
     root.getChildren().add(blendModeGroup);
     circles.setEffect(new BoxBlur(10, 10, 3));
- 
+
     // Porting note: Java code uses static import of
     // java.lang.Math.random. Just use JS Math.random here
     var random = Math.random;
- 
+
     var timeline = new Timeline();
     // Porting note: Java enhanced for loop
     // for (Node circle : circles.getChildren())
     // becomes
     // for each (var circle: circles.getChildren())
-  
+
     for each (var circle in circles.getChildren()) {
         timeline.getKeyFrames().addAll(
             new KeyFrame(Duration.ZERO, // set start position at 0
@@ -141,4 +141,4 @@ function start(primaryStage) {
     // play 40s of animation
     timeline.play();
     primaryStage.show();
-} 
+}

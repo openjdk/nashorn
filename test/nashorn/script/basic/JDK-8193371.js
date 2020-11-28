@@ -1,21 +1,21 @@
 /*
  * Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
- * 
+ *
  * This code is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 only, as
  * published by the Free Software Foundation.
- * 
+ *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * version 2 for more details (a copy is included in the LICENSE file that
  * accompanied this code).
- * 
+ *
  * You should have received a copy of the GNU General Public License version
  * 2 along with this work; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- * 
+ *
  * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
  * or visit www.oracle.com if you need additional information or have any
  * questions.
@@ -36,7 +36,7 @@ var listOf = java.util.List.of;
 var mapOf = java.util.Map.of;
 
 // Remove from a list
-(function() { 
+(function() {
     var a = new ArrayList(listOf("foo", "bar", "baz"));
     Assert.assertFalse(delete a.add);
 
@@ -60,7 +60,7 @@ var mapOf = java.util.Map.of;
 })();
 
 // Remove from a list, strict
-(function() { 
+(function() {
     "use strict";
 	
     var a = new ArrayList(listOf("foo", "bar", "baz"));
@@ -85,7 +85,7 @@ var mapOf = java.util.Map.of;
 })();
 
 // Remove from a map
-(function() { 
+(function() {
     var m = new HashMap(mapOf("a", 1, "b", 2, "c", 3));
 
     // Delete actual elements
@@ -110,7 +110,7 @@ var mapOf = java.util.Map.of;
 })();
 
 // Remove from a map, strict
-(function() { 
+(function() {
     "use strict";
 
     var m = new HashMap(mapOf("a", 1, "b", 2, "c", 3));
@@ -132,23 +132,23 @@ var mapOf = java.util.Map.of;
     try { delete m.size; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
     try { delete m.class; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
 
-    // Somewhat counterintuitive, but if we define an element of a map, we can 
+    // Somewhat counterintuitive, but if we define an element of a map, we can
     // delete it, however then the method surfaces, and we can't delete that.
     m.size = 4
     Assert.assertTrue(delete m.size)
     try { delete m.size; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
-    
+
     Assert.assertEquals(m, mapOf("c", 3));
 
     print("Strict map passed.")
 })();
 
 // Remove from arrays and beans
-(function() { 
+(function() {
     var a = new (Java.type("int[]"))(2)
     a[0] = 42
     a[1] = 13
-    
+
     // Huh, Dynalink doesn't expose .clone() on Java arrays?
     var c = new (Java.type("int[]"))(2)
     c[0] = 42
@@ -157,7 +157,7 @@ var mapOf = java.util.Map.of;
     // passes vacuously, but does nothing
     Assert.assertTrue(delete a[0])
     Assert.assertEquals(a, c);
-    
+
     var b = new java.util.BitSet()
     b.set(2)
     // does nothing
@@ -174,14 +174,14 @@ var mapOf = java.util.Map.of;
     Assert.assertFalse(delete Calendar.availableLocales) // property
     Assert.assertFalse(delete Calendar.getInstance) // method
     Assert.assertTrue(delete Calendar.BLAH) // no such thing
-  
+
     print("Beans passed.")
 })();
 
 // Remove from arrays and beans, strict
-(function() { 
+(function() {
     "use strict";
-    
+
     var a = new (Java.type("int[]"))(2)
     a[0] = 42
     a[1] = 13
@@ -193,7 +193,7 @@ var mapOf = java.util.Map.of;
     // passes vacuously, but does nothing
     Assert.assertTrue(delete a[0])
     Assert.assertEquals(a, c);
-    
+
     var b = new java.util.BitSet()
     b.set(2)
     // fails to delete a method
@@ -203,13 +203,13 @@ var mapOf = java.util.Map.of;
 
     // passes vacuously for non-existant property
     Assert.assertTrue(delete b.foo)
-    
+
     // statics
     var Calendar = java.util.Calendar
     try { delete Calendar.UNDECIMBER; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
     try { delete Calendar.availableLocales; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
     try { delete Calendar.getInstance; Assert.fail(); } catch (e) { Assert.assertTrue(e instanceof TypeError) }
     Assert.assertTrue(delete Calendar.BLAH) // no such thing
-  
+
     print("Strict beans passed.")
 })();

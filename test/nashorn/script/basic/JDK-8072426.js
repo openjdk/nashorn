@@ -117,7 +117,7 @@ testNumericJSObject("double", 1.2);
         Number(obj);
         Assert.fail(); // must throw
     } catch(e) {
-        Assert.assertTrue(e instanceof TypeError); 
+        Assert.assertTrue(e instanceof TypeError);
     }
 })();
 

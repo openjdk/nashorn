@@ -22,24 +22,24 @@
  */
 
 /**
- * JDK-8057825 : A failed apply to call generation should NOT reuse the 
+ * JDK-8057825 : A failed apply to call generation should NOT reuse the
  * best apply to call generation so far - because it may not fit!!!
  *
  * @test
  * @run
  */
 
-function createApplier(f) { 
-    function applier() { 
-        f.apply(this, arguments); // no transform applied here 
-    } 
-    return applier; 
-} 
+function createApplier(f) {
+    function applier() {
+        f.apply(this, arguments); // no transform applied here
+    }
+    return applier;
+}
 
-function printer(x,y) { 
+function printer(x,y) {
     print(x + " and " + y);
-} 
+}
 
-var printerApplier = createApplier(printer); 
+var printerApplier = createApplier(printer);
 printerApplier();
-printerApplier.apply(this, ["foo", "bar"]); 
+printerApplier.apply(this, ["foo", "bar"]);

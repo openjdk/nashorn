@@ -32,7 +32,7 @@
 
 var Parser = Java.type("org.openjdk.nashorn.api.tree.Parser");
 var SimpleTreeVisitor = Java.type("org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6");
-var parser = Parser.create("--language=es6"); 
+var parser = Parser.create("--language=es6");
 var ast = parser.parse("test.js", "(class {});", print);
 var reachedClassExpr = false;
 ast.accept(new (Java.extend(SimpleTreeVisitor)) {

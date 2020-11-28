@@ -119,7 +119,7 @@ function testjjs_opt_func(args, positive) {
     if (positive) {
         if (eval(func_cond_p))
             print("functionality test PASSED")
-        else 
+        else
             print("functionality test FAILED. stdout: ${out} -- stderr: ${err}")
     }
     else {

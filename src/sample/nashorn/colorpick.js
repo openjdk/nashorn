@@ -30,15 +30,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 if (! $OPTIONS._fx) {
     print("Usage: jjs -fx colorpick.js");
     exit(1);
 }
- 
+
 var ColorPicker = Java.type("javafx.scene.control.ColorPicker");
 var Scene = Java.type("javafx.scene.Scene");
- 
+
 function start(stage) {
     var picker = new ColorPicker();
     // just print color details in stdout for fun!
@@ -49,4 +49,4 @@ function start(stage) {
     var scene = new Scene(picker, 200, 30);
     stage.scene = scene;
     stage.show();
-} 
+}

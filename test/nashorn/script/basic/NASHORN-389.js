@@ -36,5 +36,5 @@ var y = -1.23456789e+20;
 print(x.toFixed(9));
 print(y.toFixed(9).indexOf(",") === -1); // no grouping
 print(y.toFixed(9));
-print(1000000000000000128); 
+print(1000000000000000128);
 print((1000000000000000128).toFixed(0));
