@@ -698,7 +698,7 @@ class CommandExecutor {
             errorString += byteErrorStream != null ? byteErrorStream.toString() : "";
         } catch (final InterruptedException ex) {
             // Kill any living processes.
-            processes.stream().forEach(p -> {
+            processes.forEach(p -> {
                 if (p.isAlive()) {
                     p.destroy();
                 }

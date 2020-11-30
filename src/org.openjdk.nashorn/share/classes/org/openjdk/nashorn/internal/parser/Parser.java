@@ -3726,18 +3726,7 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     private static <T> List<T> optimizeList(final ArrayList<T> list) {
-        switch(list.size()) {
-            case 0: {
-                return Collections.emptyList();
-            }
-            case 1: {
-                return Collections.singletonList(list.get(0));
-            }
-            default: {
-                list.trimToSize();
-                return list;
-            }
-        }
+        return List.copyOf(list);
     }
 
     /**

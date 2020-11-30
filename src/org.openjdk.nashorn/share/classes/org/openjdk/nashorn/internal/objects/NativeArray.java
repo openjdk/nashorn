@@ -37,7 +37,6 @@ import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescrip
 import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -1168,7 +1167,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         final Object cmpThis = cmp == null || Bootstrap.isStrictCallable(cmp) ? ScriptRuntime.UNDEFINED : Global.instance();
 
         try {
-            Collections.sort(list, new Comparator<Object>() {
+            list.sort(new Comparator<>() {
                 private final MethodHandle call_cmp = getCALL_CMP();
                 @Override
                 public int compare(final Object x, final Object y) {

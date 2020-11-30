@@ -2704,11 +2704,7 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
         }
 
         if (length < n) {
-            final Object fill = UNDEFINED;
-
-            for (int i = length; i < n; i++) {
-                newArray[i] = fill;
-            }
+            Arrays.fill(newArray, length, n, UNDEFINED);
         }
 
         return newArray;

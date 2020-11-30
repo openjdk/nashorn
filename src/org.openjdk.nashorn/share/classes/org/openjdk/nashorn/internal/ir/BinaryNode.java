@@ -60,20 +60,20 @@ public final class BinaryNode extends Expression implements Assignment<Expressio
 
     @Ignore
     private static final Set<TokenType> CAN_OVERFLOW =
-        Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new TokenType[] {
-                TokenType.ADD,
-                TokenType.DIV,
-                TokenType.MOD,
-                TokenType.MUL,
-                TokenType.SUB,
-                TokenType.ASSIGN_ADD,
-                TokenType.ASSIGN_DIV,
-                TokenType.ASSIGN_MOD,
-                TokenType.ASSIGN_MUL,
-                TokenType.ASSIGN_SUB,
-                TokenType.SHR,
-                TokenType.ASSIGN_SHR
-            })));
+        Set.of(
+            TokenType.ADD,
+            TokenType.DIV,
+            TokenType.MOD,
+            TokenType.MUL,
+            TokenType.SUB,
+            TokenType.ASSIGN_ADD,
+            TokenType.ASSIGN_DIV,
+            TokenType.ASSIGN_MOD,
+            TokenType.ASSIGN_MUL,
+            TokenType.ASSIGN_SUB,
+            TokenType.SHR,
+            TokenType.ASSIGN_SHR
+        );
 
     /**
      * Constructor

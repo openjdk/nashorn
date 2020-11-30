@@ -34,11 +34,9 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
@@ -64,6 +62,7 @@ public class LinkerCallSite extends ChainedCallSite {
     private static final String PROFILEFILE = Options.getStringProperty("nashorn.profilefile", "NashornProfile.txt");
 
     private static final MethodHandle INCREASE_MISS_COUNTER = MH.findStatic(MethodHandles.lookup(), LinkerCallSite.class, "increaseMissCount", MH.type(Object.class, String.class, Object.class));
+    private static final Comparator<Entry<String, AtomicInteger>> MISS_COUNT_COMPARATOR = Comparator.comparingInt(e -> e.getValue().get());
 
     LinkerCallSite(final NashornCallSiteDescriptor descriptor) {
         super(descriptor);
@@ -479,11 +478,9 @@ public class LinkerCallSite extends ChainedCallSite {
          *
          * @param desc callsite descriptor string
          * @param args arguments to function
-         *
-         * @throws Throwable if invocation fails or throws exception/error
          */
         @SuppressWarnings("unused")
-        public void traceMiss(final String desc, final Object... args) throws Throwable {
+        public void traceMiss(final String desc, final Object... args) {
             tracePrint(Context.getCurrentErr(), desc, args, null);
         }
     }
@@ -538,12 +535,7 @@ public class LinkerCallSite extends ChainedCallSite {
     public static void getMissCounts(final PrintWriter out) {
         final ArrayList<Entry<String, AtomicInteger>> entries = new ArrayList<>(missCounts.entrySet());
 
-        Collections.sort(entries, new Comparator<Map.Entry<String, AtomicInteger>>() {
-            @Override
-            public int compare(final Entry<String, AtomicInteger> o1, final Entry<String, AtomicInteger> o2) {
-                return o2.getValue().get() - o1.getValue().get();
-            }
-        });
+        entries.sort(MISS_COUNT_COMPARATOR);
 
         for (final Entry<String, AtomicInteger> entry : entries) {
             out.println("  " + entry.getKey() + "\t" + entry.getValue().get());

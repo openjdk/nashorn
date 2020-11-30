@@ -5094,7 +5094,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         for(final String spec: unwarrantedOptimismHandlers.keySet()) {
             handlerSpecs.add(new OptimismExceptionHandlerSpec(spec, true));
         }
-        Collections.sort(handlerSpecs, Collections.reverseOrder());
+        handlerSpecs.sort(Collections.reverseOrder());
 
         // Map of local variable specifications to labels for populating the array for that local variable spec.
         final Map<String, Label> delegationLabels = new HashMap<>();

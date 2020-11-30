@@ -30,8 +30,6 @@ import static org.openjdk.nashorn.internal.parser.TokenType.DECPOSTFIX;
 import static org.openjdk.nashorn.internal.parser.TokenType.INCPOSTFIX;
 import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.annotations.Ignore;
@@ -55,16 +53,14 @@ public final class UnaryNode extends Expression implements Assignment<Expression
     private final Type type;
 
     @Ignore
-    private static final List<TokenType> CAN_OVERFLOW =
-            Collections.unmodifiableList(
-                Arrays.asList(new TokenType[] {
-                    TokenType.POS,
-                    TokenType.NEG, //negate
-                    TokenType.DECPREFIX,
-                    TokenType.DECPOSTFIX,
-                    TokenType.INCPREFIX,
-                    TokenType.INCPOSTFIX,
-                }));
+    private static final List<TokenType> CAN_OVERFLOW = List.of(
+        TokenType.POS,
+        TokenType.NEG,
+        TokenType.DECPREFIX,
+        TokenType.DECPOSTFIX,
+        TokenType.INCPREFIX,
+        TokenType.INCPOSTFIX
+    );
 
     /**
      * Constructor
