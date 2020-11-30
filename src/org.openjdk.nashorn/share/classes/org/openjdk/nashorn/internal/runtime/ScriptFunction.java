@@ -1014,7 +1014,7 @@ public class ScriptFunction extends ScriptObject {
 
     private static Lookup getLookupPrivileged(final CallSiteDescriptor desc) {
         // NOTE: we'd rather not make NashornCallSiteDescriptor.getLookupPrivileged public.
-        return AccessController.doPrivileged((PrivilegedAction<Lookup>)()->desc.getLookup(),
+        return AccessController.doPrivileged((PrivilegedAction<Lookup>) desc::getLookup,
                 GET_LOOKUP_PERMISSION_CONTEXT);
     }
 

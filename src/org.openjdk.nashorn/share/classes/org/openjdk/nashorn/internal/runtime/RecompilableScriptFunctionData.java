@@ -466,9 +466,8 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
 
         // Asynchronously serialize split functions.
         if (isSplit) {
-            astSerializerExecutorService.execute(() -> {
-                cachedAst = new SerializedAst(symbolClonedAst, ref);
-            });
+            astSerializerExecutorService.execute(() ->
+                cachedAst = new SerializedAst(symbolClonedAst, ref));
         }
     }
 
@@ -595,7 +594,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
             @Override
             protected Node leaveDefault(final Node node) {
                 return ensureUniqueLabels(node);
-            };
+            }
 
             private Node ensureUniqueLabels(final Node node) {
                 // If we're returning a cached AST, we must also ensure unique labels

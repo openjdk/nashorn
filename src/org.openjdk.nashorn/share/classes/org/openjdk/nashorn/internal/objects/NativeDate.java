@@ -33,7 +33,6 @@ import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.internal.objects.annotations.Attribute;
 import org.openjdk.nashorn.internal.objects.annotations.Constructor;
 import org.openjdk.nashorn.internal.objects.annotations.Function;
@@ -99,12 +98,8 @@ public final class NativeDate extends ScriptObject {
 
     private static InvokeByName getTO_ISO_STRING() {
         return Global.instance().getInvokeByName(TO_ISO_STRING,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toISOString", ScriptObject.class, Object.class, Object.class);
-                    }
-                });
+            () -> new InvokeByName("toISOString", ScriptObject.class, Object.class, Object.class)
+        );
     }
 
     private double time;

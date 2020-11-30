@@ -1191,16 +1191,13 @@ final class JavaAdapterBytecodeGenerator {
      * @return a collection of method infos representing those methods that we never override in adapter classes.
      */
     private static Collection<MethodInfo> getExcludedMethods() {
-        return AccessController.doPrivileged(new PrivilegedAction<Collection<MethodInfo>>() {
-            @Override
-            public Collection<MethodInfo> run() {
-                try {
-                    return Arrays.asList(
-                            new MethodInfo(Object.class, "finalize"),
-                            new MethodInfo(Object.class, "clone"));
-                } catch (final NoSuchMethodException e) {
-                    throw new AssertionError(e);
-                }
+        return AccessController.doPrivileged((PrivilegedAction<Collection<MethodInfo>>) () -> {
+            try {
+                return List.of(
+                        new MethodInfo(Object.class, "finalize"),
+                        new MethodInfo(Object.class, "clone"));
+            } catch (final NoSuchMethodException e) {
+                throw new AssertionError(e);
             }
         }, GET_DECLARED_MEMBERS_ACC_CTXT);
     }

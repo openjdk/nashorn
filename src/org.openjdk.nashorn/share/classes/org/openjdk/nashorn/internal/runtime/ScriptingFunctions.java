@@ -181,9 +181,9 @@ public final class ScriptingFunctions {
             final ScriptObject envProperties = (ScriptObject)env;
 
             // Copy ENV variables.
-            envProperties.entrySet().stream().forEach((entry) -> {
-                environment.put(JSType.toString(entry.getKey()), JSType.toString(entry.getValue()));
-            });
+            envProperties.entrySet().forEach((entry) ->
+                environment.put(JSType.toString(entry.getKey()), JSType.toString(entry.getValue()))
+            );
         }
 
         // get the $EXEC function object from the global object

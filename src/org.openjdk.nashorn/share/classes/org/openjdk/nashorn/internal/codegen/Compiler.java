@@ -543,14 +543,11 @@ public final class Compiler implements Loggable {
         final boolean optimisticTypes = env._optimistic_types;
         final boolean lazyCompilation = env._lazy_compilation;
 
-        return ctxt.getLogger(this.getClass(), new Consumer<DebugLogger>() {
-            @Override
-            public void accept(final DebugLogger newLogger) {
-                if (!lazyCompilation) {
-                    newLogger.warning("WARNING: Running with lazy compilation switched off. This is not a default setting.");
-                }
-                newLogger.warning("Optimistic types are ", optimisticTypes ? "ENABLED." : "DISABLED.");
+        return ctxt.getLogger(this.getClass(), newLogger -> {
+            if (!lazyCompilation) {
+                newLogger.warning("WARNING: Running with lazy compilation switched off. This is not a default setting.");
             }
+            newLogger.warning("Optimistic types are ", optimisticTypes ? "ENABLED." : "DISABLED.");
         });
     }
 

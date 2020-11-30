@@ -173,12 +173,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     }
 
     private static MethodHandles.Lookup getCurrentLookup(final Supplier<MethodHandles.Lookup> lookupSupplier) {
-        return AccessController.doPrivileged(new PrivilegedAction<MethodHandles.Lookup>() {
-            @Override
-            public MethodHandles.Lookup run() {
-                return lookupSupplier.get();
-            }
-        }, GET_LOOKUP_PERMISSION_CONTEXT);
+        return AccessController.doPrivileged((PrivilegedAction<MethodHandles.Lookup>) lookupSupplier::get, GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     /**

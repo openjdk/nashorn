@@ -36,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.api.scripting.JSObject;
 import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.openjdk.nashorn.internal.objects.annotations.Attribute;
@@ -62,37 +61,24 @@ public final class NativeJSON extends ScriptObject {
 
     private static InvokeByName getTO_JSON() {
         return Global.instance().getInvokeByName(TO_JSON,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toJSON", ScriptObject.class, Object.class, Object.class);
-                    }
-                });
+            () -> new InvokeByName("toJSON", ScriptObject.class, Object.class, Object.class)
+        );
     }
 
     private static final Object JSOBJECT_INVOKER = new Object();
 
     private static MethodHandle getJSOBJECT_INVOKER() {
         return Global.instance().getDynamicInvoker(JSOBJECT_INVOKER,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(Object.class, Object.class, Object.class);
-                    }
-                });
+            () -> Bootstrap.createDynamicCallInvoker(Object.class, Object.class, Object.class)
+        );
     }
 
     private static final Object REPLACER_INVOKER = new Object();
 
     private static MethodHandle getREPLACER_INVOKER() {
         return Global.instance().getDynamicInvoker(REPLACER_INVOKER,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(Object.class,
-                            Object.class, Object.class, Object.class, Object.class);
-                    }
-                });
+            () -> Bootstrap.createDynamicCallInvoker(Object.class,Object.class, Object.class, Object.class, Object.class)
+        );
     }
 
     // initialized by nasgen

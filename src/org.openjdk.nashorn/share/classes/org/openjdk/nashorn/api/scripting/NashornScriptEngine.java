@@ -121,17 +121,14 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
         // throw ParseException on first error from script
         final ErrorManager errMgr = new Context.ThrowErrorManager();
         // create new Nashorn Context
-        this.nashornContext = AccessController.doPrivileged(new PrivilegedAction<Context>() {
-            @Override
-            public Context run() {
-                try {
-                    return new Context(options, errMgr, appLoader, classFilter);
-                } catch (final RuntimeException e) {
-                    if (Context.DEBUG) {
-                        e.printStackTrace();
-                    }
-                    throw e;
+        this.nashornContext = AccessController.doPrivileged((PrivilegedAction<Context>) () -> {
+            try {
+                return new Context(options, errMgr, appLoader, classFilter);
+            } catch (final RuntimeException e) {
+                if (Context.DEBUG) {
+                    e.printStackTrace();
                 }
+                throw e;
             }
         }, CREATE_CONTEXT_ACC_CTXT);
 
@@ -342,17 +339,14 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
 
     // Create a new Nashorn Global object
     private Global createNashornGlobal() {
-        final Global newGlobal = AccessController.doPrivileged(new PrivilegedAction<Global>() {
-            @Override
-            public Global run() {
-                try {
-                    return nashornContext.newGlobal();
-                } catch (final RuntimeException e) {
-                    if (Context.DEBUG) {
-                        e.printStackTrace();
-                    }
-                    throw e;
+        final Global newGlobal = AccessController.doPrivileged((PrivilegedAction<Global>) () -> {
+            try {
+                return nashornContext.newGlobal();
+            } catch (final RuntimeException e) {
+                if (Context.DEBUG) {
+                    e.printStackTrace();
                 }
+                throw e;
             }
         }, CREATE_GLOBAL_ACC_CTXT);
 

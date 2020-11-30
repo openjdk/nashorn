@@ -199,14 +199,7 @@ public final class UnaryNode extends Expression implements Assignment<Expression
 
     @Override
     public void toString(final StringBuilder sb, final boolean printType) {
-        toString(sb,
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        getExpression().toString(sb, printType);
-                    }
-                },
-                printType);
+        toString(sb, () -> getExpression().toString(sb, printType));
     }
 
     /**
@@ -214,10 +207,9 @@ public final class UnaryNode extends Expression implements Assignment<Expression
      * operand to a specified runnable.
      * @param sb the string builder to use
      * @param rhsStringBuilder the runnable that appends the string representation of the operand to the string builder
-     * @param printType should we print type
      * when invoked.
      */
-    public void toString(final StringBuilder sb, final Runnable rhsStringBuilder, final boolean printType) {
+    public void toString(final StringBuilder sb, final Runnable rhsStringBuilder) {
         final TokenType tokenType = tokenType();
         final String    name      = tokenType.getName();
         final boolean   isPostfix = tokenType == DECPOSTFIX || tokenType == INCPOSTFIX;

@@ -41,7 +41,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
@@ -180,24 +179,12 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static InvokeByName getJOIN() {
-        return Global.instance().getInvokeByName(JOIN,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("join", ScriptObject.class);
-                    }
-                });
+        return Global.instance().getInvokeByName(JOIN, () -> new InvokeByName("join", ScriptObject.class));
     }
 
     private static MethodHandle createIteratorCallbackInvoker(final Object key, final Class<?> rtype) {
-        return Global.instance().getDynamicInvoker(key,
-            new Callable<MethodHandle>() {
-                @Override
-                public MethodHandle call() {
-                    return Bootstrap.createDynamicCallInvoker(rtype, Object.class, Object.class, Object.class,
-                        double.class, Object.class);
-                }
-            });
+        return Global.instance().getDynamicInvoker(key, () -> Bootstrap.createDynamicCallInvoker(rtype, Object.class, Object.class, Object.class,
+            double.class, Object.class));
     }
 
     private static MethodHandle getEVERY_CALLBACK_INVOKER() {
@@ -221,35 +208,17 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static MethodHandle getREDUCE_CALLBACK_INVOKER() {
-        return Global.instance().getDynamicInvoker(REDUCE_CALLBACK_INVOKER,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(Object.class, Object.class,
-                             Undefined.class, Object.class, Object.class, double.class, Object.class);
-                    }
-                });
+        return Global.instance().getDynamicInvoker(REDUCE_CALLBACK_INVOKER, () -> Bootstrap.createDynamicCallInvoker(Object.class, Object.class,
+             Undefined.class, Object.class, Object.class, double.class, Object.class));
     }
 
     private static MethodHandle getCALL_CMP() {
-        return Global.instance().getDynamicInvoker(CALL_CMP,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(double.class,
-                            Object.class, Object.class, Object.class, Object.class);
-                    }
-                });
+        return Global.instance().getDynamicInvoker(CALL_CMP, () -> Bootstrap.createDynamicCallInvoker(double.class,
+            Object.class, Object.class, Object.class, Object.class));
     }
 
     private static InvokeByName getTO_LOCALE_STRING() {
-        return Global.instance().getInvokeByName(TO_LOCALE_STRING,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toLocaleString", ScriptObject.class, String.class);
-                    }
-                });
+        return Global.instance().getInvokeByName(TO_LOCALE_STRING, () -> new InvokeByName("toLocaleString", ScriptObject.class, String.class));
     }
 
     // initialized by nasgen

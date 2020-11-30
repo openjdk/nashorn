@@ -76,14 +76,11 @@ final class JavaAdapterClassLoader {
      */
     StaticClass generateClass(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
         assert protectionDomain != null;
-        return AccessController.doPrivileged(new PrivilegedAction<StaticClass>() {
-            @Override
-            public StaticClass run() {
-                try {
-                    return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
-                } catch (final ClassNotFoundException e) {
-                    throw new AssertionError(e); // cannot happen
-                }
+        return AccessController.doPrivileged((PrivilegedAction<StaticClass>) () -> {
+            try {
+                return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
+            } catch (final ClassNotFoundException e) {
+                throw new AssertionError(e); // cannot happen
             }
         }, CREATE_LOADER_ACC_CTXT);
     }
@@ -137,12 +134,7 @@ final class JavaAdapterClassLoader {
                 if(name.equals(className)) {
                     assert classBytes != null : "what? already cleared .class bytes!!";
 
-                    final Context ctx = AccessController.doPrivileged(new PrivilegedAction<Context>() {
-                        @Override
-                        public Context run() {
-                            return Context.getContext();
-                        }
-                    }, GET_CONTEXT_ACC_CTXT);
+                    final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext, GET_CONTEXT_ACC_CTXT);
                     DumpBytecode.dumpBytecode(ctx.getEnv(), ctx.getLogger(org.openjdk.nashorn.internal.codegen.Compiler.class), classBytes, name);
                     return defineClass(name, classBytes, 0, classBytes.length, protectionDomain);
                 }

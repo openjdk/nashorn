@@ -643,12 +643,7 @@ final class CompiledFunction {
     }
 
     private static void relinkComposableInvoker(final CallSite cs, final CompiledFunction inv, final boolean constructor) {
-        final HandleAndAssumptions handleAndAssumptions = inv.getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return inv.getInvokerOrConstructor(constructor);
-            }
-        });
+        final HandleAndAssumptions handleAndAssumptions = inv.getValidOptimisticInvocation(() -> inv.getInvokerOrConstructor(constructor));
         final MethodHandle handle = handleAndAssumptions.handle;
         final SwitchPoint assumptions = handleAndAssumptions.assumptions;
         final MethodHandle target;
@@ -674,12 +669,7 @@ final class CompiledFunction {
      * @return a guarded invocation for an ordinary (non-constructor) invocation of this function.
      */
     GuardedInvocation createFunctionInvocation(final Class<?> callSiteReturnType, final int callerProgramPoint) {
-        return getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return createInvoker(callSiteReturnType, callerProgramPoint);
-            }
-        }).createInvocation();
+        return getValidOptimisticInvocation(() -> createInvoker(callSiteReturnType, callerProgramPoint)).createInvocation();
     }
 
     /**
@@ -691,12 +681,7 @@ final class CompiledFunction {
      * @return a guarded invocation for invocation of this function as a constructor.
      */
     GuardedInvocation createConstructorInvocation() {
-        return getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return getConstructor();
-            }
-        }).createInvocation();
+        return getValidOptimisticInvocation(this::getConstructor).createInvocation();
     }
 
     private MethodHandle createInvoker(final Class<?> callSiteReturnType, final int callerProgramPoint) {

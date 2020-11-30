@@ -2273,15 +2273,12 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
 
         if (ranges != null) {
 
-            loadSplitLiteral(new SplitLiteralCreator() {
-                @Override
-                public void populateRange(final MethodEmitter method, final Type type, final int slot, final int start, final int end) {
-                    for (int i = start; i < end; i++) {
-                        method.load(type, slot);
-                        storeElement(nodes, elementType, postsets[i]);
-                    }
+            loadSplitLiteral((method, type, slot, start, end) -> {
+                for (int i = start; i < end; i++) {
                     method.load(type, slot);
+                    storeElement(nodes, elementType, postsets[i]);
                 }
+                method.load(type, slot);
             }, ranges, arrayType);
 
             return;

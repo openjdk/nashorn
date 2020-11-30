@@ -290,7 +290,7 @@ public final class NashornCallSiteDescriptor extends CallSiteDescriptor {
         if (csd instanceof NashornCallSiteDescriptor) {
             return ((NashornCallSiteDescriptor)csd).getLookupPrivileged();
         }
-        return AccessController.doPrivileged((PrivilegedAction<Lookup>)()->csd.getLookup(), GET_LOOKUP_PERMISSION_CONTEXT);
+        return AccessController.doPrivileged((PrivilegedAction<Lookup>) csd::getLookup, GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     @Override

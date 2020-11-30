@@ -151,22 +151,18 @@ public final class Options {
      */
     public static boolean getBooleanProperty(final String name, final Boolean defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged(
-                new PrivilegedAction<Boolean>() {
-                    @Override
-                    public Boolean run() {
-                        try {
-                            final String property = System.getProperty(name);
-                            if (property == null && defValue != null) {
-                                return defValue;
-                            }
-                            return property != null && !"false".equalsIgnoreCase(property);
-                        } catch (final SecurityException e) {
-                            // if no permission to read, assume false
-                            return false;
-                        }
-                    }
-                }, READ_PROPERTY_ACC_CTXT);
+        return AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> {
+            try {
+                final String property = System.getProperty(name);
+                if (property == null && defValue != null) {
+                    return defValue;
+                }
+                return property != null && !"false".equalsIgnoreCase(property);
+            } catch (final SecurityException e) {
+                // if no permission to read, assume false
+                return false;
+            }
+        }, READ_PROPERTY_ACC_CTXT);
     }
 
     /**
@@ -188,18 +184,14 @@ public final class Options {
      */
     public static String getStringProperty(final String name, final String defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged(
-                new PrivilegedAction<String>() {
-                    @Override
-                    public String run() {
-                        try {
-                            return System.getProperty(name, defValue);
-                        } catch (final SecurityException e) {
-                            // if no permission to read, assume the default value
-                            return defValue;
-                        }
-                    }
-                }, READ_PROPERTY_ACC_CTXT);
+        return AccessController.doPrivileged((PrivilegedAction<String>) () -> {
+            try {
+                return System.getProperty(name, defValue);
+            } catch (final SecurityException e) {
+                // if no permission to read, assume the default value
+                return defValue;
+            }
+        }, READ_PROPERTY_ACC_CTXT);
     }
 
     /**
@@ -211,18 +203,14 @@ public final class Options {
      */
     public static int getIntProperty(final String name, final int defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged(
-                new PrivilegedAction<Integer>() {
-                    @Override
-                    public Integer run() {
-                        try {
-                            return Integer.getInteger(name, defValue);
-                        } catch (final SecurityException e) {
-                            // if no permission to read, assume the default value
-                            return defValue;
-                        }
-                    }
-                }, READ_PROPERTY_ACC_CTXT);
+        return AccessController.doPrivileged((PrivilegedAction<Integer>) () -> {
+            try {
+                return Integer.getInteger(name, defValue);
+            } catch (final SecurityException e) {
+                // if no permission to read, assume the default value
+                return defValue;
+            }
+        }, READ_PROPERTY_ACC_CTXT);
     }
 
     /**

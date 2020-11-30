@@ -259,12 +259,7 @@ public final class PrintVisitor extends SimpleNodeVisitor {
 
     @Override
     public boolean enterUnaryNode(final UnaryNode unaryNode) {
-        unaryNode.toString(sb, new Runnable() {
-            @Override
-            public void run() {
-                unaryNode.getExpression().accept(PrintVisitor.this);
-            }
-        }, printTypes);
+        unaryNode.toString(sb, () -> unaryNode.getExpression().accept(PrintVisitor.this));
         return false;
     }
 

@@ -226,13 +226,10 @@ public class Parser extends AbstractParser implements Loggable {
         this.namespace = new Namespace(env.getNamespace());
         this.scripting = env._scripting;
         if (this.scripting) {
-            this.lineInfoReceiver = new Lexer.LineInfoReceiver() {
-                @Override
-                public void lineInfo(final int receiverLine, final int receiverLinePosition) {
-                    // update the parser maintained line information
-                    Parser.this.line = receiverLine;
-                    Parser.this.linePosition = receiverLinePosition;
-                }
+            this.lineInfoReceiver = (receiverLine, receiverLinePosition) -> {
+                // update the parser maintained line information
+                Parser.this.line = receiverLine;
+                Parser.this.linePosition = receiverLinePosition;
             };
         } else {
             // non-scripting mode script can't have multi-line literals
@@ -1602,15 +1599,12 @@ public class Parser extends AbstractParser implements Loggable {
             final boolean isDestructuring = !(binding instanceof IdentNode);
             if (isDestructuring) {
                 final int finalVarFlags = varFlags;
-                verifyDestructuringBindingPattern(binding, new Consumer<IdentNode>() {
-                    @Override
-                    public void accept(final IdentNode identNode) {
-                        verifyIdent(identNode, contextString);
-                        if (!env._parse_only) {
-                            // don't bother adding a variable if we are just parsing!
-                            final VarNode var = new VarNode(varLine, varToken, sourceOrder, identNode.getFinish(), identNode.setIsDeclaredHere(), null, finalVarFlags);
-                            appendStatement(var);
-                        }
+                verifyDestructuringBindingPattern(binding, identNode -> {
+                    verifyIdent(identNode, contextString);
+                    if (!env._parse_only) {
+                        // don't bother adding a variable if we are just parsing!
+                        final VarNode var = new VarNode(varLine, varToken, sourceOrder, identNode.getFinish(), identNode.setIsDeclaredHere(), null, finalVarFlags);
+                        appendStatement(var);
                     }
                 });
             }
@@ -2645,12 +2639,7 @@ public class Parser extends AbstractParser implements Loggable {
                 final Expression exception = bindingIdentifierOrPattern(contextString);
                 final boolean isDestructuring = !(exception instanceof IdentNode);
                 if (isDestructuring) {
-                    verifyDestructuringBindingPattern(exception, new Consumer<IdentNode>() {
-                        @Override
-                        public void accept(final IdentNode identNode) {
-                            verifyIdent(identNode, contextString);
-                        }
-                    });
+                    verifyDestructuringBindingPattern(exception, identNode -> verifyIdent(identNode, contextString));
                 } else {
                     // ECMA 12.4.1 strict mode restrictions
                     verifyIdent((IdentNode) exception, "catch argument");
@@ -4122,20 +4111,18 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     private void verifyDestructuringParameterBindingPattern(final Expression pattern, final long paramToken, final int paramLine, final String contextString) {
-        verifyDestructuringBindingPattern(pattern, new Consumer<IdentNode>() {
-            public void accept(final IdentNode identNode) {
-                verifyIdent(identNode, contextString);
+        verifyDestructuringBindingPattern(pattern, identNode -> {
+            verifyIdent(identNode, contextString);
 
-                final ParserContextFunctionNode currentFunction = lc.getCurrentFunction();
-                if (currentFunction != null) {
-                    // declare function-scope variables for destructuring bindings
-                    if (!env._parse_only) {
-                        lc.getFunctionBody(currentFunction).appendStatement(new VarNode(paramLine, Token.recast(paramToken, VAR), pattern.getFinish(), identNode, null));
-                    }
-                    // detect duplicate bounds names in parameter list
-                    currentFunction.addParameterBinding(identNode);
-                    currentFunction.setSimpleParameterList(false);
+            final ParserContextFunctionNode currentFunction = lc.getCurrentFunction();
+            if (currentFunction != null) {
+                // declare function-scope variables for destructuring bindings
+                if (!env._parse_only) {
+                    lc.getFunctionBody(currentFunction).appendStatement(new VarNode(paramLine, Token.recast(paramToken, VAR), pattern.getFinish(), identNode, null));
                 }
+                // detect duplicate bounds names in parameter list
+                currentFunction.addParameterBinding(identNode);
+                currentFunction.setSimpleParameterList(false);
             }
         });
     }

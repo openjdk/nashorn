@@ -444,12 +444,7 @@ public class ClassEmitter {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (final PrintWriter pw = new PrintWriter(baos)) {
             final NashornClassReader cr = new NashornClassReader(bytecode);
-            final Context ctx = AccessController.doPrivileged(new PrivilegedAction<Context>() {
-                @Override
-                public Context run() {
-                    return Context.getContext();
-                }
-            });
+            final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext);
             final TraceClassVisitor tcv = new TraceClassVisitor(null, new NashornTextifier(ctx.getEnv(), cr), pw);
             cr.accept(tcv, 0);
         }
