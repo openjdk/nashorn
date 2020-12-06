@@ -564,20 +564,19 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
 
         // modifying an existing property
         final PropertyDescriptor currentDesc = (PropertyDescriptor)current;
-        final PropertyDescriptor newDesc     = desc;
 
-        if (newDesc.type() == PropertyDescriptor.GENERIC && !newDesc.has(CONFIGURABLE) && !newDesc.has(ENUMERABLE)) {
+        if (desc.type() == PropertyDescriptor.GENERIC && !desc.has(CONFIGURABLE) && !desc.has(ENUMERABLE)) {
             // every descriptor field is absent
             return true;
         }
 
-        if (newDesc.hasAndEquals(currentDesc)) {
+        if (desc.hasAndEquals(currentDesc)) {
             // every descriptor field of the new is same as the current
             return true;
         }
 
         if (!currentDesc.isConfigurable()) {
-            if (newDesc.has(CONFIGURABLE) && newDesc.isConfigurable()) {
+            if (desc.has(CONFIGURABLE) && desc.isConfigurable()) {
                 // not configurable can not be made configurable
                 if (reject) {
                     throw typeError(global, "cant.redefine.property", key.toString(), ScriptRuntime.safeToString(this));
@@ -585,8 +584,8 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
                 return false;
             }
 
-            if (newDesc.has(ENUMERABLE) &&
-                currentDesc.isEnumerable() != newDesc.isEnumerable()) {
+            if (desc.has(ENUMERABLE) &&
+                currentDesc.isEnumerable() != desc.isEnumerable()) {
                 // cannot make non-enumerable as enumerable or vice-versa
                 if (reject) {
                     throw typeError(global, "cant.redefine.property", key.toString(), ScriptRuntime.safeToString(this));
@@ -595,15 +594,15 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
             }
         }
 
-        int propFlags = Property.mergeFlags(currentDesc, newDesc);
+        int propFlags = Property.mergeFlags(currentDesc, desc);
         Property property = getMap().findProperty(key);
 
         if (currentDesc.type() == PropertyDescriptor.DATA &&
-                (newDesc.type() == PropertyDescriptor.DATA ||
-                 newDesc.type() == PropertyDescriptor.GENERIC)) {
+                (desc.type() == PropertyDescriptor.DATA ||
+                 desc.type() == PropertyDescriptor.GENERIC)) {
             if (!currentDesc.isConfigurable() && !currentDesc.isWritable()) {
-                if (newDesc.has(WRITABLE) && newDesc.isWritable() ||
-                    newDesc.has(VALUE) && !ScriptRuntime.sameValue(currentDesc.getValue(), newDesc.getValue())) {
+                if (desc.has(WRITABLE) && desc.isWritable() ||
+                    desc.has(VALUE) && !ScriptRuntime.sameValue(currentDesc.getValue(), desc.getValue())) {
                     if (reject) {
                         throw typeError(global, "cant.redefine.property", key.toString(), ScriptRuntime.safeToString(this));
                     }
@@ -611,12 +610,12 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
                 }
             }
 
-            final boolean newValue = newDesc.has(VALUE);
-            final Object value     = newValue ? newDesc.getValue() : currentDesc.getValue();
+            final boolean newValue = desc.has(VALUE);
+            final Object value     = newValue ? desc.getValue() : currentDesc.getValue();
 
             if (newValue && property != null) {
                 // Temporarily clear flags.
-                property = modifyOwnProperty(property, 0);
+                modifyOwnProperty(property, 0);
                 set(key, value, 0);
                 //this might change the map if we change types of the property
                 //hence we need to read it again. note that we should probably
@@ -637,11 +636,13 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
                 modifyOwnProperty(property, propFlags);
             }
         } else if (currentDesc.type() == PropertyDescriptor.ACCESSOR &&
-                   (newDesc.type() == PropertyDescriptor.ACCESSOR ||
-                    newDesc.type() == PropertyDescriptor.GENERIC)) {
+                   (desc.type() == PropertyDescriptor.ACCESSOR ||
+                    desc.type() == PropertyDescriptor.GENERIC)) {
             if (!currentDesc.isConfigurable()) {
-                if (newDesc.has(PropertyDescriptor.GET) && !ScriptRuntime.sameValue(currentDesc.getGetter(), newDesc.getGetter()) ||
-                    newDesc.has(PropertyDescriptor.SET) && !ScriptRuntime.sameValue(currentDesc.getSetter(), newDesc.getSetter())) {
+                if (desc.has(PropertyDescriptor.GET) && !ScriptRuntime.sameValue(currentDesc.getGetter(), desc
+                    .getGetter()) ||
+                    desc.has(PropertyDescriptor.SET) && !ScriptRuntime.sameValue(currentDesc.getSetter(), desc
+                        .getSetter())) {
                     if (reject) {
                         throw typeError(global, "cant.redefine.property", key.toString(), ScriptRuntime.safeToString(this));
                     }
@@ -650,8 +651,8 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
             }
             // New set the new features.
             modifyOwnProperty(property, propFlags,
-                                      newDesc.has(GET) ? newDesc.getGetter() : currentDesc.getGetter(),
-                                      newDesc.has(SET) ? newDesc.getSetter() : currentDesc.getSetter());
+                                      desc.has(GET) ? desc.getGetter() : currentDesc.getGetter(),
+                                      desc.has(SET) ? desc.getSetter() : currentDesc.getSetter());
         } else {
             // changing descriptor type
             if (!currentDesc.isConfigurable()) {
@@ -666,19 +667,19 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
 
             // Preserve only configurable and enumerable from current desc
             // if those are not overridden in the new property descriptor.
-            boolean value = newDesc.has(CONFIGURABLE) ? newDesc.isConfigurable() : currentDesc.isConfigurable();
+            boolean value = desc.has(CONFIGURABLE) ? desc.isConfigurable() : currentDesc.isConfigurable();
             if (!value) {
                 propFlags |= Property.NOT_CONFIGURABLE;
             }
-            value = newDesc.has(ENUMERABLE)? newDesc.isEnumerable() : currentDesc.isEnumerable();
+            value = desc.has(ENUMERABLE)? desc.isEnumerable() : currentDesc.isEnumerable();
             if (!value) {
                 propFlags |= Property.NOT_ENUMERABLE;
             }
 
-            final int type = newDesc.type();
+            final int type = desc.type();
             if (type == PropertyDescriptor.DATA) {
                 // get writable from the new descriptor
-                value = newDesc.has(WRITABLE) && newDesc.isWritable();
+                value = desc.has(WRITABLE) && desc.isWritable();
                 if (!value) {
                     propFlags |= Property.NOT_WRITABLE;
                 }
@@ -686,17 +687,17 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
                 // delete the old property
                 deleteOwnProperty(property);
                 // add new data property
-                addOwnProperty(key, propFlags, newDesc.getValue());
+                addOwnProperty(key, propFlags, desc.getValue());
             } else if (type == PropertyDescriptor.ACCESSOR) {
                 if (property == null) {
                     addOwnProperty(key, propFlags,
-                                     newDesc.has(GET) ? newDesc.getGetter() : null,
-                                     newDesc.has(SET) ? newDesc.getSetter() : null);
+                                     desc.has(GET) ? desc.getGetter() : null,
+                                     desc.has(SET) ? desc.getSetter() : null);
                 } else {
                     // Modify old property with the new features.
                     modifyOwnProperty(property, propFlags,
-                                        newDesc.has(GET) ? newDesc.getGetter() : null,
-                                        newDesc.has(SET) ? newDesc.getSetter() : null);
+                                        desc.has(GET) ? desc.getGetter() : null,
+                                        desc.has(SET) ? desc.getSetter() : null);
                 }
             }
         }
