@@ -627,7 +627,7 @@ public final class Context {
         // if user passed --module-path, we create a module class loader with
         // passed appLoader as the parent.
         final String modulePath = env._module_path;
-        ClassLoader appCl = null;
+        ClassLoader appCl;
         if (!env._compile_only && modulePath != null && !modulePath.isEmpty()) {
             // make sure that caller can create a class loader.
             if (sm != null) {
@@ -780,7 +780,7 @@ public final class Context {
      * @return reusable compiled script across many global scopes.
      */
     public MultiGlobalCompiledScript compileScript(final Source source) {
-        final Class<?> clazz = compile(source, this.errors, this._strict, false);
+        final Class<?> clazz = compile(source, this.errors, this._strict);
         final MethodHandle createProgramFunctionHandle = getCreateProgramFunctionHandle(clazz);
 
         return newGlobal -> invokeCreateProgramFunctionHandle(createProgramFunctionHandle, newGlobal);
@@ -829,7 +829,7 @@ public final class Context {
 
         Class<?> clazz;
         try {
-            clazz = compile(source, new ThrowErrorManager(), strictFlag, true);
+            clazz = compile(source, new ThrowErrorManager(), strictFlag);
         } catch (final ParserException e) {
             e.throwAsEcmaException(global);
             return null;
@@ -1103,7 +1103,7 @@ public final class Context {
      *
      * @param sm current security manager instance
      * @param fullName fully qualified package name
-     * @throw SecurityException if not accessible
+     * @throws SecurityException if not accessible
      */
     private static void checkPackageAccess(final SecurityManager sm, final String fullName) {
         Objects.requireNonNull(sm);
@@ -1446,10 +1446,10 @@ public final class Context {
     }
 
     private ScriptFunction compileScript(final Source source, final ScriptObject scope, final ErrorManager errMan) {
-        return getProgramFunction(compile(source, errMan, this._strict, false), scope);
+        return getProgramFunction(compile(source, errMan, this._strict), scope);
     }
 
-    private synchronized Class<?> compile(final Source source, final ErrorManager errMan, final boolean strict, final boolean isEval) {
+    private synchronized Class<?> compile(final Source source, final ErrorManager errMan, final boolean strict) {
         // start with no errors, no warnings.
         errMan.reset();
 

@@ -129,7 +129,7 @@ var stringCls = Java.type("java.lang.String").class;
 
 // private compile method of Context class
 var compileMethod = contextCls.getDeclaredMethod("compile",
-                sourceCls, errorMgrCls, booleanCls, booleanCls);
+                sourceCls, errorMgrCls, booleanCls);
 Reflector.setAccessible(compileMethod);
 
 var getContextMethod = contextCls.getMethod("getContext");
@@ -138,7 +138,7 @@ Reflector.setAccessible(getContextMethod);
 var sourceForMethod = sourceCls.getMethod("sourceFor", stringCls, stringCls);
 var scriptCls = compileMethod.invoke(getContextMethod.invoke(null),
     sourceForMethod.invoke(null, "test", "print('hello')"),
-    ThrowErrorManager.class.newInstance(), false, false);
+    ThrowErrorManager.class.newInstance(), false);
 
 var SCRIPT_CLASS_NAME_PREFIX = "org.openjdk.nashorn.internal.scripts.Script$";
 print("script class name pattern satisfied? " +
