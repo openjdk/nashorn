@@ -59,7 +59,6 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import org.openjdk.nashorn.internal.ir.AccessNode;
-import org.openjdk.nashorn.internal.ir.BaseNode;
 import org.openjdk.nashorn.internal.ir.BinaryNode;
 import org.openjdk.nashorn.internal.ir.Block;
 import org.openjdk.nashorn.internal.ir.CatchNode;
@@ -67,7 +66,6 @@ import org.openjdk.nashorn.internal.ir.Expression;
 import org.openjdk.nashorn.internal.ir.ForNode;
 import org.openjdk.nashorn.internal.ir.FunctionNode;
 import org.openjdk.nashorn.internal.ir.IdentNode;
-import org.openjdk.nashorn.internal.ir.IndexNode;
 import org.openjdk.nashorn.internal.ir.LexicalContextNode;
 import org.openjdk.nashorn.internal.ir.LiteralNode;
 import org.openjdk.nashorn.internal.ir.Node;
@@ -181,10 +179,9 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
      *
      * see NASHORN-73
      *
-     * @param functionNode the FunctionNode we are entering
      * @param body the body of the FunctionNode we are entering
      */
-    private void acceptDeclarations(final FunctionNode functionNode, final Block body) {
+    private void acceptDeclarations(final Block body) {
         // This visitor will assign symbol to all declared variables.
         body.accept(new SimpleNodeVisitor() {
             @Override
@@ -403,17 +400,13 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
     }
 
     private <T extends Node> T end(final T node) {
-        return end(node, true);
-    }
-
-    private <T extends Node> T end(final T node, final boolean printNode) {
         if (debug) {
             final StringBuilder sb = new StringBuilder();
 
             sb.append("[LEAVE ").
                 append(name(node)).
                 append("] ").
-                append(printNode ? node.toString() : "").
+                append(node.toString()).
                 append(" in '").
                 append(lc.getCurrentFunction().getName()).
                 append('\'');
@@ -486,7 +479,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
         final Block body = lc.getCurrentBlock();
 
         initFunctionWideVariables(functionNode, body);
-        acceptDeclarations(functionNode, body);
+        acceptDeclarations(body);
         defineFunctionSelfSymbol(functionNode, body);
     }
 
@@ -559,7 +552,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
     }
 
     private Symbol exceptionSymbol() {
-        return newObjectInternal(EXCEPTION_PREFIX);
+        return newInternal(EXCEPTION_PREFIX);
     }
 
     /**
@@ -746,7 +739,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
     @Override
     public Node leaveForNode(final ForNode forNode) {
         if (forNode.isForInOrOf()) {
-            return forNode.setIterator(lc, newObjectInternal(ITERATOR_PREFIX)); //NASHORN-73
+            return forNode.setIterator(lc, newInternal(ITERATOR_PREFIX)); //NASHORN-73
         }
 
         return end(forNode);
@@ -822,7 +815,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
     public Node leaveSwitchNode(final SwitchNode switchNode) {
         // We only need a symbol for the tag if it's not an integer switch node
         if(!switchNode.isUniqueInteger()) {
-            return switchNode.setTag(lc, newObjectInternal(SWITCH_TAG_PREFIX));
+            return switchNode.setTag(lc, newInternal(SWITCH_TAG_PREFIX));
         }
         return switchNode;
     }
@@ -874,19 +867,15 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
         }
     }
 
-    private Symbol newInternal(final CompilerConstants cc, final int flags) {
-        return defineSymbol(lc.getCurrentBlock(), lc.getCurrentFunction().uniqueName(cc.symbolName()), null, IS_VAR | IS_INTERNAL | flags); //NASHORN-73
+    private Symbol newInternal(final CompilerConstants cc) {
+        return defineSymbol(lc.getCurrentBlock(), lc.getCurrentFunction().uniqueName(cc.symbolName()), null, IS_VAR | IS_INTERNAL | HAS_OBJECT_VALUE); //NASHORN-73
     }
 
-    private Symbol newObjectInternal(final CompilerConstants cc) {
-        return newInternal(cc, HAS_OBJECT_VALUE);
+    private void start(final Node node) {
+        start(node, true);
     }
 
-    private boolean start(final Node node) {
-        return start(node, true);
-    }
-
-    private boolean start(final Node node, final boolean printNode) {
+    private void start(final Node node, final boolean printNode) {
         if (debug) {
             final StringBuilder sb = new StringBuilder();
 
@@ -900,8 +889,6 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
             log.info(sb);
             log.indent();
         }
-
-        return true;
     }
 
     /**

@@ -3783,7 +3783,7 @@ public class Parser extends AbstractParser implements Loggable {
         final ParserContextFunctionNode functionNode = createParserContextFunctionNode(name, functionToken, functionKind, functionLine, parameters);
         lc.push(functionNode);
 
-        Block functionBody = null;
+        final Block functionBody;
         // Hide the current default name across function boundaries. E.g. "x3 = function x1() { function() {}}"
         // If we didn't hide the current default name, then the innermost anonymous function would receive "x3".
         hideDefaultName();
@@ -3798,9 +3798,7 @@ public class Parser extends AbstractParser implements Loggable {
                 restoreBlock(parameterBlock);
             }
 
-            functionBody = functionBody(functionNode);
-
-            functionBody = maybeWrapBodyInParameterBlock(functionBody, parameterBlock);
+            functionBody = maybeWrapBodyInParameterBlock(functionBody(functionNode), parameterBlock);
         } finally {
             defaultNames.pop();
             lc.pop(functionNode);
@@ -4118,7 +4116,6 @@ public class Parser extends AbstractParser implements Loggable {
      * @return function node (body.)
      */
     private Block functionBody(final ParserContextFunctionNode functionNode) {
-        long lastToken = 0L;
         ParserContextBlockNode body = null;
         final long bodyToken = token;
         Block functionBody;
@@ -4147,7 +4144,7 @@ public class Parser extends AbstractParser implements Loggable {
 
                 // just expression as function body
                 final Expression expr = assignmentExpression(false);
-                lastToken = previousToken;
+                final long lastToken = previousToken;
                 functionNode.setLastToken(previousToken);
                 assert lc.getCurrentBlock() == lc.getFunctionBody(functionNode);
                 // EOL uses length field to store the line number
@@ -4177,7 +4174,6 @@ public class Parser extends AbstractParser implements Loggable {
                         functionDeclarations = prevFunctionDecls;
                     }
 
-                    lastToken = token;
                     if (parseBody) {
                         // Since the lexer can read ahead and lexify some number of tokens in advance and have
                         // them buffered in the TokenStream, we need to produce a lexer state as it was just
@@ -4544,15 +4540,7 @@ public class Parser extends AbstractParser implements Loggable {
      * @return Expression node.
      */
     protected Expression expression() {
-        // This method is protected so that subclass can get details
-        // at expression start point!
-
-        // Include commas in expression parsing.
-        return expression(false);
-    }
-
-    private Expression expression(final boolean noIn) {
-        Expression assignmentExpression = assignmentExpression(noIn);
+        Expression assignmentExpression = assignmentExpression(false);
         while (type == COMMARIGHT) {
             final long commaToken = token;
             next();
@@ -4567,7 +4555,7 @@ public class Parser extends AbstractParser implements Loggable {
                 }
             }
 
-            Expression rhs = assignmentExpression(noIn);
+            Expression rhs = assignmentExpression(false);
 
             if (rhsRestParameter) {
                 rhs = ((IdentNode)rhs).setIsRestParameter();
@@ -5156,11 +5144,8 @@ public class Parser extends AbstractParser implements Loggable {
      *      StatementListItem
      */
     private void moduleBody() {
-        loop:
         while (type != EOF) {
             switch (type) {
-            case EOF:
-                break loop;
             case IMPORT:
                 importDeclaration();
                 break;

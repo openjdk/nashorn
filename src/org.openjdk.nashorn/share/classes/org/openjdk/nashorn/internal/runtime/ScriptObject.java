@@ -2653,10 +2653,6 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
 
             Arrays.fill(fillers, UNDEFINED);
 
-            if (isCalleeVarArg) {
-                fillers[missingArgs - 1] = ScriptRuntime.EMPTY_ARRAY;
-            }
-
             return MH.insertArguments(
                 methodHandle,
                 parameterCount - missingArgs,

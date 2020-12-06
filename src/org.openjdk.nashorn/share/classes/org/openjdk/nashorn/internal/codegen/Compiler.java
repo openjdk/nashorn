@@ -265,10 +265,6 @@ public final class Compiler implements Loggable {
             this(desc, concat(Collections.singletonList(first), rest.phases));
         }
 
-        private CompilationPhases(final String desc, final CompilationPhases base) {
-            this(desc, base.phases);
-        }
-
         private CompilationPhases(final String desc, final CompilationPhases... bases) {
             this(desc, concatPhases(bases));
         }
@@ -314,14 +310,6 @@ public final class Compiler implements Loggable {
 
         String getDesc() {
             return desc;
-        }
-
-        String toString(final String prefix) {
-            final StringBuilder sb = new StringBuilder();
-            for (final CompilationPhase phase : phases) {
-                sb.append(prefix).append(phase).append('\n');
-            }
-            return sb.toString();
         }
     }
 

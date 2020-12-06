@@ -555,9 +555,6 @@ abstract class CompilationPhase {
     /** start time of transform - used for timing, see {@link org.openjdk.nashorn.internal.runtime.Timing} */
     private long endTime;
 
-    /** boolean that is true upon transform completion */
-    private boolean isFinished;
-
     private CompilationPhase() {}
 
     /**
@@ -584,12 +581,7 @@ abstract class CompilationPhase {
         endTime = System.nanoTime();
         compiler.getScriptEnvironment()._timing.accumulateTime(toString(), endTime - startTime);
 
-        isFinished = true;
         return functionNode;
-    }
-
-    boolean isFinished() {
-        return isFinished;
     }
 
     long getStartTime() {

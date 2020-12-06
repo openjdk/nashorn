@@ -73,10 +73,6 @@ public final class Label implements Serializable {
             return sp;
         }
 
-        void clear() {
-            sp = 0;
-        }
-
         void push(final Type type) {
             if (data.length == sp) {
                 final Type[] newData = new Type[sp * 2];

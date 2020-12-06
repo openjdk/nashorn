@@ -804,7 +804,7 @@ public class ScriptFunction extends ScriptObject {
         final CompiledFunction cf = data.getBestConstructor(type, scope, CompiledFunction.NO_FUNCTIONS);
         final GuardedInvocation bestCtorInv = cf.createConstructorInvocation();
         //TODO - ClassCastException
-        return new GuardedInvocation(pairArguments(bestCtorInv.getInvocation(), type), getFunctionGuard(this, cf.getFlags()), bestCtorInv.getSwitchPoints(), null);
+        return new GuardedInvocation(pairArguments(bestCtorInv.getInvocation(), type), getFunctionGuard(this), bestCtorInv.getSwitchPoints(), null);
     }
 
     private static Object wrapFilter(final Object obj) {
@@ -1005,8 +1005,7 @@ public class ScriptFunction extends ScriptObject {
                 boundHandle,
                 guard == null ?
                         getFunctionGuard(
-                                this,
-                                cf.getFlags()) :
+                                this) :
                         guard,
                 spsArray,
                 exceptionGuard);
@@ -1305,7 +1304,7 @@ public class ScriptFunction extends ScriptObject {
      *
      * @return method handle for guard
      */
-    private static MethodHandle getFunctionGuard(final ScriptFunction function, final int flags) {
+    private static MethodHandle getFunctionGuard(final ScriptFunction function) {
         assert function.data != null;
         // Built-in functions have a 1-1 correspondence to their ScriptFunctionData, so we can use a cheaper identity
         // comparison for them.

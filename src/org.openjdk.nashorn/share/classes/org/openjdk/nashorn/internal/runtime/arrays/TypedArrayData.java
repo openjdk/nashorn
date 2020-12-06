@@ -28,9 +28,6 @@ package org.openjdk.nashorn.internal.runtime.arrays;
 import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 import java.lang.invoke.MethodHandle;
 import java.nio.Buffer;
-import jdk.dynalink.CallSiteDescriptor;
-import jdk.dynalink.linker.GuardedInvocation;
-import jdk.dynalink.linker.LinkRequest;
 import org.openjdk.nashorn.internal.lookup.Lookup;
 
 /**
@@ -165,7 +162,7 @@ public abstract class TypedArrayData<T extends Buffer> extends ContinuousArrayDa
         if (getter != null) {
             return Lookup.filterReturnType(getter, returnType);
         }
-        return getter;
+        return null;
     }
 
     @Override
@@ -178,27 +175,4 @@ public abstract class TypedArrayData<T extends Buffer> extends ContinuousArrayDa
         final MethodHandle mh = Lookup.filterArgumentType(setHas, 2, elementType);
         return MH.asType(mh, mh.type().changeParameterType(0, clazz));
     }
-
-    @Override
-    public GuardedInvocation findFastGetIndexMethod(final Class<? extends ArrayData> clazz, final CallSiteDescriptor desc, final LinkRequest request) {
-        final GuardedInvocation inv = super.findFastGetIndexMethod(clazz, desc, request);
-
-        if (inv != null) {
-            return inv;
-        }
-
-        return null;
-    }
-
-    @Override
-    public GuardedInvocation findFastSetIndexMethod(final Class<? extends ArrayData> clazz, final CallSiteDescriptor desc, final LinkRequest request) { // array, index, value
-        final GuardedInvocation inv = super.findFastSetIndexMethod(clazz, desc, request);
-
-        if (inv != null) {
-            return inv;
-        }
-
-        return null;
-    }
-
 }

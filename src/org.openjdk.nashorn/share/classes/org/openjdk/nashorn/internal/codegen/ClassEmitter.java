@@ -37,7 +37,6 @@ import static org.objectweb.asm.Opcodes.H_INVOKESTATIC;
 import static org.objectweb.asm.Opcodes.H_INVOKEVIRTUAL;
 import static org.objectweb.asm.Opcodes.H_NEWINVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.V1_7;
-import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CLINIT;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CONSTANTS;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.GET_ARRAY_PREFIX;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.GET_ARRAY_SUFFIX;
@@ -135,8 +134,6 @@ public class ClassEmitter {
 
     private int initCount;
 
-    private int clinitCount;
-
     private int fieldCount;
 
     private final Set<String> methodNames;
@@ -231,15 +228,6 @@ public class ClassEmitter {
      */
     public int getMethodCount() {
         return methodCount;
-    }
-
-    /**
-     * Get the clinit count.
-     *
-     * @return clinit count
-     */
-    public int getClinitCount() {
-        return clinitCount;
     }
 
     /**
@@ -567,17 +555,6 @@ public class ClassEmitter {
             null);
 
         return new MethodEmitter(this, mv, functionNode);
-    }
-
-
-    /**
-     * Start generating the <clinit> method in the class.
-     *
-     * @return method emitter to use for weaving <clinit>
-     */
-    MethodEmitter clinit() {
-        clinitCount++;
-        return method(EnumSet.of(Flag.STATIC), CLINIT.symbolName(), void.class);
     }
 
     /**

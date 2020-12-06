@@ -68,9 +68,6 @@ import org.openjdk.nashorn.internal.runtime.options.Options;
  */
 @SuppressWarnings("fallthrough")
 public class Lexer extends Scanner {
-    private static final long MIN_INT_L = Integer.MIN_VALUE;
-    private static final long MAX_INT_L = Integer.MAX_VALUE;
-
     private static final boolean XML_LITERALS = Options.getBooleanProperty("nashorn.lexer.xmlliterals");
 
     /** Content source. */

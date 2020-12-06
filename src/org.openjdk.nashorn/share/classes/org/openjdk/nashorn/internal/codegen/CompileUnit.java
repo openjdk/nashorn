@@ -97,7 +97,7 @@ public final class CompileUnit implements Comparable<CompileUnit>, Serializable 
      * @return true of if there is "real code" in the compile unit
      */
     public boolean hasCode() {
-        return (classEmitter.getMethodCount() - classEmitter.getInitCount() - classEmitter.getClinitCount()) > 0;
+        return (classEmitter.getMethodCount() - classEmitter.getInitCount()) > 0;
     }
 
     /**
