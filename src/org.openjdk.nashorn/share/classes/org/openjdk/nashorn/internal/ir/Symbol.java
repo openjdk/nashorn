@@ -486,13 +486,11 @@ public final class Symbol implements Comparable<Symbol>, Cloneable, Serializable
      * and get allocated in a JO-prefixed ScriptObject subclass.
      *
      * @param fieldIndex field index - a positive integer
-     * @return the symbol
      */
-    public Symbol setFieldIndex(final int fieldIndex) {
+    public void setFieldIndex(final int fieldIndex) {
         if (this.fieldIndex != fieldIndex) {
             this.fieldIndex = fieldIndex;
         }
-        return this;
     }
 
     /**

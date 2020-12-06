@@ -259,7 +259,7 @@ class ParserContextFunctionNode extends ParserContextBaseNode {
         return getFlag(FunctionNode.ES6_IS_SUBCLASS_CONSTRUCTOR) != 0;
     }
 
-    boolean addParameterBinding(final IdentNode bindingIdentifier) {
+    void addParameterBinding(final IdentNode bindingIdentifier) {
         if (Parser.isArguments(bindingIdentifier)) {
             setFlag(FunctionNode.DEFINES_ARGUMENTS);
         }
@@ -267,11 +267,8 @@ class ParserContextFunctionNode extends ParserContextBaseNode {
         if (parameterBoundNames == null) {
             parameterBoundNames = new HashSet<>();
         }
-        if (parameterBoundNames.add(bindingIdentifier.getName())) {
-            return true;
-        } else {
+        if (!parameterBoundNames.add(bindingIdentifier.getName())) {
             duplicateParameterBinding = bindingIdentifier;
-            return false;
         }
     }
 

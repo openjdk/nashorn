@@ -1043,8 +1043,8 @@ final class JavaAdapterBytecodeGenerator {
         return emitSuperCall(mv, null, INIT, methodDesc, true);
     }
 
-    private int emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc) {
-        return emitSuperCall(mv, owner, name, methodDesc, false);
+    private void emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc) {
+        emitSuperCall(mv, owner, name, methodDesc, false);
     }
 
     private int emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc, final boolean constructor) {

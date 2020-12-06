@@ -199,10 +199,8 @@ public abstract class AbstractParser {
 
     /**
      * Seek next token.
-     *
-     * @return tokenType of next token.
      */
-    private TokenType nextToken() {
+    private void nextToken() {
         // Capture last token type, but ignore comments (which are irrelevant for the purpose of newline detection).
         if (type != COMMENT) {
             last = type;
@@ -229,8 +227,6 @@ public abstract class AbstractParser {
             }
 
         }
-
-        return type;
     }
 
     /**

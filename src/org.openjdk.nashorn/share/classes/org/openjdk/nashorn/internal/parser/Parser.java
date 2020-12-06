@@ -374,37 +374,33 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     /**
-     * Parse and return the list of function parameter list. A comma
+     * Parse list of function parameters. A comma
      * separated list of function parameter identifiers is expected to be parsed.
      * Errors will be thrown and the error manager will contain information
      * if parsing should fail. This method is used to check if parameter Strings
      * passed to "Function" constructor is a valid or not.
-     *
-     * @return the list of IdentNodes representing the formal parameter list
      */
-    public List<IdentNode> parseFormalParameterList() {
+    public void parseFormalParameterList() {
         try {
             stream = new TokenStream();
             lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
 
             scanFirstToken();
 
-            return formalParameterList(TokenType.EOF, false);
+            formalParameterList(TokenType.EOF, false);
         } catch (final Exception e) {
             handleParseException(e);
-            return null;
         }
     }
 
     /**
-     * Execute parse and return the resulting function node.
+     * Execute parse.
      * Errors will be thrown and the error manager will contain information
      * if parsing should fail. This method is used to check if code String
      * passed to "Function" constructor is a valid function body or not.
      *
-     * @return function node resulting from successful parse
      */
-    public FunctionNode parseFunctionBody() {
+    public void parseFunctionBody() {
         try {
             stream = new TokenStream();
             lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
@@ -445,10 +441,8 @@ public class Parser extends AbstractParser implements Loggable {
                     functionLine,
                     functionBody);
             printAST(functionNode);
-            return functionNode;
         } catch (final Exception e) {
             handleParseException(e);
-            return null;
         }
     }
 
@@ -589,8 +583,8 @@ public class Parser extends AbstractParser implements Loggable {
     /**
      * Restore the current block.
      */
-    private ParserContextBlockNode restoreBlock(final ParserContextBlockNode block) {
-        return lc.pop(block);
+    private void restoreBlock(final ParserContextBlockNode block) {
+        lc.pop(block);
     }
 
     /**
