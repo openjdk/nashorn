@@ -4885,11 +4885,8 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         private void addUnwarrantedOptimismHandlerLabel(final List<Type> localTypes, final Label label) {
             final String lvarTypesDescriptor = getLvarTypesDescriptor(localTypes);
             final Map<String, Collection<Label>> unwarrantedOptimismHandlers = lc.getUnwarrantedOptimismHandlers();
-            Collection<Label> labels = unwarrantedOptimismHandlers.get(lvarTypesDescriptor);
-            if(labels == null) {
-                labels = new LinkedList<>();
-                unwarrantedOptimismHandlers.put(lvarTypesDescriptor, labels);
-            }
+            Collection<Label> labels = unwarrantedOptimismHandlers
+                .computeIfAbsent(lvarTypesDescriptor, k -> new LinkedList<>());
             method.markLabelAsOptimisticCatchHandler(label, localTypes.size());
             labels.add(label);
         }
