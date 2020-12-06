@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static org.openjdk.nashorn.internal.runtime.CommandExecutor.RedirectType.*;
@@ -502,7 +503,7 @@ class CommandExecutor {
      *         processed by the underlying platform
      */
     private static String sanitizePath(final String d) {
-        if (!IS_WINDOWS || (IS_WINDOWS && !d.startsWith(CYGDRIVE))) {
+        if (!IS_WINDOWS || !d.startsWith(CYGDRIVE)) {
             return d;
         }
         final String pd = d.substring(CYGDRIVE.length());
@@ -629,13 +630,11 @@ class CommandExecutor {
         // If input is not redirected.
         if (inputIsPipe) {
             // If inputStream other than System.in is provided.
-            if (inputStream != null) {
-                // Pipe inputStream to first process output stream.
-                piperThreads.add(new Piper(inputStream, firstProcess.getOutputStream()).start());
-            } else {
-                // Otherwise assume an input string has been provided.
-                piperThreads.add(new Piper(new ByteArrayInputStream(inputString.getBytes()), firstProcess.getOutputStream()).start());
-            }
+            // Pipe inputStream to first process output stream.
+            // Otherwise assume an input string has been provided.
+            piperThreads.add(new Piper(Objects
+                .requireNonNullElseGet(inputStream, () -> new ByteArrayInputStream(inputString
+                    .getBytes())), firstProcess.getOutputStream()).start());
         }
 
         // If output is not redirected.

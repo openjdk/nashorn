@@ -120,7 +120,7 @@ final class JavaAdapterClassLoader {
                     // SecurityException for nashorn's classes!. For adapter's to work, we
                     // should be able to refer to the few classes it needs in its implementation.
                     if(VISIBLE_INTERNAL_CLASS_NAMES.contains(name)) {
-                        return myLoader != null? myLoader.loadClass(name) : Class.forName(name, false, myLoader);
+                        return myLoader != null? myLoader.loadClass(name) : Class.forName(name, false, null);
                     }
                     throw se;
                 }

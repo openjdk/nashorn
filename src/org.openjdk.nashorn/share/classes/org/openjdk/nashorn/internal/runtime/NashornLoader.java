@@ -41,6 +41,7 @@ import java.security.PermissionCollection;
 import java.security.PrivilegedAction;
 import java.security.Permissions;
 import java.security.SecureClassLoader;
+import java.util.Arrays;
 
 /**
  * Superclass for Nashorn class loader classes.
@@ -170,20 +171,10 @@ abstract class NashornLoader extends SecureClassLoader {
      */
     private static URL[] pathToURLs(final String path) {
         final String[] components = path.split(File.pathSeparator);
-        URL[] urls = new URL[components.length];
-        int count = 0;
-        while(count < components.length) {
-            final URL url = fileToURL(new File(components[count]));
-            if (url != null) {
-                urls[count++] = url;
-            }
-        }
-        if (urls.length != count) {
-            final URL[] tmp = new URL[count];
-            System.arraycopy(urls, 0, tmp, 0, count);
-            urls = tmp;
-        }
-        return urls;
+        return Arrays.stream(components)
+            .map(File::new)
+            .map(NashornLoader::fileToURL)
+            .toArray(URL[]::new);
     }
 
     /*

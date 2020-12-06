@@ -557,7 +557,7 @@ public final class Options {
         case "log":
             return new LoggingOption(value);
         case "boolean":
-            return new Option<>(value != null && Boolean.parseBoolean(value));
+            return new Option<>(Boolean.parseBoolean(value));
         case "integer":
             try {
                 return new Option<>(value == null ? 0 : Integer.parseInt(value));

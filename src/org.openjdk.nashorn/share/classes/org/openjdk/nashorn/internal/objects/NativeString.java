@@ -284,20 +284,20 @@ public final class NativeString extends ScriptObject implements OptimisticBuilti
 
     @Override
     public boolean delete(final int key, final boolean strict) {
-        return checkDeleteIndex(key, strict)? false : super.delete(key, strict);
+        return !checkDeleteIndex(key, strict) && super.delete(key, strict);
     }
 
     @Override
     public boolean delete(final double key, final boolean strict) {
         final int index = ArrayIndex.getArrayIndex(key);
-        return checkDeleteIndex(index, strict)? false : super.delete(key, strict);
+        return !checkDeleteIndex(index, strict) && super.delete(key, strict);
     }
 
     @Override
     public boolean delete(final Object key, final boolean strict) {
         final Object primitiveKey = JSType.toPrimitive(key, String.class);
         final int index = ArrayIndex.getArrayIndex(primitiveKey);
-        return checkDeleteIndex(index, strict)? false : super.delete(primitiveKey, strict);
+        return !checkDeleteIndex(index, strict) && super.delete(primitiveKey, strict);
     }
 
     private boolean checkDeleteIndex(final int index, final boolean strict) {
@@ -971,8 +971,8 @@ public final class NativeString extends ScriptObject implements OptimisticBuilti
     public static String substring(final Object self, final int start, final int end) {
         final String str = checkObjectToString(self);
         final int len = str.length();
-        final int validStart = start < 0 ? 0 : start > len ? len : start;
-        final int validEnd   = end < 0 ? 0 : end > len ? len : end;
+        final int validStart = start < 0 ? 0 : Math.min(start, len);
+        final int validEnd   = end < 0 ? 0 : Math.min(end, len);
 
         if (validStart < validEnd) {
             return str.substring(validStart, validEnd);

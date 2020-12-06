@@ -153,9 +153,7 @@ public final class GenericPropertyDescriptor extends ScriptObject implements Pro
         }
 
         if (has(ENUMERABLE) && other.has(ENUMERABLE)) {
-            if (isEnumerable() != other.isEnumerable()) {
-                return false;
-            }
+            return isEnumerable() == other.isEnumerable();
         }
 
         return true;

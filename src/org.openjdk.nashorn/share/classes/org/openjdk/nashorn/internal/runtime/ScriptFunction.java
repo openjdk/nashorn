@@ -494,7 +494,7 @@ public class ScriptFunction extends ScriptObject {
     }
 
     private static boolean needsWrappedThis(final Object fn) {
-        return fn instanceof ScriptFunction ? ((ScriptFunction) fn).needsWrappedThis() : false;
+        return fn instanceof ScriptFunction && ((ScriptFunction) fn).needsWrappedThis();
     }
 
     /**

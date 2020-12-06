@@ -245,18 +245,17 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         // Step 3b
-        final PropertyDescriptor newLenDesc = desc;
 
         // Step 3c and 3d - get new length and convert to long
-        final long newLen = NativeArray.validLength(newLenDesc.getValue());
+        final long newLen = NativeArray.validLength(desc.getValue());
 
         // Step 3e - note that we need to convert to int or double as long is not considered a JS number type anymore
-        newLenDesc.setValue(JSType.toNarrowestNumber(newLen));
+        desc.setValue(JSType.toNarrowestNumber(newLen));
 
         // Step 3f
         // increasing array length - just need to set new length value (and attributes if any) and return
         if (newLen >= oldLen) {
-            return super.defineOwnProperty("length", newLenDesc, reject);
+            return super.defineOwnProperty("length", desc, reject);
         }
 
         // Step 3g
@@ -268,13 +267,13 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         // Step 3h and 3i
-        final boolean newWritable = !newLenDesc.has(WRITABLE) || newLenDesc.isWritable();
+        final boolean newWritable = !desc.has(WRITABLE) || desc.isWritable();
         if (!newWritable) {
-            newLenDesc.setWritable(true);
+            desc.setWritable(true);
         }
 
         // Step 3j and 3k
-        final boolean succeeded = super.defineOwnProperty("length", newLenDesc, reject);
+        final boolean succeeded = super.defineOwnProperty("length", desc, reject);
         if (!succeeded) {
             return false;
         }
@@ -286,11 +285,11 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
             o--;
             final boolean deleteSucceeded = delete(o, false);
             if (!deleteSucceeded) {
-                newLenDesc.setValue(o + 1);
+                desc.setValue(o + 1);
                 if (!newWritable) {
-                    newLenDesc.setWritable(false);
+                    desc.setWritable(false);
                 }
-                super.defineOwnProperty("length", newLenDesc, false);
+                super.defineOwnProperty("length", desc, false);
                 if (reject) {
                     throw typeError("property.not.writable", "length", ScriptRuntime.safeToString(this));
                 }
@@ -1048,7 +1047,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
                 } else if (!lowerExists && upperExists) {
                     sobj.set(lower, upperValue, CALLSITE_STRICT);
                     sobj.delete(upper, true);
-                } else if (lowerExists && !upperExists) {
+                } else if (lowerExists) {
                     sobj.delete(lower, true);
                     sobj.set(upper, lowerValue, CALLSITE_STRICT);
                 }

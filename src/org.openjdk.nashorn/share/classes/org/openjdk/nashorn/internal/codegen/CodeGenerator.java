@@ -1571,7 +1571,6 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
 
                 if (symbol.isScope()) {
                     final int flags = getScopeCallSiteFlags(symbol);
-                    final int useCount = symbol.getUseCount();
 
                     // We only use shared scope calls for fast scopes
                     if (callNode.isEval()) {
@@ -1897,7 +1896,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
                         assert symbol.hasSlot() || symbol.slotCount() == 0 : symbol + " should have a slot only, no scope";
                     }
                 } else if (symbol.isParam() && (varsInScope || hasArguments || symbol.isScope())) {
-                    assert symbol.isScope()   : "scope for " + symbol + " should have been set in AssignSymbols already " + function.getName() + " varsInScope="+varsInScope+" hasArguments="+hasArguments+" symbol.isScope()=" + symbol.isScope();
+                    assert symbol.isScope()   : "scope for " + symbol + " should have been set in AssignSymbols already " + function.getName() + " varsInScope="+varsInScope+" hasArguments="+hasArguments+" symbol.isScope()=false";
                     assert !(hasArguments && symbol.hasSlot())  : "slot for " + symbol + " should have been removed in Lower already " + function.getName();
 
                     final Type   paramType;
@@ -3061,7 +3060,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             }
             // TABLESWITCH needs (range + 3) 32-bit values; LOOKUPSWITCH needs ((size * 2) + 2). Choose the one with
             // smaller representation, favor TABLESWITCH when they're equal size.
-            if (range + 1 <= (size * 2) && range <= Integer.MAX_VALUE) {
+            if (range + 1 <= (size * 2)) {
                 final Label[] table = new Label[(int)range];
                 Arrays.fill(table, defaultLabel);
                 for (int i = 0; i < size; i++) {
@@ -3451,14 +3450,12 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
                     method.beforeJoinPoint(test);
                 }
             }
-        } else if (test != null) {
-            if (testHasLiveConversion) {
-                emitBranch(test.getExpression(), body.getEntryLabel(), true);
-                method.beforeJoinPoint(test);
-                method._goto(breakLabel);
-            } else {
-                emitBranch(test.getExpression(), breakLabel, false);
-            }
+        } else if (testHasLiveConversion) {
+            emitBranch(test.getExpression(), body.getEntryLabel(), true);
+            method.beforeJoinPoint(test);
+            method._goto(breakLabel);
+        } else {
+            emitBranch(test.getExpression(), breakLabel, false);
         }
 
         body.accept(this);
@@ -4513,9 +4510,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             symbol.setHasSlotFor(type);
             symbol.setFirstSlot(lc.quickSlot(type));
 
-            final IdentNode quickIdent = IdentNode.createInternalIdentifier(symbol).setType(type);
-
-            return quickIdent;
+            return IdentNode.createInternalIdentifier(symbol).setType(type);
         }
 
         // store the result that "lives on" after the op, e.g. "i" in i++ postfix.
@@ -4734,7 +4729,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             final Label afterConsumeStack = isOptimistic || currentContinuationEntryPoint ? new Label("after_consume_stack") : null;
             if(isOptimistic) {
                 beginTry = new Label("try_optimistic");
-                final String catchLabelName = (afterConsumeStack == null ? "" : afterConsumeStack.toString()) + "_handler";
+                final String catchLabelName = afterConsumeStack.toString() + "_handler";
                 catchLabel = new Label(catchLabelName);
                 method.label(beginTry);
             } else {

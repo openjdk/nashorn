@@ -81,7 +81,7 @@ public abstract class NashornException extends RuntimeException {
      * @param column    column number
      */
     protected NashornException(final String msg, final Throwable cause, final String fileName, final int line, final int column) {
-        super(msg, cause == null ? null : cause);
+        super(msg, cause);
         this.fileName = fileName;
         this.line = line;
         this.column = column;
@@ -94,7 +94,7 @@ public abstract class NashornException extends RuntimeException {
      * @param cause     exception cause
      */
     protected NashornException(final String msg, final Throwable cause) {
-        super(msg, cause == null ? null : cause);
+        super(msg, cause);
         // Hard luck - no column number info
         this.column = -1;
         // We can retrieve the line number and file name from the stack trace if needed

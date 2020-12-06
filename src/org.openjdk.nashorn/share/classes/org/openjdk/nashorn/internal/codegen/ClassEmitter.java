@@ -196,7 +196,7 @@ public class ClassEmitter {
                     try {
                         return super.getCommonSuperClass(type1, type2);
                     } catch (final RuntimeException e) {
-                        if (isScriptObject(Compiler.SCRIPTS_PACKAGE, type1) && isScriptObject(Compiler.SCRIPTS_PACKAGE, type2)) {
+                        if (isScriptObject(type1) && isScriptObject(type2)) {
                             return className(ScriptObject.class);
                         }
                         return OBJECT_CLASS;
@@ -386,21 +386,16 @@ public class ClassEmitter {
     /**
      * Inspect class name and decide whether we are generating a ScriptObject class.
      *
-     * @param scriptPrefix the script class prefix for the current script
      * @param type         the type to check
      *
      * @return {@code true} if type is ScriptObject
      */
-    private static boolean isScriptObject(final String scriptPrefix, final String type) {
-        if (type.startsWith(scriptPrefix)) {
-            return true;
-        } else if (type.equals(CompilerConstants.className(ScriptObject.class))) {
-            return true;
-        } else if (type.startsWith(Compiler.OBJECTS_PACKAGE)) {
-            return true;
-        }
-
-        return false;
+    private static boolean isScriptObject(final String type) {
+        return
+            type.startsWith(Compiler.SCRIPTS_PACKAGE) ||
+            type.equals(CompilerConstants.className(ScriptObject.class)) ||
+            type.startsWith(Compiler.OBJECTS_PACKAGE)
+        ;
     }
 
     /**
@@ -449,8 +444,7 @@ public class ClassEmitter {
             cr.accept(tcv, 0);
         }
 
-        final String str = new String(baos.toByteArray());
-        return str;
+        return new String(baos.toByteArray());
     }
 
     /**
@@ -666,12 +660,11 @@ public class ClassEmitter {
      *         generation hasn't been ended with {@link ClassEmitter#end()}.
      */
     byte[] toByteArray() {
-        assert classEnded;
-        if (!classEnded) {
-            return null;
+        if (classEnded) {
+            return cw.toByteArray();
+        } else {
+            throw new AssertionError();
         }
-
-        return cw.toByteArray();
     }
 
     /**

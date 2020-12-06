@@ -325,7 +325,6 @@ public final class ScriptRuntime {
     // value Iterator for important Java objects - arrays, maps, iterables.
     private static Iterator<?> iteratorForJavaArrayOrList(final Object obj) {
         if (obj != null && obj.getClass().isArray()) {
-            final Object array  = obj;
             final int    length = Array.getLength(obj);
 
             return new Iterator<>() {
@@ -341,7 +340,7 @@ public final class ScriptRuntime {
                     if (index >= length) {
                         throw new NoSuchElementException();
                     }
-                    return Array.get(array, index++);
+                    return Array.get(obj, index++);
                 }
 
                 @Override
@@ -419,8 +418,7 @@ public final class ScriptRuntime {
                 public Object next() {
                     Map.Entry<?,?> next = (Map.Entry)iter.next();
                     Object[] keyvalue = new Object[]{next.getKey(), next.getValue()};
-                    NativeArray array = NativeJava.from(null, keyvalue);
-                    return array;
+                    return NativeJava.from(null, keyvalue);
                 }
 
                 @Override

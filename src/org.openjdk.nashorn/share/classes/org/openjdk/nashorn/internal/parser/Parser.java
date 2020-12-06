@@ -933,7 +933,7 @@ public class Parser extends AbstractParser implements Loggable {
                                 function.setFlag(FunctionNode.IS_STRICT);
 
                                 // We don't need to check these, if lexical environment is already strict
-                                if (!oldStrictMode && directiveStmts != null) {
+                                if (!oldStrictMode) {
                                     // check that directives preceding this one do not violate strictness
                                     for (final Node statement : directiveStmts) {
                                         // the get value will force unescape of preceding
@@ -1361,7 +1361,7 @@ public class Parser extends AbstractParser implements Loggable {
             function.setFlag(FunctionNode.IS_ANONYMOUS);
         }
 
-        final PropertyNode constructor = new PropertyNode(classToken, ctorFinish, ctorName, createFunctionNode(
+        return new PropertyNode(classToken, ctorFinish, ctorName, createFunctionNode(
                         function,
                         classToken,
                         ctorName,
@@ -1370,7 +1370,6 @@ public class Parser extends AbstractParser implements Loggable {
                         classLineNumber,
                         body
                         ), null, null, false, false);
-        return constructor;
     }
 
     private PropertyNode methodDefinition(final boolean isStatic, final boolean subclass, final boolean generator) {
@@ -1384,11 +1383,11 @@ public class Parser extends AbstractParser implements Loggable {
             final String name = ((PropertyKey)propertyName).getPropertyName();
             if (!generator && isIdent && type != LPAREN && name.equals(GET_NAME)) {
                 final PropertyFunction methodDefinition = propertyGetterFunction(methodToken, methodLine, flags);
-                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, generator, true);
+                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, false, true);
                 return new PropertyNode(methodToken, finish, methodDefinition.key, null, methodDefinition.functionNode, null, isStatic, methodDefinition.computed);
             } else if (!generator && isIdent && type != LPAREN && name.equals(SET_NAME)) {
                 final PropertyFunction methodDefinition = propertySetterFunction(methodToken, methodLine, flags);
-                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, generator, true);
+                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, false, true);
                 return new PropertyNode(methodToken, finish, methodDefinition.key, null, null, methodDefinition.functionNode, isStatic, methodDefinition.computed);
             } else {
                 if (!isStatic && !generator && name.equals(CONSTRUCTOR_NAME)) {
@@ -1397,7 +1396,7 @@ public class Parser extends AbstractParser implements Loggable {
                         flags |= FunctionNode.ES6_IS_SUBCLASS_CONSTRUCTOR;
                     }
                 }
-                verifyAllowedMethodName(propertyName, isStatic, computed, generator, false);
+                verifyAllowedMethodName(propertyName, isStatic, false, generator, false);
             }
         }
         final PropertyFunction methodDefinition = propertyMethodFunction(propertyName, methodToken, methodLine, generator, flags, computed);
@@ -1447,7 +1446,6 @@ public class Parser extends AbstractParser implements Loggable {
         loop:
         while (type != EOF) {
             switch (type) {
-            case EOF:
             case CASE:
             case DEFAULT:
             case RBRACE:
@@ -2107,10 +2105,7 @@ public class Parser extends AbstractParser implements Loggable {
                 return true;
             default:
                 // accept future strict tokens in non-strict mode (including LET)
-                if (!isStrictMode && t.getKind() == TokenKind.FUTURESTRICT) {
-                    return true;
-                }
-                return false;
+                return !isStrictMode && t.getKind() == TokenKind.FUTURESTRICT;
             }
         }
     }
@@ -2135,8 +2130,8 @@ public class Parser extends AbstractParser implements Loggable {
         final ParserContextLoopNode whileNode = new ParserContextLoopNode();
         lc.push(whileNode);
 
-        JoinPredecessorExpression test = null;
-        Block body = null;
+        final JoinPredecessorExpression test;
+        final Block body;
 
         try {
             expect(LPAREN);
@@ -2147,9 +2142,7 @@ public class Parser extends AbstractParser implements Loggable {
             lc.pop(whileNode);
         }
 
-        if (body != null) {
-            appendStatement(new WhileNode(whileLine, whileToken, body.getFinish(), false, test, body));
-        }
+        appendStatement(new WhileNode(whileLine, whileToken, body.getFinish(), false, test, body));
     }
 
     /**
@@ -2165,15 +2158,15 @@ public class Parser extends AbstractParser implements Loggable {
     private void doStatement() {
         // Capture DO token.
         final long doToken = token;
-        int doLine = 0;
+        final int doLine;
         // DO tested in the caller.
         next();
 
         final ParserContextLoopNode doWhileNode = new ParserContextLoopNode();
         lc.push(doWhileNode);
 
-        Block body = null;
-        JoinPredecessorExpression test = null;
+        final Block body;
+        final JoinPredecessorExpression test;
 
         try {
            // Get DO body.
@@ -2356,7 +2349,7 @@ public class Parser extends AbstractParser implements Loggable {
         assert type == YIELD;
         nextOrEOL();
 
-        Expression expression = null;
+        final Expression expression;
 
         boolean yieldAsterisk = false;
         if (type == MUL) {
@@ -2466,7 +2459,7 @@ public class Parser extends AbstractParser implements Loggable {
         // Prepare to accumulate cases.
         final List<CaseNode> cases = new ArrayList<>();
 
-        Expression expression = null;
+        final Expression expression;
 
         try {
             expect(LPAREN);
@@ -3165,15 +3158,14 @@ public class Parser extends AbstractParser implements Loggable {
             final String ident = (String)expectValue(IDENT);
 
             if (type != COLON && (type != LPAREN || !isES6())) {
-                final long getSetToken = propertyToken;
 
                 switch (ident) {
                 case GET_NAME:
-                    final PropertyFunction getter = propertyGetterFunction(getSetToken, functionLine);
+                    final PropertyFunction getter = propertyGetterFunction(propertyToken, functionLine);
                     return new PropertyNode(propertyToken, finish, getter.key, null, getter.functionNode, null, false, getter.computed);
 
                 case SET_NAME:
-                    final PropertyFunction setter = propertySetterFunction(getSetToken, functionLine);
+                    final PropertyFunction setter = propertySetterFunction(propertyToken, functionLine);
                     return new PropertyNode(propertyToken, finish, setter.key, null, null, setter.functionNode, false, setter.computed);
                 default:
                     break;
@@ -3201,7 +3193,7 @@ public class Parser extends AbstractParser implements Loggable {
             propertyValue = propertyMethodFunction(propertyName, propertyToken, functionLine, generator, FunctionNode.ES6_IS_METHOD, computed).functionNode;
         } else if (isIdentifier && (type == COMMARIGHT || type == RBRACE || type == ASSIGN) && isES6()) {
             propertyValue = createIdentNode(propertyToken, finish, ((IdentNode) propertyName).getPropertyName());
-            if (type == ASSIGN && isES6()) {
+            if (type == ASSIGN) {
                 // TODO if not destructuring, this is a SyntaxError
                 final long assignToken = token;
                 next();
@@ -4376,7 +4368,6 @@ public class Parser extends AbstractParser implements Loggable {
      * @return Expression node.
      */
     private Expression unaryExpression() {
-        final int  unaryLine  = line;
         final long unaryToken = token;
 
         switch (type) {
@@ -4421,14 +4412,13 @@ public class Parser extends AbstractParser implements Loggable {
             case DECPREFIX:
                 final long opToken = token;
                 final TokenType opType = type;
-                final Expression lhs = expression;
                 // ++, -- without operand..
-                if (lhs == null) {
+                if (expression == null) {
                     throw error(AbstractParser.message("expected.lvalue", type.getNameOrType()));
                 }
                 next();
 
-                return verifyIncDecExpression(opToken, opType, lhs, true);
+                return verifyIncDecExpression(opToken, opType, expression, true);
             default:
                 break;
             }
@@ -4785,7 +4775,7 @@ public class Parser extends AbstractParser implements Loggable {
 
             verifyParameterList(parameters, functionNode);
 
-            final FunctionNode function = createFunctionNode(
+            return createFunctionNode(
                             functionNode,
                             functionToken,
                             name,
@@ -4793,7 +4783,6 @@ public class Parser extends AbstractParser implements Loggable {
                             FunctionNode.Kind.ARROW,
                             functionLine,
                             functionBody);
-            return function;
         } finally {
             lc.pop(functionNode);
         }
@@ -4938,10 +4927,7 @@ public class Parser extends AbstractParser implements Loggable {
             case COMMENT:
                 continue;
             default:
-                if (t.getKind() == TokenKind.FUTURESTRICT) {
-                    return true;
-                }
-                return false;
+                return t.getKind() == TokenKind.FUTURESTRICT;
             }
         }
         return false;
@@ -4959,9 +4945,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == IDENT) {
                 break;
-            } else if (t == EOL || t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != EOL && t != COMMENT) {
                 return false;
             }
         }
@@ -4969,9 +4953,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == RPAREN) {
                 break;
-            } else if (t == EOL || t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != EOL && t != COMMENT) {
                 return false;
             }
         }
@@ -4979,9 +4961,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == ARROW) {
                 break;
-            } else if (t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != COMMENT) {
                 return false;
             }
         }
@@ -5255,8 +5235,8 @@ public class Parser extends AbstractParser implements Loggable {
 
             final IdentNode moduleSpecifier = fromClause();
             module.addModuleRequest(moduleSpecifier);
-            for (int i = 0; i < importEntries.size(); i++) {
-                module.addImportEntry(importEntries.get(i).withFrom(moduleSpecifier, finish));
+            for (final Module.ImportEntry importEntry : importEntries) {
+                module.addImportEntry(importEntry.withFrom(moduleSpecifier, finish));
             }
         }
         expect(SEMICOLON);

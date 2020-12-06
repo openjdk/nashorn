@@ -469,7 +469,7 @@ public final class ScriptEnvironment {
      * @return true if enabled
      */
     public boolean isTimingEnabled() {
-        return _timing != null ? _timing.isEnabled() : false;
+        return _timing != null && _timing.isEnabled();
     }
 
     /**

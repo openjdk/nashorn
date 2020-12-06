@@ -685,7 +685,7 @@ public final class NativeRegExp extends ScriptObject {
         }
 
         int thisIndex = 0;
-        int previousLastIndex = 0;
+        int previousLastIndex;
         final StringBuilder sb = new StringBuilder();
 
         final MethodHandle invoker = function == null ? null : getReplaceValueInvoker();

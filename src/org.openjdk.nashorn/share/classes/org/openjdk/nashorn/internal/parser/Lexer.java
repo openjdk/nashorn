@@ -651,7 +651,6 @@ public class Lexer extends Scanner {
                         reset(start);
                         return false;
                     }
-                    skip(1);
                 } else {
                     if (ch0 == '[') {
                         inBrackets = true;
@@ -660,8 +659,8 @@ public class Lexer extends Scanner {
                     }
 
                     // Skip literal character.
-                    skip(1);
                 }
+                skip(1);
             }
 
             // If regex literal.
@@ -1405,12 +1404,7 @@ public class Lexer extends Scanner {
             // Indicate that the priming first string has not been emitted.
             boolean primed = false;
 
-            while (true) {
-                // Detect end of content.
-                if (atEOF()) {
-                    break;
-                }
-
+            while (!atEOF()) {
                 // Honour escapes (should be well formed.)
                 if (ch0 == '\\' && stringType == ESCSTRING) {
                     skip(2);
@@ -1770,6 +1764,7 @@ public class Lexer extends Scanner {
             }
             return value;
         case STRING:
+        case DIRECTIVE_COMMENT:
             return source.getString(start, len); // String
         case ESCSTRING:
             return valueOfString(start, len, strict); // String
@@ -1784,8 +1779,6 @@ public class Lexer extends Scanner {
             return valueOfString(start, len, true); // String
         case XML:
             return valueOfXML(start, len); // XMLToken::LexerToken
-        case DIRECTIVE_COMMENT:
-            return source.getString(start, len);
         default:
             break;
         }

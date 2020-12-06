@@ -251,8 +251,7 @@ public abstract class ScriptFunctionData implements Serializable {
             throw typeError("not.a.constructor", toSource());
         }
         // Constructor call sites don't have a "this", but getBest is meant to operate on "callee, this, ..." style
-        final CompiledFunction cf = getBest(callSiteType.insertParameterTypes(1, Object.class), runtimeScope, forbidden);
-        return cf;
+        return getBest(callSiteType.insertParameterTypes(1, Object.class), runtimeScope, forbidden);
     }
 
     /**

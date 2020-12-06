@@ -200,10 +200,9 @@ public final class Label implements Serializable {
 
         private int getFirstDeadLocal(final List<Type> types) {
             int i = types.size();
-            for(final ListIterator<Type> it = types.listIterator(i);
-                it.hasPrevious() && it.previous() == Type.UNKNOWN;
-                --i) {
-                // no body
+            final ListIterator<Type> it = types.listIterator(i);
+            while (it.hasPrevious() && it.previous() == Type.UNKNOWN) {
+                --i;
             }
 
             // Respect symbol boundaries; we never chop off half a symbol's storage

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
 import org.openjdk.nashorn.internal.ir.Block;
@@ -329,7 +330,8 @@ abstract class CompilationPhase {
             //replace old compile units in function nodes, if any are assigned,
             //for example by running the splitter on this function node in a previous
             //partial code generation
-            final FunctionNode newFunctionNode = transformFunction(fn, new ReplaceCompileUnits() {
+
+            return transformFunction(fn, new ReplaceCompileUnits() {
                 @Override
                 CompileUnit getReplacement(final CompileUnit original) {
                     return map.get(original);
@@ -340,8 +342,6 @@ abstract class CompilationPhase {
                     return node.ensureUniqueLabels(lc);
                 }
             });
-
-            return newFunctionNode;
         }
 
         @Override
@@ -370,10 +370,10 @@ abstract class CompilationPhase {
                 @Override
                 CompileUnit getReplacement(final CompileUnit oldUnit) {
                     final CompileUnit existing = unitMap.get(oldUnit);
-                    if (existing != null) {
-                        return existing;
-                    }
-                    return createCompileUnit(oldUnit, unitSet, unitMap, compiler, phases);
+                    return Objects.requireNonNullElseGet(
+                        existing,
+                        () -> createCompileUnit(oldUnit, unitSet, unitMap, compiler, phases)
+                    );
                 }
 
                 @Override

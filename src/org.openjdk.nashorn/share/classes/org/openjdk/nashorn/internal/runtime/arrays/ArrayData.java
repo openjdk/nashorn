@@ -262,7 +262,7 @@ public abstract class ArrayData {
      * @return size given, always &gt;= size
      */
     protected static int alignUp(final int size) {
-        return size + CHUNK_SIZE - 1 & ~(CHUNK_SIZE - 1);
+        return size + CHUNK_SIZE - 1 & -CHUNK_SIZE;
     }
 
     /**

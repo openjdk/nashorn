@@ -278,12 +278,7 @@ final class FoldConstants extends SimpleNodeVisitor implements Loggable {
                 return result;
             }
 
-            result = reduceOneLiteral();
-            if (result != null) {
-                return result;
-            }
-
-            return null;
+            return reduceOneLiteral();
         }
 
         @SuppressWarnings("static-method")

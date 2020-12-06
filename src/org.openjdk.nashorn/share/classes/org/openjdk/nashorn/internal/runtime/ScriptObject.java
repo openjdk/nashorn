@@ -265,7 +265,7 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
     }
 
     private static int alignUp(final int size, final int alignment) {
-        return size + alignment - 1 & ~(alignment - 1);
+        return size + alignment - 1 & -alignment;
     }
 
     /**
