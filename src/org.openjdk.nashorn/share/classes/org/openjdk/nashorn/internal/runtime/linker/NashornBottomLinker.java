@@ -45,7 +45,6 @@ import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.GuardingTypeConverterFactory;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
-import jdk.dynalink.linker.support.Guards;
 import jdk.dynalink.linker.support.Lookup;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.runtime.ECMAException;

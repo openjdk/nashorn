@@ -43,7 +43,6 @@ import java.util.Map;
 import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.AccessNode;
-import org.openjdk.nashorn.internal.ir.BaseNode;
 import org.openjdk.nashorn.internal.ir.BinaryNode;
 import org.openjdk.nashorn.internal.ir.Block;
 import org.openjdk.nashorn.internal.ir.BreakNode;

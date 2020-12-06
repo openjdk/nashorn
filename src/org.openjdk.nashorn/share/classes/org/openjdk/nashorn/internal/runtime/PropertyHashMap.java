@@ -25,7 +25,6 @@
 
 package org.openjdk.nashorn.internal.runtime;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
