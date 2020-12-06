@@ -473,12 +473,8 @@ public final class Options {
             if (parg.template.isHelp()) {
                 // check if someone wants help on an explicit arg
                 if (!argList.isEmpty()) {
-                    try {
-                        final OptionTemplate t = new ParsedArg(argList.get(0)).template;
-                        throw new IllegalOptionException(t);
-                    } catch (final IllegalArgumentException e) {
-                        throw e;
-                    }
+                    final OptionTemplate t = new ParsedArg(argList.get(0)).template;
+                    throw new IllegalOptionException(t);
                 }
                 throw new IllegalArgumentException(); // show help for
                 // everything

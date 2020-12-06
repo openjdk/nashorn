@@ -94,28 +94,24 @@ public class LoggingOption extends KeyValueOption {
      * @throws IllegalArgumentException if level or names cannot be parsed
      */
     private void initialize(final Map<String, String> logMap) throws IllegalArgumentException {
-        try {
-            for (final Entry<String, String> entry : logMap.entrySet()) {
-                Level level;
-                final String name        = lastPart(entry.getKey());
-                final String levelString = entry.getValue().toUpperCase(Locale.ENGLISH);
-                final boolean isQuiet;
+        for (final Entry<String, String> entry : logMap.entrySet()) {
+            Level level;
+            final String name        = lastPart(entry.getKey());
+            final String levelString = entry.getValue().toUpperCase(Locale.ENGLISH);
+            final boolean isQuiet;
 
-                if ("".equals(levelString)) {
-                    level = Level.INFO;
-                    isQuiet = false;
-                } else if ("QUIET".equals(levelString)) {
-                    level = Level.INFO;
-                    isQuiet = true;
-                } else {
-                    level = Level.parse(levelString);
-                    isQuiet = false;
-                }
-
-                loggers.put(name, new LoggerInfo(level, isQuiet));
+            if ("".equals(levelString)) {
+                level = Level.INFO;
+                isQuiet = false;
+            } else if ("QUIET".equals(levelString)) {
+                level = Level.INFO;
+                isQuiet = true;
+            } else {
+                level = Level.parse(levelString);
+                isQuiet = false;
             }
-        } catch (final IllegalArgumentException | SecurityException e) {
-            throw e;
+
+            loggers.put(name, new LoggerInfo(level, isQuiet));
         }
     }
 
