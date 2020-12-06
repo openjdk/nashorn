@@ -679,7 +679,7 @@ public class ClassEmitter {
      * separating these from the underlying bytecode emitter. Flags are provided
      * for method handles, protection levels, static/virtual fields/methods.
      */
-    static enum Flag {
+    enum Flag {
         /** method handle with static access */
         HANDLE_STATIC(H_INVOKESTATIC),
         /** method handle with new invoke special access */
@@ -702,7 +702,7 @@ public class ClassEmitter {
 
         private final int value;
 
-        private Flag(final int value) {
+        Flag(final int value) {
             this.value = value;
         }
 

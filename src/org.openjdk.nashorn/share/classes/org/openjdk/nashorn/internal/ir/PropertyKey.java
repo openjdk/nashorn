@@ -35,5 +35,5 @@ public interface PropertyKey {
      *
      * @return the property name
      */
-    public abstract String getPropertyName();
+    public String getPropertyName();
 }

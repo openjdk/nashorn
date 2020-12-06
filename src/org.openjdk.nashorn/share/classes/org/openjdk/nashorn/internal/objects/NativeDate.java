@@ -81,16 +81,16 @@ public final class NativeDate extends ScriptObject {
     private static final double msPerHour = 3_600_000;
     private static final double msPerDay = 86_400_000;
 
-    private static int[][] firstDayInMonth = {
+    private static final int[][] firstDayInMonth = {
             {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334}, // normal year
             {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335}  // leap year
     };
 
-    private static String[] weekDays = {
+    private static final String[] weekDays = {
             "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
-    private static String[] months = {
+    private static final String[] months = {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
@@ -1302,7 +1302,7 @@ public final class NativeDate extends ScriptObject {
             length = 4;
         }
         final double time = local ? nd.getLocalTime() : nd.getTime();
-        final double d[] = convertArgs(args, time, fieldId, start, length);
+        final double[] d = convertArgs(args, time, fieldId, start, length);
 
         if (! nd.isValidDate()) {
             return;

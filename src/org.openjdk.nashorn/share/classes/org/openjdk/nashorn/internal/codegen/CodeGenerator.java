@@ -530,7 +530,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
 
         final int internalDepth = FindScopeDepths.findInternalDepth(lc, fn, startingBlock, symbol);
         final int scopesToStart = FindScopeDepths.findScopesToStart(lc, fn, startingBlock);
-        int depth = 0;
+        final int depth;
         if (internalDepth == -1) {
             depth = scopesToStart + externalDepth;
         } else {

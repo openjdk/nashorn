@@ -137,7 +137,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
     private final Element list;
 
     /** Hash map bins. */
-    private Element[] bins;
+    private final Element[] bins;
 
     /** Queue for adding elements to large maps with delayed hashing. */
     private ElementQueue queue;

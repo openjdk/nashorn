@@ -332,7 +332,7 @@ public final class Compiler implements Loggable {
      * See {@link CompilerConstants} for special names used for structures
      * during a compile.
      */
-    private static String[] RESERVED_NAMES = {
+    private static final String[] RESERVED_NAMES = {
         SCOPE.symbolName(),
         THIS.symbolName(),
         RETURN.symbolName(),

@@ -2544,7 +2544,7 @@ public class Parser extends AbstractParser implements Loggable {
         }
 
         final ParserContextLabelNode labelNode = new ParserContextLabelNode(ident.getName());
-        Block body = null;
+        final Block body;
         try {
             lc.push(labelNode);
             body = getStatement(true);
