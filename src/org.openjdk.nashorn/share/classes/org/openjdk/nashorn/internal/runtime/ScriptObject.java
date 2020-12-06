@@ -2724,31 +2724,31 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
             return;
         }
 
-        if (newLength < arrayLength) {
-           long actualLength = newLength;
+        // newLength < arrayLength
 
-           // Check for numeric keys in property map and delete them or adjust length, depending on whether
-           // they're defined as configurable. See ES5 #15.4.5.2
-           if (getMap().containsArrayKeys()) {
+       long actualLength = newLength;
 
-               for (long l = arrayLength - 1; l >= newLength; l--) {
-                   final FindProperty find = findProperty(JSType.toString(l), false);
+       // Check for numeric keys in property map and delete them or adjust length, depending on whether
+       // they're defined as configurable. See ES5 #15.4.5.2
+       if (getMap().containsArrayKeys()) {
 
-                   if (find != null) {
+           for (long l = arrayLength - 1; l >= newLength; l--) {
+               final FindProperty find = findProperty(JSType.toString(l), false);
 
-                       if (find.getProperty().isConfigurable()) {
-                           deleteOwnProperty(find.getProperty());
-                       } else {
-                           actualLength = l + 1;
-                           break;
-                       }
+               if (find != null) {
+
+                   if (find.getProperty().isConfigurable()) {
+                       deleteOwnProperty(find.getProperty());
+                   } else {
+                       actualLength = l + 1;
+                       break;
                    }
                }
            }
-
-           setArray(data.shrink(actualLength));
-           data.setLength(actualLength);
        }
+
+       setArray(data.shrink(actualLength));
+       data.setLength(actualLength);
     }
 
     private int getInt(final int index, final Object key, final int programPoint) {
