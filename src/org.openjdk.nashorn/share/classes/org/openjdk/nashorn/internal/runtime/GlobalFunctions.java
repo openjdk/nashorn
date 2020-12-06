@@ -311,7 +311,7 @@ loop:
         }
 
         try {
-            final double result = Double.valueOf(str.substring(start, end));
+            final double result = Double.parseDouble(str.substring(start, end));
             return negative ? -result : result;
         } catch (final NumberFormatException e) {
             return Double.NaN;

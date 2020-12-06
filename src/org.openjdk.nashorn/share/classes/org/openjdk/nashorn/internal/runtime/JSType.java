@@ -811,9 +811,9 @@ public enum JSType {
      */
     public static Number toNarrowestNumber(final long l) {
         if (isRepresentableAsInt(l)) {
-            return Integer.valueOf((int) l);
+            return (int) l;
         } else {
-            return Double.valueOf(l);
+            return (double) l;
         }
     }
 
