@@ -3221,18 +3221,16 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         method._catch(recovery);
         method.store(vmException, EXCEPTION_TYPE);
 
-        final int catchBlockCount = catchBlocks.size();
         final Label afterCatch = new Label("after_catch");
-        for (int i = 0; i < catchBlockCount; i++) {
+        for (Block catchBlock : catchBlocks) {
             assert method.isReachable();
-            final Block catchBlock = catchBlocks.get(i);
 
             // Because of the peculiarities of the flow control, we need to use an explicit push/enterBlock/leaveBlock
             // here.
             lc.push(catchBlock);
             enterBlock(catchBlock);
 
-            final CatchNode  catchNode          = (CatchNode)catchBlocks.get(i).getStatements().get(0);
+            final CatchNode  catchNode          = (CatchNode)catchBlock.getStatements().get(0);
             final IdentNode  exception          = catchNode.getExceptionIdentifier();
             final Expression exceptionCondition = catchNode.getExceptionCondition();
             final Block      catchBody          = catchNode.getBody();
@@ -3277,8 +3275,8 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             catchBody.accept(this);
             leaveBlock(catchBlock);
             lc.pop(catchBlock);
-            if(nextCatch != null) {
-                if(method.isReachable()) {
+            if (nextCatch != null) {
+                if (method.isReachable()) {
                     method._goto(afterCatch);
                 }
                 method.breakLabel(nextCatch, lc.getUsedSlotCount());
