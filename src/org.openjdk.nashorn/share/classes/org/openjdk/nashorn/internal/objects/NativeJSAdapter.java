@@ -566,15 +566,14 @@ public final class NativeJSAdapter extends ScriptObject {
              }
         }
 
-        switch (hook) {
-        case __call__:
+        if (__call__.equals(hook)) {
             throw typeError("no.such.function", NashornCallSiteDescriptor.getOperand(desc), ScriptRuntime.safeToString(this));
-        default:
-            final MethodHandle methodHandle = hook.equals(__put__) ?
-            MH.asType(Lookup.EMPTY_SETTER, type) :
-            Lookup.emptyGetter(type.returnType());
-            return new GuardedInvocation(methodHandle, testJSAdapter(adaptee, null, null, null), adaptee.getProtoSwitchPoints(hook, null), null);
         }
+
+        final MethodHandle methodHandle = hook.equals(__put__) ?
+        MH.asType(Lookup.EMPTY_SETTER, type) :
+        Lookup.emptyGetter(type.returnType());
+        return new GuardedInvocation(methodHandle, testJSAdapter(adaptee, null, null, null), adaptee.getProtoSwitchPoints(hook, null), null);
     }
 
     private static MethodHandle testJSAdapter(final Object adaptee, final MethodHandle getter, final Object where, final ScriptFunction func) {
