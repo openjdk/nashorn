@@ -773,13 +773,11 @@ public final class Source implements Loggable {
         final char[]        arr = new char[BUF_SIZE];
         final StringBuilder sb  = new StringBuilder();
 
-        try {
+        try (reader) {
             int numChars;
             while ((numChars = reader.read(arr, 0, arr.length)) > 0) {
                 sb.append(arr, 0, numChars);
             }
-        } finally {
-            reader.close();
         }
 
         return sb.toString().toCharArray();
@@ -952,7 +950,7 @@ public final class Source implements Loggable {
 
     static byte[] readBytes(final InputStream is) throws IOException {
         final byte[] arr = new byte[BUF_SIZE];
-        try {
+        try (is) {
             try (ByteArrayOutputStream buf = new ByteArrayOutputStream()) {
                 int numBytes;
                 while ((numBytes = is.read(arr, 0, arr.length)) > 0) {
@@ -960,8 +958,6 @@ public final class Source implements Loggable {
                 }
                 return buf.toByteArray();
             }
-        } finally {
-            is.close();
         }
     }
 
