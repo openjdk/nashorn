@@ -103,7 +103,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Builtin Replacement'";
         }
-    };
+    }
 
     /**
      * Phase used to transform Function.prototype.apply.
@@ -137,7 +137,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Code Splitting'";
         }
-    };
+    }
 
     /**
      * Splitter Split the AST into several compile units based on a heuristic size calculation.
@@ -155,7 +155,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Program Point Calculation'";
         }
-    };
+    }
 
     /**
      * Phase used only when doing optimistic code generation. It assigns all potentially
@@ -183,7 +183,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Cache ASTs'";
         }
-    };
+    }
 
     static final CompilationPhase CACHE_AST_PHASE = new CacheAstPhase();
 
@@ -197,7 +197,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Symbol Assignment'";
         }
-    };
+    }
 
     static final CompilationPhase SYMBOL_ASSIGNMENT_PHASE = new SymbolAssignmentPhase();
 
@@ -230,7 +230,7 @@ abstract class CompilationPhase {
                         // basically only means their parameters. It'd be enough to mistakenly declare to be a local a
                         // symbol in the outer function named the same as one of the parameters, though.
                         return false;
-                    };
+                    }
                     @Override
                     public boolean enterBlock(final Block block) {
                         for (final Symbol symbol: block.getSymbols()) {
@@ -239,7 +239,7 @@ abstract class CompilationPhase {
                             }
                         }
                         return true;
-                    };
+                    }
                 });
             }
             return fn;
@@ -249,7 +249,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Local Symbols Declaration'";
         }
-    };
+    }
 
     static final CompilationPhase DECLARE_LOCAL_SYMBOLS_PHASE = new DeclareLocalSymbolsPhase();
 
@@ -296,7 +296,7 @@ abstract class CompilationPhase {
         public String toString() {
             return "'Local Variable Type Calculation'";
         }
-    };
+    }
 
     static final CompilationPhase LOCAL_VARIABLE_TYPE_CALCULATION_PHASE = new LocalVariableTypeCalculationPhase();
 
@@ -381,7 +381,7 @@ abstract class CompilationPhase {
                     return super.leaveFunctionNode(
                             // restore flags for deserialized nested function nodes
                             compiler.getScriptFunctionData(fn2.getId()).restoreFlags(lc, fn2));
-                };
+                }
             });
             compiler.replaceCompileUnits(unitSet);
             return newFn;

@@ -262,7 +262,7 @@ public class JSONParser {
 
         if (oldProperty != null) {
             values.set(oldProperty.getSlot(), value);
-            newMap = propertyMap.replaceProperty(oldProperty, new SpillProperty(id, flags, oldProperty.getSlot(), type));;
+            newMap = propertyMap.replaceProperty(oldProperty, new SpillProperty(id, flags, oldProperty.getSlot(), type));
         } else {
             values.add(value);
             newMap = propertyMap.addProperty(new SpillProperty(id, flags, propertyMap.size(), type));
