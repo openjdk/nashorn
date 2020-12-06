@@ -758,15 +758,7 @@ final class CompiledFunction {
                 break;
             }
 
-            final StringBuilder sb = new StringBuilder();
-            sb.append('[').
-                    append("program point: ").
-                    append(entry.getKey()).
-                    append(" -> ").
-                    append(type).
-                    append(']');
-
-            list.add(sb.toString());
+            list.add('[' + "program point: " + entry.getKey() + " -> " + type + ']');
         }
 
         return list;

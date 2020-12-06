@@ -617,7 +617,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
 
             sb.append('[');
 
@@ -816,7 +816,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
             if (bins != null) {
                 final int binIndex = binIndex(bins, key);
                 final Element bin = bins[binIndex];
-                if (findElement(bin, key) != null) { ;
+                if (findElement(bin, key) != null) {
                     if (size >= LIST_THRESHOLD) {
                         ensureOwnBins();
                         bins[binIndex] = removeFromList(bin, key);

@@ -1278,7 +1278,7 @@ public class Parser extends AbstractParser implements Loggable {
                 final PropertyNode classElement = methodDefinition(isStatic, classHeritage != null, generator);
                 if (classElement.isComputed()) {
                     classElements.add(classElement);
-                } else if (!classElement.isStatic() && classElement.getKeyName().equals(CONSTRUCTOR_NAME)) {
+                } else if (!classElement.isStatic() && CONSTRUCTOR_NAME.equals(classElement.getKeyName())) {
                     if (constructor == null) {
                         constructor = classElement;
                     } else {

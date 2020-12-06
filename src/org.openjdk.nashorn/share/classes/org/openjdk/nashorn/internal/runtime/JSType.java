@@ -475,7 +475,7 @@ public enum JSType {
             return toPrimitive((JSObject)obj, hint);
         } else if (obj instanceof StaticClass) {
             final String name = ((StaticClass)obj).getRepresentedClass().getName();
-            return new StringBuilder(12 + name.length()).append("[JavaClass ").append(name).append(']').toString();
+            return "[JavaClass " + name + ']';
         }
         return obj.toString();
     }

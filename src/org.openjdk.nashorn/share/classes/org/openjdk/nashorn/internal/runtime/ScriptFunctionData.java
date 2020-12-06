@@ -222,16 +222,8 @@ public abstract class ScriptFunctionData implements Serializable {
      * @return verbose description
      */
     public String toStringVerbose() {
-        final StringBuilder sb = new StringBuilder();
-
-        sb.append("name='").
-                append(name.isEmpty() ? "<anonymous>" : name).
-                append("' ").
-                append(code.size()).
-                append(" invokers=").
-                append(code);
-
-        return sb.toString();
+        return "name='" + (name.isEmpty() ? "<anonymous>" : name) + "' " + code.size() + " invokers="
+           + code;
     }
 
     /**

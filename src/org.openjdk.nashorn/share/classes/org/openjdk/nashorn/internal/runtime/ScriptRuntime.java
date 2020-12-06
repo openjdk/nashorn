@@ -240,12 +240,7 @@ public final class ScriptRuntime {
             break;
         }
 
-        final StringBuilder sb = new StringBuilder();
-        sb.append("[object ");
-        sb.append(className);
-        sb.append(']');
-
-        return sb.toString();
+        return "[object " + className + ']';
     }
 
     /**

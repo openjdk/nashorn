@@ -175,11 +175,7 @@ public final class NativeJSON extends ScriptObject {
             if (indent < 1) {
                 gap = "";
             } else {
-                final StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < indent; i++) {
-                    sb.append(' ');
-                }
-                gap = sb.toString();
+                gap = " ".repeat(indent);
             }
         } else if (JSType.isString(modSpace)) {
             final String str = modSpace.toString();

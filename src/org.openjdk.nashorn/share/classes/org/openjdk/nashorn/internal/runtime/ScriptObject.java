@@ -2081,7 +2081,7 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
         if (returnClass.isPrimitive()) {
             //turn e.g. get with a double into getDouble
             final String returnTypeName = returnClass.getName();
-            name = "get" + Character.toUpperCase(returnTypeName.charAt(0)) + returnTypeName.substring(1, returnTypeName.length());
+            name = "get" + Character.toUpperCase(returnTypeName.charAt(0)) + returnTypeName.substring(1);
         } else {
             name = "get";
         }

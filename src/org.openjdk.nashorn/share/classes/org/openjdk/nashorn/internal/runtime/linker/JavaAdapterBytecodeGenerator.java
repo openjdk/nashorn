@@ -326,7 +326,7 @@ final class JavaAdapterBytecodeGenerator {
         while(it.hasNext()) {
             buf.append("$$").append(it.next().getSimpleName());
         }
-        return buf.toString().substring(0, Math.min(MAX_GENERATED_TYPE_NAME_LENGTH, buf.length()));
+        return buf.substring(0, Math.min(MAX_GENERATED_TYPE_NAME_LENGTH, buf.length()));
     }
 
     /**

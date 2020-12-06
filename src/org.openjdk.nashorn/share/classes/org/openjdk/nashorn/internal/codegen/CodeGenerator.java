@@ -2519,7 +2519,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
                 // Properties with computed names or getter/setters need special handling.
                 specialProperties.add(propertyNode);
             } else if (propertyNode.getKey() instanceof IdentNode &&
-                       key.equals(ScriptObject.PROTO_PROPERTY_NAME)) {
+                       ScriptObject.PROTO_PROPERTY_NAME.equals(key)) {
                 // ES6 draft compliant __proto__ inside object literal
                 // Identifier key and name is __proto__
                 protoNode = value;

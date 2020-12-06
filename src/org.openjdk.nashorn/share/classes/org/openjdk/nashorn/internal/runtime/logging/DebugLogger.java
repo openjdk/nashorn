@@ -513,12 +513,7 @@ public final class DebugLogger {
      */
     public void log(final Level level, final String str) {
         if (isEnabled && !isQuiet && logger.isLoggable(level)) {
-            final StringBuilder sb = new StringBuilder();
-            for (int i = 0 ; i < indent ; i++) {
-                sb.append(' ');
-            }
-            sb.append(str);
-            logger.log(level, sb.toString());
+            logger.log(level, " ".repeat(Math.max(0, indent)) + str);
         }
     }
 

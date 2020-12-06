@@ -480,9 +480,9 @@ public final class Label implements Serializable {
         @Override
         public String toString() {
             return "stack=" + Arrays.toString(Arrays.copyOf(data, sp))
-                 + ", symbolBoundaries=" + String.valueOf(symbolBoundary)
+                 + ", symbolBoundaries=" + symbolBoundary
                  + ", firstTemp=" + firstTemp
-                 + ", localTypes=" + String.valueOf(localVariableTypes)
+                 + ", localTypes=" + localVariableTypes
                  ;
         }
     }

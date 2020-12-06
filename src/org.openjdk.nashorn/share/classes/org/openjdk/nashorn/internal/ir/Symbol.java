@@ -158,7 +158,7 @@ public final class Symbol implements Comparable<Symbol>, Cloneable, Serializable
 
     private static String align(final String string, final int max) {
         final StringBuilder sb = new StringBuilder();
-        sb.append(string.substring(0, Math.min(string.length(), max)));
+        sb.append(string, 0, Math.min(string.length(), max));
 
         while (sb.length() < max) {
             sb.append(' ');

@@ -531,20 +531,11 @@ abstract class CompilationPhase {
             }
 
             if (log.isEnabled()) {
-                final StringBuilder sb = new StringBuilder();
-
-                sb.append("Installed class '").
-                    append(rootClass.getSimpleName()).
-                    append('\'').
-                    append(" [").
-                    append(rootClass.getName()).
-                    append(", size=").
-                    append(length).
-                    append(" bytes, ").
-                    append(compiler.getCompileUnits().size()).
-                    append(" compile unit(s)]");
-
-                log.fine(sb.toString());
+                log.fine(
+                    "Installed class '" + rootClass.getSimpleName() + '\'' + " [" + rootClass
+                        .getName() + ", size=" + length + " bytes, " + compiler.getCompileUnits()
+                        .size() + " compile unit(s)]"
+                );
             }
 
             return fn.setRootClass(null, rootClass);

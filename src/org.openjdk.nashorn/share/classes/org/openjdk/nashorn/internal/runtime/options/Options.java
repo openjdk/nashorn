@@ -331,7 +331,7 @@ public final class Options {
     private String key(final String shortKey) {
         String key = shortKey;
         while (key.startsWith("-")) {
-            key = key.substring(1, key.length());
+            key = key.substring(1);
         }
         key = key.replace("-", ".");
         final String keyPrefix = this.resource + ".option.";
