@@ -37,7 +37,7 @@ import java.util.StringTokenizer;
 public final class QuotedStringTokenizer {
     private final LinkedList<String> tokens;
 
-    private final char quotes[];
+    private final char[] quotes;
 
     /**
      * Constructor

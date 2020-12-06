@@ -55,7 +55,7 @@ public class SpillProperty extends AccessorProperty {
         private final int slot;
         private final MethodHandle ensureSpillSize;
 
-        private static Accessors ACCESSOR_CACHE[] = new Accessors[512];
+        private static Accessors[] ACCESSOR_CACHE = new Accessors[512];
 
         //private static final Map<Integer, Reference<Accessors>> ACCESSOR_CACHE = Collections.synchronizedMap(new WeakHashMap<Integer, Reference<Accessors>>());
 
@@ -71,7 +71,7 @@ public class SpillProperty extends AccessorProperty {
                 do {
                     len *= 2;
                 } while (slot >= len);
-                final Accessors newCache[] = new Accessors[len];
+                final Accessors[] newCache = new Accessors[len];
                 System.arraycopy(ACCESSOR_CACHE, 0, newCache, 0, ACCESSOR_CACHE.length);
                 ACCESSOR_CACHE = newCache;
             }

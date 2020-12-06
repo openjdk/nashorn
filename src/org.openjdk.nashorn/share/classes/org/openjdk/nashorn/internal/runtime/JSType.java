@@ -1700,7 +1700,7 @@ public enum JSType {
         return ACCESSOR_TYPES.size();
     }
 
-    private static double parseRadix(final char chars[], final int start, final int length, final int radix) {
+    private static double parseRadix(final char[] chars, final int start, final int length, final int radix) {
         int pos = 0;
 
         for (int i = start; i < length ; i++) {
