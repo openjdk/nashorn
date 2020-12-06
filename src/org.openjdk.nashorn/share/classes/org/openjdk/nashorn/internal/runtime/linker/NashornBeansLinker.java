@@ -86,7 +86,7 @@ public class NashornBeansLinker implements GuardingDynamicLinker {
     }
 
     // cache of @FunctionalInterface method of implementor classes
-    private static final ClassValue<String> FUNCTIONAL_IFACE_METHOD_NAME = new ClassValue<String>() {
+    private static final ClassValue<String> FUNCTIONAL_IFACE_METHOD_NAME = new ClassValue<>() {
         @Override
         protected String computeValue(final Class<?> type) {
             return findFunctionalInterfaceMethodName(type);

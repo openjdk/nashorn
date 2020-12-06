@@ -37,7 +37,6 @@ import org.openjdk.nashorn.internal.WeakValueCache;
 import org.openjdk.nashorn.internal.objects.annotations.Attribute;
 import org.openjdk.nashorn.internal.objects.annotations.Constructor;
 import org.openjdk.nashorn.internal.objects.annotations.Function;
-import org.openjdk.nashorn.internal.objects.annotations.Getter;
 import org.openjdk.nashorn.internal.objects.annotations.Property;
 import org.openjdk.nashorn.internal.objects.annotations.ScriptClass;
 import org.openjdk.nashorn.internal.objects.annotations.Where;
@@ -66,7 +65,7 @@ public final class NativeSymbol extends ScriptObject {
     private static PropertyMap $nasgenmap$;
 
     /** See ES6 19.4.2.1 */
-    private static WeakValueCache<String, Symbol> globalSymbolRegistry = new WeakValueCache<>();
+    private static final WeakValueCache<String, Symbol> globalSymbolRegistry = new WeakValueCache<>();
 
     /**
      * ECMA 6 19.4.2.4 Symbol.iterator

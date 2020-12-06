@@ -150,8 +150,7 @@ public final class ScriptingFunctions {
 
         if (arg0 instanceof NativeArray) {
             final String[] array = (String[])JSType.toJavaArray(arg0, String.class);
-            tokens = new ArrayList<>();
-            tokens.addAll(Arrays.asList(array));
+            tokens = new ArrayList<>(Arrays.asList(array));
         } else {
             script = JSType.toString(arg0);
         }

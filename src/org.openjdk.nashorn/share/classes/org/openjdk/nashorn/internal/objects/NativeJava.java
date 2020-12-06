@@ -476,9 +476,7 @@ public final class NativeJava {
             return props;
         } else if (object instanceof JSObject) {
             final JSObject jsObj = ((JSObject)object);
-            final ArrayList<String> props = new ArrayList<>();
-            props.addAll(jsObj.keySet());
-            return props;
+            return new ArrayList<>(jsObj.keySet());
         } else if (object != null && object != UNDEFINED) {
             // instance properties of the given object
             final Class<?> clazz = object.getClass();
@@ -493,7 +491,7 @@ public final class NativeJava {
         }
 
         // don't know about that object
-        return Collections.<String>emptyList();
+        return Collections.emptyList();
     }
 
     private static int[] copyArray(final byte[] in) {

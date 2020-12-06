@@ -333,7 +333,7 @@ public final class ScriptRuntime {
             final Object array  = obj;
             final int    length = Array.getLength(obj);
 
-            return new Iterator<Object>() {
+            return new Iterator<>() {
                 private int index = 0;
 
                 @Override
@@ -412,8 +412,8 @@ public final class ScriptRuntime {
             }
 
         if (obj instanceof Map) {
-            return new Iterator<Object>() {
-                private Iterator<?> iter = ((Map<?,?>)obj).entrySet().iterator();
+            return new Iterator<>() {
+                private final Iterator<?> iter = ((Map<?,?>)obj).entrySet().iterator();
 
                 @Override
                 public boolean hasNext() {
@@ -443,7 +443,7 @@ public final class ScriptRuntime {
         final MethodHandle doneInvoker = AbstractIterator.getDoneInvoker(global);
         final MethodHandle valueInvoker = AbstractIterator.getValueInvoker(global);
 
-        return new Iterator<Object>() {
+        return new Iterator<>() {
 
             private Object nextResult = nextResult();
 

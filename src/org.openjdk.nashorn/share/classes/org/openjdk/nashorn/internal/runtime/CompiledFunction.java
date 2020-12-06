@@ -37,7 +37,6 @@ import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -737,8 +736,7 @@ final class CompiledFunction {
 
         final List<String> list = new ArrayList<>();
 
-        for (final Iterator<Map.Entry<Integer, Type>> iter = ipp.entrySet().iterator(); iter.hasNext(); ) {
-            final Map.Entry<Integer, Type> entry = iter.next();
+        for (final Map.Entry<Integer, Type> entry : ipp.entrySet()) {
             final char bct = entry.getValue().getBytecodeStackType();
             final String type;
 

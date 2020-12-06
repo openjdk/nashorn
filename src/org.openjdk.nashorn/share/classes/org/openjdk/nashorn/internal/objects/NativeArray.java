@@ -856,7 +856,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     @SpecializedFunction(name="pop", linkLogic=PopLinkLogic.class)
     public static int popInt(final Object self) {
         //must be non empty IntArrayData
-        return getContinuousNonEmptyArrayDataCCE(self, IntElements.class).fastPopInt();
+        return getContinuousNonEmptyArrayDataCCE(self).fastPopInt();
     }
 
     /**
@@ -871,7 +871,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     @SpecializedFunction(name="pop", linkLogic=PopLinkLogic.class)
     public static double popDouble(final Object self) {
         //must be non empty int long or double array data
-        return getContinuousNonEmptyArrayDataCCE(self, NumericElements.class).fastPopDouble();
+        return getContinuousNonEmptyArrayDataCCE(self).fastPopDouble();
     }
 
     /**
@@ -1497,7 +1497,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static boolean applyEvery(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<Boolean>(Global.toObject(self), callbackfn, thisArg, true) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, true) {
             private final MethodHandle everyInvoker = getEVERY_CALLBACK_INVOKER();
 
             @Override
@@ -1517,7 +1517,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, arity = 1)
     public static boolean some(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<Boolean>(Global.toObject(self), callbackfn, thisArg, false) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, false) {
             private final MethodHandle someInvoker = getSOME_CALLBACK_INVOKER();
 
             @Override
@@ -1587,7 +1587,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, arity = 1)
     public static NativeArray filter(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<NativeArray>(Global.toObject(self), callbackfn, thisArg, new NativeArray()) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, new NativeArray()) {
             private long to = 0;
             private final MethodHandle filterInvoker = getFILTER_CALLBACK_INVOKER();
 
@@ -1620,7 +1620,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         //if initial value is ScriptRuntime.UNDEFINED - step forward once.
-        return new IteratorAction<Object>(Global.toObject(self), callbackfn, ScriptRuntime.UNDEFINED, initialValue, iter) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, ScriptRuntime.UNDEFINED, initialValue, iter) {
             private final MethodHandle reduceInvoker = getREDUCE_CALLBACK_INVOKER();
 
             @Override
@@ -1856,10 +1856,9 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     //TODO - fold these into the Link logics, but I'll do that as a later step, as I want to do a checkin
     //where everything works first
 
-    private static <T> ContinuousArrayData getContinuousNonEmptyArrayDataCCE(final Object self, final Class<T> clazz) {
+    private static ContinuousArrayData getContinuousNonEmptyArrayDataCCE(final Object self) {
         try {
-            @SuppressWarnings("unchecked")
-            final ContinuousArrayData data = (ContinuousArrayData)(T)((NativeArray)self).getArray();
+            final ContinuousArrayData data = (ContinuousArrayData) ((NativeArray)self).getArray();
             if (data.length() != 0L) {
                 return data; //if length is 0 we cannot pop and have to relink, because then we'd have to return an undefined, which is a wider type than e.g. int
            }

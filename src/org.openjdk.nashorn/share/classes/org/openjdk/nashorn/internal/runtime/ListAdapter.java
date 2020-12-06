@@ -358,7 +358,7 @@ public class ListAdapter extends AbstractList<Object> implements RandomAccess, D
     @Override
     public final Iterator<Object> descendingIterator() {
         final ListIterator<Object> it = listIterator(size());
-        return new Iterator<Object>() {
+        return new Iterator<>() {
             @Override
             public boolean hasNext() {
                 return it.hasPrevious();

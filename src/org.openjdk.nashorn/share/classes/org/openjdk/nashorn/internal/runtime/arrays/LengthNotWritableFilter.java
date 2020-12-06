@@ -44,7 +44,7 @@ final class LengthNotWritableFilter extends ArrayFilter {
      * @param underlying array
      */
     LengthNotWritableFilter(final ArrayData underlying) {
-        this(underlying, new TreeMap<Long, Object>());
+        this(underlying, new TreeMap<>());
     }
 
     private LengthNotWritableFilter(final ArrayData underlying, final SortedMap<Long, Object> extraElements) {

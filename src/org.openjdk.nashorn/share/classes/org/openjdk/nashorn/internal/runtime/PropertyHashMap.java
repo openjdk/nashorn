@@ -522,7 +522,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
     }
 
     @Override
-    public void putAll(final Map<? extends Object, ? extends Property> m) {
+    public void putAll(final Map<?, ? extends Property> m) {
         throw new UnsupportedOperationException("Immutable map.");
     }
 

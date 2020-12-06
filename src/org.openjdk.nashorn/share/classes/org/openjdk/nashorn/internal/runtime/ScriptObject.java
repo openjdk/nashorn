@@ -2491,7 +2491,7 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
                 explicitInstanceOfCheck ? null : ClassCastException.class);
     }
 
-    private abstract static class ScriptObjectIterator <T extends Object> implements Iterator<T> {
+    private abstract static class ScriptObjectIterator <T> implements Iterator<T> {
         protected T[] values;
         protected final ScriptObject object;
         private int index;

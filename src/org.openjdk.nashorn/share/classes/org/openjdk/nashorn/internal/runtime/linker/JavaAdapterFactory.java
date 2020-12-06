@@ -93,7 +93,7 @@ public final class JavaAdapterFactory {
     /**
      * A mapping from an original Class object to AdapterInfo representing the adapter for the class it represents.
      */
-    private static final ClassValue<Map<List<Class<?>>, AdapterInfo>> ADAPTER_INFO_MAPS = new ClassValue<Map<List<Class<?>>, AdapterInfo>>() {
+    private static final ClassValue<Map<List<Class<?>>, AdapterInfo>> ADAPTER_INFO_MAPS = new ClassValue<>() {
         @Override
         protected Map<List<Class<?>>, AdapterInfo> computeValue(final Class<?> type) {
             return new HashMap<>();

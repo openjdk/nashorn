@@ -1217,7 +1217,7 @@ public class ScriptFunction extends ScriptObject {
         // Spread call site descriptor for the delegate createApplyOrCallCall invocation. We drop vararg array and
         // replace it with a list of Object.class.
         final MethodType spreadType = descType.dropParameterTypes(paramCount - 1, paramCount).appendParameterTypes(
-                Collections.<Class<?>>nCopies(varArgCount, Object.class));
+                Collections.nCopies(varArgCount, Object.class));
         final CallSiteDescriptor spreadDesc = desc.changeMethodType(spreadType);
 
         // Delegate back to createApplyOrCallCall with the spread (that is, reverted to non-vararg) request/

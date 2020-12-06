@@ -71,7 +71,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     private static final AccessControlContext GET_LOOKUP_PERMISSION_CONTEXT =
             AccessControlContextFactory.createAccessControlContext(SecureLookupSupplier.GET_LOOKUP_PERMISSION_NAME);
 
-    private static final ClassValue<MethodHandle> ARRAY_CONVERTERS = new ClassValue<MethodHandle>() {
+    private static final ClassValue<MethodHandle> ARRAY_CONVERTERS = new ClassValue<>() {
         @Override
         protected MethodHandle computeValue(final Class<?> type) {
             return createArrayConverter(type);
@@ -345,7 +345,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
 
     @SuppressWarnings("unused")
     private static Object createMirror(final Object obj) {
-        return obj instanceof ScriptObject? ScriptUtils.wrap((ScriptObject)obj) : obj;
+        return obj instanceof ScriptObject? ScriptUtils.wrap(obj) : obj;
     }
 
     @SuppressWarnings("unused")

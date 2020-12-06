@@ -417,7 +417,7 @@ public class Parser extends AbstractParser implements Loggable {
             // Set up the function to append elements.
 
             final IdentNode ident = new IdentNode(functionToken, Token.descPosition(functionToken), PROGRAM.symbolName());
-            final ParserContextFunctionNode function = createParserContextFunctionNode(ident, functionToken, FunctionNode.Kind.NORMAL, functionLine, Collections.<IdentNode>emptyList());
+            final ParserContextFunctionNode function = createParserContextFunctionNode(ident, functionToken, FunctionNode.Kind.NORMAL, functionLine, Collections.emptyList());
             lc.push(function);
 
             final ParserContextBlockNode body = newBlock();
@@ -440,7 +440,7 @@ public class Parser extends AbstractParser implements Loggable {
                     function,
                     functionToken,
                     ident,
-                    Collections.<IdentNode>emptyList(),
+                    Collections.emptyList(),
                     FunctionNode.Kind.NORMAL,
                     functionLine,
                     functionBody);
@@ -833,7 +833,7 @@ public class Parser extends AbstractParser implements Loggable {
                 functionToken,
                 FunctionNode.Kind.SCRIPT,
                 functionLine,
-                Collections.<IdentNode>emptyList());
+                Collections.emptyList());
         lc.push(script);
         final ParserContextBlockNode body = newBlock();
 
@@ -850,7 +850,7 @@ public class Parser extends AbstractParser implements Loggable {
 
         expect(EOF);
 
-        return createFunctionNode(script, functionToken, ident, Collections.<IdentNode>emptyList(), FunctionNode.Kind.SCRIPT, functionLine, programBody);
+        return createFunctionNode(script, functionToken, ident, Collections.emptyList(), FunctionNode.Kind.SCRIPT, functionLine, programBody);
     }
 
     /**
@@ -3234,7 +3234,7 @@ public class Parser extends AbstractParser implements Loggable {
         expect(LPAREN);
         expect(RPAREN);
 
-        final ParserContextFunctionNode functionNode = createParserContextFunctionNode(getNameNode, getSetToken, FunctionNode.Kind.GETTER, functionLine, Collections.<IdentNode>emptyList());
+        final ParserContextFunctionNode functionNode = createParserContextFunctionNode(getNameNode, getSetToken, FunctionNode.Kind.GETTER, functionLine, Collections.emptyList());
         functionNode.setFlag(flags);
         if (computed) {
             functionNode.setFlag(FunctionNode.IS_ANONYMOUS);
@@ -3254,7 +3254,7 @@ public class Parser extends AbstractParser implements Loggable {
                 functionNode,
                 getSetToken,
                 getNameNode,
-                Collections.<IdentNode>emptyList(),
+                Collections.emptyList(),
                 FunctionNode.Kind.GETTER,
                 functionLine,
                 functionBody);
@@ -3317,7 +3317,7 @@ public class Parser extends AbstractParser implements Loggable {
 
     private PropertyFunction propertyMethodFunction(final Expression key, final long methodToken, final int methodLine, final boolean generator, final int flags, final boolean computed) {
         final String methodName = key instanceof PropertyKey ? ((PropertyKey) key).getPropertyName() : getDefaultValidFunctionName(methodLine, false);
-        final IdentNode methodNameNode = createIdentNode(((Node)key).getToken(), finish, methodName);
+        final IdentNode methodNameNode = createIdentNode(key.getToken(), finish, methodName);
 
         final FunctionNode.Kind functionKind = generator ? FunctionNode.Kind.GENERATOR : FunctionNode.Kind.NORMAL;
         final ParserContextFunctionNode functionNode = createParserContextFunctionNode(methodNameNode, methodToken, functionKind, methodLine, null);
@@ -4222,7 +4222,7 @@ public class Parser extends AbstractParser implements Loggable {
             // enforce empty bodies in nested functions that were supposed to be skipped, we do assert it as
             // an invariant in few places in the compiler pipeline, so for consistency's sake we'll throw away
             // nested bodies early if we were supposed to skip 'em.
-            body.setStatements(Collections.<Statement>emptyList());
+            body.setStatements(Collections.emptyList());
         }
 
         if (reparsedFunction != null) {
@@ -4808,7 +4808,7 @@ public class Parser extends AbstractParser implements Loggable {
             // we might have flagged has-eval in the parent function during parsing the parameter list,
             // if the parameter list contains eval; must tag arrow function as has-eval.
             for (final Statement st : parameterBlock.getStatements()) {
-                st.accept(new NodeVisitor<LexicalContext>(new LexicalContext()) {
+                st.accept(new NodeVisitor<>(new LexicalContext()) {
                     @Override
                     public boolean enterCallNode(final CallNode callNode) {
                         if (callNode.getFunction() instanceof IdentNode && ((IdentNode) callNode.getFunction()).getName().equals("eval")) {
@@ -5131,7 +5131,7 @@ public class Parser extends AbstractParser implements Loggable {
                             functionToken,
                             FunctionNode.Kind.MODULE,
                             functionLine,
-                            Collections.<IdentNode>emptyList());
+                            Collections.emptyList());
             lc.push(script);
 
             final ParserContextModuleNode module = new ParserContextModuleNode(moduleName);
@@ -5154,7 +5154,7 @@ public class Parser extends AbstractParser implements Loggable {
             expect(EOF);
 
             script.setModule(module.createModule());
-            return createFunctionNode(script, functionToken, ident, Collections.<IdentNode>emptyList(), FunctionNode.Kind.MODULE, functionLine, programBody);
+            return createFunctionNode(script, functionToken, ident, Collections.emptyList(), FunctionNode.Kind.MODULE, functionLine, programBody);
         } finally {
             isStrictMode = oldStrictMode;
         }

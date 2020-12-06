@@ -698,7 +698,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
             return invalidatedProgramPoints;
         }
         final Map<Integer, Type> loadedProgramPoints = OptimisticTypesPersistence.load(typeInformationFile);
-        return loadedProgramPoints != null ? loadedProgramPoints : new TreeMap<Integer, Type>();
+        return loadedProgramPoints != null ? loadedProgramPoints : new TreeMap<>();
     }
 
     private FunctionInitializer compileTypeSpecialization(final MethodType actualCallSiteType, final ScriptObject runtimeScope, final boolean persist) {
@@ -762,7 +762,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
         final MethodType generalized = changed ? MethodType.methodType(noCalleeThisType.returnType(), paramTypes) : noCalleeThisType;
 
         if (callSiteParamCount < getArity()) {
-            return generalized.appendParameterTypes(Collections.<Class<?>>nCopies(getArity() - callSiteParamCount, Object.class));
+            return generalized.appendParameterTypes(Collections.nCopies(getArity() - callSiteParamCount, Object.class));
         }
         return generalized;
     }

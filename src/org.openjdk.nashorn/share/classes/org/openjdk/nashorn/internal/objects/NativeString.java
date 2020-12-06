@@ -695,7 +695,7 @@ public final class NativeString extends ScriptObject implements OptimisticBuilti
         // We follow ECMAScript 6 spec here (checking for empty string instead of previous index)
         // as the ES5 specification is buggy and causes empty strings to be matched twice.
         while ((result = nativeRegExp.exec(str)) != null) {
-            final String matchStr = JSType.toString(((ScriptObject)result).get(0));
+            final String matchStr = JSType.toString(result.get(0));
             if (matchStr.isEmpty()) {
                 nativeRegExp.setLastIndex(nativeRegExp.getLastIndex() + 1);
             }

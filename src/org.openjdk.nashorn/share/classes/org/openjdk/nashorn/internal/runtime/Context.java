@@ -594,7 +594,7 @@ public final class Context {
      * @param appLoader application class loader
      */
     public Context(final Options options, final ErrorManager errors, final PrintWriter out, final PrintWriter err, final ClassLoader appLoader) {
-        this(options, errors, out, err, appLoader, (ClassFilter)null);
+        this(options, errors, out, err, appLoader, null);
     }
 
     /**

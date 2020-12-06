@@ -517,7 +517,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
     public boolean enterFunctionNode(final FunctionNode functionNode) {
         start(functionNode, false);
 
-        thisProperties.push(new HashSet<String>());
+        thisProperties.push(new HashSet<>());
 
         // Every function has a body, even the ones skipped on reparse (they have an empty one). We're
         // asserting this as even for those, enterBlock() must be invoked to correctly process symbols that

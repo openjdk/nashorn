@@ -862,7 +862,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         final CodeGenerator codegen = this;
 
         final boolean isCurrentDiscard = codegen.lc.isCurrentDiscard(expr);
-        expr.accept(new NodeOperatorVisitor<LexicalContext>(new LexicalContext()) {
+        expr.accept(new NodeOperatorVisitor<>(new LexicalContext()) {
             @Override
             public boolean enterIdentNode(final IdentNode identNode) {
                 loadIdent(identNode, resultBounds);
@@ -1892,7 +1892,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
                         assert !symbol.hasSlot()  : "slot for " + symbol + " should have been removed in Lower already" + function.getName();
 
                         //this tuple will not be put fielded, as it has no value, just a symbol
-                        tuples.add(new MapTuple<Symbol>(symbol.getName(), symbol, null));
+                        tuples.add(new MapTuple<>(symbol.getName(), symbol, null));
                     } else {
                         assert symbol.hasSlot() || symbol.slotCount() == 0 : symbol + " should have a slot only, no scope";
                     }
@@ -1923,7 +1923,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
                         }
                     }
 
-                    tuples.add(new MapTuple<Symbol>(symbol.getName(), symbol, paramType, paramSymbol) {
+                    tuples.add(new MapTuple<>(symbol.getName(), symbol, paramType, paramSymbol) {
                         //this symbol will be put fielded, we can't initialize it as undefined with a known type
                         @Override
                         public Class<?> getValueType() {
@@ -2534,7 +2534,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             //for literals, a value of null means object type, i.e. the value null or getter setter function
             //(I think)
             final Class<?> valueType = (!useDualFields() || isComputedOrAccessor || value.getType().isBoolean()) ? Object.class : value.getType().getTypeClass();
-            tuples.add(new MapTuple<Expression>(key, symbol, Type.typeFor(valueType), value) {
+            tuples.add(new MapTuple<>(key, symbol, Type.typeFor(valueType), value) {
                 @Override
                 public Class<?> getValueType() {
                     return type.getTypeClass();
@@ -2546,7 +2546,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         if (elements.size() > OBJECT_SPILL_THRESHOLD) {
             oc = new SpillObjectCreator(this, tuples);
         } else {
-            oc = new FieldObjectCreator<Expression>(this, tuples) {
+            oc = new FieldObjectCreator<>(this, tuples) {
                 @Override
                 protected void loadValue(final Expression node, final Type type) {
                     // Use generic type in order to avoid conversion between object types
