@@ -142,7 +142,7 @@ public class ClassEmitter {
      * Constructor - only used internally in this class as it breaks
      * abstraction towards ASM or other code generator below.
      *
-     * @param env script environment
+     * @param context script context
      * @param cw  ASM classwriter
      */
     private ClassEmitter(final Context context, final ClassWriter cw) {
@@ -164,7 +164,7 @@ public class ClassEmitter {
     /**
      * Constructor.
      *
-     * @param env             script environment
+     * @param context         script context
      * @param className       name of class to weave
      * @param superClassName  super class name for class
      * @param interfaceNames  names of interfaces implemented by this class, or
@@ -178,7 +178,7 @@ public class ClassEmitter {
     /**
      * Constructor from the compiler.
      *
-     * @param env           Script environment
+     * @param context       Script context
      * @param sourceName    Source name
      * @param unitClassName Compile unit class name.
      * @param strictMode    Should we generate this method in strict mode

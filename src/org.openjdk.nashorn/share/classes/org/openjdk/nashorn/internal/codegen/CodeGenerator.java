@@ -4517,7 +4517,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
         }
 
         private void epilogue() {
-            /**
+            /*
              * Take the original target args from the stack and use them
              * together with the value to be stored to emit the store code
              *

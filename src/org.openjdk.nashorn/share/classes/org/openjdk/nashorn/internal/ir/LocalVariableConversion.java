@@ -116,7 +116,7 @@ public final class LocalVariableConversion {
 
     /**
      * Returns true if the passed conversion is not null, and it {@link #isAnyLive()}.
-     * @parameter conv the conversion being tested for liveness.
+     * @param conv the conversion being tested for liveness.
      * @return true if the conversion is not null and {@link #isAnyLive()}.
      */
     private static boolean isAnyLive(final LocalVariableConversion conv) {
