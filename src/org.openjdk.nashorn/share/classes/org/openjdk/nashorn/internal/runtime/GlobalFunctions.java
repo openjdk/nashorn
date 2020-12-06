@@ -450,20 +450,18 @@ loop:
         final StringBuilder sb = new StringBuilder();
         for (int k = 0; k < length; k++) {
             char ch = str.charAt(k);
-            if (ch != '%') {
-                sb.append(ch);
-            } else {
+            if (ch == '%') {
                 if (k < (length - 5)) {
-                   if (str.charAt(k + 1) == 'u') {
-                       try {
-                           ch = (char) Integer.parseInt(str.substring(k + 2, k + 6), 16);
-                           sb.append(ch);
-                           k += 5;
-                           continue;
-                       } catch (final NumberFormatException e) {
-                           //ignored
-                       }
-                   }
+                    if (str.charAt(k + 1) == 'u') {
+                        try {
+                            ch = (char) Integer.parseInt(str.substring(k + 2, k + 6), 16);
+                            sb.append(ch);
+                            k += 5;
+                            continue;
+                        } catch (final NumberFormatException e) {
+                            //ignored
+                        }
+                    }
                 }
 
                 if (k < (length - 2)) {
@@ -478,8 +476,8 @@ loop:
                 }
 
                 // everything fails
-                sb.append(ch);
             }
+            sb.append(ch);
         }
 
         return sb.toString();
