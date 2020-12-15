@@ -195,7 +195,9 @@ final class FoldConstants extends SimpleNodeVisitor implements Loggable {
         deadCodeRoot.accept(new SimpleNodeVisitor() {
             @Override
             public boolean enterVarNode(final VarNode varNode) {
-                statements.add(varNode.setInit(null));
+                if (!varNode.isBlockScoped()) {
+                    statements.add(varNode.setInit(null));
+                }
                 return false;
             }
 
