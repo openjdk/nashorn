@@ -51,15 +51,19 @@ final class StructureLoader extends NashornLoader {
     StructureLoader(final ClassLoader parent) {
         super(parent);
 
-        // new structures module, it's exports, read edges
-        structuresModule = createModule("org.openjdk.nashorn.structures");
+        if (modular) {
+            // new structures module, it's exports, read edges
+            structuresModule = createModule("org.openjdk.nashorn.structures");
 
-        // specific exports from nashorn to the structures module
-        NASHORN_MODULE.addExports(SCRIPTS_PKG, structuresModule);
-        NASHORN_MODULE.addExports(RUNTIME_PKG, structuresModule);
+            // specific exports from nashorn to the structures module
+            NASHORN_MODULE.addExports(SCRIPTS_PKG, structuresModule);
+            NASHORN_MODULE.addExports(RUNTIME_PKG, structuresModule);
 
-        // nashorn has to read fields from classes of the new module
-        NASHORN_MODULE.addReads(structuresModule);
+            // nashorn has to read fields from classes of the new module
+            NASHORN_MODULE.addReads(structuresModule);
+        } else {
+            structuresModule = null;
+        }
     }
 
     private Module createModule(final String moduleName) {

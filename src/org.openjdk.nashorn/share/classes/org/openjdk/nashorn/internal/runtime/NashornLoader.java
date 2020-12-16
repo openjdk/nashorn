@@ -58,6 +58,7 @@ abstract class NashornLoader extends SecureClassLoader {
     protected static final String SCRIPTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/scripts";
 
     static final Module NASHORN_MODULE = Context.class.getModule();
+    static final boolean modular = NASHORN_MODULE.getName() != null;
 
     private static final Permission[] SCRIPT_PERMISSIONS;
 

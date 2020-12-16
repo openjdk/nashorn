@@ -53,18 +53,22 @@ final class ScriptLoader extends NashornLoader {
         super(context.getStructLoader());
         this.context = context;
 
-        // new scripts module, it's specific exports and read-edges
-        scriptModule = createModule("org.openjdk.nashorn.scripts");
+        if (modular) {
+            // new scripts module, it's specific exports and read-edges
+            scriptModule = createModule("org.openjdk.nashorn.scripts");
 
-        // specific exports from nashorn to new scripts module
-        NASHORN_MODULE.addExports(OBJECTS_PKG, scriptModule);
-        NASHORN_MODULE.addExports(RUNTIME_PKG, scriptModule);
-        NASHORN_MODULE.addExports(RUNTIME_ARRAYS_PKG, scriptModule);
-        NASHORN_MODULE.addExports(RUNTIME_LINKER_PKG, scriptModule);
-        NASHORN_MODULE.addExports(SCRIPTS_PKG, scriptModule);
+            // specific exports from nashorn to new scripts module
+            NASHORN_MODULE.addExports(OBJECTS_PKG, scriptModule);
+            NASHORN_MODULE.addExports(RUNTIME_PKG, scriptModule);
+            NASHORN_MODULE.addExports(RUNTIME_ARRAYS_PKG, scriptModule);
+            NASHORN_MODULE.addExports(RUNTIME_LINKER_PKG, scriptModule);
+            NASHORN_MODULE.addExports(SCRIPTS_PKG, scriptModule);
 
-        // nashorn needs to read scripts module methods,fields
-        NASHORN_MODULE.addReads(scriptModule);
+            // nashorn needs to read scripts module methods,fields
+            NASHORN_MODULE.addReads(scriptModule);
+        } else {
+            scriptModule = null;
+        }
     }
 
     private Module createModule(final String moduleName) {
@@ -95,7 +99,7 @@ final class ScriptLoader extends NashornLoader {
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
         checkPackageAccess(name);
         final Class<?> cl = super.loadClass(name, resolve);
-        if (!structureAccessAdded) {
+        if (!structureAccessAdded && modular) {
             final StructureLoader structLoader = context.getStructLoader();
             if (cl.getClassLoader() == structLoader) {
                 structureAccessAdded = true;
