@@ -55,7 +55,7 @@ final class ScriptLoader extends NashornLoader {
 
         if (modular) {
             // new scripts module, it's specific exports and read-edges
-            scriptModule = createModule("org.openjdk.nashorn.scripts");
+            scriptModule = createModule();
 
             // specific exports from nashorn to new scripts module
             NASHORN_MODULE.addExports(OBJECTS_PKG, scriptModule);
@@ -71,10 +71,10 @@ final class ScriptLoader extends NashornLoader {
         }
     }
 
-    private Module createModule(final String moduleName) {
+    private Module createModule() {
         final Module structMod = context.getStructLoader().getModule();
         final ModuleDescriptor.Builder builder =
-            ModuleDescriptor.newModule(moduleName, Set.of(Modifier.SYNTHETIC))
+            ModuleDescriptor.newModule("org.openjdk.nashorn.scripts", Set.of(Modifier.SYNTHETIC))
                     .requires("java.logging")
                     .requires(NASHORN_MODULE.getName())
                     .requires(structMod.getName())
