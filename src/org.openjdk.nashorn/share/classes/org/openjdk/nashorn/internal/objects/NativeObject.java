@@ -204,15 +204,15 @@ public final class NativeObject {
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, where = Where.CONSTRUCTOR)
     public static Object setPrototypeOf(final Object self, final Object obj, final Object proto) {
+        Global.checkObjectCoercible(self);
+
         if (obj instanceof ScriptObject) {
             ((ScriptObject)obj).setPrototypeOf(proto);
-            return obj;
         } else if (obj instanceof ScriptObjectMirror) {
             ((ScriptObjectMirror)obj).setProto(proto);
-            return obj;
         }
 
-        throw notAnObject(obj);
+        return obj;
     }
 
     /**
