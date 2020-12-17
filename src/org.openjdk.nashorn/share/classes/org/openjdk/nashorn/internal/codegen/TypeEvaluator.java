@@ -40,6 +40,8 @@ import org.openjdk.nashorn.internal.ir.IndexNode;
 import org.openjdk.nashorn.internal.ir.Optimistic;
 import org.openjdk.nashorn.internal.objects.ArrayBufferView;
 import org.openjdk.nashorn.internal.objects.NativeArray;
+import org.openjdk.nashorn.internal.objects.NativeReferenceError;
+import org.openjdk.nashorn.internal.runtime.ECMAException;
 import org.openjdk.nashorn.internal.runtime.FindProperty;
 import org.openjdk.nashorn.internal.runtime.JSType;
 import org.openjdk.nashorn.internal.runtime.Property;
@@ -193,9 +195,16 @@ final class TypeEvaluator {
             // Possible side effects; can't evaluate safely
             return null;
         }
-        return property.getObjectValue(owner, owner);
+        try {
+            return property.getObjectValue(owner, owner);
+        } catch (final ECMAException e) {
+            if (e.thrown instanceof NativeReferenceError) {
+                // ReferenceError on a let or const meaning they aren't defined yet.
+                return null;
+            }
+            throw e;
+        }
     }
-
 
     private Type getEvaluatedType(final Optimistic expr) {
         if (expr instanceof IdentNode) {
