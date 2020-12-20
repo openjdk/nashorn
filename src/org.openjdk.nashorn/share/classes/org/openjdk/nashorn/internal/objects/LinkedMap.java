@@ -27,7 +27,6 @@ package org.openjdk.nashorn.internal.objects;
 
 import org.openjdk.nashorn.internal.runtime.Undefined;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

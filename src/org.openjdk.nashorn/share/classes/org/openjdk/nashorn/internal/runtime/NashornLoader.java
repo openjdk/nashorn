@@ -41,6 +41,7 @@ import java.security.PermissionCollection;
 import java.security.PrivilegedAction;
 import java.security.Permissions;
 import java.security.SecureClassLoader;
+import java.util.Arrays;
 
 /**
  * Superclass for Nashorn class loader classes.
@@ -51,11 +52,6 @@ abstract class NashornLoader extends SecureClassLoader {
     protected static final String RUNTIME_ARRAYS_PKG = "org.openjdk.nashorn.internal.runtime.arrays";
     protected static final String RUNTIME_LINKER_PKG = "org.openjdk.nashorn.internal.runtime.linker";
     protected static final String SCRIPTS_PKG        = "org.openjdk.nashorn.internal.scripts";
-    protected static final String OBJECTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/objects";
-    protected static final String RUNTIME_PKG_INTERNAL        = "org/openjdk/nashorn/internal/runtime";
-    protected static final String RUNTIME_ARRAYS_PKG_INTERNAL = "org/openjdk/nashorn/internal/runtime/arrays";
-    protected static final String RUNTIME_LINKER_PKG_INTERNAL = "org/openjdk/nashorn/internal/runtime/linker";
-    protected static final String SCRIPTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/scripts";
 
     static final Module NASHORN_MODULE = Context.class.getModule();
 
@@ -170,20 +166,10 @@ abstract class NashornLoader extends SecureClassLoader {
      */
     private static URL[] pathToURLs(final String path) {
         final String[] components = path.split(File.pathSeparator);
-        URL[] urls = new URL[components.length];
-        int count = 0;
-        while(count < components.length) {
-            final URL url = fileToURL(new File(components[count]));
-            if (url != null) {
-                urls[count++] = url;
-            }
-        }
-        if (urls.length != count) {
-            final URL[] tmp = new URL[count];
-            System.arraycopy(urls, 0, tmp, 0, count);
-            urls = tmp;
-        }
-        return urls;
+        return Arrays.stream(components)
+            .map(File::new)
+            .map(NashornLoader::fileToURL)
+            .toArray(URL[]::new);
     }
 
     /*

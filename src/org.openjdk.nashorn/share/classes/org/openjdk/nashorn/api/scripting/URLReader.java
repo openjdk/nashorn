@@ -82,7 +82,7 @@ public final class URLReader extends Reader {
     }
 
     @Override
-    public int read(final char cbuf[], final int off, final int len) throws IOException {
+    public int read(final char[] cbuf, final int off, final int len) throws IOException {
         return getReader().read(cbuf, off, len);
     }
 

@@ -40,9 +40,6 @@ import java.security.Permissions;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -81,7 +78,6 @@ import org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome;
  * implicitly when passing script functions to Java methods expecting SAM types.
  */
 
-@SuppressWarnings("javadoc")
 public final class JavaAdapterFactory {
     private static final ProtectionDomain MINIMAL_PERMISSION_DOMAIN = createMinimalPermissionDomain();
 
@@ -93,10 +89,10 @@ public final class JavaAdapterFactory {
     /**
      * A mapping from an original Class object to AdapterInfo representing the adapter for the class it represents.
      */
-    private static final ClassValue<Map<List<Class<?>>, AdapterInfo>> ADAPTER_INFO_MAPS = new ClassValue<Map<List<Class<?>>, AdapterInfo>>() {
+    private static final ClassValue<Map<List<Class<?>>, AdapterInfo>> ADAPTER_INFO_MAPS = new ClassValue<>() {
         @Override
         protected Map<List<Class<?>>, AdapterInfo> computeValue(final Class<?> type) {
-            return new HashMap<>();
+            return new ConcurrentHashMap<>();
         }
     };
 
@@ -161,12 +157,7 @@ public final class JavaAdapterFactory {
     }
 
     private static ProtectionDomain getProtectionDomain(final Class<?> clazz) {
-        return AccessController.doPrivileged(new PrivilegedAction<ProtectionDomain>() {
-            @Override
-            public ProtectionDomain run() {
-                return clazz.getProtectionDomain();
-            }
-        });
+        return AccessController.doPrivileged((PrivilegedAction<ProtectionDomain>) clazz::getProtectionDomain);
     }
 
     /**
@@ -219,16 +210,7 @@ public final class JavaAdapterFactory {
         final ClassAndLoader definingClassAndLoader = ClassAndLoader.getDefiningClassAndLoader(types);
 
         final Map<List<Class<?>>, AdapterInfo> adapterInfoMap = ADAPTER_INFO_MAPS.get(definingClassAndLoader.getRepresentativeClass());
-        final List<Class<?>> typeList = types.length == 1 ? Collections.<Class<?>>singletonList(types[0]) : Arrays.asList(types.clone());
-        AdapterInfo adapterInfo;
-        synchronized(adapterInfoMap) {
-            adapterInfo = adapterInfoMap.get(typeList);
-            if(adapterInfo == null) {
-                adapterInfo = createAdapterInfo(types, definingClassAndLoader);
-                adapterInfoMap.put(typeList, adapterInfo);
-            }
-        }
-        return adapterInfo;
+        return adapterInfoMap.computeIfAbsent(List.of(types), t -> createAdapterInfo(t, definingClassAndLoader));
     }
 
    /**
@@ -238,9 +220,9 @@ public final class JavaAdapterFactory {
      *
      * @return the adapter info for the class.
      */
-    private static AdapterInfo createAdapterInfo(final Class<?>[] types, final ClassAndLoader definingClassAndLoader) {
+    private static AdapterInfo createAdapterInfo(final List<Class<?>> types, final ClassAndLoader definingClassAndLoader) {
         Class<?> superClass = null;
-        final List<Class<?>> interfaces = new ArrayList<>(types.length);
+        final List<Class<?>> interfaces = new ArrayList<>(types.size());
         for(final Class<?> t: types) {
             final int mod = t.getModifiers();
             if(!t.isInterface()) {
@@ -266,16 +248,13 @@ public final class JavaAdapterFactory {
 
 
         final Class<?> effectiveSuperClass = superClass == null ? Object.class : superClass;
-        return AccessController.doPrivileged(new PrivilegedAction<AdapterInfo>() {
-            @Override
-            public AdapterInfo run() {
-                try {
-                    return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
-                } catch (final AdaptationException e) {
-                    return new AdapterInfo(e.getAdaptationResult());
-                } catch (final RuntimeException e) {
-                    return new AdapterInfo(new AdaptationResult(Outcome.ERROR_OTHER, e, Arrays.toString(types), e.toString()));
-                }
+        return AccessController.doPrivileged((PrivilegedAction<AdapterInfo>) () -> {
+            try {
+                return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
+            } catch (final AdaptationException e) {
+                return new AdapterInfo(e.getAdaptationResult());
+            } catch (final RuntimeException e) {
+                return new AdapterInfo(new AdaptationResult(Outcome.ERROR_OTHER, e, types.toString(), e.toString()));
             }
         }, CREATE_ADAPTER_INFO_ACC_CTXT);
     }

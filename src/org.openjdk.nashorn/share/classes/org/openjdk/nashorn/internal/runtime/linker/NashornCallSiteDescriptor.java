@@ -44,7 +44,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Stream;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.NamedOperation;
@@ -167,10 +166,10 @@ public final class NashornCallSiteDescriptor extends CallSiteDescriptor {
      */
     public static final int FLAGS_MASK = (1 << CALLSITE_PROGRAM_POINT_SHIFT) - 1;
 
-    private static final ClassValue<ConcurrentMap<NashornCallSiteDescriptor, NashornCallSiteDescriptor>> canonicals =
-            new ClassValue<ConcurrentMap<NashornCallSiteDescriptor,NashornCallSiteDescriptor>>() {
+    private static final ClassValue<Map<NashornCallSiteDescriptor, NashornCallSiteDescriptor>> canonicals =
+            new ClassValue<>() {
         @Override
-        protected ConcurrentMap<NashornCallSiteDescriptor, NashornCallSiteDescriptor> computeValue(final Class<?> type) {
+        protected Map<NashornCallSiteDescriptor, NashornCallSiteDescriptor> computeValue(final Class<?> type) {
             return new ConcurrentHashMap<>();
         }
     };
@@ -290,7 +289,7 @@ public final class NashornCallSiteDescriptor extends CallSiteDescriptor {
         if (csd instanceof NashornCallSiteDescriptor) {
             return ((NashornCallSiteDescriptor)csd).getLookupPrivileged();
         }
-        return AccessController.doPrivileged((PrivilegedAction<Lookup>)()->csd.getLookup(), GET_LOOKUP_PERMISSION_CONTEXT);
+        return AccessController.doPrivileged((PrivilegedAction<Lookup>) csd::getLookup, GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     @Override

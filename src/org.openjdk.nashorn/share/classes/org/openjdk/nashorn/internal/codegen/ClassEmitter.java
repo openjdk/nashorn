@@ -37,7 +37,6 @@ import static org.objectweb.asm.Opcodes.H_INVOKESTATIC;
 import static org.objectweb.asm.Opcodes.H_INVOKEVIRTUAL;
 import static org.objectweb.asm.Opcodes.H_NEWINVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.V1_7;
-import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CLINIT;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.CONSTANTS;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.GET_ARRAY_PREFIX;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.GET_ARRAY_SUFFIX;
@@ -135,8 +134,6 @@ public class ClassEmitter {
 
     private int initCount;
 
-    private int clinitCount;
-
     private int fieldCount;
 
     private final Set<String> methodNames;
@@ -145,7 +142,7 @@ public class ClassEmitter {
      * Constructor - only used internally in this class as it breaks
      * abstraction towards ASM or other code generator below.
      *
-     * @param env script environment
+     * @param context script context
      * @param cw  ASM classwriter
      */
     private ClassEmitter(final Context context, final ClassWriter cw) {
@@ -167,7 +164,7 @@ public class ClassEmitter {
     /**
      * Constructor.
      *
-     * @param env             script environment
+     * @param context         script context
      * @param className       name of class to weave
      * @param superClassName  super class name for class
      * @param interfaceNames  names of interfaces implemented by this class, or
@@ -181,7 +178,7 @@ public class ClassEmitter {
     /**
      * Constructor from the compiler.
      *
-     * @param env           Script environment
+     * @param context       Script context
      * @param sourceName    Source name
      * @param unitClassName Compile unit class name.
      * @param strictMode    Should we generate this method in strict mode
@@ -196,7 +193,7 @@ public class ClassEmitter {
                     try {
                         return super.getCommonSuperClass(type1, type2);
                     } catch (final RuntimeException e) {
-                        if (isScriptObject(Compiler.SCRIPTS_PACKAGE, type1) && isScriptObject(Compiler.SCRIPTS_PACKAGE, type2)) {
+                        if (isScriptObject(type1) && isScriptObject(type2)) {
                             return className(ScriptObject.class);
                         }
                         return OBJECT_CLASS;
@@ -231,15 +228,6 @@ public class ClassEmitter {
      */
     public int getMethodCount() {
         return methodCount;
-    }
-
-    /**
-     * Get the clinit count.
-     *
-     * @return clinit count
-     */
-    public int getClinitCount() {
-        return clinitCount;
     }
 
     /**
@@ -386,21 +374,16 @@ public class ClassEmitter {
     /**
      * Inspect class name and decide whether we are generating a ScriptObject class.
      *
-     * @param scriptPrefix the script class prefix for the current script
      * @param type         the type to check
      *
      * @return {@code true} if type is ScriptObject
      */
-    private static boolean isScriptObject(final String scriptPrefix, final String type) {
-        if (type.startsWith(scriptPrefix)) {
-            return true;
-        } else if (type.equals(CompilerConstants.className(ScriptObject.class))) {
-            return true;
-        } else if (type.startsWith(Compiler.OBJECTS_PACKAGE)) {
-            return true;
-        }
-
-        return false;
+    private static boolean isScriptObject(final String type) {
+        return
+            type.startsWith(Compiler.SCRIPTS_PACKAGE) ||
+            type.equals(CompilerConstants.className(ScriptObject.class)) ||
+            type.startsWith(Compiler.OBJECTS_PACKAGE)
+        ;
     }
 
     /**
@@ -444,18 +427,12 @@ public class ClassEmitter {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (final PrintWriter pw = new PrintWriter(baos)) {
             final NashornClassReader cr = new NashornClassReader(bytecode);
-            final Context ctx = AccessController.doPrivileged(new PrivilegedAction<Context>() {
-                @Override
-                public Context run() {
-                    return Context.getContext();
-                }
-            });
+            final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext);
             final TraceClassVisitor tcv = new TraceClassVisitor(null, new NashornTextifier(ctx.getEnv(), cr), pw);
             cr.accept(tcv, 0);
         }
 
-        final String str = new String(baos.toByteArray());
-        return str;
+        return new String(baos.toByteArray());
     }
 
     /**
@@ -580,17 +557,6 @@ public class ClassEmitter {
         return new MethodEmitter(this, mv, functionNode);
     }
 
-
-    /**
-     * Start generating the <clinit> method in the class.
-     *
-     * @return method emitter to use for weaving <clinit>
-     */
-    MethodEmitter clinit() {
-        clinitCount++;
-        return method(EnumSet.of(Flag.STATIC), CLINIT.symbolName(), void.class);
-    }
-
     /**
      * Start generating an <init>()V method in the class.
      *
@@ -671,12 +637,11 @@ public class ClassEmitter {
      *         generation hasn't been ended with {@link ClassEmitter#end()}.
      */
     byte[] toByteArray() {
-        assert classEnded;
-        if (!classEnded) {
-            return null;
+        if (classEnded) {
+            return cw.toByteArray();
+        } else {
+            throw new AssertionError();
         }
-
-        return cw.toByteArray();
     }
 
     /**
@@ -684,7 +649,7 @@ public class ClassEmitter {
      * separating these from the underlying bytecode emitter. Flags are provided
      * for method handles, protection levels, static/virtual fields/methods.
      */
-    static enum Flag {
+    enum Flag {
         /** method handle with static access */
         HANDLE_STATIC(H_INVOKESTATIC),
         /** method handle with new invoke special access */
@@ -707,7 +672,7 @@ public class ClassEmitter {
 
         private final int value;
 
-        private Flag(final int value) {
+        Flag(final int value) {
             this.value = value;
         }
 

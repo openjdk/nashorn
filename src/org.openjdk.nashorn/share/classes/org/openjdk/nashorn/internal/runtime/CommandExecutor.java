@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static org.openjdk.nashorn.internal.runtime.CommandExecutor.RedirectType.*;
@@ -60,18 +61,14 @@ class CommandExecutor {
 
     // Test to see if running on Windows.
     private static final boolean IS_WINDOWS =
-        AccessController.doPrivileged((PrivilegedAction<Boolean>)() -> {
-        return System.getProperty("os.name").contains("Windows");
-    });
+        AccessController.doPrivileged((PrivilegedAction<Boolean>)() -> System.getProperty("os.name").contains("Windows"));
 
     // Cygwin drive alias prefix.
     private static final String CYGDRIVE = "/cygdrive/";
 
     // User's home directory
     private static final String HOME_DIRECTORY =
-        AccessController.doPrivileged((PrivilegedAction<String>)() -> {
-        return System.getProperty("user.home");
-    });
+        AccessController.doPrivileged((PrivilegedAction<String>)() -> System.getProperty("user.home"));
 
     // Various types of standard redirects.
     enum RedirectType {
@@ -83,7 +80,7 @@ class CommandExecutor {
         REDIRECT_ERROR_APPEND,
         REDIRECT_OUTPUT_ERROR_APPEND,
         REDIRECT_ERROR_TO_OUTPUT
-    };
+    }
 
     // Prefix strings to standard redirects.
     private static final String[] redirectPrefixes = new String[] {
@@ -329,7 +326,7 @@ class CommandExecutor {
     private OutputStream errorStream;
 
     // Ordered collection of current or piped ProcessBuilders.
-    private List<ProcessBuilder> processBuilders = new ArrayList<>();
+    private final List<ProcessBuilder> processBuilders = new ArrayList<>();
 
     CommandExecutor() {
         this.environment = new HashMap<>();
@@ -340,7 +337,6 @@ class CommandExecutor {
         this.inputStream = null;
         this.outputStream = null;
         this.errorStream = null;
-        this.processBuilders = new ArrayList<>();
     }
 
     /**
@@ -386,7 +382,7 @@ class CommandExecutor {
      */
     private static String stripQuotes(String token) {
         if ((token.startsWith("\"") && token.endsWith("\"")) ||
-             token.startsWith("\'") && token.endsWith("\'")) {
+             token.startsWith("'") && token.endsWith("'")) {
             token = token.substring(1, token.length() - 1);
         }
         return token;
@@ -507,7 +503,7 @@ class CommandExecutor {
      *         processed by the underlying platform
      */
     private static String sanitizePath(final String d) {
-        if (!IS_WINDOWS || (IS_WINDOWS && !d.startsWith(CYGDRIVE))) {
+        if (!IS_WINDOWS || !d.startsWith(CYGDRIVE)) {
             return d;
         }
         final String pd = d.substring(CYGDRIVE.length());
@@ -634,13 +630,11 @@ class CommandExecutor {
         // If input is not redirected.
         if (inputIsPipe) {
             // If inputStream other than System.in is provided.
-            if (inputStream != null) {
-                // Pipe inputStream to first process output stream.
-                piperThreads.add(new Piper(inputStream, firstProcess.getOutputStream()).start());
-            } else {
-                // Otherwise assume an input string has been provided.
-                piperThreads.add(new Piper(new ByteArrayInputStream(inputString.getBytes()), firstProcess.getOutputStream()).start());
-            }
+            // Pipe inputStream to first process output stream.
+            // Otherwise assume an input string has been provided.
+            piperThreads.add(new Piper(Objects
+                .requireNonNullElseGet(inputStream, () -> new ByteArrayInputStream(inputString
+                    .getBytes())), firstProcess.getOutputStream()).start());
         }
 
         // If output is not redirected.
@@ -703,7 +697,7 @@ class CommandExecutor {
             errorString += byteErrorStream != null ? byteErrorStream.toString() : "";
         } catch (final InterruptedException ex) {
             // Kill any living processes.
-            processes.stream().forEach(p -> {
+            processes.forEach(p -> {
                 if (p.isAlive()) {
                     p.destroy();
                 }
@@ -785,7 +779,7 @@ class CommandExecutor {
                     command.clear();
                 } else if (token.endsWith("\\")) {
                     // Backslash followed by space.
-                    sb.append(token.substring(0, token.length() - 1)).append(' ');
+                    sb.append(token, 0, token.length() - 1).append(' ');
                 } else if (sb.length() == 0) {
                     // If not a word then must be a quoted string.
                     if (tokenizer.ttype != StreamTokenizer.TT_WORD) {

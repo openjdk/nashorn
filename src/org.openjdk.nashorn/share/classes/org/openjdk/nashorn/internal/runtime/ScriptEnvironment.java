@@ -404,7 +404,7 @@ public final class ScriptEnvironment {
         }
 
         final LoggingOption loggingOption = (LoggingOption)options.get("log");
-        this._loggers = loggingOption == null ? new HashMap<String, LoggerInfo>() : loggingOption.getLoggers();
+        this._loggers = loggingOption == null ? new HashMap<>() : loggingOption.getLoggers();
 
         final LoggerInfo timeLoggerInfo = _loggers.get(Timing.getLoggerName());
         this._timing = new Timing(timeLoggerInfo != null && timeLoggerInfo.getLevel() != Level.OFF);
@@ -469,7 +469,7 @@ public final class ScriptEnvironment {
      * @return true if enabled
      */
     public boolean isTimingEnabled() {
-        return _timing != null ? _timing.isEnabled() : false;
+        return _timing != null && _timing.isEnabled();
     }
 
     /**

@@ -25,7 +25,6 @@
 
 package org.openjdk.nashorn.api.scripting;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -272,7 +271,7 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     }
 
     private static List<String> immutableList(final String... elements) {
-        return Collections.unmodifiableList(Arrays.asList(elements));
+        return List.of(elements);
     }
 
     private static ClassLoader getAppClassLoader() {

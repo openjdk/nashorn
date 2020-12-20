@@ -289,10 +289,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
             super(token, finish, value);
         }
 
-        private PrimitiveLiteralNode(final PrimitiveLiteralNode<T> literalNode) {
-            super(literalNode);
-        }
-
         /**
          * Check if the literal value is boolean true
          * @return true if literal value is boolean true
@@ -323,10 +319,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
 
         private BooleanLiteralNode(final long token, final int finish, final boolean value) {
             super(Token.recast(token, value ? TokenType.TRUE : TokenType.FALSE), finish, value);
-        }
-
-        private BooleanLiteralNode(final BooleanLiteralNode literalNode) {
-            super(literalNode);
         }
 
         @Override
@@ -378,10 +370,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
 
         private NumberLiteralNode(final long token, final int finish, final Number value) {
             super(Token.recast(token, TokenType.DECIMAL), finish, value);
-        }
-
-        private NumberLiteralNode(final NumberLiteralNode literalNode) {
-            super(literalNode);
         }
 
         private static Type numberGetType(final Number number) {
@@ -439,10 +427,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
         private UndefinedLiteralNode(final long token, final int finish) {
             super(Token.recast(token, TokenType.OBJECT), finish, ScriptRuntime.UNDEFINED);
         }
-
-        private UndefinedLiteralNode(final UndefinedLiteralNode literalNode) {
-            super(literalNode);
-        }
     }
 
     /**
@@ -476,10 +460,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
 
         private StringLiteralNode(final long token, final int finish, final String value) {
             super(Token.recast(token, TokenType.STRING), finish, value);
-        }
-
-        private StringLiteralNode(final StringLiteralNode literalNode) {
-            super(literalNode);
         }
 
         @Override
@@ -521,10 +501,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
 
         private LexerTokenLiteralNode(final long token, final int finish, final LexerToken value) {
             super(Token.recast(token, TokenType.STRING), finish, value); //TODO is string the correct token type here?
-        }
-
-        private LexerTokenLiteralNode(final LexerTokenLiteralNode literalNode) {
-            super(literalNode);
         }
 
         @Override
@@ -703,14 +679,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
                 return false;
             }
 
-            private static boolean setArrayElement(final long[] array, final int i, final Object n) {
-                if (n instanceof Number) {
-                    array[i] = ((Number)n).longValue();
-                    return true;
-                }
-                return false;
-            }
-
             private static boolean setArrayElement(final double[] array, final int i, final Object n) {
                 if (n instanceof Number) {
                     array[i] = ((Number)n).doubleValue();
@@ -721,18 +689,6 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
 
             private static int[] presetIntArray(final Expression[] value, final int[] postsets) {
                 final int[] array = new int[value.length];
-                int nComputed = 0;
-                for (int i = 0; i < value.length; i++) {
-                    if (!setArrayElement(array, i, objectAsConstant(value[i]))) {
-                        assert postsets[nComputed++] == i;
-                    }
-                }
-                assert postsets.length == nComputed;
-                return array;
-            }
-
-            private static long[] presetLongArray(final Expression[] value, final int[] postsets) {
-                final long[] array = new long[value.length];
                 int nComputed = 0;
                 for (int i = 0; i < value.length; i++) {
                     if (!setArrayElement(array, i, objectAsConstant(value[i]))) {

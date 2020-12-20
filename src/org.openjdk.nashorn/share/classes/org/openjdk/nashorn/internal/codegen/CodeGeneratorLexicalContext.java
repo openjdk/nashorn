@@ -141,7 +141,7 @@ final class CodeGeneratorLexicalContext extends LexicalContext {
     }
 
     void pushUnwarrantedOptimismHandlers() {
-        unwarrantedOptimismHandlers.push(new HashMap<String, Collection<Label>>());
+        unwarrantedOptimismHandlers.push(new HashMap<>());
         slotTypesDescriptors.push(new StringBuilder());
     }
 

@@ -123,14 +123,13 @@ public final class FunctionSignature {
 
         if (isVarArg) {
             paramTypes[next] = Type.OBJECT_ARRAY;
-        } else if (argTypes != null) {
+        } else {
+            assert argTypes != null : "isVarArgs cannot be false when argTypes are null";
             for (int j = 0; next < count;) {
                 final Type type = argTypes[j++];
                 // TODO: for now, turn java/lang/String into java/lang/Object as we aren't as specific.
                 paramTypes[next++] = type.isObject() ? Type.OBJECT : type;
             }
-        } else {
-            assert false : "isVarArgs cannot be false when argTypes are null";
         }
 
         this.returnType = retType;

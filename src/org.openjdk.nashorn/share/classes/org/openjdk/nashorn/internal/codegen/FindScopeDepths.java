@@ -164,12 +164,7 @@ final class FindScopeDepths extends SimpleNodeVisitor implements Loggable {
             increaseDynamicScopeCount(functionNode);
         }
 
-        final int fnId = functionNode.getId();
-        Map<Integer, RecompilableScriptFunctionData> nestedFunctions = fnIdToNestedFunctions.get(fnId);
-        if (nestedFunctions == null) {
-            nestedFunctions = new HashMap<>();
-            fnIdToNestedFunctions.put(fnId, nestedFunctions);
-        }
+        fnIdToNestedFunctions.computeIfAbsent(functionNode.getId(), k -> new HashMap<>());
 
         return true;
     }
@@ -348,13 +343,8 @@ final class FindScopeDepths extends SimpleNodeVisitor implements Loggable {
     }
 
     private void addExternalSymbol(final FunctionNode functionNode, final Symbol symbol, final int depthAtStart) {
-        final int fnId = functionNode.getId();
-        Map<String, Integer> depths = externalSymbolDepths.get(fnId);
-        if (depths == null) {
-            depths = new HashMap<>();
-            externalSymbolDepths.put(fnId, depths);
-        }
-        depths.put(symbol.getName(), depthAtStart);
+        externalSymbolDepths
+            .computeIfAbsent(functionNode.getId(), k -> new HashMap<>())
+            .put(symbol.getName(), depthAtStart);
     }
-
 }

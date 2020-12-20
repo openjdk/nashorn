@@ -39,7 +39,7 @@ public class OptimisticLexicalContext extends LexicalContext {
 
     private final boolean isEnabled;
 
-    class Assumption {
+    static class Assumption {
         Symbol symbol;
         Type   type;
 
@@ -107,7 +107,7 @@ public class OptimisticLexicalContext extends LexicalContext {
     public <T extends LexicalContextNode> T push(final T node) {
         if (isEnabled) {
             if(node instanceof FunctionNode) {
-                optimisticAssumptions.push(new ArrayList<Assumption>());
+                optimisticAssumptions.push(new ArrayList<>());
             }
         }
 

@@ -32,7 +32,6 @@ import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.internal.objects.annotations.Attribute;
 import org.openjdk.nashorn.internal.objects.annotations.Constructor;
 import org.openjdk.nashorn.internal.objects.annotations.Function;
@@ -686,7 +685,7 @@ public final class NativeRegExp extends ScriptObject {
         }
 
         int thisIndex = 0;
-        int previousLastIndex = 0;
+        int previousLastIndex;
         final StringBuilder sb = new StringBuilder();
 
         final MethodHandle invoker = function == null ? null : getReplaceValueInvoker();
@@ -799,12 +798,8 @@ public final class NativeRegExp extends ScriptObject {
 
     private static MethodHandle getReplaceValueInvoker() {
         return Global.instance().getDynamicInvoker(REPLACE_VALUE,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(String.class, Object.class, Object.class, Object[].class);
-                    }
-                });
+            () -> Bootstrap.createDynamicCallInvoker(String.class, Object.class, Object.class, Object[].class)
+        );
     }
 
     private String callReplaceValue(final MethodHandle invoker, final Object function, final Object self, final RegExpMatcher matcher, final String string) throws Throwable {

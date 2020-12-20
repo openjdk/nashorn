@@ -73,10 +73,6 @@ public final class Label implements Serializable {
             return sp;
         }
 
-        void clear() {
-            sp = 0;
-        }
-
         void push(final Type type) {
             if (data.length == sp) {
                 final Type[] newData = new Type[sp * 2];
@@ -200,10 +196,9 @@ public final class Label implements Serializable {
 
         private int getFirstDeadLocal(final List<Type> types) {
             int i = types.size();
-            for(final ListIterator<Type> it = types.listIterator(i);
-                it.hasPrevious() && it.previous() == Type.UNKNOWN;
-                --i) {
-                // no body
+            final ListIterator<Type> it = types.listIterator(i);
+            while (it.hasPrevious() && it.previous() == Type.UNKNOWN) {
+                --i;
             }
 
             // Respect symbol boundaries; we never chop off half a symbol's storage
@@ -480,9 +475,9 @@ public final class Label implements Serializable {
         @Override
         public String toString() {
             return "stack=" + Arrays.toString(Arrays.copyOf(data, sp))
-                 + ", symbolBoundaries=" + String.valueOf(symbolBoundary)
+                 + ", symbolBoundaries=" + symbolBoundary
                  + ", firstTemp=" + firstTemp
-                 + ", localTypes=" + String.valueOf(localVariableTypes)
+                 + ", localTypes=" + localVariableTypes
                  ;
         }
     }

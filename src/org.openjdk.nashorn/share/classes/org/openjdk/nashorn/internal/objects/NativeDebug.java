@@ -295,7 +295,7 @@ public final class NativeDebug extends ScriptObject {
     @Function(attributes = Attribute.NOT_ENUMERABLE, where = Where.CONSTRUCTOR)
     public static Object getEventQueueCapacity(final Object self) {
         final ScriptObject sobj = (ScriptObject)self;
-        Integer cap;
+        final int cap;
         if (sobj.has(EVENT_QUEUE_CAPACITY)) {
             cap = JSType.toInt32(sobj.get(EVENT_QUEUE_CAPACITY));
         } else {

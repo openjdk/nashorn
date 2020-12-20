@@ -605,12 +605,7 @@ public abstract class Property implements Serializable {
     }
 
     private static String indent(final String str, final int indent) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(str);
-        for (int i = 0; i < indent - str.length(); i++) {
-            sb.append(' ');
-        }
-        return sb.toString();
+        return str + " ".repeat(Math.max(0, indent - str.length()));
      }
 
     @Override

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.Compiler.CompilationPhases;
 import org.openjdk.nashorn.internal.ir.Block;
@@ -329,7 +330,8 @@ abstract class CompilationPhase {
             //replace old compile units in function nodes, if any are assigned,
             //for example by running the splitter on this function node in a previous
             //partial code generation
-            final FunctionNode newFunctionNode = transformFunction(fn, new ReplaceCompileUnits() {
+
+            return transformFunction(fn, new ReplaceCompileUnits() {
                 @Override
                 CompileUnit getReplacement(final CompileUnit original) {
                     return map.get(original);
@@ -340,8 +342,6 @@ abstract class CompilationPhase {
                     return node.ensureUniqueLabels(lc);
                 }
             });
-
-            return newFunctionNode;
         }
 
         @Override
@@ -370,10 +370,10 @@ abstract class CompilationPhase {
                 @Override
                 CompileUnit getReplacement(final CompileUnit oldUnit) {
                     final CompileUnit existing = unitMap.get(oldUnit);
-                    if (existing != null) {
-                        return existing;
-                    }
-                    return createCompileUnit(oldUnit, unitSet, unitMap, compiler, phases);
+                    return Objects.requireNonNullElseGet(
+                        existing,
+                        () -> createCompileUnit(oldUnit, unitSet, unitMap, compiler, phases)
+                    );
                 }
 
                 @Override
@@ -531,20 +531,11 @@ abstract class CompilationPhase {
             }
 
             if (log.isEnabled()) {
-                final StringBuilder sb = new StringBuilder();
-
-                sb.append("Installed class '").
-                    append(rootClass.getSimpleName()).
-                    append('\'').
-                    append(" [").
-                    append(rootClass.getName()).
-                    append(", size=").
-                    append(length).
-                    append(" bytes, ").
-                    append(compiler.getCompileUnits().size()).
-                    append(" compile unit(s)]");
-
-                log.fine(sb.toString());
+                log.fine(
+                    "Installed class '" + rootClass.getSimpleName() + '\'' + " [" + rootClass
+                        .getName() + ", size=" + length + " bytes, " + compiler.getCompileUnits()
+                        .size() + " compile unit(s)]"
+                );
             }
 
             return fn.setRootClass(null, rootClass);
@@ -563,9 +554,6 @@ abstract class CompilationPhase {
 
     /** start time of transform - used for timing, see {@link org.openjdk.nashorn.internal.runtime.Timing} */
     private long endTime;
-
-    /** boolean that is true upon transform completion */
-    private boolean isFinished;
 
     private CompilationPhase() {}
 
@@ -593,12 +581,7 @@ abstract class CompilationPhase {
         endTime = System.nanoTime();
         compiler.getScriptEnvironment()._timing.accumulateTime(toString(), endTime - startTime);
 
-        isFinished = true;
         return functionNode;
-    }
-
-    boolean isFinished() {
-        return isFinished;
     }
 
     long getStartTime() {

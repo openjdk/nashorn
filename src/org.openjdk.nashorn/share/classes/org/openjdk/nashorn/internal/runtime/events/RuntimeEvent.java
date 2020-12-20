@@ -64,16 +64,8 @@ public class RuntimeEvent<T> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-
-        sb.append('[').
-            append(level).
-            append("] ").
-            append(value == null ? "null" : getValueClass().getSimpleName()).
-            append(" value=").
-            append(value);
-
-        return sb.toString();
+        return "[" + level + "] " + (value == null ? "null" : getValueClass().getSimpleName())
+                    + " value=" + value;
     }
 
     /**

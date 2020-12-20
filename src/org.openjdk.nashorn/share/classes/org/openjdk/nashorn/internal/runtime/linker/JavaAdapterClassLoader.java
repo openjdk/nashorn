@@ -25,8 +25,6 @@
 
 package org.openjdk.nashorn.internal.runtime.linker;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -36,7 +34,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import jdk.dynalink.beans.StaticClass;
 import org.openjdk.nashorn.internal.codegen.DumpBytecode;
 import org.openjdk.nashorn.internal.runtime.Context;
@@ -76,14 +73,11 @@ final class JavaAdapterClassLoader {
      */
     StaticClass generateClass(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
         assert protectionDomain != null;
-        return AccessController.doPrivileged(new PrivilegedAction<StaticClass>() {
-            @Override
-            public StaticClass run() {
-                try {
-                    return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
-                } catch (final ClassNotFoundException e) {
-                    throw new AssertionError(e); // cannot happen
-                }
+        return AccessController.doPrivileged((PrivilegedAction<StaticClass>) () -> {
+            try {
+                return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
+            } catch (final ClassNotFoundException e) {
+                throw new AssertionError(e); // cannot happen
             }
         }, CREATE_LOADER_ACC_CTXT);
     }
@@ -126,7 +120,7 @@ final class JavaAdapterClassLoader {
                     // SecurityException for nashorn's classes!. For adapter's to work, we
                     // should be able to refer to the few classes it needs in its implementation.
                     if(VISIBLE_INTERNAL_CLASS_NAMES.contains(name)) {
-                        return myLoader != null? myLoader.loadClass(name) : Class.forName(name, false, myLoader);
+                        return myLoader != null? myLoader.loadClass(name) : Class.forName(name, false, null);
                     }
                     throw se;
                 }
@@ -137,12 +131,7 @@ final class JavaAdapterClassLoader {
                 if(name.equals(className)) {
                     assert classBytes != null : "what? already cleared .class bytes!!";
 
-                    final Context ctx = AccessController.doPrivileged(new PrivilegedAction<Context>() {
-                        @Override
-                        public Context run() {
-                            return Context.getContext();
-                        }
-                    }, GET_CONTEXT_ACC_CTXT);
+                    final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext, GET_CONTEXT_ACC_CTXT);
                     DumpBytecode.dumpBytecode(ctx.getEnv(), ctx.getLogger(org.openjdk.nashorn.internal.codegen.Compiler.class), classBytes, name);
                     return defineClass(name, classBytes, 0, classBytes.length, protectionDomain);
                 }

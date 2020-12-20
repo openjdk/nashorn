@@ -37,11 +37,9 @@ import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescrip
 import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
@@ -180,24 +178,12 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static InvokeByName getJOIN() {
-        return Global.instance().getInvokeByName(JOIN,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("join", ScriptObject.class);
-                    }
-                });
+        return Global.instance().getInvokeByName(JOIN, () -> new InvokeByName("join", ScriptObject.class));
     }
 
     private static MethodHandle createIteratorCallbackInvoker(final Object key, final Class<?> rtype) {
-        return Global.instance().getDynamicInvoker(key,
-            new Callable<MethodHandle>() {
-                @Override
-                public MethodHandle call() {
-                    return Bootstrap.createDynamicCallInvoker(rtype, Object.class, Object.class, Object.class,
-                        double.class, Object.class);
-                }
-            });
+        return Global.instance().getDynamicInvoker(key, () -> Bootstrap.createDynamicCallInvoker(rtype, Object.class, Object.class, Object.class,
+            double.class, Object.class));
     }
 
     private static MethodHandle getEVERY_CALLBACK_INVOKER() {
@@ -221,35 +207,17 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static MethodHandle getREDUCE_CALLBACK_INVOKER() {
-        return Global.instance().getDynamicInvoker(REDUCE_CALLBACK_INVOKER,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(Object.class, Object.class,
-                             Undefined.class, Object.class, Object.class, double.class, Object.class);
-                    }
-                });
+        return Global.instance().getDynamicInvoker(REDUCE_CALLBACK_INVOKER, () -> Bootstrap.createDynamicCallInvoker(Object.class, Object.class,
+             Undefined.class, Object.class, Object.class, double.class, Object.class));
     }
 
     private static MethodHandle getCALL_CMP() {
-        return Global.instance().getDynamicInvoker(CALL_CMP,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(double.class,
-                            Object.class, Object.class, Object.class, Object.class);
-                    }
-                });
+        return Global.instance().getDynamicInvoker(CALL_CMP, () -> Bootstrap.createDynamicCallInvoker(double.class,
+            Object.class, Object.class, Object.class, Object.class));
     }
 
     private static InvokeByName getTO_LOCALE_STRING() {
-        return Global.instance().getInvokeByName(TO_LOCALE_STRING,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toLocaleString", ScriptObject.class, String.class);
-                    }
-                });
+        return Global.instance().getInvokeByName(TO_LOCALE_STRING, () -> new InvokeByName("toLocaleString", ScriptObject.class, String.class));
     }
 
     // initialized by nasgen
@@ -277,18 +245,17 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         // Step 3b
-        final PropertyDescriptor newLenDesc = desc;
 
         // Step 3c and 3d - get new length and convert to long
-        final long newLen = NativeArray.validLength(newLenDesc.getValue());
+        final long newLen = NativeArray.validLength(desc.getValue());
 
         // Step 3e - note that we need to convert to int or double as long is not considered a JS number type anymore
-        newLenDesc.setValue(JSType.toNarrowestNumber(newLen));
+        desc.setValue(JSType.toNarrowestNumber(newLen));
 
         // Step 3f
         // increasing array length - just need to set new length value (and attributes if any) and return
         if (newLen >= oldLen) {
-            return super.defineOwnProperty("length", newLenDesc, reject);
+            return super.defineOwnProperty("length", desc, reject);
         }
 
         // Step 3g
@@ -300,13 +267,13 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         // Step 3h and 3i
-        final boolean newWritable = !newLenDesc.has(WRITABLE) || newLenDesc.isWritable();
+        final boolean newWritable = !desc.has(WRITABLE) || desc.isWritable();
         if (!newWritable) {
-            newLenDesc.setWritable(true);
+            desc.setWritable(true);
         }
 
         // Step 3j and 3k
-        final boolean succeeded = super.defineOwnProperty("length", newLenDesc, reject);
+        final boolean succeeded = super.defineOwnProperty("length", desc, reject);
         if (!succeeded) {
             return false;
         }
@@ -318,11 +285,11 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
             o--;
             final boolean deleteSucceeded = delete(o, false);
             if (!deleteSucceeded) {
-                newLenDesc.setValue(o + 1);
+                desc.setValue(o + 1);
                 if (!newWritable) {
-                    newLenDesc.setWritable(false);
+                    desc.setWritable(false);
                 }
-                super.defineOwnProperty("length", newLenDesc, false);
+                super.defineOwnProperty("length", desc, false);
                 if (reject) {
                     throw typeError("property.not.writable", "length", ScriptRuntime.safeToString(this));
                 }
@@ -888,7 +855,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     @SpecializedFunction(name="pop", linkLogic=PopLinkLogic.class)
     public static int popInt(final Object self) {
         //must be non empty IntArrayData
-        return getContinuousNonEmptyArrayDataCCE(self, IntElements.class).fastPopInt();
+        return getContinuousNonEmptyArrayDataCCE(self).fastPopInt();
     }
 
     /**
@@ -903,7 +870,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     @SpecializedFunction(name="pop", linkLogic=PopLinkLogic.class)
     public static double popDouble(final Object self) {
         //must be non empty int long or double array data
-        return getContinuousNonEmptyArrayDataCCE(self, NumericElements.class).fastPopDouble();
+        return getContinuousNonEmptyArrayDataCCE(self).fastPopDouble();
     }
 
     /**
@@ -1080,7 +1047,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
                 } else if (!lowerExists && upperExists) {
                     sobj.set(lower, upperValue, CALLSITE_STRICT);
                     sobj.delete(upper, true);
-                } else if (lowerExists && !upperExists) {
+                } else if (lowerExists) {
                     sobj.delete(lower, true);
                     sobj.set(upper, lowerValue, CALLSITE_STRICT);
                 }
@@ -1199,7 +1166,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         final Object cmpThis = cmp == null || Bootstrap.isStrictCallable(cmp) ? ScriptRuntime.UNDEFINED : Global.instance();
 
         try {
-            Collections.sort(list, new Comparator<Object>() {
+            list.sort(new Comparator<>() {
                 private final MethodHandle call_cmp = getCALL_CMP();
                 @Override
                 public int compare(final Object x, final Object y) {
@@ -1529,7 +1496,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     }
 
     private static boolean applyEvery(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<Boolean>(Global.toObject(self), callbackfn, thisArg, true) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, true) {
             private final MethodHandle everyInvoker = getEVERY_CALLBACK_INVOKER();
 
             @Override
@@ -1549,7 +1516,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, arity = 1)
     public static boolean some(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<Boolean>(Global.toObject(self), callbackfn, thisArg, false) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, false) {
             private final MethodHandle someInvoker = getSOME_CALLBACK_INVOKER();
 
             @Override
@@ -1619,7 +1586,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, arity = 1)
     public static NativeArray filter(final Object self, final Object callbackfn, final Object thisArg) {
-        return new IteratorAction<NativeArray>(Global.toObject(self), callbackfn, thisArg, new NativeArray()) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, thisArg, new NativeArray()) {
             private long to = 0;
             private final MethodHandle filterInvoker = getFILTER_CALLBACK_INVOKER();
 
@@ -1652,7 +1619,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         }
 
         //if initial value is ScriptRuntime.UNDEFINED - step forward once.
-        return new IteratorAction<Object>(Global.toObject(self), callbackfn, ScriptRuntime.UNDEFINED, initialValue, iter) {
+        return new IteratorAction<>(Global.toObject(self), callbackfn, ScriptRuntime.UNDEFINED, initialValue, iter) {
             private final MethodHandle reduceInvoker = getREDUCE_CALLBACK_INVOKER();
 
             @Override
@@ -1888,10 +1855,9 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     //TODO - fold these into the Link logics, but I'll do that as a later step, as I want to do a checkin
     //where everything works first
 
-    private static <T> ContinuousArrayData getContinuousNonEmptyArrayDataCCE(final Object self, final Class<T> clazz) {
+    private static ContinuousArrayData getContinuousNonEmptyArrayDataCCE(final Object self) {
         try {
-            @SuppressWarnings("unchecked")
-            final ContinuousArrayData data = (ContinuousArrayData)(T)((NativeArray)self).getArray();
+            final ContinuousArrayData data = (ContinuousArrayData) ((NativeArray)self).getArray();
             if (data.length() != 0L) {
                 return data; //if length is 0 we cannot pop and have to relink, because then we'd have to return an undefined, which is a wider type than e.g. int
            }

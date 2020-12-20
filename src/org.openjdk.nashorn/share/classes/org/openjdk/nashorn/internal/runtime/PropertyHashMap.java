@@ -25,10 +25,10 @@
 
 package org.openjdk.nashorn.internal.runtime;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.openjdk.nashorn.internal.runtime.options.Options;
@@ -136,7 +136,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
     private final Element list;
 
     /** Hash map bins. */
-    private Element[] bins;
+    private final Element[] bins;
 
     /** Queue for adding elements to large maps with delayed hashing. */
     private ElementQueue queue;
@@ -521,7 +521,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
     }
 
     @Override
-    public void putAll(final Map<? extends Object, ? extends Property> m) {
+    public void putAll(final Map<?, ? extends Property> m) {
         throw new UnsupportedOperationException("Immutable map.");
     }
 
@@ -541,7 +541,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
 
     @Override
     public Collection<Property> values() {
-        return Collections.unmodifiableList(Arrays.asList(getProperties()));
+        return List.of(getProperties());
     }
 
     @Override
@@ -616,7 +616,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
 
         @Override
         public String toString() {
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
 
             sb.append('[');
 
@@ -815,7 +815,7 @@ public final class PropertyHashMap implements Map <Object, Property> {
             if (bins != null) {
                 final int binIndex = binIndex(bins, key);
                 final Element bin = bins[binIndex];
-                if (findElement(bin, key) != null) { ;
+                if (findElement(bin, key) != null) {
                     if (size >= LIST_THRESHOLD) {
                         ensureOwnBins();
                         bins[binIndex] = removeFromList(bin, key);

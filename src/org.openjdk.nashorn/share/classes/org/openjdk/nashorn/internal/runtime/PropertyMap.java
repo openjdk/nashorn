@@ -474,7 +474,7 @@ public class PropertyMap implements Iterable<Object>, Serializable {
         assert sameType ||
                 oldProperty instanceof AccessorProperty &&
                 newProperty instanceof UserAccessorProperty :
-            "arbitrary replaceProperty attempted " + sameType + " oldProperty=" + oldProperty.getClass() + " newProperty=" + newProperty.getClass() + " [" + oldProperty.getLocalType() + " => " + newProperty.getLocalType() + "]";
+            "arbitrary replaceProperty attempted oldProperty=" + oldProperty.getClass() + " newProperty=" + newProperty.getClass() + " [" + oldProperty.getLocalType() + " => " + newProperty.getLocalType() + "]";
 
         /*
          * spillLength remains same in case (1) and (2) because of slot reuse. Only for case (3), we need

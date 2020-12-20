@@ -358,7 +358,7 @@ public class ListAdapter extends AbstractList<Object> implements RandomAccess, D
     @Override
     public final Iterator<Object> descendingIterator() {
         final ListIterator<Object> it = listIterator(size());
-        return new Iterator<Object>() {
+        return new Iterator<>() {
             @Override
             public boolean hasNext() {
                 return it.hasPrevious();
@@ -397,12 +397,7 @@ public class ListAdapter extends AbstractList<Object> implements RandomAccess, D
     }
 
     private static Callable<MethodHandle> invokerCreator(final Class<?> rtype, final Class<?>... ptypes) {
-        return new Callable<MethodHandle>() {
-            @Override
-            public MethodHandle call() {
-                return Bootstrap.createDynamicCallInvoker(rtype, ptypes);
-            }
-        };
+        return () -> Bootstrap.createDynamicCallInvoker(rtype, ptypes);
     }
 
     private MethodHandle getDynamicInvoker(final Object key, final Callable<MethodHandle> creator) {

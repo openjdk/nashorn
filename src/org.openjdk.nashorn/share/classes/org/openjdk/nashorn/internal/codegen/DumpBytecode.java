@@ -114,7 +114,7 @@ public final class DumpBytecode {
                     ": ",
                     ECMAErrors.getMessage(
                         "io.error.cant.write",
-                        dir.toString()));
+                        String.valueOf(dir)));
         }
     }
 }

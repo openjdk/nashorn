@@ -30,8 +30,6 @@ import static org.openjdk.nashorn.internal.parser.TokenType.DECPOSTFIX;
 import static org.openjdk.nashorn.internal.parser.TokenType.INCPOSTFIX;
 import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.annotations.Ignore;
@@ -55,16 +53,14 @@ public final class UnaryNode extends Expression implements Assignment<Expression
     private final Type type;
 
     @Ignore
-    private static final List<TokenType> CAN_OVERFLOW =
-            Collections.unmodifiableList(
-                Arrays.asList(new TokenType[] {
-                    TokenType.POS,
-                    TokenType.NEG, //negate
-                    TokenType.DECPREFIX,
-                    TokenType.DECPOSTFIX,
-                    TokenType.INCPREFIX,
-                    TokenType.INCPOSTFIX,
-                }));
+    private static final List<TokenType> CAN_OVERFLOW = List.of(
+        TokenType.POS,
+        TokenType.NEG,
+        TokenType.DECPREFIX,
+        TokenType.DECPOSTFIX,
+        TokenType.INCPREFIX,
+        TokenType.INCPOSTFIX
+    );
 
     /**
      * Constructor
@@ -199,14 +195,7 @@ public final class UnaryNode extends Expression implements Assignment<Expression
 
     @Override
     public void toString(final StringBuilder sb, final boolean printType) {
-        toString(sb,
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        getExpression().toString(sb, printType);
-                    }
-                },
-                printType);
+        toString(sb, () -> getExpression().toString(sb, printType));
     }
 
     /**
@@ -214,10 +203,9 @@ public final class UnaryNode extends Expression implements Assignment<Expression
      * operand to a specified runnable.
      * @param sb the string builder to use
      * @param rhsStringBuilder the runnable that appends the string representation of the operand to the string builder
-     * @param printType should we print type
      * when invoked.
      */
-    public void toString(final StringBuilder sb, final Runnable rhsStringBuilder, final boolean printType) {
+    public void toString(final StringBuilder sb, final Runnable rhsStringBuilder) {
         final TokenType tokenType = tokenType();
         final String    name      = tokenType.getName();
         final boolean   isPostfix = tokenType == DECPOSTFIX || tokenType == INCPOSTFIX;

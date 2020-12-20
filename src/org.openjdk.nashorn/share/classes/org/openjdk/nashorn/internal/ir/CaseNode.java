@@ -25,7 +25,6 @@
 
 package org.openjdk.nashorn.internal.ir;
 
-import java.util.Collections;
 import java.util.List;
 import org.openjdk.nashorn.internal.codegen.Label;
 import org.openjdk.nashorn.internal.ir.annotations.Immutable;
@@ -174,6 +173,6 @@ public final class CaseNode extends Node implements JoinPredecessor, Labels, Ter
 
     @Override
     public List<Label> getLabels() {
-        return Collections.unmodifiableList(Collections.singletonList(entry));
+        return List.of(entry);
     }
 }

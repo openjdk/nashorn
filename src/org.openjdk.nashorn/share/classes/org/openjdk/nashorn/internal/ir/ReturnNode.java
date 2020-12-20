@@ -73,14 +73,6 @@ public class ReturnNode extends Statement {
     }
 
     /**
-     * Check if this return node has an expression
-     * @return true if not a void return
-     */
-    public boolean hasExpression() {
-        return expression != null;
-    }
-
-    /**
      * Return true if is a YIELD node.
      * @return TRUE if is YIELD node.
      */

@@ -226,13 +226,10 @@ public class Parser extends AbstractParser implements Loggable {
         this.namespace = new Namespace(env.getNamespace());
         this.scripting = env._scripting;
         if (this.scripting) {
-            this.lineInfoReceiver = new Lexer.LineInfoReceiver() {
-                @Override
-                public void lineInfo(final int receiverLine, final int receiverLinePosition) {
-                    // update the parser maintained line information
-                    Parser.this.line = receiverLine;
-                    Parser.this.linePosition = receiverLinePosition;
-                }
+            this.lineInfoReceiver = (receiverLine, receiverLinePosition) -> {
+                // update the parser maintained line information
+                Parser.this.line = receiverLine;
+                Parser.this.linePosition = receiverLinePosition;
             };
         } else {
             // non-scripting mode script can't have multi-line literals
@@ -377,37 +374,33 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     /**
-     * Parse and return the list of function parameter list. A comma
+     * Parse list of function parameters. A comma
      * separated list of function parameter identifiers is expected to be parsed.
      * Errors will be thrown and the error manager will contain information
      * if parsing should fail. This method is used to check if parameter Strings
      * passed to "Function" constructor is a valid or not.
-     *
-     * @return the list of IdentNodes representing the formal parameter list
      */
-    public List<IdentNode> parseFormalParameterList() {
+    public void parseFormalParameterList() {
         try {
             stream = new TokenStream();
             lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
 
             scanFirstToken();
 
-            return formalParameterList(TokenType.EOF, false);
+            formalParameterList(TokenType.EOF, false);
         } catch (final Exception e) {
             handleParseException(e);
-            return null;
         }
     }
 
     /**
-     * Execute parse and return the resulting function node.
+     * Execute parse.
      * Errors will be thrown and the error manager will contain information
      * if parsing should fail. This method is used to check if code String
      * passed to "Function" constructor is a valid function body or not.
      *
-     * @return function node resulting from successful parse
      */
-    public FunctionNode parseFunctionBody() {
+    public void parseFunctionBody() {
         try {
             stream = new TokenStream();
             lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
@@ -420,7 +413,7 @@ public class Parser extends AbstractParser implements Loggable {
             // Set up the function to append elements.
 
             final IdentNode ident = new IdentNode(functionToken, Token.descPosition(functionToken), PROGRAM.symbolName());
-            final ParserContextFunctionNode function = createParserContextFunctionNode(ident, functionToken, FunctionNode.Kind.NORMAL, functionLine, Collections.<IdentNode>emptyList());
+            final ParserContextFunctionNode function = createParserContextFunctionNode(ident, functionToken, FunctionNode.Kind.NORMAL, functionLine, Collections.emptyList());
             lc.push(function);
 
             final ParserContextBlockNode body = newBlock();
@@ -443,15 +436,13 @@ public class Parser extends AbstractParser implements Loggable {
                     function,
                     functionToken,
                     ident,
-                    Collections.<IdentNode>emptyList(),
+                    Collections.emptyList(),
                     FunctionNode.Kind.NORMAL,
                     functionLine,
                     functionBody);
             printAST(functionNode);
-            return functionNode;
         } catch (final Exception e) {
             handleParseException(e);
-            return null;
         }
     }
 
@@ -592,8 +583,8 @@ public class Parser extends AbstractParser implements Loggable {
     /**
      * Restore the current block.
      */
-    private ParserContextBlockNode restoreBlock(final ParserContextBlockNode block) {
-        return lc.pop(block);
+    private void restoreBlock(final ParserContextBlockNode block) {
+        lc.pop(block);
     }
 
     /**
@@ -836,7 +827,7 @@ public class Parser extends AbstractParser implements Loggable {
                 functionToken,
                 FunctionNode.Kind.SCRIPT,
                 functionLine,
-                Collections.<IdentNode>emptyList());
+                Collections.emptyList());
         lc.push(script);
         final ParserContextBlockNode body = newBlock();
 
@@ -853,7 +844,7 @@ public class Parser extends AbstractParser implements Loggable {
 
         expect(EOF);
 
-        return createFunctionNode(script, functionToken, ident, Collections.<IdentNode>emptyList(), FunctionNode.Kind.SCRIPT, functionLine, programBody);
+        return createFunctionNode(script, functionToken, ident, Collections.emptyList(), FunctionNode.Kind.SCRIPT, functionLine, programBody);
     }
 
     /**
@@ -936,7 +927,7 @@ public class Parser extends AbstractParser implements Loggable {
                                 function.setFlag(FunctionNode.IS_STRICT);
 
                                 // We don't need to check these, if lexical environment is already strict
-                                if (!oldStrictMode && directiveStmts != null) {
+                                if (!oldStrictMode) {
                                     // check that directives preceding this one do not violate strictness
                                     for (final Node statement : directiveStmts) {
                                         // the get value will force unescape of preceding
@@ -1281,7 +1272,7 @@ public class Parser extends AbstractParser implements Loggable {
                 final PropertyNode classElement = methodDefinition(isStatic, classHeritage != null, generator);
                 if (classElement.isComputed()) {
                     classElements.add(classElement);
-                } else if (!classElement.isStatic() && classElement.getKeyName().equals(CONSTRUCTOR_NAME)) {
+                } else if (!classElement.isStatic() && CONSTRUCTOR_NAME.equals(classElement.getKeyName())) {
                     if (constructor == null) {
                         constructor = classElement;
                     } else {
@@ -1364,7 +1355,7 @@ public class Parser extends AbstractParser implements Loggable {
             function.setFlag(FunctionNode.IS_ANONYMOUS);
         }
 
-        final PropertyNode constructor = new PropertyNode(classToken, ctorFinish, ctorName, createFunctionNode(
+        return new PropertyNode(classToken, ctorFinish, ctorName, createFunctionNode(
                         function,
                         classToken,
                         ctorName,
@@ -1373,7 +1364,6 @@ public class Parser extends AbstractParser implements Loggable {
                         classLineNumber,
                         body
                         ), null, null, false, false);
-        return constructor;
     }
 
     private PropertyNode methodDefinition(final boolean isStatic, final boolean subclass, final boolean generator) {
@@ -1387,11 +1377,11 @@ public class Parser extends AbstractParser implements Loggable {
             final String name = ((PropertyKey)propertyName).getPropertyName();
             if (!generator && isIdent && type != LPAREN && name.equals(GET_NAME)) {
                 final PropertyFunction methodDefinition = propertyGetterFunction(methodToken, methodLine, flags);
-                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, generator, true);
+                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, false, true);
                 return new PropertyNode(methodToken, finish, methodDefinition.key, null, methodDefinition.functionNode, null, isStatic, methodDefinition.computed);
             } else if (!generator && isIdent && type != LPAREN && name.equals(SET_NAME)) {
                 final PropertyFunction methodDefinition = propertySetterFunction(methodToken, methodLine, flags);
-                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, generator, true);
+                verifyAllowedMethodName(methodDefinition.key, isStatic, methodDefinition.computed, false, true);
                 return new PropertyNode(methodToken, finish, methodDefinition.key, null, null, methodDefinition.functionNode, isStatic, methodDefinition.computed);
             } else {
                 if (!isStatic && !generator && name.equals(CONSTRUCTOR_NAME)) {
@@ -1400,7 +1390,7 @@ public class Parser extends AbstractParser implements Loggable {
                         flags |= FunctionNode.ES6_IS_SUBCLASS_CONSTRUCTOR;
                     }
                 }
-                verifyAllowedMethodName(propertyName, isStatic, computed, generator, false);
+                verifyAllowedMethodName(propertyName, isStatic, false, generator, false);
             }
         }
         final PropertyFunction methodDefinition = propertyMethodFunction(propertyName, methodToken, methodLine, generator, flags, computed);
@@ -1450,7 +1440,6 @@ public class Parser extends AbstractParser implements Loggable {
         loop:
         while (type != EOF) {
             switch (type) {
-            case EOF:
             case CASE:
             case DEFAULT:
             case RBRACE:
@@ -1602,15 +1591,12 @@ public class Parser extends AbstractParser implements Loggable {
             final boolean isDestructuring = !(binding instanceof IdentNode);
             if (isDestructuring) {
                 final int finalVarFlags = varFlags;
-                verifyDestructuringBindingPattern(binding, new Consumer<IdentNode>() {
-                    @Override
-                    public void accept(final IdentNode identNode) {
-                        verifyIdent(identNode, contextString);
-                        if (!env._parse_only) {
-                            // don't bother adding a variable if we are just parsing!
-                            final VarNode var = new VarNode(varLine, varToken, sourceOrder, identNode.getFinish(), identNode.setIsDeclaredHere(), null, finalVarFlags);
-                            appendStatement(var);
-                        }
+                verifyDestructuringBindingPattern(binding, identNode -> {
+                    verifyIdent(identNode, contextString);
+                    if (!env._parse_only) {
+                        // don't bother adding a variable if we are just parsing!
+                        final VarNode var = new VarNode(varLine, varToken, sourceOrder, identNode.getFinish(), identNode.setIsDeclaredHere(), null, finalVarFlags);
+                        appendStatement(var);
                     }
                 });
             }
@@ -2113,10 +2099,7 @@ public class Parser extends AbstractParser implements Loggable {
                 return true;
             default:
                 // accept future strict tokens in non-strict mode (including LET)
-                if (!isStrictMode && t.getKind() == TokenKind.FUTURESTRICT) {
-                    return true;
-                }
-                return false;
+                return !isStrictMode && t.getKind() == TokenKind.FUTURESTRICT;
             }
         }
     }
@@ -2141,8 +2124,8 @@ public class Parser extends AbstractParser implements Loggable {
         final ParserContextLoopNode whileNode = new ParserContextLoopNode();
         lc.push(whileNode);
 
-        JoinPredecessorExpression test = null;
-        Block body = null;
+        final JoinPredecessorExpression test;
+        final Block body;
 
         try {
             expect(LPAREN);
@@ -2153,9 +2136,7 @@ public class Parser extends AbstractParser implements Loggable {
             lc.pop(whileNode);
         }
 
-        if (body != null) {
-            appendStatement(new WhileNode(whileLine, whileToken, body.getFinish(), false, test, body));
-        }
+        appendStatement(new WhileNode(whileLine, whileToken, body.getFinish(), false, test, body));
     }
 
     /**
@@ -2171,15 +2152,15 @@ public class Parser extends AbstractParser implements Loggable {
     private void doStatement() {
         // Capture DO token.
         final long doToken = token;
-        int doLine = 0;
+        final int doLine;
         // DO tested in the caller.
         next();
 
         final ParserContextLoopNode doWhileNode = new ParserContextLoopNode();
         lc.push(doWhileNode);
 
-        Block body = null;
-        JoinPredecessorExpression test = null;
+        final Block body;
+        final JoinPredecessorExpression test;
 
         try {
            // Get DO body.
@@ -2362,7 +2343,7 @@ public class Parser extends AbstractParser implements Loggable {
         assert type == YIELD;
         nextOrEOL();
 
-        Expression expression = null;
+        final Expression expression;
 
         boolean yieldAsterisk = false;
         if (type == MUL) {
@@ -2472,7 +2453,7 @@ public class Parser extends AbstractParser implements Loggable {
         // Prepare to accumulate cases.
         final List<CaseNode> cases = new ArrayList<>();
 
-        Expression expression = null;
+        final Expression expression;
 
         try {
             expect(LPAREN);
@@ -2550,7 +2531,7 @@ public class Parser extends AbstractParser implements Loggable {
         }
 
         final ParserContextLabelNode labelNode = new ParserContextLabelNode(ident.getName());
-        Block body = null;
+        final Block body;
         try {
             lc.push(labelNode);
             body = getStatement(true);
@@ -2645,12 +2626,7 @@ public class Parser extends AbstractParser implements Loggable {
                 final Expression exception = bindingIdentifierOrPattern(contextString);
                 final boolean isDestructuring = !(exception instanceof IdentNode);
                 if (isDestructuring) {
-                    verifyDestructuringBindingPattern(exception, new Consumer<IdentNode>() {
-                        @Override
-                        public void accept(final IdentNode identNode) {
-                            verifyIdent(identNode, contextString);
-                        }
-                    });
+                    verifyDestructuringBindingPattern(exception, identNode -> verifyIdent(identNode, contextString));
                 } else {
                     // ECMA 12.4.1 strict mode restrictions
                     verifyIdent((IdentNode) exception, "catch argument");
@@ -3176,15 +3152,14 @@ public class Parser extends AbstractParser implements Loggable {
             final String ident = (String)expectValue(IDENT);
 
             if (type != COLON && (type != LPAREN || !isES6())) {
-                final long getSetToken = propertyToken;
 
                 switch (ident) {
                 case GET_NAME:
-                    final PropertyFunction getter = propertyGetterFunction(getSetToken, functionLine);
+                    final PropertyFunction getter = propertyGetterFunction(propertyToken, functionLine);
                     return new PropertyNode(propertyToken, finish, getter.key, null, getter.functionNode, null, false, getter.computed);
 
                 case SET_NAME:
-                    final PropertyFunction setter = propertySetterFunction(getSetToken, functionLine);
+                    final PropertyFunction setter = propertySetterFunction(propertyToken, functionLine);
                     return new PropertyNode(propertyToken, finish, setter.key, null, null, setter.functionNode, false, setter.computed);
                 default:
                     break;
@@ -3212,7 +3187,7 @@ public class Parser extends AbstractParser implements Loggable {
             propertyValue = propertyMethodFunction(propertyName, propertyToken, functionLine, generator, FunctionNode.ES6_IS_METHOD, computed).functionNode;
         } else if (isIdentifier && (type == COMMARIGHT || type == RBRACE || type == ASSIGN) && isES6()) {
             propertyValue = createIdentNode(propertyToken, finish, ((IdentNode) propertyName).getPropertyName());
-            if (type == ASSIGN && isES6()) {
+            if (type == ASSIGN) {
                 // TODO if not destructuring, this is a SyntaxError
                 final long assignToken = token;
                 next();
@@ -3245,7 +3220,7 @@ public class Parser extends AbstractParser implements Loggable {
         expect(LPAREN);
         expect(RPAREN);
 
-        final ParserContextFunctionNode functionNode = createParserContextFunctionNode(getNameNode, getSetToken, FunctionNode.Kind.GETTER, functionLine, Collections.<IdentNode>emptyList());
+        final ParserContextFunctionNode functionNode = createParserContextFunctionNode(getNameNode, getSetToken, FunctionNode.Kind.GETTER, functionLine, Collections.emptyList());
         functionNode.setFlag(flags);
         if (computed) {
             functionNode.setFlag(FunctionNode.IS_ANONYMOUS);
@@ -3265,7 +3240,7 @@ public class Parser extends AbstractParser implements Loggable {
                 functionNode,
                 getSetToken,
                 getNameNode,
-                Collections.<IdentNode>emptyList(),
+                Collections.emptyList(),
                 FunctionNode.Kind.GETTER,
                 functionLine,
                 functionBody);
@@ -3328,7 +3303,7 @@ public class Parser extends AbstractParser implements Loggable {
 
     private PropertyFunction propertyMethodFunction(final Expression key, final long methodToken, final int methodLine, final boolean generator, final int flags, final boolean computed) {
         final String methodName = key instanceof PropertyKey ? ((PropertyKey) key).getPropertyName() : getDefaultValidFunctionName(methodLine, false);
-        final IdentNode methodNameNode = createIdentNode(((Node)key).getToken(), finish, methodName);
+        final IdentNode methodNameNode = createIdentNode(key.getToken(), finish, methodName);
 
         final FunctionNode.Kind functionKind = generator ? FunctionNode.Kind.GENERATOR : FunctionNode.Kind.NORMAL;
         final ParserContextFunctionNode functionNode = createParserContextFunctionNode(methodNameNode, methodToken, functionKind, methodLine, null);
@@ -3737,18 +3712,7 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     private static <T> List<T> optimizeList(final ArrayList<T> list) {
-        switch(list.size()) {
-            case 0: {
-                return Collections.emptyList();
-            }
-            case 1: {
-                return Collections.singletonList(list.get(0));
-            }
-            default: {
-                list.trimToSize();
-                return list;
-            }
-        }
+        return List.copyOf(list);
     }
 
     /**
@@ -3813,7 +3777,7 @@ public class Parser extends AbstractParser implements Loggable {
         final ParserContextFunctionNode functionNode = createParserContextFunctionNode(name, functionToken, functionKind, functionLine, parameters);
         lc.push(functionNode);
 
-        Block functionBody = null;
+        final Block functionBody;
         // Hide the current default name across function boundaries. E.g. "x3 = function x1() { function() {}}"
         // If we didn't hide the current default name, then the innermost anonymous function would receive "x3".
         hideDefaultName();
@@ -3828,9 +3792,7 @@ public class Parser extends AbstractParser implements Loggable {
                 restoreBlock(parameterBlock);
             }
 
-            functionBody = functionBody(functionNode);
-
-            functionBody = maybeWrapBodyInParameterBlock(functionBody, parameterBlock);
+            functionBody = maybeWrapBodyInParameterBlock(functionBody(functionNode), parameterBlock);
         } finally {
             defaultNames.pop();
             lc.pop(functionNode);
@@ -4122,20 +4084,18 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     private void verifyDestructuringParameterBindingPattern(final Expression pattern, final long paramToken, final int paramLine, final String contextString) {
-        verifyDestructuringBindingPattern(pattern, new Consumer<IdentNode>() {
-            public void accept(final IdentNode identNode) {
-                verifyIdent(identNode, contextString);
+        verifyDestructuringBindingPattern(pattern, identNode -> {
+            verifyIdent(identNode, contextString);
 
-                final ParserContextFunctionNode currentFunction = lc.getCurrentFunction();
-                if (currentFunction != null) {
-                    // declare function-scope variables for destructuring bindings
-                    if (!env._parse_only) {
-                        lc.getFunctionBody(currentFunction).appendStatement(new VarNode(paramLine, Token.recast(paramToken, VAR), pattern.getFinish(), identNode, null));
-                    }
-                    // detect duplicate bounds names in parameter list
-                    currentFunction.addParameterBinding(identNode);
-                    currentFunction.setSimpleParameterList(false);
+            final ParserContextFunctionNode currentFunction = lc.getCurrentFunction();
+            if (currentFunction != null) {
+                // declare function-scope variables for destructuring bindings
+                if (!env._parse_only) {
+                    lc.getFunctionBody(currentFunction).appendStatement(new VarNode(paramLine, Token.recast(paramToken, VAR), pattern.getFinish(), identNode, null));
                 }
+                // detect duplicate bounds names in parameter list
+                currentFunction.addParameterBinding(identNode);
+                currentFunction.setSimpleParameterList(false);
             }
         });
     }
@@ -4150,7 +4110,6 @@ public class Parser extends AbstractParser implements Loggable {
      * @return function node (body.)
      */
     private Block functionBody(final ParserContextFunctionNode functionNode) {
-        long lastToken = 0L;
         ParserContextBlockNode body = null;
         final long bodyToken = token;
         Block functionBody;
@@ -4179,7 +4138,7 @@ public class Parser extends AbstractParser implements Loggable {
 
                 // just expression as function body
                 final Expression expr = assignmentExpression(false);
-                lastToken = previousToken;
+                final long lastToken = previousToken;
                 functionNode.setLastToken(previousToken);
                 assert lc.getCurrentBlock() == lc.getFunctionBody(functionNode);
                 // EOL uses length field to store the line number
@@ -4209,7 +4168,6 @@ public class Parser extends AbstractParser implements Loggable {
                         functionDeclarations = prevFunctionDecls;
                     }
 
-                    lastToken = token;
                     if (parseBody) {
                         // Since the lexer can read ahead and lexify some number of tokens in advance and have
                         // them buffered in the TokenStream, we need to produce a lexer state as it was just
@@ -4246,7 +4204,7 @@ public class Parser extends AbstractParser implements Loggable {
             // enforce empty bodies in nested functions that were supposed to be skipped, we do assert it as
             // an invariant in few places in the compiler pipeline, so for consistency's sake we'll throw away
             // nested bodies early if we were supposed to skip 'em.
-            body.setStatements(Collections.<Statement>emptyList());
+            body.setStatements(Collections.emptyList());
         }
 
         if (reparsedFunction != null) {
@@ -4400,7 +4358,6 @@ public class Parser extends AbstractParser implements Loggable {
      * @return Expression node.
      */
     private Expression unaryExpression() {
-        final int  unaryLine  = line;
         final long unaryToken = token;
 
         switch (type) {
@@ -4445,14 +4402,13 @@ public class Parser extends AbstractParser implements Loggable {
             case DECPREFIX:
                 final long opToken = token;
                 final TokenType opType = type;
-                final Expression lhs = expression;
                 // ++, -- without operand..
-                if (lhs == null) {
+                if (expression == null) {
                     throw error(AbstractParser.message("expected.lvalue", type.getNameOrType()));
                 }
                 next();
 
-                return verifyIncDecExpression(opToken, opType, lhs, true);
+                return verifyIncDecExpression(opToken, opType, expression, true);
             default:
                 break;
             }
@@ -4578,15 +4534,7 @@ public class Parser extends AbstractParser implements Loggable {
      * @return Expression node.
      */
     protected Expression expression() {
-        // This method is protected so that subclass can get details
-        // at expression start point!
-
-        // Include commas in expression parsing.
-        return expression(false);
-    }
-
-    private Expression expression(final boolean noIn) {
-        Expression assignmentExpression = assignmentExpression(noIn);
+        Expression assignmentExpression = assignmentExpression(false);
         while (type == COMMARIGHT) {
             final long commaToken = token;
             next();
@@ -4601,7 +4549,7 @@ public class Parser extends AbstractParser implements Loggable {
                 }
             }
 
-            Expression rhs = assignmentExpression(noIn);
+            Expression rhs = assignmentExpression(false);
 
             if (rhsRestParameter) {
                 rhs = ((IdentNode)rhs).setIsRestParameter();
@@ -4809,7 +4757,7 @@ public class Parser extends AbstractParser implements Loggable {
 
             verifyParameterList(parameters, functionNode);
 
-            final FunctionNode function = createFunctionNode(
+            return createFunctionNode(
                             functionNode,
                             functionToken,
                             name,
@@ -4817,7 +4765,6 @@ public class Parser extends AbstractParser implements Loggable {
                             FunctionNode.Kind.ARROW,
                             functionLine,
                             functionBody);
-            return function;
         } finally {
             lc.pop(functionNode);
         }
@@ -4832,7 +4779,7 @@ public class Parser extends AbstractParser implements Loggable {
             // we might have flagged has-eval in the parent function during parsing the parameter list,
             // if the parameter list contains eval; must tag arrow function as has-eval.
             for (final Statement st : parameterBlock.getStatements()) {
-                st.accept(new NodeVisitor<LexicalContext>(new LexicalContext()) {
+                st.accept(new NodeVisitor<>(new LexicalContext()) {
                     @Override
                     public boolean enterCallNode(final CallNode callNode) {
                         if (callNode.getFunction() instanceof IdentNode && ((IdentNode) callNode.getFunction()).getName().equals("eval")) {
@@ -4962,10 +4909,7 @@ public class Parser extends AbstractParser implements Loggable {
             case COMMENT:
                 continue;
             default:
-                if (t.getKind() == TokenKind.FUTURESTRICT) {
-                    return true;
-                }
-                return false;
+                return t.getKind() == TokenKind.FUTURESTRICT;
             }
         }
         return false;
@@ -4983,9 +4927,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == IDENT) {
                 break;
-            } else if (t == EOL || t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != EOL && t != COMMENT) {
                 return false;
             }
         }
@@ -4993,9 +4935,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == RPAREN) {
                 break;
-            } else if (t == EOL || t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != EOL && t != COMMENT) {
                 return false;
             }
         }
@@ -5003,9 +4943,7 @@ public class Parser extends AbstractParser implements Loggable {
             final TokenType t = T(k + i++);
             if (t == ARROW) {
                 break;
-            } else if (t == COMMENT) {
-                continue;
-            } else {
+            } else if (t != COMMENT) {
                 return false;
             }
         }
@@ -5155,7 +5093,7 @@ public class Parser extends AbstractParser implements Loggable {
                             functionToken,
                             FunctionNode.Kind.MODULE,
                             functionLine,
-                            Collections.<IdentNode>emptyList());
+                            Collections.emptyList());
             lc.push(script);
 
             final ParserContextModuleNode module = new ParserContextModuleNode(moduleName);
@@ -5178,7 +5116,7 @@ public class Parser extends AbstractParser implements Loggable {
             expect(EOF);
 
             script.setModule(module.createModule());
-            return createFunctionNode(script, functionToken, ident, Collections.<IdentNode>emptyList(), FunctionNode.Kind.MODULE, functionLine, programBody);
+            return createFunctionNode(script, functionToken, ident, Collections.emptyList(), FunctionNode.Kind.MODULE, functionLine, programBody);
         } finally {
             isStrictMode = oldStrictMode;
         }
@@ -5200,11 +5138,8 @@ public class Parser extends AbstractParser implements Loggable {
      *      StatementListItem
      */
     private void moduleBody() {
-        loop:
         while (type != EOF) {
             switch (type) {
-            case EOF:
-                break loop;
             case IMPORT:
                 importDeclaration();
                 break;
@@ -5279,8 +5214,8 @@ public class Parser extends AbstractParser implements Loggable {
 
             final IdentNode moduleSpecifier = fromClause();
             module.addModuleRequest(moduleSpecifier);
-            for (int i = 0; i < importEntries.size(); i++) {
-                module.addImportEntry(importEntries.get(i).withFrom(moduleSpecifier, finish));
+            for (final Module.ImportEntry importEntry : importEntries) {
+                module.addImportEntry(importEntry.withFrom(moduleSpecifier, finish));
             }
         }
         expect(SEMICOLON);

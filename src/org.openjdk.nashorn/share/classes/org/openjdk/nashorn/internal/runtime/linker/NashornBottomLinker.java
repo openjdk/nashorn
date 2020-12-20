@@ -45,7 +45,6 @@ import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.GuardingTypeConverterFactory;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
-import jdk.dynalink.linker.support.Guards;
 import jdk.dynalink.linker.support.Lookup;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.runtime.ECMAException;
@@ -63,8 +62,7 @@ import org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException;
 final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeConverterFactory {
 
     @Override
-    public GuardedInvocation getGuardedInvocation(final LinkRequest linkRequest, final LinkerServices linkerServices)
-            throws Exception {
+    public GuardedInvocation getGuardedInvocation(final LinkRequest linkRequest, final LinkerServices linkerServices) {
         final Object self = linkRequest.getReceiver();
 
         if (self == null) {
@@ -100,7 +98,7 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
         MISSING_PROPERTY_REMOVER = lookup.findOwnStatic("missingPropertyRemover", boolean.class, Object.class, Object.class);
     }
 
-    private static GuardedInvocation linkBean(final LinkRequest linkRequest) throws Exception {
+    private static GuardedInvocation linkBean(final LinkRequest linkRequest) {
         final CallSiteDescriptor desc = linkRequest.getCallSiteDescriptor();
         final Object self = linkRequest.getReceiver();
         switch (NashornCallSiteDescriptor.getStandardOperation(desc)) {
@@ -127,7 +125,7 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
         }
     }
 
-    static MethodHandle linkMissingBeanMember(final LinkRequest linkRequest, final LinkerServices linkerServices) throws Exception {
+    static MethodHandle linkMissingBeanMember(final LinkRequest linkRequest, final LinkerServices linkerServices) {
         final CallSiteDescriptor desc = linkRequest.getCallSiteDescriptor();
         final String operand = NashornCallSiteDescriptor.getOperand(desc);
         final boolean strict = NashornCallSiteDescriptor.isStrict(desc);
@@ -210,8 +208,8 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
     }
 
     @Override
-    public GuardedInvocation convertToType(final Class<?> sourceType, final Class<?> targetType, final Supplier<MethodHandles.Lookup> lookupSupplier) throws Exception {
-        final GuardedInvocation gi = convertToTypeNoCast(sourceType, targetType);
+    public GuardedInvocation convertToType(final Class<?> sourceType, final Class<?> targetType, final Supplier<MethodHandles.Lookup> lookupSupplier) {
+        final GuardedInvocation gi = convertToTypeNoCast(targetType);
         return gi == null ? null : gi.asType(MH.type(targetType, sourceType));
     }
 
@@ -219,12 +217,10 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
      * Main part of the implementation of {@link GuardingTypeConverterFactory#convertToType} that doesn't
      * care about adapting the method signature; that's done by the invoking method. Returns conversion
      * from Object to String/number/boolean (JS primitive types).
-     * @param sourceType the source type
      * @param targetType the target type
      * @return a guarded invocation that converts from the source type to the target type.
-     * @throws Exception if something goes wrong
      */
-    private static GuardedInvocation convertToTypeNoCast(final Class<?> sourceType, final Class<?> targetType) throws Exception {
+    private static GuardedInvocation convertToTypeNoCast(final Class<?> targetType) {
         final MethodHandle mh = CONVERTERS.get(targetType);
         if (mh != null) {
             return new GuardedInvocation(mh);

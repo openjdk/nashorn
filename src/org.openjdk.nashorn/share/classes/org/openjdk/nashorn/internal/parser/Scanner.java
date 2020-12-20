@@ -172,7 +172,7 @@ public class Scanner {
         ch1 = charAt(i + 1);
         ch2 = charAt(i + 2);
         ch3 = charAt(i + 3);
-        position = i < limit? i : limit;
+        position = Math.min(i, limit);
     }
 
     /**

@@ -113,7 +113,7 @@ public final class PropertyNode extends Node {
         }
 
         if (value != null) {
-            ((Node)key).toString(sb, printType);
+            key.toString(sb, printType);
             sb.append(": ");
             value.toString(sb, printType);
         }

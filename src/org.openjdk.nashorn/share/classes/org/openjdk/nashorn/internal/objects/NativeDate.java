@@ -33,7 +33,6 @@ import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.internal.objects.annotations.Attribute;
 import org.openjdk.nashorn.internal.objects.annotations.Constructor;
 import org.openjdk.nashorn.internal.objects.annotations.Function;
@@ -82,16 +81,16 @@ public final class NativeDate extends ScriptObject {
     private static final double msPerHour = 3_600_000;
     private static final double msPerDay = 86_400_000;
 
-    private static int[][] firstDayInMonth = {
+    private static final int[][] firstDayInMonth = {
             {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334}, // normal year
             {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335}  // leap year
     };
 
-    private static String[] weekDays = {
+    private static final String[] weekDays = {
             "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
-    private static String[] months = {
+    private static final String[] months = {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
 
@@ -99,12 +98,8 @@ public final class NativeDate extends ScriptObject {
 
     private static InvokeByName getTO_ISO_STRING() {
         return Global.instance().getInvokeByName(TO_ISO_STRING,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toISOString", ScriptObject.class, Object.class, Object.class);
-                    }
-                });
+            () -> new InvokeByName("toISOString", ScriptObject.class, Object.class, Object.class)
+        );
     }
 
     private double time;
@@ -1307,7 +1302,7 @@ public final class NativeDate extends ScriptObject {
             length = 4;
         }
         final double time = local ? nd.getLocalTime() : nd.getTime();
-        final double d[] = convertArgs(args, time, fieldId, start, length);
+        final double[] d = convertArgs(args, time, fieldId, start, length);
 
         if (! nd.isValidDate()) {
             return;

@@ -350,7 +350,7 @@ final class DebuggerSupport {
                 sb.append("\\\"");
                 break;
             case '\'':
-                sb.append("\\\'");
+                sb.append("\\'");
                 break;
             case '\b':
                 sb.append("\\b");

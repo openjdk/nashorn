@@ -126,9 +126,7 @@ public class NativeWeakSet extends ScriptObject {
 
     static void populateWeakSet(final Map<Object, Boolean> set, final Object arg, final Global global) {
         if (arg != null && arg != Undefined.getUndefined()) {
-            AbstractIterator.iterate(arg, global, value -> {
-                    set.put(checkKey(value), Boolean.TRUE);
-            });
+            AbstractIterator.iterate(arg, global, value -> set.put(checkKey(value), Boolean.TRUE));
         }
     }
 

@@ -149,7 +149,7 @@ final class FinalScriptFunctionData extends ScriptFunctionData {
         return MethodType.genericMethodType(max + 1);
     }
 
-    private CompiledFunction addInvoker(final MethodHandle mh, final Specialization specialization) {
+    private void addInvoker(final MethodHandle mh, final Specialization specialization) {
         assert !needsCallee(mh);
 
         final CompiledFunction invoker;
@@ -162,12 +162,10 @@ final class FinalScriptFunctionData extends ScriptFunctionData {
             invoker = new CompiledFunction(mh, null, specialization);
         }
         code.add(invoker);
-
-        return invoker;
     }
 
-    private CompiledFunction addInvoker(final MethodHandle mh) {
-        return addInvoker(mh, null);
+    private void addInvoker(final MethodHandle mh) {
+        addInvoker(mh, null);
     }
 
     private static int methodHandleArity(final MethodHandle mh) {

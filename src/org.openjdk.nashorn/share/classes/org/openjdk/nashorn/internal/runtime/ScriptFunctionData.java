@@ -222,16 +222,8 @@ public abstract class ScriptFunctionData implements Serializable {
      * @return verbose description
      */
     public String toStringVerbose() {
-        final StringBuilder sb = new StringBuilder();
-
-        sb.append("name='").
-                append(name.isEmpty() ? "<anonymous>" : name).
-                append("' ").
-                append(code.size()).
-                append(" invokers=").
-                append(code);
-
-        return sb.toString();
+        return "name='" + (name.isEmpty() ? "<anonymous>" : name) + "' " + code.size() + " invokers="
+           + code;
     }
 
     /**
@@ -259,8 +251,7 @@ public abstract class ScriptFunctionData implements Serializable {
             throw typeError("not.a.constructor", toSource());
         }
         // Constructor call sites don't have a "this", but getBest is meant to operate on "callee, this, ..." style
-        final CompiledFunction cf = getBest(callSiteType.insertParameterTypes(1, Object.class), runtimeScope, forbidden);
-        return cf;
+        return getBest(callSiteType.insertParameterTypes(1, Object.class), runtimeScope, forbidden);
     }
 
     /**

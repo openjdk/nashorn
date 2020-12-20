@@ -82,35 +82,24 @@ public final class DebugLogger {
 
     private static Logger instantiateLogger(final String name, final Level level) {
         final Logger logger = java.util.logging.Logger.getLogger(name);
-        AccessController.doPrivileged(new PrivilegedAction<Void>() {
-            @Override
-            public Void run() {
-                for (final Handler h : logger.getHandlers()) {
-                    logger.removeHandler(h);
-                }
-
-                logger.setLevel(level);
-                logger.setUseParentHandlers(false);
-                final Handler c = new ConsoleHandler();
-
-                c.setFormatter(new Formatter() {
-                    @Override
-                    public String format(final LogRecord record) {
-                        final StringBuilder sb = new StringBuilder();
-
-                        sb.append('[')
-                        .append(record.getLoggerName())
-                        .append("] ")
-                        .append(record.getMessage())
-                        .append('\n');
-
-                        return sb.toString();
-                    }
-                });
-                logger.addHandler(c);
-                c.setLevel(level);
-                return null;
+        AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
+            for (final Handler h : logger.getHandlers()) {
+                logger.removeHandler(h);
             }
+
+            logger.setLevel(level);
+            logger.setUseParentHandlers(false);
+            final Handler c = new ConsoleHandler();
+
+            c.setFormatter(new Formatter() {
+                @Override
+                public String format(final LogRecord record) {
+                    return '[' + record.getLoggerName() + "] " + record.getMessage() + '\n';
+                }
+            });
+            logger.addHandler(c);
+            c.setLevel(level);
+            return null;
         }, createLoggerControlAccCtxt());
 
         return logger;
@@ -524,12 +513,7 @@ public final class DebugLogger {
      */
     public void log(final Level level, final String str) {
         if (isEnabled && !isQuiet && logger.isLoggable(level)) {
-            final StringBuilder sb = new StringBuilder();
-            for (int i = 0 ; i < indent ; i++) {
-                sb.append(' ');
-            }
-            sb.append(str);
-            logger.log(level, sb.toString());
+            logger.log(level, " ".repeat(Math.max(0, indent)) + str);
         }
     }
 

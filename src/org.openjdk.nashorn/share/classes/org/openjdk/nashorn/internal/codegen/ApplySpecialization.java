@@ -166,7 +166,6 @@ public final class ApplySpecialization extends SimpleNodeVisitor implements Logg
      */
     private static void checkValidTransform(final FunctionNode functionNode) {
 
-        final Set<Expression> argumentsFound = new HashSet<>();
         final Deque<Set<Expression>> stack = new ArrayDeque<>();
 
         //ensure that arguments is only passed as arg to apply
@@ -177,11 +176,7 @@ public final class ApplySpecialization extends SimpleNodeVisitor implements Logg
             }
 
             private boolean isArguments(final Expression expr) {
-                if (expr instanceof IdentNode && ARGUMENTS.equals(((IdentNode)expr).getName())) {
-                    argumentsFound.add(expr);
-                    return true;
-               }
-                return false;
+                return expr instanceof IdentNode && ARGUMENTS.equals(((IdentNode) expr).getName());
             }
 
             private boolean isParam(final String name) {

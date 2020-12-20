@@ -27,7 +27,6 @@ package org.openjdk.nashorn.internal.ir;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -42,6 +41,8 @@ import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
  */
 @Immutable
 public class Block extends Node implements BreakableNode, Terminal, Flags<Block> {
+    private static final Comparator<Symbol> SYMBOL_NAME_COMPARATOR = Comparator.comparing(Symbol::getName);
+
     private static final long serialVersionUID = 1L;
 
     /** List of statements */
@@ -116,7 +117,7 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
     public Block(final long token, final int finish, final int flags, final Statement... statements) {
         super(token, finish);
 
-        this.statements = Arrays.asList(statements);
+        this.statements = List.of(statements);
         this.symbols    = new LinkedHashMap<>();
         this.entryLabel = new Label("block_entry");
         this.breakLabel = new Label("block_break");
@@ -243,7 +244,7 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
      * @return symbol iterator
      */
     public List<Symbol> getSymbols() {
-        return symbols.isEmpty() ? Collections.emptyList() : Collections.unmodifiableList(new ArrayList<>(symbols.values()));
+        return symbols.isEmpty() ? List.of() : List.copyOf(symbols.values());
     }
 
     /**
@@ -285,12 +286,7 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
     public boolean printSymbols(final PrintWriter stream) {
         final List<Symbol> values = new ArrayList<>(symbols.values());
 
-        Collections.sort(values, new Comparator<Symbol>() {
-            @Override
-            public int compare(final Symbol s0, final Symbol s1) {
-                return s0.getName().compareTo(s1.getName());
-            }
-        });
+        values.sort(SYMBOL_NAME_COMPARATOR);
 
         for (final Symbol symbol : values) {
             symbol.print(stream);
@@ -503,7 +499,7 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
 
     @Override
     public List<Label> getLabels() {
-        return Collections.unmodifiableList(Arrays.asList(entryLabel, breakLabel));
+        return List.of(entryLabel, breakLabel);
     }
 
     @Override

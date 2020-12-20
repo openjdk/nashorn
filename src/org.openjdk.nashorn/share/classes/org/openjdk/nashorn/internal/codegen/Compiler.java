@@ -47,7 +47,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.Expression;
@@ -266,10 +265,6 @@ public final class Compiler implements Loggable {
             this(desc, concat(Collections.singletonList(first), rest.phases));
         }
 
-        private CompilationPhases(final String desc, final CompilationPhases base) {
-            this(desc, base.phases);
-        }
-
         private CompilationPhases(final String desc, final CompilationPhases... bases) {
             this(desc, concatPhases(bases));
         }
@@ -316,14 +311,6 @@ public final class Compiler implements Loggable {
         String getDesc() {
             return desc;
         }
-
-        String toString(final String prefix) {
-            final StringBuilder sb = new StringBuilder();
-            for (final CompilationPhase phase : phases) {
-                sb.append(prefix).append(phase).append('\n');
-            }
-            return sb.toString();
-        }
     }
 
     /**
@@ -332,7 +319,7 @@ public final class Compiler implements Loggable {
      * See {@link CompilerConstants} for special names used for structures
      * during a compile.
      */
-    private static String[] RESERVED_NAMES = {
+    private static final String[] RESERVED_NAMES = {
         SCOPE.symbolName(),
         THIS.symbolName(),
         RETURN.symbolName(),
@@ -543,14 +530,11 @@ public final class Compiler implements Loggable {
         final boolean optimisticTypes = env._optimistic_types;
         final boolean lazyCompilation = env._lazy_compilation;
 
-        return ctxt.getLogger(this.getClass(), new Consumer<DebugLogger>() {
-            @Override
-            public void accept(final DebugLogger newLogger) {
-                if (!lazyCompilation) {
-                    newLogger.warning("WARNING: Running with lazy compilation switched off. This is not a default setting.");
-                }
-                newLogger.warning("Optimistic types are ", optimisticTypes ? "ENABLED." : "DISABLED.");
+        return ctxt.getLogger(this.getClass(), newLogger -> {
+            if (!lazyCompilation) {
+                newLogger.warning("WARNING: Running with lazy compilation switched off. This is not a default setting.");
             }
+            newLogger.warning("Optimistic types are ", optimisticTypes ? "ENABLED." : "DISABLED.");
         });
     }
 

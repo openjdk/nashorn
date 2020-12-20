@@ -82,25 +82,24 @@ public final class ECMAErrors {
         final JSErrorType errorType = e.getErrorType();
         assert errorType != null : "error type for " + e + " was null";
 
-        final Global globalObj    = global;
         final String       msg    = e.getMessage();
 
         // translate to ECMAScript Error object using error type
         switch (errorType) {
         case ERROR:
-            return error(globalObj.newError(msg), e);
+            return error(global.newError(msg), e);
         case EVAL_ERROR:
-            return error(globalObj.newEvalError(msg), e);
+            return error(global.newEvalError(msg), e);
         case RANGE_ERROR:
-            return error(globalObj.newRangeError(msg), e);
+            return error(global.newRangeError(msg), e);
         case REFERENCE_ERROR:
-            return error(globalObj.newReferenceError(msg), e);
+            return error(global.newReferenceError(msg), e);
         case SYNTAX_ERROR:
-            return error(globalObj.newSyntaxError(msg), e);
+            return error(global.newSyntaxError(msg), e);
         case TYPE_ERROR:
-            return error(globalObj.newTypeError(msg), e);
+            return error(global.newTypeError(msg), e);
         case URI_ERROR:
-            return error(globalObj.newURIError(msg), e);
+            return error(global.newURIError(msg), e);
         default:
             // should not happen - perhaps unknown error type?
             throw new AssertionError(e.getMessage());

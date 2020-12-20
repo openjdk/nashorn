@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.Deque;
 import org.openjdk.nashorn.internal.ir.FunctionNode;
 import org.openjdk.nashorn.internal.ir.Node;
-import org.openjdk.nashorn.internal.ir.Statement;
 import org.openjdk.nashorn.internal.ir.visitor.SimpleNodeVisitor;
 import org.openjdk.nashorn.internal.runtime.RecompilableScriptFunctionData;
 
@@ -78,7 +77,7 @@ class CacheAst extends SimpleNodeVisitor {
             // functions' bodies. Note we're doing this only for functions directly nested inside split
             // functions, since we're only caching the split ones. It is not necessary to limit body removal
             // to just these functions, but it's a cheap way to prevent unnecessary AST mutations.
-            return functionNode.setBody(lc, functionNode.getBody().setStatements(null, Collections.<Statement>emptyList()));
+            return functionNode.setBody(lc, functionNode.getBody().setStatements(null, Collections.emptyList()));
         }
         return functionNode;
     }

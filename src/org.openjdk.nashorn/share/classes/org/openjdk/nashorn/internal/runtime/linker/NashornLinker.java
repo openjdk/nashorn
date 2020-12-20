@@ -71,7 +71,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     private static final AccessControlContext GET_LOOKUP_PERMISSION_CONTEXT =
             AccessControlContextFactory.createAccessControlContext(SecureLookupSupplier.GET_LOOKUP_PERMISSION_NAME);
 
-    private static final ClassValue<MethodHandle> ARRAY_CONVERTERS = new ClassValue<MethodHandle>() {
+    private static final ClassValue<MethodHandle> ARRAY_CONVERTERS = new ClassValue<>() {
         @Override
         protected MethodHandle computeValue(final Class<?> type) {
             return createArrayConverter(type);
@@ -91,7 +91,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     }
 
     @Override
-    public GuardedInvocation getGuardedInvocation(final LinkRequest request, final LinkerServices linkerServices) throws Exception {
+    public GuardedInvocation getGuardedInvocation(final LinkRequest request, final LinkerServices linkerServices) {
         final CallSiteDescriptor desc = request.getCallSiteDescriptor();
         return Bootstrap.asTypeSafeReturn(getGuardedInvocation(request, desc), linkerServices, desc);
     }
@@ -121,16 +121,15 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     }
 
     /**
-     * Main part of the implementation of {@link GuardingTypeConverterFactory#convertToType(Class, Class)} that doesn't
+     * Main part of the implementation of {@link GuardingTypeConverterFactory#convertToType(Class, Class, Supplier)} that doesn't
      * care about adapting the method signature; that's done by the invoking method. Returns either a built-in
      * conversion to primitive (or primitive wrapper) Java types or to String, or a just-in-time generated converter to
      * a SAM type (if the target type is a SAM type).
      * @param sourceType the source type
      * @param targetType the target type
      * @return a guarded invocation that converts from the source type to the target type.
-     * @throws Exception if something goes wrong
      */
-    private static GuardedInvocation convertToTypeNoCast(final Class<?> sourceType, final Class<?> targetType, final Supplier<MethodHandles.Lookup> lookupSupplier) throws Exception {
+    private static GuardedInvocation convertToTypeNoCast(final Class<?> sourceType, final Class<?> targetType, final Supplier<MethodHandles.Lookup> lookupSupplier) {
         final MethodHandle mh = JavaArgumentConverters.getConverter(targetType);
         if (mh != null) {
             return new GuardedInvocation(mh, canLinkTypeStatic(sourceType) ? null : IS_NASHORN_OR_UNDEFINED_TYPE);
@@ -173,12 +172,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
     }
 
     private static MethodHandles.Lookup getCurrentLookup(final Supplier<MethodHandles.Lookup> lookupSupplier) {
-        return AccessController.doPrivileged(new PrivilegedAction<MethodHandles.Lookup>() {
-            @Override
-            public MethodHandles.Lookup run() {
-                return lookupSupplier.get();
-            }
-        }, GET_LOOKUP_PERMISSION_CONTEXT);
+        return AccessController.doPrivileged((PrivilegedAction<MethodHandles.Lookup>) lookupSupplier::get, GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     /**
@@ -350,7 +344,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
 
     @SuppressWarnings("unused")
     private static Object createMirror(final Object obj) {
-        return obj instanceof ScriptObject? ScriptUtils.wrap((ScriptObject)obj) : obj;
+        return obj instanceof ScriptObject? ScriptUtils.wrap(obj) : obj;
     }
 
     @SuppressWarnings("unused")

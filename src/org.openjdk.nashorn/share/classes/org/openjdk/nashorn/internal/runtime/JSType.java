@@ -32,8 +32,6 @@ import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import jdk.dynalink.SecureLookupSupplier;
 import jdk.dynalink.beans.StaticClass;
@@ -195,11 +193,7 @@ public enum JSType {
      * The list of available accessor types in width order. This order is used for type guesses narrow{@literal ->} wide
      *  in the dual--fields world
      */
-    private static final List<Type> ACCESSOR_TYPES = Collections.unmodifiableList(
-            Arrays.asList(
-                Type.INT,
-                Type.NUMBER,
-                Type.OBJECT));
+    private static final List<Type> ACCESSOR_TYPES = List.of(Type.INT, Type.NUMBER, Type.OBJECT);
 
     /** table index for undefined type - hard coded so it can be used in switches at compile time */
     public static final int TYPE_UNDEFINED_INDEX = -1;
@@ -211,20 +205,18 @@ public enum JSType {
     public static final int TYPE_OBJECT_INDEX = 2; //getAccessorTypeIndex(Object.class);
 
     /** object conversion quickies with JS semantics - used for return value and parameter filter */
-    public static final List<MethodHandle> CONVERT_OBJECT = toUnmodifiableList(
+    public static final List<MethodHandle> CONVERT_OBJECT = List.of(
         JSType.TO_INT32.methodHandle(),
-        JSType.TO_NUMBER.methodHandle(),
-        null
+        JSType.TO_NUMBER.methodHandle()
     );
 
     /**
      * object conversion quickies with JS semantics - used for return value and parameter filter, optimistic
      * throws exception upon incompatible type (asking for a narrower one than the storage)
      */
-    public static final List<MethodHandle> CONVERT_OBJECT_OPTIMISTIC = toUnmodifiableList(
+    public static final List<MethodHandle> CONVERT_OBJECT_OPTIMISTIC = List.of(
         JSType.TO_INT32_OPTIMISTIC.methodHandle(),
-        JSType.TO_NUMBER_OPTIMISTIC.methodHandle(),
-        null
+        JSType.TO_NUMBER_OPTIMISTIC.methodHandle()
     );
 
     /** The value of Undefined cast to an int32 */
@@ -242,7 +234,7 @@ public enum JSType {
      * Method handles for getters that return undefined coerced
      * to the appropriate type
      */
-    public static final List<MethodHandle> GET_UNDEFINED = toUnmodifiableList(
+    public static final List<MethodHandle> GET_UNDEFINED = List.of(
         MH.constant(int.class, UNDEFINED_INT),
         MH.constant(double.class, UNDEFINED_DOUBLE),
         MH.constant(Object.class, Undefined.getUndefined())
@@ -483,7 +475,7 @@ public enum JSType {
             return toPrimitive((JSObject)obj, hint);
         } else if (obj instanceof StaticClass) {
             final String name = ((StaticClass)obj).getRepresentedClass().getName();
-            return new StringBuilder(12 + name.length()).append("[JavaClass ").append(name).append(']').toString();
+            return "[JavaClass " + name + ']';
         }
         return obj.toString();
     }
@@ -819,9 +811,9 @@ public enum JSType {
      */
     public static Number toNarrowestNumber(final long l) {
         if (isRepresentableAsInt(l)) {
-            return Integer.valueOf((int) l);
+            return (int) l;
         } else {
-            return Double.valueOf(l);
+            return (double) l;
         }
     }
 
@@ -1708,7 +1700,7 @@ public enum JSType {
         return ACCESSOR_TYPES.size();
     }
 
-    private static double parseRadix(final char chars[], final int start, final int length, final int radix) {
+    private static double parseRadix(final char[] chars, final int start, final int length, final int radix) {
         int pos = 0;
 
         for (int i = start; i < length ; i++) {
@@ -1805,9 +1797,5 @@ public enum JSType {
         } else {
             return Object.class;
         }
-    }
-
-    private static List<MethodHandle> toUnmodifiableList(final MethodHandle... methodHandles) {
-        return Collections.unmodifiableList(Arrays.asList(methodHandles));
     }
 }

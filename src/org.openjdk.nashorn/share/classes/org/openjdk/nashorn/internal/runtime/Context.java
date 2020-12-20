@@ -67,7 +67,6 @@ import java.security.PrivilegedExceptionAction;
 import java.security.ProtectionDomain;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -217,21 +216,18 @@ public final class Context {
         @Override
         public void initialize(final Collection<Class<?>> classes, final Source source, final Object[] constants) {
             try {
-                AccessController.doPrivileged(new PrivilegedExceptionAction<Void>() {
-                    @Override
-                    public Void run() throws Exception {
-                        for (final Class<?> clazz : classes) {
-                            //use reflection to write source and constants table to installed classes
-                            final Field sourceField = clazz.getDeclaredField(SOURCE.symbolName());
-                            sourceField.setAccessible(true);
-                            sourceField.set(null, source);
+                AccessController.doPrivileged((PrivilegedExceptionAction<Void>) () -> {
+                    for (final Class<?> clazz : classes) {
+                        //use reflection to write source and constants table to installed classes
+                        final Field sourceField = clazz.getDeclaredField(SOURCE.symbolName());
+                        sourceField.setAccessible(true);
+                        sourceField.set(null, source);
 
-                            final Field constantsField = clazz.getDeclaredField(CONSTANTS.symbolName());
-                            constantsField.setAccessible(true);
-                            constantsField.set(null, constants);
-                        }
-                        return null;
+                        final Field constantsField = clazz.getDeclaredField(CONSTANTS.symbolName());
+                        constantsField.setAccessible(true);
+                        constantsField.set(null, constants);
                     }
+                    return null;
                 });
             } catch (final PrivilegedActionException e) {
                 throw new RuntimeException(e);
@@ -546,12 +542,7 @@ public final class Context {
 
     static {
         final ClassLoader myLoader = Context.class.getClassLoader();
-        theStructLoader = AccessController.doPrivileged(new PrivilegedAction<StructureLoader>() {
-            @Override
-            public StructureLoader run() {
-                return new StructureLoader(myLoader);
-            }
-        }, CREATE_LOADER_ACC_CTXT);
+        theStructLoader = AccessController.doPrivileged((PrivilegedAction<StructureLoader>) () -> new StructureLoader(myLoader), CREATE_LOADER_ACC_CTXT);
     }
 
     /**
@@ -602,7 +593,7 @@ public final class Context {
      * @param appLoader application class loader
      */
     public Context(final Options options, final ErrorManager errors, final PrintWriter out, final PrintWriter err, final ClassLoader appLoader) {
-        this(options, errors, out, err, appLoader, (ClassFilter)null);
+        this(options, errors, out, err, appLoader, null);
     }
 
     /**
@@ -636,18 +627,13 @@ public final class Context {
         // if user passed --module-path, we create a module class loader with
         // passed appLoader as the parent.
         final String modulePath = env._module_path;
-        ClassLoader appCl = null;
+        ClassLoader appCl;
         if (!env._compile_only && modulePath != null && !modulePath.isEmpty()) {
             // make sure that caller can create a class loader.
             if (sm != null) {
                 sm.checkCreateClassLoader();
             }
-            appCl = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-                @Override
-                public ClassLoader run() {
-                    return createModuleLoader(appLoader, modulePath, env._add_modules);
-                }
-            });
+            appCl = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> createModuleLoader(appLoader, modulePath, env._add_modules));
         } else {
             appCl = appLoader;
         }
@@ -794,15 +780,10 @@ public final class Context {
      * @return reusable compiled script across many global scopes.
      */
     public MultiGlobalCompiledScript compileScript(final Source source) {
-        final Class<?> clazz = compile(source, this.errors, this._strict, false);
+        final Class<?> clazz = compile(source, this.errors, this._strict);
         final MethodHandle createProgramFunctionHandle = getCreateProgramFunctionHandle(clazz);
 
-        return new MultiGlobalCompiledScript() {
-            @Override
-            public ScriptFunction getFunction(final Global newGlobal) {
-                return invokeCreateProgramFunctionHandle(createProgramFunctionHandle, newGlobal);
-            }
-        };
+        return newGlobal -> invokeCreateProgramFunctionHandle(createProgramFunctionHandle, newGlobal);
     }
 
     /**
@@ -848,7 +829,7 @@ public final class Context {
 
         Class<?> clazz;
         try {
-            clazz = compile(source, new ThrowErrorManager(), strictFlag, true);
+            clazz = compile(source, new ThrowErrorManager(), strictFlag);
         } catch (final ParserException e) {
             e.throwAsEcmaException(global);
             return null;
@@ -893,18 +874,14 @@ public final class Context {
             final String resource = resourcePath + srcStr.substring(prefix.length());
             // NOTE: even sandbox scripts should be able to load scripts in nashorn: scheme
             // These scripts are always available and are loaded from nashorn.jar's resources.
-            return AccessController.doPrivileged(
-                    new PrivilegedAction<Source>() {
-                        @Override
-                        public Source run() {
-                            try {
-                                final InputStream resStream = Context.class.getResourceAsStream(resource);
-                                return resStream != null ? sourceFor(srcStr, Source.readFully(resStream)) : null;
-                            } catch (final IOException exp) {
-                                return null;
-                            }
-                        }
-                    });
+            return AccessController.doPrivileged((PrivilegedAction<Source>) () -> {
+                try {
+                    final InputStream resStream = Context.class.getResourceAsStream(resource);
+                    return resStream != null ? sourceFor(srcStr, Source.readFully(resStream)) : null;
+                } catch (final IOException exp) {
+                    return null;
+                }
+            });
         }
 
         return null;
@@ -1027,18 +1004,15 @@ public final class Context {
      */
     public Object loadWithNewGlobal(final Object from, final Object...args) throws IOException {
         final Global oldGlobal = getGlobal();
-        final Global newGlobal = AccessController.doPrivileged(new PrivilegedAction<Global>() {
-           @Override
-           public Global run() {
-               try {
-                   return newGlobal();
-               } catch (final RuntimeException e) {
-                   if (Context.DEBUG) {
-                       e.printStackTrace();
-                   }
-                   throw e;
-               }
-           }
+        final Global newGlobal = AccessController.doPrivileged((PrivilegedAction<Global>) () -> {
+            try {
+                return newGlobal();
+            } catch (final RuntimeException e) {
+                if (Context.DEBUG) {
+                    e.printStackTrace();
+                }
+                throw e;
+            }
         }, CREATE_GLOBAL_ACC_CTXT);
         // initialize newly created Global instance
         initGlobal(newGlobal);
@@ -1129,19 +1103,16 @@ public final class Context {
      *
      * @param sm current security manager instance
      * @param fullName fully qualified package name
-     * @throw SecurityException if not accessible
+     * @throws SecurityException if not accessible
      */
     private static void checkPackageAccess(final SecurityManager sm, final String fullName) {
         Objects.requireNonNull(sm);
         final int index = fullName.lastIndexOf('.');
         if (index != -1) {
             final String pkgName = fullName.substring(0, index);
-            AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                @Override
-                public Void run() {
-                    sm.checkPackageAccess(pkgName);
-                    return null;
-                }
+            AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
+                sm.checkPackageAccess(pkgName);
+                return null;
             }, NO_PERMISSIONS_ACC_CTXT);
         }
     }
@@ -1475,10 +1446,10 @@ public final class Context {
     }
 
     private ScriptFunction compileScript(final Source source, final ScriptObject scope, final ErrorManager errMan) {
-        return getProgramFunction(compile(source, errMan, this._strict, false), scope);
+        return getProgramFunction(compile(source, errMan, this._strict), scope);
     }
 
-    private synchronized Class<?> compile(final Source source, final ErrorManager errMan, final boolean strict, final boolean isEval) {
+    private synchronized Class<?> compile(final Source source, final ErrorManager errMan, final boolean strict) {
         // start with no errors, no warnings.
         errMan.reset();
 
@@ -1571,12 +1542,8 @@ public final class Context {
 
     private ScriptLoader createNewLoader() {
         return AccessController.doPrivileged(
-             new PrivilegedAction<ScriptLoader>() {
-                @Override
-                public ScriptLoader run() {
-                    return new ScriptLoader(Context.this);
-                }
-             }, CREATE_LOADER_ACC_CTXT);
+            (PrivilegedAction<ScriptLoader>) () -> new ScriptLoader(Context.this),
+            CREATE_LOADER_ACC_CTXT);
     }
 
     private long getUniqueScriptId() {
@@ -1785,9 +1752,9 @@ public final class Context {
             throw new IllegalArgumentException("--module-path specified with no --add-modules");
         }
 
-        final Path[] paths = Stream.of(modulePath.split(File.pathSeparator)).
-            map(s -> Paths.get(s)).
-            toArray(sz -> new Path[sz]);
+        final Path[] paths = Stream.of(modulePath.split(File.pathSeparator))
+            .map(Paths::get)
+            .toArray(Path[]::new);
         final ModuleFinder mf = ModuleFinder.of(paths);
         final Set<ModuleReference> mrefs = mf.findAll();
         if (mrefs.isEmpty()) {

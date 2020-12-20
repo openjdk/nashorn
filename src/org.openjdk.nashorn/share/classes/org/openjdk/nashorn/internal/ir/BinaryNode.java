@@ -27,9 +27,6 @@ package org.openjdk.nashorn.internal.ir;
 
 import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.INVALID_PROGRAM_POINT;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.annotations.Ignore;
@@ -60,20 +57,20 @@ public final class BinaryNode extends Expression implements Assignment<Expressio
 
     @Ignore
     private static final Set<TokenType> CAN_OVERFLOW =
-        Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new TokenType[] {
-                TokenType.ADD,
-                TokenType.DIV,
-                TokenType.MOD,
-                TokenType.MUL,
-                TokenType.SUB,
-                TokenType.ASSIGN_ADD,
-                TokenType.ASSIGN_DIV,
-                TokenType.ASSIGN_MOD,
-                TokenType.ASSIGN_MUL,
-                TokenType.ASSIGN_SUB,
-                TokenType.SHR,
-                TokenType.ASSIGN_SHR
-            })));
+        Set.of(
+            TokenType.ADD,
+            TokenType.DIV,
+            TokenType.MOD,
+            TokenType.MUL,
+            TokenType.SUB,
+            TokenType.ASSIGN_ADD,
+            TokenType.ASSIGN_DIV,
+            TokenType.ASSIGN_MOD,
+            TokenType.ASSIGN_MUL,
+            TokenType.ASSIGN_SUB,
+            TokenType.SHR,
+            TokenType.ASSIGN_SHR
+        );
 
     /**
      * Constructor

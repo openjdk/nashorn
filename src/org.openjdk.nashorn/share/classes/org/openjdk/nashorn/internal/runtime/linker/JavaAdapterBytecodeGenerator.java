@@ -57,7 +57,6 @@ import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -314,7 +313,6 @@ final class JavaAdapterBytecodeGenerator {
         // The class we use to primarily name our adapter is either the superclass, or if it is Object (meaning we're
         // just implementing interfaces or extending Object), then the first implemented interface or Object.
         final Class<?> namingType = superType == Object.class ? (interfaces.isEmpty()? Object.class : interfaces.get(0)) : superType;
-        final Package pkg = namingType.getPackage();
         final String namingTypeName = Type.getInternalName(namingType);
         final StringBuilder buf = new StringBuilder();
         buf.append(ADAPTER_PACKAGE_INTERNAL).append(namingTypeName.replace('/', '_'));
@@ -326,7 +324,7 @@ final class JavaAdapterBytecodeGenerator {
         while(it.hasNext()) {
             buf.append("$$").append(it.next().getSimpleName());
         }
-        return buf.toString().substring(0, Math.min(MAX_GENERATED_TYPE_NAME_LENGTH, buf.length()));
+        return buf.substring(0, Math.min(MAX_GENERATED_TYPE_NAME_LENGTH, buf.length()));
     }
 
     /**
@@ -1045,8 +1043,8 @@ final class JavaAdapterBytecodeGenerator {
         return emitSuperCall(mv, null, INIT, methodDesc, true);
     }
 
-    private int emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc) {
-        return emitSuperCall(mv, owner, name, methodDesc, false);
+    private void emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc) {
+        emitSuperCall(mv, owner, name, methodDesc, false);
     }
 
     private int emitSuperCall(final InstructionAdapter mv, final Class<?> owner, final String name, final String methodDesc, final boolean constructor) {
@@ -1191,16 +1189,13 @@ final class JavaAdapterBytecodeGenerator {
      * @return a collection of method infos representing those methods that we never override in adapter classes.
      */
     private static Collection<MethodInfo> getExcludedMethods() {
-        return AccessController.doPrivileged(new PrivilegedAction<Collection<MethodInfo>>() {
-            @Override
-            public Collection<MethodInfo> run() {
-                try {
-                    return Arrays.asList(
-                            new MethodInfo(Object.class, "finalize"),
-                            new MethodInfo(Object.class, "clone"));
-                } catch (final NoSuchMethodException e) {
-                    throw new AssertionError(e);
-                }
+        return AccessController.doPrivileged((PrivilegedAction<Collection<MethodInfo>>) () -> {
+            try {
+                return List.of(
+                        new MethodInfo(Object.class, "finalize"),
+                        new MethodInfo(Object.class, "clone"));
+            } catch (final NoSuchMethodException e) {
+                throw new AssertionError(e);
             }
         }, GET_DECLARED_MEMBERS_ACC_CTXT);
     }

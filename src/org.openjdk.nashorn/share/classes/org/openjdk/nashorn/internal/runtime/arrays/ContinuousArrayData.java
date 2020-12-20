@@ -348,6 +348,6 @@ public abstract class ContinuousArrayData extends ArrayData {
      * @return new arraydata
      */
     public ContinuousArrayData fastConcat(final ContinuousArrayData otherData) {
-        throw new ClassCastException(String.valueOf(getClass()) + " != " + String.valueOf(otherData.getClass()));
+        throw new ClassCastException(getClass() + " != " + otherData.getClass());
     }
 }

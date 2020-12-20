@@ -466,9 +466,8 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
 
         // Asynchronously serialize split functions.
         if (isSplit) {
-            astSerializerExecutorService.execute(() -> {
-                cachedAst = new SerializedAst(symbolClonedAst, ref);
-            });
+            astSerializerExecutorService.execute(() ->
+                cachedAst = new SerializedAst(symbolClonedAst, ref));
         }
     }
 
@@ -595,7 +594,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
             @Override
             protected Node leaveDefault(final Node node) {
                 return ensureUniqueLabels(node);
-            };
+            }
 
             private Node ensureUniqueLabels(final Node node) {
                 // If we're returning a cached AST, we must also ensure unique labels
@@ -699,7 +698,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
             return invalidatedProgramPoints;
         }
         final Map<Integer, Type> loadedProgramPoints = OptimisticTypesPersistence.load(typeInformationFile);
-        return loadedProgramPoints != null ? loadedProgramPoints : new TreeMap<Integer, Type>();
+        return loadedProgramPoints != null ? loadedProgramPoints : new TreeMap<>();
     }
 
     private FunctionInitializer compileTypeSpecialization(final MethodType actualCallSiteType, final ScriptObject runtimeScope, final boolean persist) {
@@ -763,7 +762,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
         final MethodType generalized = changed ? MethodType.methodType(noCalleeThisType.returnType(), paramTypes) : noCalleeThisType;
 
         if (callSiteParamCount < getArity()) {
-            return generalized.appendParameterTypes(Collections.<Class<?>>nCopies(getArity() - callSiteParamCount, Object.class));
+            return generalized.appendParameterTypes(Collections.nCopies(getArity() - callSiteParamCount, Object.class));
         }
         return generalized;
     }

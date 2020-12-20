@@ -81,8 +81,7 @@ final class ReflectionCheckLinker implements TypeBasedGuardingDynamicLinker{
     }
 
     @Override
-    public GuardedInvocation getGuardedInvocation(final LinkRequest origRequest, final LinkerServices linkerServices)
-            throws Exception {
+    public GuardedInvocation getGuardedInvocation(final LinkRequest origRequest, final LinkerServices linkerServices) {
         checkLinkRequest(origRequest);
         // let the next linker deal with actual linking
         return null;

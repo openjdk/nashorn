@@ -45,7 +45,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import org.openjdk.nashorn.internal.objects.NativeArray;
-import static org.openjdk.nashorn.internal.runtime.ECMAErrors.rangeError;
 
 /**
  * Global functions supported only in scripting mode.
@@ -150,8 +149,7 @@ public final class ScriptingFunctions {
 
         if (arg0 instanceof NativeArray) {
             final String[] array = (String[])JSType.toJavaArray(arg0, String.class);
-            tokens = new ArrayList<>();
-            tokens.addAll(Arrays.asList(array));
+            tokens = new ArrayList<>(Arrays.asList(array));
         } else {
             script = JSType.toString(arg0);
         }
@@ -181,9 +179,9 @@ public final class ScriptingFunctions {
             final ScriptObject envProperties = (ScriptObject)env;
 
             // Copy ENV variables.
-            envProperties.entrySet().stream().forEach((entry) -> {
-                environment.put(JSType.toString(entry.getKey()), JSType.toString(entry.getValue()));
-            });
+            envProperties.entrySet().forEach((entry) ->
+                environment.put(JSType.toString(entry.getKey()), JSType.toString(entry.getValue()))
+            );
         }
 
         // get the $EXEC function object from the global object

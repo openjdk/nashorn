@@ -240,12 +240,7 @@ public final class ScriptRuntime {
             break;
         }
 
-        final StringBuilder sb = new StringBuilder();
-        sb.append("[object ");
-        sb.append(className);
-        sb.append(']');
-
-        return sb.toString();
+        return "[object " + className + ']';
     }
 
     /**
@@ -330,10 +325,9 @@ public final class ScriptRuntime {
     // value Iterator for important Java objects - arrays, maps, iterables.
     private static Iterator<?> iteratorForJavaArrayOrList(final Object obj) {
         if (obj != null && obj.getClass().isArray()) {
-            final Object array  = obj;
             final int    length = Array.getLength(obj);
 
-            return new Iterator<Object>() {
+            return new Iterator<>() {
                 private int index = 0;
 
                 @Override
@@ -346,7 +340,7 @@ public final class ScriptRuntime {
                     if (index >= length) {
                         throw new NoSuchElementException();
                     }
-                    return Array.get(array, index++);
+                    return Array.get(obj, index++);
                 }
 
                 @Override
@@ -412,8 +406,8 @@ public final class ScriptRuntime {
             }
 
         if (obj instanceof Map) {
-            return new Iterator<Object>() {
-                private Iterator<?> iter = ((Map<?,?>)obj).entrySet().iterator();
+            return new Iterator<>() {
+                private final Iterator<?> iter = ((Map<?,?>)obj).entrySet().iterator();
 
                 @Override
                 public boolean hasNext() {
@@ -424,8 +418,7 @@ public final class ScriptRuntime {
                 public Object next() {
                     Map.Entry<?,?> next = (Map.Entry)iter.next();
                     Object[] keyvalue = new Object[]{next.getKey(), next.getValue()};
-                    NativeArray array = NativeJava.from(null, keyvalue);
-                    return array;
+                    return NativeJava.from(null, keyvalue);
                 }
 
                 @Override
@@ -443,7 +436,7 @@ public final class ScriptRuntime {
         final MethodHandle doneInvoker = AbstractIterator.getDoneInvoker(global);
         final MethodHandle valueInvoker = AbstractIterator.getValueInvoker(global);
 
-        return new Iterator<Object>() {
+        return new Iterator<>() {
 
             private Object nextResult = nextResult();
 

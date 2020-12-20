@@ -494,7 +494,7 @@ public class ScriptFunction extends ScriptObject {
     }
 
     private static boolean needsWrappedThis(final Object fn) {
-        return fn instanceof ScriptFunction ? ((ScriptFunction) fn).needsWrappedThis() : false;
+        return fn instanceof ScriptFunction && ((ScriptFunction) fn).needsWrappedThis();
     }
 
     /**
@@ -804,7 +804,7 @@ public class ScriptFunction extends ScriptObject {
         final CompiledFunction cf = data.getBestConstructor(type, scope, CompiledFunction.NO_FUNCTIONS);
         final GuardedInvocation bestCtorInv = cf.createConstructorInvocation();
         //TODO - ClassCastException
-        return new GuardedInvocation(pairArguments(bestCtorInv.getInvocation(), type), getFunctionGuard(this, cf.getFlags()), bestCtorInv.getSwitchPoints(), null);
+        return new GuardedInvocation(pairArguments(bestCtorInv.getInvocation(), type), getFunctionGuard(this), bestCtorInv.getSwitchPoints(), null);
     }
 
     private static Object wrapFilter(final Object obj) {
@@ -1005,8 +1005,7 @@ public class ScriptFunction extends ScriptObject {
                 boundHandle,
                 guard == null ?
                         getFunctionGuard(
-                                this,
-                                cf.getFlags()) :
+                                this) :
                         guard,
                 spsArray,
                 exceptionGuard);
@@ -1014,7 +1013,7 @@ public class ScriptFunction extends ScriptObject {
 
     private static Lookup getLookupPrivileged(final CallSiteDescriptor desc) {
         // NOTE: we'd rather not make NashornCallSiteDescriptor.getLookupPrivileged public.
-        return AccessController.doPrivileged((PrivilegedAction<Lookup>)()->desc.getLookup(),
+        return AccessController.doPrivileged((PrivilegedAction<Lookup>) desc::getLookup,
                 GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
@@ -1217,7 +1216,7 @@ public class ScriptFunction extends ScriptObject {
         // Spread call site descriptor for the delegate createApplyOrCallCall invocation. We drop vararg array and
         // replace it with a list of Object.class.
         final MethodType spreadType = descType.dropParameterTypes(paramCount - 1, paramCount).appendParameterTypes(
-                Collections.<Class<?>>nCopies(varArgCount, Object.class));
+                Collections.nCopies(varArgCount, Object.class));
         final CallSiteDescriptor spreadDesc = desc.changeMethodType(spreadType);
 
         // Delegate back to createApplyOrCallCall with the spread (that is, reverted to non-vararg) request/
@@ -1305,7 +1304,7 @@ public class ScriptFunction extends ScriptObject {
      *
      * @return method handle for guard
      */
-    private static MethodHandle getFunctionGuard(final ScriptFunction function, final int flags) {
+    private static MethodHandle getFunctionGuard(final ScriptFunction function) {
         assert function.data != null;
         // Built-in functions have a 1-1 correspondence to their ScriptFunctionData, so we can use a cheaper identity
         // comparison for them.

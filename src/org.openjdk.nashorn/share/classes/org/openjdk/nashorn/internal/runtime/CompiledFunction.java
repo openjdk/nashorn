@@ -37,7 +37,6 @@ import java.lang.invoke.SwitchPoint;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -86,10 +85,6 @@ final class CompiledFunction {
 
     CompiledFunction(final MethodHandle invoker) {
         this(invoker, null, null);
-    }
-
-    static CompiledFunction createBuiltInConstructor(final MethodHandle invoker, final Specialization specialization) {
-        return new CompiledFunction(MH.insertArguments(invoker, 0, false), createConstructorFromInvoker(MH.insertArguments(invoker, 0, true)), specialization);
     }
 
     CompiledFunction(final MethodHandle invoker, final MethodHandle constructor, final Specialization specialization) {
@@ -160,26 +155,8 @@ final class CompiledFunction {
         return flags;
     }
 
-    /**
-     * An optimistic specialization is one that can throw UnwarrantedOptimismException.
-     * This is allowed for native methods, as long as they are functional, i.e. don't change
-     * any state between entering and throwing the UOE. Then we can re-execute a wider version
-     * of the method in the continuation. Rest-of method generation for optimistic builtins is
-     * of course not possible, but this approach works and fits into the same relinking
-     * framework
-     *
-     * @return true if optimistic builtin
-     */
-    boolean isOptimistic() {
-        return isSpecialization() ? specialization.isOptimistic() : false;
-    }
-
     boolean isApplyToCall() {
         return (flags & FunctionNode.HAS_APPLY_TO_CALL_SPECIALIZATION) != 0;
-    }
-
-    boolean isVarArg() {
-        return isVarArgsType(invoker.type());
     }
 
     @Override
@@ -315,10 +292,6 @@ final class CompiledFunction {
         return createComposableInvoker(true);
     }
 
-    boolean hasConstructor() {
-        return constructor != null;
-    }
-
     MethodType type() {
         return invoker.type();
     }
@@ -347,10 +320,6 @@ final class CompiledFunction {
     static boolean isVarArgsType(final MethodType type) {
         assert type.parameterCount() >= 1 : type;
         return type.parameterType(type.parameterCount() - 1) == Object[].class;
-    }
-
-    static boolean moreGenericThan(final MethodType mt0, final MethodType mt1) {
-        return weight(mt0) > weight(mt1);
     }
 
     boolean betterThanFinal(final CompiledFunction other, final MethodType callSiteMethodType) {
@@ -498,7 +467,7 @@ final class CompiledFunction {
             return cf.isSpecialization(); //always pick the specialized version if we can
         }
 
-        if (cf.isSpecialization() && other.isSpecialization()) {
+        if (cf.isSpecialization()) {
             return cf.getLinkLogicClass() != null; //pick link logic specialization above generic specializations
         }
 
@@ -643,12 +612,7 @@ final class CompiledFunction {
     }
 
     private static void relinkComposableInvoker(final CallSite cs, final CompiledFunction inv, final boolean constructor) {
-        final HandleAndAssumptions handleAndAssumptions = inv.getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return inv.getInvokerOrConstructor(constructor);
-            }
-        });
+        final HandleAndAssumptions handleAndAssumptions = inv.getValidOptimisticInvocation(() -> inv.getInvokerOrConstructor(constructor));
         final MethodHandle handle = handleAndAssumptions.handle;
         final SwitchPoint assumptions = handleAndAssumptions.assumptions;
         final MethodHandle target;
@@ -674,12 +638,7 @@ final class CompiledFunction {
      * @return a guarded invocation for an ordinary (non-constructor) invocation of this function.
      */
     GuardedInvocation createFunctionInvocation(final Class<?> callSiteReturnType, final int callerProgramPoint) {
-        return getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return createInvoker(callSiteReturnType, callerProgramPoint);
-            }
-        }).createInvocation();
+        return getValidOptimisticInvocation(() -> createInvoker(callSiteReturnType, callerProgramPoint)).createInvocation();
     }
 
     /**
@@ -691,12 +650,7 @@ final class CompiledFunction {
      * @return a guarded invocation for invocation of this function as a constructor.
      */
     GuardedInvocation createConstructorInvocation() {
-        return getValidOptimisticInvocation(new Supplier<MethodHandle>() {
-            @Override
-            public MethodHandle get() {
-                return getConstructor();
-            }
-        }).createInvocation();
+        return getValidOptimisticInvocation(this::getConstructor).createInvocation();
     }
 
     private MethodHandle createInvoker(final Class<?> callSiteReturnType, final int callerProgramPoint) {
@@ -752,8 +706,7 @@ final class CompiledFunction {
 
         final List<String> list = new ArrayList<>();
 
-        for (final Iterator<Map.Entry<Integer, Type>> iter = ipp.entrySet().iterator(); iter.hasNext(); ) {
-            final Map.Entry<Integer, Type> entry = iter.next();
+        for (final Map.Entry<Integer, Type> entry : ipp.entrySet()) {
             final char bct = entry.getValue().getBytecodeStackType();
             final String type;
 
@@ -775,15 +728,7 @@ final class CompiledFunction {
                 break;
             }
 
-            final StringBuilder sb = new StringBuilder();
-            sb.append('[').
-                    append("program point: ").
-                    append(entry.getKey()).
-                    append(" -> ").
-                    append(type).
-                    append(']');
-
-            list.add(sb.toString());
+            list.add('[' + "program point: " + entry.getKey() + " -> " + type + ']');
         }
 
         return list;

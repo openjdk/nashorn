@@ -82,7 +82,7 @@ final class BrowserJSObjectLinker implements TypeBasedGuardingDynamicLinker {
         return Bootstrap.asTypeSafeReturn(inv, linkerServices, desc);
     }
 
-    private GuardedInvocation lookup(final CallSiteDescriptor desc, final LinkRequest request, final LinkerServices linkerServices) throws Exception {
+    private GuardedInvocation lookup(final CallSiteDescriptor desc, final LinkRequest request, final LinkerServices linkerServices) {
         GuardedInvocation inv;
         try {
             inv = nashornBeansLinker.getGuardedInvocation(request, linkerServices);

@@ -230,19 +230,14 @@ public final class JavaAdapterServices {
         cw.visitEnd();
         final byte[] bytes = cw.toByteArray();
 
-        final ClassLoader loader = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
+        final ClassLoader loader = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> new SecureClassLoader(null) {
             @Override
-            public ClassLoader run() {
-                return new SecureClassLoader(null) {
-                    @Override
-                    protected Class<?> findClass(final String name) throws ClassNotFoundException {
-                        if(name.equals(className)) {
-                            return defineClass(name, bytes, 0, bytes.length, new ProtectionDomain(
-                                    new CodeSource(null, (CodeSigner[])null), new Permissions()));
-                        }
-                        throw new ClassNotFoundException(name);
-                    }
-                };
+            protected Class<?> findClass(final String name) throws ClassNotFoundException {
+                if(name.equals(className)) {
+                    return defineClass(name, bytes, 0, bytes.length, new ProtectionDomain(
+                            new CodeSource(null, (CodeSigner[])null), new Permissions()));
+                }
+                throw new ClassNotFoundException(name);
             }
         });
 

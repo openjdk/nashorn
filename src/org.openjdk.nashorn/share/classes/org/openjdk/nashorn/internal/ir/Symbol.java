@@ -158,7 +158,7 @@ public final class Symbol implements Comparable<Symbol>, Cloneable, Serializable
 
     private static String align(final String string, final int max) {
         final StringBuilder sb = new StringBuilder();
-        sb.append(string.substring(0, Math.min(string.length(), max)));
+        sb.append(string, 0, Math.min(string.length(), max));
 
         while (sb.length() < max) {
             sb.append(' ');
@@ -486,13 +486,11 @@ public final class Symbol implements Comparable<Symbol>, Cloneable, Serializable
      * and get allocated in a JO-prefixed ScriptObject subclass.
      *
      * @param fieldIndex field index - a positive integer
-     * @return the symbol
      */
-    public Symbol setFieldIndex(final int fieldIndex) {
+    public void setFieldIndex(final int fieldIndex) {
         if (this.fieldIndex != fieldIndex) {
             this.fieldIndex = fieldIndex;
         }
-        return this;
     }
 
     /**

@@ -40,7 +40,6 @@ import java.io.ObjectInputStream;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.SwitchPoint;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import org.openjdk.nashorn.internal.codegen.ObjectClassGenerator;
 import org.openjdk.nashorn.internal.codegen.types.Type;
@@ -66,7 +65,7 @@ public class AccessorProperty extends Property {
      * these are the most frequently retrieved ones, and lookup of method handle natives only registers in the profiler
      * for them.
      */
-    private static ClassValue<Accessors> GETTERS_SETTERS = new ClassValue<Accessors>() {
+    private static final ClassValue<Accessors> GETTERS_SETTERS = new ClassValue<>() {
         @Override
         protected Accessors computeValue(final Class<?> structure) {
             return new Accessors(structure);
@@ -664,12 +663,7 @@ public class AccessorProperty extends Property {
                 mh,
                 0,
                 true,
-                new Supplier<String>() {
-                    @Override
-                    public String get() {
-                        return tag + " '" + getKey() + "' (property="+ Debug.id(this) + ", slot=" + getSlot() + " " + getClass().getSimpleName() + " forType=" + stripName(forType) + ", type=" + stripName(type) + ')';
-                    }
-                });
+                () -> tag + " '" + getKey() + "' (property="+ Debug.id(this) + ", slot=" + getSlot() + " " + getClass().getSimpleName() + " forType=" + stripName(forType) + ", type=" + stripName(type) + ')');
     }
 
     private MethodHandle debugReplace(final Class<?> oldType, final Class<?> newType, final PropertyMap oldMap, final PropertyMap newMap) {
@@ -683,12 +677,7 @@ public class AccessorProperty extends Property {
         MethodHandle mh = context.addLoggingToHandle(
                 ObjectClassGenerator.class,
                 REPLACE_MAP,
-                new Supplier<String>() {
-                    @Override
-                    public String get() {
-                        return "Type change for '" + getKey() + "' " + oldType + "=>" + newType;
-                    }
-                });
+                () -> "Type change for '" + getKey() + "' " + oldType + "=>" + newType);
 
         mh = context.addLoggingToHandle(
                 ObjectClassGenerator.class,
@@ -696,12 +685,7 @@ public class AccessorProperty extends Property {
                 mh,
                 Integer.MAX_VALUE,
                 false,
-                new Supplier<String>() {
-                    @Override
-                    public String get() {
-                        return "Setting map " + Debug.id(oldMap) + " => " + Debug.id(newMap) + " " + oldMap + " => " + newMap;
-                    }
-                });
+                () -> "Setting map " + Debug.id(oldMap) + " => " + Debug.id(newMap) + " " + oldMap + " => " + newMap);
         return mh;
     }
 
@@ -716,12 +700,7 @@ public class AccessorProperty extends Property {
         return context.addLoggingToHandle(
                 ObjectClassGenerator.class,
                 invalidator,
-                new Supplier<String>() {
-                    @Override
-                    public String get() {
-                        return "Field change callback for " + key + " triggered ";
-                    }
-                });
+                () -> "Field change callback for " + key + " triggered ");
     }
 
     private static MethodHandle findOwnMH_S(final String name, final Class<?> rtype, final Class<?>... types) {

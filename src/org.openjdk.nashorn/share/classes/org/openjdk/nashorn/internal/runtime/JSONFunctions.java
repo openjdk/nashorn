@@ -26,7 +26,6 @@
 package org.openjdk.nashorn.internal.runtime;
 
 import java.lang.invoke.MethodHandle;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.internal.objects.Global;
 import org.openjdk.nashorn.internal.parser.JSONParser;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
@@ -41,14 +40,8 @@ public final class JSONFunctions {
     private static final Object REVIVER_INVOKER = new Object();
 
     private static MethodHandle getREVIVER_INVOKER() {
-        return Context.getGlobal().getDynamicInvoker(REVIVER_INVOKER,
-                new Callable<MethodHandle>() {
-                    @Override
-                    public MethodHandle call() {
-                        return Bootstrap.createDynamicCallInvoker(Object.class,
-                            Object.class, Object.class, String.class, Object.class);
-                    }
-                });
+        return Context.getGlobal().getDynamicInvoker(REVIVER_INVOKER, () -> Bootstrap.createDynamicCallInvoker(Object.class,
+            Object.class, Object.class, String.class, Object.class));
     }
 
     /**
