@@ -58,7 +58,6 @@ abstract class NashornLoader extends SecureClassLoader {
     protected static final String SCRIPTS_PKG_INTERNAL        = "org/openjdk/nashorn/internal/scripts";
 
     static final Module NASHORN_MODULE = Context.class.getModule();
-    static final boolean modular = NASHORN_MODULE.getName() != null;
 
     private static final Permission[] SCRIPT_PERMISSIONS;
 
@@ -119,6 +118,14 @@ abstract class NashornLoader extends SecureClassLoader {
                 InvocationTargetException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    static boolean isInNamedModule() {
+        // True if Nashorn is loaded as a JPMS module (typically, added to
+        // --module-path); false if it is loaded through classpath into an
+        // unnamed module. There are modular execution aspects that need to
+        // be taken care of when Nashorn is used as a JPMS module.
+        return NASHORN_MODULE.isNamed();
     }
 
     protected static void checkPackageAccess(final String name) {

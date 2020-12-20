@@ -51,7 +51,7 @@ final class StructureLoader extends NashornLoader {
     StructureLoader(final ClassLoader parent) {
         super(parent);
 
-        if (modular) {
+        if (isInNamedModule()) {
             // new structures module, it's exports, read edges
             structuresModule = createModule();
 

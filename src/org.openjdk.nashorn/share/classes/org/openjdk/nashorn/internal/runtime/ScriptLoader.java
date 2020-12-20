@@ -53,7 +53,7 @@ final class ScriptLoader extends NashornLoader {
         super(context.getStructLoader());
         this.context = context;
 
-        if (modular) {
+        if (isInNamedModule()) {
             // new scripts module, it's specific exports and read-edges
             scriptModule = createModule();
 
@@ -99,7 +99,7 @@ final class ScriptLoader extends NashornLoader {
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
         checkPackageAccess(name);
         final Class<?> cl = super.loadClass(name, resolve);
-        if (!structureAccessAdded && modular) {
+        if (!structureAccessAdded && isInNamedModule()) {
             final StructureLoader structLoader = context.getStructLoader();
             if (cl.getClassLoader() == structLoader) {
                 structureAccessAdded = true;
