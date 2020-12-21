@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
+import org.openjdk.nashorn.internal.parser.JSONParser;
 import org.openjdk.nashorn.internal.runtime.Context;
 import org.openjdk.nashorn.internal.runtime.Version;
 
@@ -103,7 +104,7 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
 
     @Override
     public String getOutputStatement(final String toDisplay) {
-        return "print(" + toDisplay + ")";
+        return "print(" + JSONParser.quote(toDisplay) + ")";
     }
 
     @Override
