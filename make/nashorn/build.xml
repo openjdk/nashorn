@@ -242,6 +242,8 @@
           <attribute name="Implementation-Version" value="${nashorn.version}"/>
         </section>
       </manifest>
+      <service type="javax.script.ScriptEngineFactory" provider="org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory"/>
+      <service type="jdk.dynalink.linker.GuardingDynamicLinkerExporter" provider="org.openjdk.nashorn.api.linker.NashornLinkerExporter"/>
     </jar>
   </target>
 

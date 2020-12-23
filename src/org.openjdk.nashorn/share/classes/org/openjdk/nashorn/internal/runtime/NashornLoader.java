@@ -116,6 +116,14 @@ abstract class NashornLoader extends SecureClassLoader {
         }
     }
 
+    static boolean isInNamedModule() {
+        // True if Nashorn is loaded as a JPMS module (typically, added to
+        // --module-path); false if it is loaded through classpath into an
+        // unnamed module. There are modular execution aspects that need to
+        // be taken care of when Nashorn is used as a JPMS module.
+        return NASHORN_MODULE.isNamed();
+    }
+
     protected static void checkPackageAccess(final String name) {
         final int i = name.lastIndexOf('.');
         if (i != -1) {
