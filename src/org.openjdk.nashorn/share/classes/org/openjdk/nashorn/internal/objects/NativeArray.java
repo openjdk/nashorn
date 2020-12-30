@@ -896,30 +896,30 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE)
     public static Object pop(final Object self) {
-        try {
-            final ScriptObject sobj = (ScriptObject)self;
-
-            if (bulkable(sobj)) {
-                return sobj.getArray().pop();
-            }
-
-            final long len = JSType.toUint32(sobj.getLength());
-
-            if (len == 0) {
-                sobj.set("length", 0, CALLSITE_STRICT);
-                return ScriptRuntime.UNDEFINED;
-            }
-
-            final long   index   = len - 1;
-            final Object element = sobj.get(index);
-
-            sobj.delete(index, true);
-            sobj.set("length", index, CALLSITE_STRICT);
-
-            return element;
-        } catch (final ClassCastException | NullPointerException e) {
-            throw typeError("not.an.object", ScriptRuntime.safeToString(self));
+        final Object obj = Global.toObject(self);
+        if (!(obj instanceof ScriptObject)) {
+            return ScriptRuntime.UNDEFINED;
         }
+        final ScriptObject sobj = (ScriptObject)obj;
+
+        if (bulkable(sobj)) {
+            return sobj.getArray().pop();
+        }
+
+        final long len = JSType.toUint32(sobj.getLength());
+
+        if (len == 0) {
+            sobj.set("length", 0, CALLSITE_STRICT);
+            return ScriptRuntime.UNDEFINED;
+        }
+
+        final long   index   = len - 1;
+        final Object element = sobj.get(index);
+
+        sobj.delete(index, true);
+        sobj.set("length", index, CALLSITE_STRICT);
+
+        return element;
     }
 
     /**
@@ -974,7 +974,11 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     @Function(attributes = Attribute.NOT_ENUMERABLE, arity = 1)
     public static Object push(final Object self, final Object... args) {
         try {
-            final ScriptObject sobj   = (ScriptObject)self;
+            final Object obj = Global.toObject(self);
+            if (!(obj instanceof ScriptObject)) {
+                return args.length;
+            }
+            final ScriptObject sobj = (ScriptObject)obj;
 
             if (bulkable(sobj) && sobj.getArray().length() + args.length <= JSType.MAX_UINT) {
                 final ArrayData newData = sobj.getArray().push(true, args);
@@ -999,26 +1003,26 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      *
      * @param self self reference
      * @param arg argument to push
-     * @return array after pushes
+     * @return array length after pushes
      */
     @SpecializedFunction
     public static double push(final Object self, final Object arg) {
-        try {
-            final ScriptObject sobj = (ScriptObject)self;
-            final ArrayData arrayData = sobj.getArray();
-            final long length = arrayData.length();
-            if (bulkable(sobj) && length < JSType.MAX_UINT) {
-                sobj.setArray(arrayData.push(true, arg));
-                return length + 1;
-            }
-
-            long len = JSType.toUint32(sobj.getLength());
-            sobj.set(len++, arg, CALLSITE_STRICT);
-            sobj.set("length", len, CALLSITE_STRICT);
-            return len;
-        } catch (final ClassCastException | NullPointerException e) {
-            throw typeError("not.an.object", ScriptRuntime.safeToString(self));
+        final Object obj = Global.toObject(self);
+        if (!(obj instanceof ScriptObject)) {
+            return 1d;
         }
+        final ScriptObject sobj = (ScriptObject)obj;
+        final ArrayData arrayData = sobj.getArray();
+        final long length = arrayData.length();
+        if (bulkable(sobj) && length < JSType.MAX_UINT) {
+            sobj.setArray(arrayData.push(true, arg));
+            return length + 1;
+        }
+
+        long len = JSType.toUint32(sobj.getLength());
+        sobj.set(len++, arg, CALLSITE_STRICT);
+        sobj.set("length", len, CALLSITE_STRICT);
+        return len;
     }
 
     /**
@@ -1029,33 +1033,34 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE)
     public static Object reverse(final Object self) {
-        try {
-            final ScriptObject sobj   = (ScriptObject)self;
-            final long         len    = JSType.toUint32(sobj.getLength());
-            final long         middle = len / 2;
-
-            for (long lower = 0; lower != middle; lower++) {
-                final long    upper       = len - lower - 1;
-                final Object  lowerValue  = sobj.get(lower);
-                final Object  upperValue  = sobj.get(upper);
-                final boolean lowerExists = sobj.has(lower);
-                final boolean upperExists = sobj.has(upper);
-
-                if (lowerExists && upperExists) {
-                    sobj.set(lower, upperValue, CALLSITE_STRICT);
-                    sobj.set(upper, lowerValue, CALLSITE_STRICT);
-                } else if (!lowerExists && upperExists) {
-                    sobj.set(lower, upperValue, CALLSITE_STRICT);
-                    sobj.delete(upper, true);
-                } else if (lowerExists) {
-                    sobj.delete(lower, true);
-                    sobj.set(upper, lowerValue, CALLSITE_STRICT);
-                }
-            }
-            return sobj;
-        } catch (final ClassCastException | NullPointerException e) {
-            throw typeError("not.an.object", ScriptRuntime.safeToString(self));
+        final Object obj = Global.toObject(self);
+        if (!(obj instanceof ScriptObject)) {
+            return obj;
         }
+
+        final ScriptObject sobj   = (ScriptObject)obj;
+        final long         len    = JSType.toUint32(sobj.getLength());
+        final long         middle = len / 2;
+
+        for (long lower = 0; lower != middle; lower++) {
+            final long    upper       = len - lower - 1;
+            final Object  lowerValue  = sobj.get(lower);
+            final Object  upperValue  = sobj.get(upper);
+            final boolean lowerExists = sobj.has(lower);
+            final boolean upperExists = sobj.has(upper);
+
+            if (lowerExists && upperExists) {
+                sobj.set(lower, upperValue, CALLSITE_STRICT);
+                sobj.set(upper, lowerValue, CALLSITE_STRICT);
+            } else if (!lowerExists && upperExists) {
+                sobj.set(lower, upperValue, CALLSITE_STRICT);
+                sobj.delete(upper, true);
+            } else if (lowerExists) {
+                sobj.delete(lower, true);
+                sobj.set(upper, lowerValue, CALLSITE_STRICT);
+            }
+        }
+        return sobj;
     }
 
     /**
