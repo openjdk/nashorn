@@ -254,32 +254,29 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     private static final List<String> extensions;
 
     static {
-        names = immutableList(
+        names = List.of(
                     "nashorn", "Nashorn",
                     "js", "JS",
                     "JavaScript", "javascript",
                     "ECMAScript", "ecmascript"
                 );
 
-        mimeTypes = immutableList(
+        mimeTypes = List.of(
                         "application/javascript",
                         "application/ecmascript",
                         "text/javascript",
                         "text/ecmascript"
                     );
 
-        extensions = immutableList("js");
-    }
-
-    private static List<String> immutableList(final String... elements) {
-        return List.of(elements);
+        extensions = List.of("js");
     }
 
     private static ClassLoader getAppClassLoader() {
         // Revisit: script engine implementation needs the capability to
         // find the class loader of the context in which the script engine
         // is running so that classes will be found and loaded properly
-        final ClassLoader ccl = Thread.currentThread().getContextClassLoader();
-        return (ccl == null)? NashornScriptEngineFactory.class.getClassLoader() : ccl;
+        return Objects.requireNonNullElseGet(
+            Thread.currentThread().getContextClassLoader(),
+            NashornScriptEngineFactory.class::getClassLoader);
     }
 }
