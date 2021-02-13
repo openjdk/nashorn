@@ -10,7 +10,7 @@ symbols; and binary and octal literals. It is written in Java and runs
 on the Java Virtual Machine.
 
 Nashorn used to be part of the JDK until Java 14. This project provides
-a standalone version of Nashorn suitable for use with Java 15 and later.
+a standalone version of Nashorn suitable for use with Java 11 and later.
 
 Nashorn is free software, licensed under
 [GPL v2 with the Classpath exception](https://github.com/openjdk/nashorn/blob/master/LICENSE),
@@ -28,9 +28,11 @@ Nashorn-related documents published by Oracle with Java 14:
 
 Getting Started
 ===============
-Latest version of Nashorn is 15.1.1, available from [Maven Central](https://search.maven.org/artifact/org.openjdk.nashorn/nashorn-core/15.1.1/jar). You can check the [change log](CHANGELOG.md) to see what's new.
+Latest version of Nashorn is 15.2, available from [Maven Central](https://search.maven.org/artifact/org.openjdk.nashorn/nashorn-core/15.2/jar). You can check the [change log](CHANGELOG.md) to see what's new.
 
 Nashorn is a JPMS module, so make sure it and its transitive dependencies (Nashorn depends on several ASM JARs) are on your application's module path, or appropriately added to a module layer, or otherwise configured as modules.
+
+While standalone Nashorn is primarily meant to be used with Java 15 and later versions, it can also be used with Java versions 11 to 14 that have a built-in version of Nashorn too. See [this page](https://github.com/szegedi/nashorn/wiki/Using-Nashorn-with-different-Java-versions) for details on use when both versions are present.
 
 Building From Source
 ====================
