@@ -51,12 +51,12 @@ import org.openjdk.nashorn.internal.runtime.Version;
 public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     @Override
     public String getEngineName() {
-        return (String) getParameter(ScriptEngine.ENGINE);
+        return "javascript";
     }
 
     @Override
     public String getEngineVersion() {
-        return (String) getParameter(ScriptEngine.ENGINE_VERSION);
+        return Version.version();
     }
 
     @Override
@@ -66,12 +66,12 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
 
     @Override
     public String getLanguageName() {
-        return (String) getParameter(ScriptEngine.LANGUAGE);
+        return "ECMAScript";
     }
 
     @Override
     public String getLanguageVersion() {
-        return (String) getParameter(ScriptEngine.LANGUAGE_VERSION);
+        return "ECMA - 262 Edition 5.1";
     }
 
     @Override
@@ -111,15 +111,15 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     public Object getParameter(final String key) {
         switch (key) {
         case ScriptEngine.NAME:
-            return "javascript";
+            return getEngineName();
         case ScriptEngine.ENGINE:
             return "Oracle Nashorn";
         case ScriptEngine.ENGINE_VERSION:
-            return Version.version();
+            return getEngineVersion();
         case ScriptEngine.LANGUAGE:
-            return "ECMAScript";
+            return getLanguageName();
         case ScriptEngine.LANGUAGE_VERSION:
-            return "ECMA - 262 Edition 5.1";
+            return getLanguageVersion();
         case "THREADING":
             // The engine implementation is not thread-safe. Can't be
             // used to execute scripts concurrently on multiple threads.
