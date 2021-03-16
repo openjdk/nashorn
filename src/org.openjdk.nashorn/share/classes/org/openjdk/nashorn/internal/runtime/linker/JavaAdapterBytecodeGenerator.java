@@ -407,9 +407,9 @@ final class JavaAdapterBytecodeGenerator {
             return false;
         }
 
-            // Generate a constructor that delegates to ctor, but takes an additional ScriptObject parameter at the
-            // beginning of its parameter list.
-            generateOverridingConstructor(ctor, false);
+        // Generate a constructor that delegates to ctor, but takes an additional ScriptObject parameter at the
+        // beginning of its parameter list.
+        generateOverridingConstructor(ctor, false);
 
         if (samName == null) {
             return false;

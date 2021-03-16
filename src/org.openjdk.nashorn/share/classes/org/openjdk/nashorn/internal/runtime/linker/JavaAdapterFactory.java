@@ -40,8 +40,10 @@ import java.security.Permissions;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.StandardOperation;
@@ -223,21 +225,24 @@ public final class JavaAdapterFactory {
     private static AdapterInfo createAdapterInfo(final List<Class<?>> types, final ClassAndLoader definingClassAndLoader) {
         Class<?> superClass = null;
         final List<Class<?>> interfaces = new ArrayList<>(types.size());
+        final Set<Class<?>> interfacesDedup = new HashSet<>(Math.max((int) (types.size()/.75f) + 1, 16));
         for(final Class<?> t: types) {
             final int mod = t.getModifiers();
             if(!t.isInterface()) {
-                if(superClass != null) {
-                    return new AdapterInfo(AdaptationResult.Outcome.ERROR_MULTIPLE_SUPERCLASSES, t.getCanonicalName() + " and " + superClass.getCanonicalName());
-                }
-                if (Modifier.isFinal(mod)) {
+                if (superClass == t) {
+                    throw new AdaptationResult(Outcome.ERROR_DUPLICATE_TYPE, t.getCanonicalName()).typeError();
+                } else if(superClass != null) {
+                    throw new AdaptationResult(Outcome.ERROR_MULTIPLE_SUPERCLASSES, t.getCanonicalName() + " and " + superClass.getCanonicalName()).typeError();
+                } else if (Modifier.isFinal(mod)) {
                     return new AdapterInfo(AdaptationResult.Outcome.ERROR_FINAL_CLASS, t.getCanonicalName());
                 }
                 superClass = t;
             } else {
                 if (interfaces.size() > 65535) {
-                    throw new IllegalArgumentException("interface limit exceeded");
+                    throw new AdaptationResult(Outcome.ERROR_TOO_MANY_INTERFACES, "65535").typeError();
+                } else if (!interfacesDedup.add(t)) {
+                    throw new AdaptationResult(Outcome.ERROR_DUPLICATE_TYPE, t.getCanonicalName()).typeError();
                 }
-
                 interfaces.add(t);
             }
 
@@ -246,15 +251,22 @@ public final class JavaAdapterFactory {
             }
         }
 
-
         final Class<?> effectiveSuperClass = superClass == null ? Object.class : superClass;
         return AccessController.doPrivileged((PrivilegedAction<AdapterInfo>) () -> {
             try {
-                return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
+                try {
+                    return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
+                } catch (final RuntimeException e) {
+                    throw new AdaptationException(new AdaptationResult(Outcome.ERROR_OTHER, e, types.toString(), e.toString()));
+                }
             } catch (final AdaptationException e) {
-                return new AdapterInfo(e.getAdaptationResult());
-            } catch (final RuntimeException e) {
-                return new AdapterInfo(new AdaptationResult(Outcome.ERROR_OTHER, e, types.toString(), e.toString()));
+                final var res = e.getAdaptationResult();
+                if (types.size() > 1) {
+                    // Only cache error outcomes for single types
+                    throw res.typeError();
+                } else {
+                    return new AdapterInfo(res);
+                }
             }
         }, CREATE_ADAPTER_INFO_ACC_CTXT);
     }
