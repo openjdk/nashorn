@@ -31,6 +31,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
+import java.lang.invoke.VarHandle;
 import java.lang.reflect.Modifier;
 import java.security.AccessControlContext;
 import java.security.AccessController;
@@ -288,12 +289,20 @@ public final class JavaAdapterFactory {
 
     private static class AdapterInfo {
         private static final ClassAndLoader SCRIPT_OBJECT_LOADER = new ClassAndLoader(ScriptFunction.class, true);
+        private static final VarHandle INSTANCE_ADAPTERS;
+        static {
+            try {
+                INSTANCE_ADAPTERS = MethodHandles.lookup().findVarHandle(AdapterInfo.class, "instanceAdapters", Map.class);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         private final ClassLoader commonLoader;
         // TODO: soft reference the JavaAdapterClassLoader objects. They can be recreated when needed.
         private final JavaAdapterClassLoader classAdapterGenerator;
         private final JavaAdapterClassLoader instanceAdapterGenerator;
-        private final Map<CodeSource, StaticClass> instanceAdapters = new ConcurrentHashMap<>();
+        private Map<CodeSource, StaticClass> instanceAdapters;
         final boolean autoConvertibleFromFunction;
 
         AdapterInfo(final Class<?> superClass, final List<Class<?>> interfaces, final ClassAndLoader definingLoader) {
@@ -314,7 +323,14 @@ public final class JavaAdapterFactory {
             if(codeSource == null) {
                 codeSource = MINIMAL_PERMISSION_DOMAIN.getCodeSource();
             }
-            return instanceAdapters.computeIfAbsent(codeSource, cs -> {
+            var ia = instanceAdapters;
+            if (ia == null) {
+                var nia = new ConcurrentHashMap<CodeSource, StaticClass>();
+                @SuppressWarnings("unchecked")
+                var xia = (Map<CodeSource, StaticClass>)INSTANCE_ADAPTERS.compareAndExchange(this, null, nia);
+                ia = xia == null ? nia : xia;
+            }
+            return ia.computeIfAbsent(codeSource, cs -> {
                 // Any "unknown source" code source will default to no permission domain.
                 final ProtectionDomain effectiveDomain =
                     cs.equals(MINIMAL_PERMISSION_DOMAIN.getCodeSource())
