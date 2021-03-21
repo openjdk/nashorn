@@ -42,7 +42,6 @@ import static org.objectweb.asm.Opcodes.RETURN;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.interfaceCallNoLookup;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.staticCallNoLookup;
 import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
-import static org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome.ERROR_NO_ACCESSIBLE_CONSTRUCTOR;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.CallSite;
@@ -73,7 +72,6 @@ import org.openjdk.nashorn.api.scripting.ScriptUtils;
 import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
 import org.openjdk.nashorn.internal.runtime.ScriptObject;
-import org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome;
 
 /**
  * Generates bytecode for a Java adapter class. Used by the {@link JavaAdapterFactory}.
@@ -249,10 +247,9 @@ final class JavaAdapterBytecodeGenerator {
      * @param commonLoader the class loader that can see all of superClass, interfaces, and Nashorn classes.
      * @param classOverride true to generate the bytecode for the adapter that has class-level overrides, false to
      * generate the bytecode for the adapter that has instance-level overrides.
-     * @throws AdaptationException if the adapter can not be generated for some reason.
      */
     JavaAdapterBytecodeGenerator(final Class<?> superClass, final List<Class<?>> interfaces,
-                                 final ClassLoader commonLoader, final boolean classOverride) throws AdaptationException {
+                                 final ClassLoader commonLoader, final boolean classOverride) {
         assert superClass != null && !superClass.isInterface();
         assert interfaces != null;
 
@@ -383,7 +380,7 @@ final class JavaAdapterBytecodeGenerator {
         }
     }
 
-    private boolean generateConstructors() throws AdaptationException {
+    private boolean generateConstructors() {
         boolean gotCtor = false;
         boolean canBeAutoConverted = false;
         for (final Constructor<?> ctor: superClass.getDeclaredConstructors()) {
@@ -394,7 +391,8 @@ final class JavaAdapterBytecodeGenerator {
             }
         }
         if(!gotCtor) {
-            throw new AdaptationException(ERROR_NO_ACCESSIBLE_CONSTRUCTOR, superClass.getCanonicalName());
+            throw JavaAdapterFactory.adaptationException(
+                JavaAdapterFactory.ErrorOutcome.NO_ACCESSIBLE_CONSTRUCTOR, superClass.getCanonicalName());
         }
         return canBeAutoConverted;
     }
@@ -1123,7 +1121,7 @@ final class JavaAdapterBytecodeGenerator {
      * class.
      * @param type the type defining the methods.
      */
-    private void gatherMethods(final Class<?> type) throws AdaptationException {
+    private void gatherMethods(final Class<?> type) {
         if (Modifier.isPublic(type.getModifiers())) {
             final Method[] typeMethods = type.isInterface() ? type.getMethods() : type.getDeclaredMethods();
 
@@ -1143,7 +1141,8 @@ final class JavaAdapterBytecodeGenerator {
                             hasExplicitFinalizer = true;
                             if(Modifier.isFinal(m)) {
                                 // Must be able to override an explicit finalizer
-                                throw new AdaptationException(Outcome.ERROR_FINAL_FINALIZER, type.getCanonicalName());
+                                throw JavaAdapterFactory.adaptationException(
+                                    JavaAdapterFactory.ErrorOutcome.FINAL_FINALIZER, type.getCanonicalName());
                             }
                         }
                         continue;
@@ -1174,7 +1173,7 @@ final class JavaAdapterBytecodeGenerator {
         }
     }
 
-    private void gatherMethods(final List<Class<?>> classes) throws AdaptationException {
+    private void gatherMethods(final List<Class<?>> classes) {
         for(final Class<?> c: classes) {
             gatherMethods(c);
         }
