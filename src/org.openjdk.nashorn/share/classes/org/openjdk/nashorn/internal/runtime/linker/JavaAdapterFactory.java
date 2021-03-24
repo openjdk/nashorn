@@ -31,6 +31,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
+import java.lang.invoke.VarHandle;
 import java.lang.reflect.Modifier;
 import java.security.AccessControlContext;
 import java.security.AccessController;
@@ -40,18 +41,20 @@ import java.security.Permissions;
 import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.StandardOperation;
 import jdk.dynalink.beans.StaticClass;
 import jdk.dynalink.linker.support.SimpleLinkRequest;
 import org.openjdk.nashorn.internal.runtime.Context;
+import org.openjdk.nashorn.internal.runtime.ECMAErrors;
 import org.openjdk.nashorn.internal.runtime.ECMAException;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
 import org.openjdk.nashorn.internal.runtime.ScriptObject;
-import org.openjdk.nashorn.internal.runtime.linker.AdaptationResult.Outcome;
 
 /**
  * A factory class that generates adapter classes. Adapter classes allow
@@ -93,6 +96,17 @@ public final class JavaAdapterFactory {
         @Override
         protected Map<List<Class<?>>, AdapterInfo> computeValue(final Class<?> type) {
             return new ConcurrentHashMap<>();
+        }
+    };
+
+    private static final ClassValue<Boolean> AUTO_CONVERTIBLE_FROM_FUNCTION = new ClassValue<>() {
+        @Override
+        protected Boolean computeValue(final Class<?> type) {
+            try {
+                return getAdapterInfo(new Class<?>[] { type }).autoConvertibleFromFunction;
+            } catch (Exception e) {
+                return false;
+            }
         }
     };
 
@@ -203,7 +217,7 @@ public final class JavaAdapterFactory {
      *         be generated from a ScriptFunction.
      */
     static boolean isAutoConvertibleFromFunction(final Class<?> clazz) {
-        return getAdapterInfo(new Class<?>[] { clazz }).isAutoConvertibleFromFunction();
+        return AUTO_CONVERTIBLE_FROM_FUNCTION.get(clazz);
     }
 
     private static AdapterInfo getAdapterInfo(final Class<?>[] types) {
@@ -223,87 +237,85 @@ public final class JavaAdapterFactory {
     private static AdapterInfo createAdapterInfo(final List<Class<?>> types, final ClassAndLoader definingClassAndLoader) {
         Class<?> superClass = null;
         final List<Class<?>> interfaces = new ArrayList<>(types.size());
+        final Set<Class<?>> interfacesDedup = new HashSet<>(Math.max((int) (types.size()/.75f) + 1, 16));
         for(final Class<?> t: types) {
             final int mod = t.getModifiers();
             if(!t.isInterface()) {
-                if(superClass != null) {
-                    return new AdapterInfo(AdaptationResult.Outcome.ERROR_MULTIPLE_SUPERCLASSES, t.getCanonicalName() + " and " + superClass.getCanonicalName());
-                }
-                if (Modifier.isFinal(mod)) {
-                    return new AdapterInfo(AdaptationResult.Outcome.ERROR_FINAL_CLASS, t.getCanonicalName());
+                if (superClass == t) {
+                    throw adaptationException(ErrorOutcome.DUPLICATE_TYPE, t.getCanonicalName());
+                } else if(superClass != null) {
+                    throw adaptationException(ErrorOutcome.MULTIPLE_SUPERCLASSES, t.getCanonicalName() + " and " + superClass.getCanonicalName());
+                } else if (Modifier.isFinal(mod)) {
+                    throw adaptationException(ErrorOutcome.FINAL_CLASS, t.getCanonicalName());
                 }
                 superClass = t;
             } else {
                 if (interfaces.size() > 65535) {
-                    throw new IllegalArgumentException("interface limit exceeded");
+                    throw adaptationException(ErrorOutcome.TOO_MANY_INTERFACES, "65535");
+                } else if (!interfacesDedup.add(t)) {
+                    throw adaptationException(ErrorOutcome.DUPLICATE_TYPE, t.getCanonicalName());
                 }
-
                 interfaces.add(t);
             }
 
             if(!Modifier.isPublic(mod)) {
-                return new AdapterInfo(AdaptationResult.Outcome.ERROR_NON_PUBLIC_CLASS, t.getCanonicalName());
+                throw adaptationException(ErrorOutcome.NON_PUBLIC_CLASS, t.getCanonicalName());
             }
         }
 
-
         final Class<?> effectiveSuperClass = superClass == null ? Object.class : superClass;
-        return AccessController.doPrivileged((PrivilegedAction<AdapterInfo>) () -> {
-            try {
-                return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
-            } catch (final AdaptationException e) {
-                return new AdapterInfo(e.getAdaptationResult());
-            } catch (final RuntimeException e) {
-                return new AdapterInfo(new AdaptationResult(Outcome.ERROR_OTHER, e, types.toString(), e.toString()));
-            }
-        }, CREATE_ADAPTER_INFO_ACC_CTXT);
+        return AccessController.doPrivileged((PrivilegedAction<AdapterInfo>) () ->
+            new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader),
+            CREATE_ADAPTER_INFO_ACC_CTXT);
+    }
+
+    static ECMAException adaptationException(ErrorOutcome outcome, String... messageArgs) {
+        return ECMAErrors.typeError("extend." + outcome, messageArgs);
+    }
+
+    /**
+     * Contains various error outcomes for attempting to generate an adapter class.
+     */
+    enum ErrorOutcome {
+        FINAL_CLASS,
+        NON_PUBLIC_CLASS,
+        NO_ACCESSIBLE_CONSTRUCTOR,
+        MULTIPLE_SUPERCLASSES,
+        DUPLICATE_TYPE,
+        TOO_MANY_INTERFACES,
+        NO_COMMON_LOADER,
+        FINAL_FINALIZER
     }
 
     private static class AdapterInfo {
         private static final ClassAndLoader SCRIPT_OBJECT_LOADER = new ClassAndLoader(ScriptFunction.class, true);
+        private static final VarHandle INSTANCE_ADAPTERS;
+        static {
+            try {
+                INSTANCE_ADAPTERS = MethodHandles.lookup().findVarHandle(AdapterInfo.class, "instanceAdapters", Map.class);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         private final ClassLoader commonLoader;
         // TODO: soft reference the JavaAdapterClassLoader objects. They can be recreated when needed.
         private final JavaAdapterClassLoader classAdapterGenerator;
         private final JavaAdapterClassLoader instanceAdapterGenerator;
-        private final Map<CodeSource, StaticClass> instanceAdapters = new ConcurrentHashMap<>();
+        private Map<CodeSource, StaticClass> instanceAdapters;
         final boolean autoConvertibleFromFunction;
-        final AdaptationResult adaptationResult;
 
-        AdapterInfo(final Class<?> superClass, final List<Class<?>> interfaces, final ClassAndLoader definingLoader) throws AdaptationException {
+        AdapterInfo(final Class<?> superClass, final List<Class<?>> interfaces, final ClassAndLoader definingLoader) {
             this.commonLoader = findCommonLoader(definingLoader);
             final JavaAdapterBytecodeGenerator gen = new JavaAdapterBytecodeGenerator(superClass, interfaces, commonLoader, false);
             this.autoConvertibleFromFunction = gen.isAutoConvertibleFromFunction();
             instanceAdapterGenerator = gen.createAdapterClassLoader();
             this.classAdapterGenerator = new JavaAdapterBytecodeGenerator(superClass, interfaces, commonLoader, true).createAdapterClassLoader();
-            this.adaptationResult = AdaptationResult.SUCCESSFUL_RESULT;
-        }
-
-        AdapterInfo(final AdaptationResult.Outcome outcome, final String classList) {
-            this(new AdaptationResult(outcome, classList));
-        }
-
-        AdapterInfo(final AdaptationResult adaptationResult) {
-            this.commonLoader = null;
-            this.classAdapterGenerator = null;
-            this.instanceAdapterGenerator = null;
-            this.autoConvertibleFromFunction = false;
-            this.adaptationResult = adaptationResult;
         }
 
         StaticClass getAdapterClass(final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
-            if(adaptationResult.getOutcome() != AdaptationResult.Outcome.SUCCESS) {
-                throw adaptationResult.typeError();
-            }
             return classOverrides == null ? getInstanceAdapterClass(protectionDomain) :
                 getClassAdapterClass(classOverrides, protectionDomain);
-        }
-
-        boolean isAutoConvertibleFromFunction() {
-            if(adaptationResult.getOutcome() == AdaptationResult.Outcome.ERROR_OTHER) {
-                throw adaptationResult.typeError();
-            }
-            return autoConvertibleFromFunction;
         }
 
         private StaticClass getInstanceAdapterClass(final ProtectionDomain protectionDomain) {
@@ -311,17 +323,21 @@ public final class JavaAdapterFactory {
             if(codeSource == null) {
                 codeSource = MINIMAL_PERMISSION_DOMAIN.getCodeSource();
             }
-            StaticClass instanceAdapterClass = instanceAdapters.get(codeSource);
-            if(instanceAdapterClass != null) {
-                return instanceAdapterClass;
+            var ia = instanceAdapters;
+            if (ia == null) {
+                var nia = new ConcurrentHashMap<CodeSource, StaticClass>();
+                @SuppressWarnings("unchecked")
+                var xia = (Map<CodeSource, StaticClass>)INSTANCE_ADAPTERS.compareAndExchange(this, null, nia);
+                ia = xia == null ? nia : xia;
             }
-            // Any "unknown source" code source will default to no permission domain.
-            final ProtectionDomain effectiveDomain = codeSource.equals(MINIMAL_PERMISSION_DOMAIN.getCodeSource()) ?
-                    MINIMAL_PERMISSION_DOMAIN : protectionDomain;
+            return ia.computeIfAbsent(codeSource, cs -> {
+                // Any "unknown source" code source will default to no permission domain.
+                final ProtectionDomain effectiveDomain =
+                    cs.equals(MINIMAL_PERMISSION_DOMAIN.getCodeSource())
+                    ? MINIMAL_PERMISSION_DOMAIN : protectionDomain;
 
-            instanceAdapterClass = instanceAdapterGenerator.generateClass(commonLoader, effectiveDomain);
-            final StaticClass existing = instanceAdapters.putIfAbsent(codeSource, instanceAdapterClass);
-            return existing == null ? instanceAdapterClass : existing;
+                return instanceAdapterGenerator.generateClass(commonLoader, effectiveDomain);
+            });
         }
 
         private StaticClass getClassAdapterClass(final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
@@ -341,10 +357,8 @@ public final class JavaAdapterFactory {
          *        be used to add the generated adapter to its ADAPTER_INFO_MAPS.
          *
          * @return the class loader that sees both the specified class and Nashorn classes.
-         *
-         * @throws IllegalStateException if no such class loader is found.
          */
-        private static ClassLoader findCommonLoader(final ClassAndLoader classAndLoader) throws AdaptationException {
+        private static ClassLoader findCommonLoader(final ClassAndLoader classAndLoader) {
             if(classAndLoader.canSee(SCRIPT_OBJECT_LOADER)) {
                 return classAndLoader.getLoader();
             }
@@ -352,7 +366,7 @@ public final class JavaAdapterFactory {
                 return SCRIPT_OBJECT_LOADER.getLoader();
             }
 
-            throw new AdaptationException(AdaptationResult.Outcome.ERROR_NO_COMMON_LOADER, classAndLoader.getRepresentativeClass().getCanonicalName());
+            throw adaptationException(ErrorOutcome.NO_COMMON_LOADER, classAndLoader.getRepresentativeClass().getCanonicalName());
         }
     }
 
