@@ -25,7 +25,6 @@
 
 package org.openjdk.nashorn.api.scripting;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.script.ScriptEngine;
@@ -61,7 +60,7 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
 
     @Override
     public List<String> getExtensions() {
-        return Collections.unmodifiableList(extensions);
+        return extensions;
     }
 
     @Override
@@ -94,12 +93,12 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
 
     @Override
     public List<String> getMimeTypes() {
-        return Collections.unmodifiableList(mimeTypes);
+        return mimeTypes;
     }
 
     @Override
     public List<String> getNames() {
-        return Collections.unmodifiableList(names);
+        return names;
     }
 
     @Override
@@ -249,27 +248,21 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
         }
     }
 
-    private static final List<String> names;
-    private static final List<String> mimeTypes;
-    private static final List<String> extensions;
+    private static final List<String> names = List.of(
+        "nashorn", "Nashorn",
+        "js", "JS",
+        "JavaScript", "javascript",
+        "ECMAScript", "ecmascript"
+    );
 
-    static {
-        names = List.of(
-                    "nashorn", "Nashorn",
-                    "js", "JS",
-                    "JavaScript", "javascript",
-                    "ECMAScript", "ecmascript"
-                );
+    private static final List<String> mimeTypes = List.of(
+        "application/javascript",
+        "application/ecmascript",
+        "text/javascript",
+        "text/ecmascript"
+    );
 
-        mimeTypes = List.of(
-                        "application/javascript",
-                        "application/ecmascript",
-                        "text/javascript",
-                        "text/ecmascript"
-                    );
-
-        extensions = List.of("js");
-    }
+    private static final List<String> extensions = List.of("js");
 
     private static ClassLoader getAppClassLoader() {
         // Revisit: script engine implementation needs the capability to
