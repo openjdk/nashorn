@@ -113,7 +113,7 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
         case ScriptEngine.NAME:
             return getEngineName();
         case ScriptEngine.ENGINE:
-            return "Oracle Nashorn";
+            return "OpenJDK Nashorn";
         case ScriptEngine.ENGINE_VERSION:
             return getEngineVersion();
         case ScriptEngine.LANGUAGE:
