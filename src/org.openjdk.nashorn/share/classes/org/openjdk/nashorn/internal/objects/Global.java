@@ -1163,7 +1163,7 @@ public final class Global extends Scope {
     public Global(final Context context) {
         super(checkAndGetMap(context));
         this.context = context;
-        this.lexicalScope = context.getEnv()._es6 ? new LexicalScope(this) : null;
+        this.lexicalScope = isES6() ? new LexicalScope(this) : null;
     }
 
     /**
@@ -2392,12 +2392,16 @@ public final class Global extends Scope {
         }
     }
 
+    public boolean isES6() {
+        return context.getEnv()._es6;
+    }
+
     /**
      * Return the ES6 global scope for lexically declared bindings.
      * @return the ES6 lexical global scope.
      */
     public final ScriptObject getLexicalScope() {
-        assert context.getEnv()._es6;
+        assert isES6();
         return lexicalScope;
     }
 
@@ -2408,7 +2412,7 @@ public final class Global extends Scope {
         PropertyMap lexicalMap = null;
         boolean hasLexicalDefinitions = false;
 
-        if (context.getEnv()._es6) {
+        if (isES6()) {
             lexScope = (LexicalScope) getLexicalScope();
             lexicalMap = lexScope.getMap();
 
@@ -2470,7 +2474,7 @@ public final class Global extends Scope {
         // We therefore check if the invocation does already have a switchpoint and the property is non-inherited,
         // assuming this only applies to global constants. If other non-inherited properties will
         // start using switchpoints some time in the future we'll have to revisit this.
-        if (isScope && context.getEnv()._es6 && (invocation.getSwitchPoints() == null || !hasOwnProperty(name))) {
+        if (isScope && isES6() && (invocation.getSwitchPoints() == null || !hasOwnProperty(name))) {
             return invocation.addSwitchPoint(getLexicalScopeSwitchPoint());
         }
 
@@ -2501,7 +2505,7 @@ public final class Global extends Scope {
 
         final GuardedInvocation invocation = super.findSetMethod(desc, request);
 
-        if (isScope && context.getEnv()._es6) {
+        if (isScope && isES6()) {
             return invocation.addSwitchPoint(getLexicalScopeSwitchPoint());
         }
 
