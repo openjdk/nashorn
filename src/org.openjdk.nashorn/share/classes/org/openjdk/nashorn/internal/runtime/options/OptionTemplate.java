@@ -315,7 +315,7 @@ public final class OptionTemplate implements Comparable<OptionTemplate> {
             }
 
         } catch (final Exception e) {
-            throw new IllegalArgumentException(origValue);
+            throw new IllegalArgumentException(origValue, e);
         }
 
         if (name == null && shortName == null) {
