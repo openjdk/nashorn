@@ -313,7 +313,7 @@ public class Parser extends AbstractParser implements Loggable {
 
         try {
             stream = new TokenStream();
-            lexer  = new Lexer(source, startPos, len, stream, scripting && !env._no_syntax_extensions, env._es6, reparsedFunction != null);
+            lexer  = new Lexer(source, startPos, len, stream, scripting && !env._no_syntax_extensions, isES6(), reparsedFunction != null);
             lexer.line = lexer.pendingLine = lineOffset + 1;
             line = lineOffset;
 
@@ -349,7 +349,7 @@ public class Parser extends AbstractParser implements Loggable {
     public FunctionNode parseModule(final String moduleName, final int startPos, final int len) {
         try {
             stream = new TokenStream();
-            lexer  = new Lexer(source, startPos, len, stream, scripting && !env._no_syntax_extensions, env._es6, reparsedFunction != null);
+            lexer  = new Lexer(source, startPos, len, stream, scripting && !env._no_syntax_extensions, isES6(), reparsedFunction != null);
             lexer.line = lexer.pendingLine = lineOffset + 1;
             line = lineOffset;
 
@@ -383,7 +383,7 @@ public class Parser extends AbstractParser implements Loggable {
     public void parseFormalParameterList() {
         try {
             stream = new TokenStream();
-            lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
+            lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, isES6());
 
             scanFirstToken();
 
@@ -403,7 +403,7 @@ public class Parser extends AbstractParser implements Loggable {
     public void parseFunctionBody() {
         try {
             stream = new TokenStream();
-            lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, env._es6);
+            lexer  = new Lexer(source, stream, scripting && !env._no_syntax_extensions, isES6());
             final int functionLine = line;
 
             scanFirstToken();
@@ -664,7 +664,7 @@ public class Parser extends AbstractParser implements Loggable {
     }
 
     private boolean useBlockScope() {
-        return env._es6;
+        return isES6();
     }
 
     private boolean isES6() {
@@ -1984,7 +1984,7 @@ public class Parser extends AbstractParser implements Loggable {
                 break;
 
             case IDENT:
-                if (env._es6 && "of".equals(getValue())) {
+                if (isES6() && "of".equals(getValue())) {
                     isForOf = true;
                     // fall through
                 } else {
@@ -4260,7 +4260,7 @@ public class Parser extends AbstractParser implements Loggable {
         }
 
         stream.reset();
-        lexer = parserState.createLexer(source, lexer, stream, scripting && !env._no_syntax_extensions, env._es6);
+        lexer = parserState.createLexer(source, lexer, stream, scripting && !env._no_syntax_extensions, isES6());
         line = parserState.line;
         linePosition = parserState.linePosition;
         // Doesn't really matter, but it's safe to treat it as if there were a semicolon before
