@@ -279,7 +279,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
     @Override
     String toSource() {
         if (source != null && token != 0) {
-            return source.getString(Token.descPosition(token), Token.descLength(token));
+            return source.getString(token);
         }
 
         return "function " + (name == null ? "" : name) + "() { [native code] }";

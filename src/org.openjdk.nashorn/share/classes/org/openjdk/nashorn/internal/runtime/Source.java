@@ -615,9 +615,7 @@ public final class Source implements Loggable {
      * @return Source content portion.
      */
     public String getString(final long token) {
-        final int start = Token.descPosition(token);
-        final int len = Token.descLength(token);
-        return new String(data(), start, len);
+        return getString(Token.descPosition(token), Token.descLength(token));
     }
 
     /**
@@ -738,7 +736,7 @@ public final class Source implements Loggable {
         // Find end of this line.
         final int last = findEOLN(position);
 
-        return new String(data(), first, last - first + 1);
+        return getString(first, last - first + 1);
     }
 
     /**
