@@ -33,7 +33,6 @@ import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescrip
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.util.concurrent.Callable;
 import org.openjdk.nashorn.internal.lookup.Lookup;
 import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
@@ -80,12 +79,8 @@ public final class UserAccessorProperty extends SpillProperty {
 
     private static final Object OBJECT_GETTER_INVOKER_KEY = new Object();
     private static MethodHandle getObjectGetterInvoker() {
-        return Context.getGlobal().getDynamicInvoker(OBJECT_GETTER_INVOKER_KEY, new Callable<MethodHandle>() {
-            @Override
-            public MethodHandle call() throws Exception {
-                return getINVOKE_UA_GETTER(Object.class, INVALID_PROGRAM_POINT);
-            }
-        });
+        return Context.getGlobal().getDynamicInvoker(OBJECT_GETTER_INVOKER_KEY, () ->
+            getINVOKE_UA_GETTER(Object.class, INVALID_PROGRAM_POINT));
     }
 
     static MethodHandle getINVOKE_UA_GETTER(final Class<?> returnType, final int programPoint) {
@@ -99,12 +94,8 @@ public final class UserAccessorProperty extends SpillProperty {
 
     private static final Object OBJECT_SETTER_INVOKER_KEY = new Object();
     private static MethodHandle getObjectSetterInvoker() {
-        return Context.getGlobal().getDynamicInvoker(OBJECT_SETTER_INVOKER_KEY, new Callable<MethodHandle>() {
-            @Override
-            public MethodHandle call() throws Exception {
-                return getINVOKE_UA_SETTER(Object.class);
-            }
-        });
+        return Context.getGlobal().getDynamicInvoker(OBJECT_SETTER_INVOKER_KEY, () ->
+            getINVOKE_UA_SETTER(Object.class));
     }
 
     static MethodHandle getINVOKE_UA_SETTER(final Class<?> valueType) {

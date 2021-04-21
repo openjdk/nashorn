@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Callable;
 import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.Operation;
 import jdk.dynalink.beans.BeansLinker;
@@ -91,13 +90,8 @@ public final class NativeObject {
     private static final Object TO_STRING = new Object();
 
     private static InvokeByName getTO_STRING() {
-        return Global.instance().getInvokeByName(TO_STRING,
-                new Callable<InvokeByName>() {
-                    @Override
-                    public InvokeByName call() {
-                        return new InvokeByName("toString", ScriptObject.class);
-                    }
-                });
+        return Global.instance().getInvokeByName(TO_STRING, () ->
+            new InvokeByName("toString", ScriptObject.class));
     }
 
     private static final Operation GET_METHOD   = GET.withNamespace(METHOD);
