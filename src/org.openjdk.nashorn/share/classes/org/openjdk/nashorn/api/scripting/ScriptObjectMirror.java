@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 import javax.script.Bindings;
 import org.openjdk.nashorn.internal.objects.Global;
 import org.openjdk.nashorn.internal.runtime.ConsString;
@@ -729,20 +729,16 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
         });
     }
 
-    private <V> V inGlobal(final Callable<V> callable) {
+    private <V> V inGlobal(final Supplier<V> s) {
         final Global oldGlobal = Context.getGlobal();
         final boolean globalChanged = (oldGlobal != global);
         if (globalChanged) {
             Context.setGlobal(global);
         }
         try {
-            return callable.call();
+            return s.get();
         } catch (final NashornException ne) {
             throw ne.initEcmaError(global);
-        } catch (final RuntimeException e) {
-            throw e;
-        } catch (final Exception e) {
-            throw new AssertionError("Cannot happen", e);
         } finally {
             if (globalChanged) {
                 Context.setGlobal(oldGlobal);

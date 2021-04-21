@@ -43,8 +43,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import jdk.dynalink.CallSiteDescriptor;
@@ -1534,7 +1534,7 @@ public final class Global extends Scope {
         return desc;
     }
 
-    private <T> T getLazilyCreatedValue(final Object key, final Callable<T> creator, final Map<Object, T> map) {
+    private <T> T getLazilyCreatedValue(final Object key, final Supplier<T> creator, final Map<Object, T> map) {
         final T obj = map.get(key);
         if (obj != null) {
             return obj;
@@ -1546,11 +1546,9 @@ public final class Global extends Scope {
             if (differentGlobal) {
                 Context.setGlobal(this);
             }
-            final T newObj = creator.call();
+            final T newObj = creator.get();
             final T existingObj = map.putIfAbsent(key, newObj);
             return existingObj != null ? existingObj : newObj;
-        } catch (final Exception exp) {
-            throw new RuntimeException(exp);
         } finally {
             if (differentGlobal) {
                 Context.setGlobal(oldGlobal);
@@ -1567,7 +1565,7 @@ public final class Global extends Scope {
      * @param creator if InvokeByName is absent 'creator' is called to make one (lazy init)
      * @return InvokeByName object associated with the key.
      */
-    public InvokeByName getInvokeByName(final Object key, final Callable<InvokeByName> creator) {
+    public InvokeByName getInvokeByName(final Object key, final Supplier<InvokeByName> creator) {
         return getLazilyCreatedValue(key, creator, namedInvokers);
     }
 
@@ -1579,7 +1577,7 @@ public final class Global extends Scope {
      * @param creator if method handle is absent 'creator' is called to make one (lazy init)
      * @return dynamic method handle associated with the key.
      */
-    public MethodHandle getDynamicInvoker(final Object key, final Callable<MethodHandle> creator) {
+    public MethodHandle getDynamicInvoker(final Object key, final Supplier<MethodHandle> creator) {
         return getLazilyCreatedValue(key, creator, dynamicInvokers);
     }
 
