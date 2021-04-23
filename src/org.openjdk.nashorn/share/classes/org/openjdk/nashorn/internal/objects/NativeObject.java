@@ -247,9 +247,16 @@ public final class NativeObject {
             return new NativeArray(((ScriptObject)obj).getOwnKeys(true));
         } else if (obj instanceof ScriptObjectMirror) {
             return new NativeArray(((ScriptObjectMirror)obj).getOwnKeys(true));
-        } else {
-            throw notAnObject(obj);
         }
+        final var global = Global.instance();
+        if (global.isES6()) {
+            final var obj2 = JSType.toScriptObject(global, obj);
+            if (obj2 instanceof ScriptObject) {
+                return new NativeArray(((ScriptObject)obj2).getOwnKeys(true));
+            }
+            return new NativeArray();
+        }
+        throw notAnObject(obj);
     }
 
     /**
@@ -261,12 +268,12 @@ public final class NativeObject {
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, where = Where.CONSTRUCTOR)
     public static ScriptObject getOwnPropertySymbols(final Object self, final Object obj) {
-        if (obj instanceof ScriptObject) {
-            return new NativeArray(((ScriptObject)obj).getOwnSymbols(true));
-        } else {
-            // TODO: we don't support this on ScriptObjectMirror objects yet
-            throw notAnObject(obj);
+        final var obj2 = JSType.toScriptObject(obj);
+        if (obj2 instanceof ScriptObject) {
+            return new NativeArray(((ScriptObject)obj2).getOwnSymbols(true));
         }
+        // TODO: we don't support this on ScriptObjectMirror objects yet
+        return new NativeArray();
     }
 
     /**
@@ -346,6 +353,8 @@ public final class NativeObject {
             return ((ScriptObject)obj).seal();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).seal();
+        } else if (isES6()) {
+            return obj;
         } else {
             throw notAnObject(obj);
         }
@@ -365,9 +374,15 @@ public final class NativeObject {
             return ((ScriptObject)obj).freeze();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).freeze();
+        } else if (isES6()) {
+            return obj;
         } else {
             throw notAnObject(obj);
         }
+    }
+
+    private static boolean isES6() {
+        return Global.instance().isES6();
     }
 
     /**
@@ -383,6 +398,8 @@ public final class NativeObject {
             return ((ScriptObject)obj).preventExtensions();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).preventExtensions();
+        } else if (isES6()) {
+            return obj;
         } else {
             throw notAnObject(obj);
         }
@@ -401,6 +418,8 @@ public final class NativeObject {
             return ((ScriptObject)obj).isSealed();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).isSealed();
+        } else if (isES6()) {
+            return true;
         } else {
             throw notAnObject(obj);
         }
@@ -419,6 +438,8 @@ public final class NativeObject {
             return ((ScriptObject)obj).isFrozen();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).isFrozen();
+        } else if (isES6()) {
+            return true;
         } else {
             throw notAnObject(obj);
         }
@@ -437,6 +458,8 @@ public final class NativeObject {
             return ((ScriptObject)obj).isExtensible();
         } else if (obj instanceof ScriptObjectMirror) {
             return ((ScriptObjectMirror)obj).isExtensible();
+        } else if (isES6()) {
+            return false;
         } else {
             throw notAnObject(obj);
         }
