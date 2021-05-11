@@ -317,6 +317,7 @@ public final class Context {
         private static final MethodHandle DEFINE_ANONYMOUS_CLASS = getDefineAnonymousClass();
         private static final String ANONYMOUS_HOST_CLASS_NAME = Compiler.SCRIPTS_PACKAGE.replace('/', '.') + ".AnonymousHost";
         private static final byte[] ANONYMOUS_HOST_CLASS_BYTES = getAnonymousHostClassBytes();
+        static volatile Exception initFailure;
 
         private final Class<?> hostClass;
 
@@ -331,8 +332,9 @@ public final class Context {
                     final Field f = Unsafe.class.getDeclaredField("theUnsafe");
                     f.setAccessible(true);
                     return mh.bindTo(f.get(null));
-                } catch (ReflectiveOperationException e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    initFailure = e;
+                    return null;
                 }
             });
         }
@@ -1501,8 +1503,9 @@ public final class Context {
         final URL          url    = source.getURL();
         final CodeSource   cs     = new CodeSource(url, (CodeSigner[])null);
         final CodeInstaller installer;
-        if (!env.useAnonymousClasses(source.getLength()) || env._persistent_cache || !env._lazy_compilation) {
-            // Persistent code cache and eager compilation preclude use of VM anonymous classes
+        if (env._persistent_cache || !env._lazy_compilation || !env.useAnonymousClasses(source.getLength(), () -> AnonymousContextCodeInstaller.initFailure) ) {
+            // Persistent code cache, eager compilation, or inability to use Unsafe.defineAnonymousClass (typically, JDK 17+)
+            // preclude use of VM anonymous classes
             final ScriptLoader loader = env._loader_per_compile ? createNewLoader() : scriptLoader;
             installer = new NamedContextCodeInstaller(this, cs, loader);
         } else {
