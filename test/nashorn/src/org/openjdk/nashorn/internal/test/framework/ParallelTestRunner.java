@@ -48,7 +48,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -81,26 +80,23 @@ public class ParallelTestRunner {
     // test262 does a lot of eval's and the JVM hates multithreaded class definition, so lower thread count is usually faster.
     private static final int       THREADS = Integer.getInteger(TEST_JS_THREADS, Runtime.getRuntime().availableProcessors() > 4 ? 4 : 2);
 
-    private final List<ScriptRunnable> tests    = new ArrayList<>();
-    private final Set<String>      orphans  = new TreeSet<>();
-    private final ExecutorService  executor = Executors.newFixedThreadPool(THREADS);
+    private final List<ScriptRunnable> tests = new ArrayList<>();
+    private final Set<String>      orphans   = new TreeSet<>();
+    private final ExecutorService  executor  = Executors.newFixedThreadPool(THREADS);
 
     // Ctrl-C handling
     private final CountDownLatch   finishedLatch = new CountDownLatch(1);
-    private final Thread           shutdownHook  = new Thread() {
-                                                       @Override
-                                                       public void run() {
-                                                           if (!executor.isTerminated()) {
-                                                               executor.shutdownNow();
-                                                               try {
-                                                                   executor.awaitTermination(25, TimeUnit.SECONDS);
-                                                                   finishedLatch.await(5, TimeUnit.SECONDS);
-                                                               } catch (final InterruptedException e) {
-                                                                   // empty
-                                                               }
-                                                           }
-                                                       }
-                                                   };
+    private final Thread           shutdownHook  = new Thread(() -> {
+        if (!executor.isTerminated()) {
+            executor.shutdownNow();
+            try {
+                executor.awaitTermination(25, TimeUnit.SECONDS);
+                finishedLatch.await(5, TimeUnit.SECONDS);
+            } catch (final InterruptedException e) {
+                // empty
+            }
+        }
+    });
 
     public ParallelTestRunner() throws Exception {
         suite();
@@ -177,7 +173,7 @@ public class ParallelTestRunner {
                 result.err = err.toString();
                 if (expectCompileFailure || checkCompilerMsg) {
                     final PrintStream outputDest = new PrintStream(new FileOutputStream(getErrorFileName()));
-                    TestHelper.dumpFile(outputDest, new StringReader(new String(err.toByteArray())));
+                    TestHelper.dumpFile(outputDest, new StringReader(err.toString()));
                     outputDest.println("--");
                 }
                 if (errors != 0 && !expectCompileFailure) {
@@ -321,12 +317,7 @@ public class ParallelTestRunner {
 
         TestFinder.findAllTests(tests, orphans, testFactory);
 
-        Collections.sort(tests, new Comparator<ScriptRunnable>() {
-            @Override
-            public int compare(final ScriptRunnable o1, final ScriptRunnable o2) {
-                return o1.testFile.compareTo(o2.testFile);
-            }
-        });
+        tests.sort(Comparator.comparing(o -> o.testFile));
     }
 
     @SuppressWarnings("resource")
@@ -369,42 +360,35 @@ public class ParallelTestRunner {
             }
         }
 
-        Collections.sort(results, new Comparator<ScriptRunnable.Result>() {
-            @Override
-            public int compare(final ScriptRunnable.Result o1, final ScriptRunnable.Result o2) {
-                return o1.getTest().testFile.compareTo(o2.getTest().testFile);
-            }
-        });
+        results.sort(Comparator.comparing(o -> o.getTest().testFile));
 
         boolean hasFailed = false;
         final String failedList = System.getProperty(TEST_FAILED_LIST_FILE);
         final boolean hasFailedList = failedList != null;
         final boolean hadPreviouslyFailingTests = hasFailedList && new File(failedList).length() > 0;
-        final FileWriter failedFileWriter = hasFailedList ? new FileWriter(failedList) : null;
-        try {
-            final PrintWriter failedListWriter = failedFileWriter == null ? null : new PrintWriter(failedFileWriter);
+        try (FileWriter failedFileWriter = hasFailedList ? new FileWriter(failedList) : null) {
+            final PrintWriter failedListWriter =
+                failedFileWriter == null ? null : new PrintWriter(failedFileWriter);
             for (final ScriptRunnable.Result result : results) {
                 if (!result.passed()) {
-                    if (hasFailed == false) {
+                    if (!hasFailed) {
                         hasFailed = true;
                         System.out.println();
                         System.out.println("FAILED TESTS");
                     }
 
                     System.out.println(result.getTest());
-                    if(failedFileWriter != null) {
+                    if (failedFileWriter != null) {
                         failedListWriter.println(result.getTest().testFile.getPath());
                     }
                     if (result.exception != null) {
-                        final String exceptionString = result.exception instanceof TestFailedError ? result.exception.getMessage() : result.exception.toString();
-                        System.out.print(exceptionString.endsWith("\n") ? exceptionString : exceptionString + "\n");
+                        final String exceptionString = result.exception instanceof TestFailedError ?
+                            result.exception.getMessage() : result.exception.toString();
+                        System.out.print(exceptionString.endsWith("\n") ? exceptionString :
+                            exceptionString + "\n");
                         System.out.print(result.out != null ? result.out : "");
                     }
                 }
-            }
-        } finally {
-            if(failedFileWriter != null) {
-                failedFileWriter.close();
             }
         }
         final double timeElapsed = (System.nanoTime() - startTime) / 1e9; // [s]
