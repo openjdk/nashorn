@@ -188,7 +188,8 @@
            destdir="${nashorn.module.classes.dir}"
            debug="${javac.debug}"
            encoding="${javac.encoding}"
-           includeantruntime="false" fork="true">
+           includeantruntime="false" fork="true"
+           release="${nashorn.target.java.version}">
       <compilerarg line="--module-path ${deps.dir}"/>
       <compilerarg value="-Xlint:all"/>
       <compilerarg value="-XDignore.symbol.file"/>
@@ -216,7 +217,8 @@
            destdir="${nashorn.shell.module.classes.dir}"
            debug="${javac.debug}"
            encoding="${javac.encoding}"
-           includeantruntime="false" fork="true">
+           includeantruntime="false" fork="true"
+           source="${nashorn.target.java.version}" target="${nashorn.target.java.version}">
       <compilerarg value="-Xlint:all"/>
       <compilerarg value="-XDignore.symbol.file"/>
       <compilerarg value="-Xdiags:verbose"/>
