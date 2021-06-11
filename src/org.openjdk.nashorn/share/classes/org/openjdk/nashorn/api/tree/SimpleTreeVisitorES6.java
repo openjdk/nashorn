@@ -49,6 +49,9 @@ import java.util.List;
  *            additional parameter.
  */
 public class SimpleTreeVisitorES6<R, P> extends SimpleTreeVisitorES5_1<R, P> {
+    public SimpleTreeVisitorES6() {
+    }
+
     @Override
     public R visitCompilationUnit(final CompilationUnitTree node, final P r) {
         final ModuleTree mod = node.getModule();

@@ -47,6 +47,9 @@ package org.openjdk.nashorn.api.tree;
  *            additional parameter.
  */
 public class SimpleTreeVisitorES5_1<R, P> implements TreeVisitor<R, P> {
+    public SimpleTreeVisitorES5_1() {
+    }
+
     @Override
     public R visitAssignment(final AssignmentTree node, final P r) {
         node.getVariable().accept(this, r);

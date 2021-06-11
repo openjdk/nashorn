@@ -48,6 +48,9 @@ import org.openjdk.nashorn.internal.runtime.Version;
  * @since 1.8u40
  */
 public final class NashornScriptEngineFactory implements ScriptEngineFactory {
+    public NashornScriptEngineFactory() {
+    }
+
     @Override
     public String getEngineName() {
         return "OpenJDK Nashorn";
