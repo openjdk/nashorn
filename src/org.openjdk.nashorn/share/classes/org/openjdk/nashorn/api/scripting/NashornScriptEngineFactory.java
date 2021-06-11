@@ -50,7 +50,7 @@ import org.openjdk.nashorn.internal.runtime.Version;
 public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     @Override
     public String getEngineName() {
-        return "javascript";
+        return "OpenJDK Nashorn";
     }
 
     @Override
@@ -110,9 +110,9 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     public Object getParameter(final String key) {
         switch (key) {
         case ScriptEngine.NAME:
-            return getEngineName();
+            return "javascript";
         case ScriptEngine.ENGINE:
-            return "OpenJDK Nashorn";
+            return getEngineName();
         case ScriptEngine.ENGINE_VERSION:
             return getEngineVersion();
         case ScriptEngine.LANGUAGE:

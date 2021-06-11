@@ -131,7 +131,7 @@ public class ScriptEngineTest {
         assertEquals(fac.getLanguageName(), "ECMAScript");
         assertEquals(fac.getParameter(ScriptEngine.NAME), "javascript");
         assertEquals(fac.getLanguageVersion(), "ECMA - 262 Edition 5.1");
-        assertEquals(fac.getEngineName(), "Oracle Nashorn");
+        assertEquals(fac.getEngineName(), "OpenJDK Nashorn");
         assertEquals(fac.getOutputStatement("context"), "print(\"context\")");
         assertEquals(fac.getOutputStatement("\"\\\b\f\n\r\t"), "print(\"\\\"\\\\\\b\\f\\n\\r\\t\")");
         assertEquals(fac.getProgram("print('hello')", "print('world')"), "print('hello');print('world');");
