@@ -472,7 +472,7 @@ public final class Bootstrap {
     }
 
     private static MethodHandle createMissingMemberHandler(
-            final LinkRequest linkRequest, final LinkerServices linkerServices) throws Exception {
+            final LinkRequest linkRequest, final LinkerServices linkerServices) {
         if (BrowserJSObjectLinker.canLinkTypeStatic(linkRequest.getReceiver().getClass())) {
             // Don't create missing member handlers for the browser JS objects as they
             // have their own logic.
