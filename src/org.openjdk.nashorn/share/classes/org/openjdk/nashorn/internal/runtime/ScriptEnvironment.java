@@ -30,8 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import org.openjdk.nashorn.internal.codegen.Namespace;
 import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
@@ -225,7 +227,7 @@ public final class ScriptEnvironment {
     /** Timing */
     public final Timing _timing;
 
-    /** Whether to use anonymous classes. See {@link #useAnonymousClasses(int)}. */
+    /** Whether to use anonymous classes. See {@link #useAnonymousClasses(int, Supplier)}. */
     private final AnonymousClasses _anonymousClasses;
     private enum AnonymousClasses {
         AUTO,
@@ -477,9 +479,16 @@ public final class ScriptEnvironment {
      * @param sourceLength length of source being compiled.
      * @return true if anonymous classes should be used
      */
-    public boolean useAnonymousClasses(final int sourceLength) {
-        return _anonymousClasses == AnonymousClasses.ON
-                || (_anonymousClasses == AnonymousClasses.AUTO && sourceLength <= _anonymous_classes_threshold);
+    public boolean useAnonymousClasses(final int sourceLength, Supplier<Exception> anonymousInitFailure) {
+        if (_anonymousClasses == AnonymousClasses.ON) {
+            Optional.ofNullable(anonymousInitFailure.get()).ifPresent(e -> {
+                throw new IllegalStateException("Can not use anonymous class loading", e);
+            });
+            return true;
+        }
+        return _anonymousClasses == AnonymousClasses.AUTO &&
+               sourceLength <= _anonymous_classes_threshold &&
+               anonymousInitFailure.get() == null;
     }
 
 }
