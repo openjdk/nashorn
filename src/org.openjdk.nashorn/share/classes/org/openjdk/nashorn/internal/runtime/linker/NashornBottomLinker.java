@@ -70,10 +70,12 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
         }
 
         // None of the objects that can be linked by NashornLinker should ever reach here. Basically, anything below
-        // this point is a generic Java bean. Therefore, reaching here with a ScriptObject is a Nashorn bug.
+        // this point is a generic Java bean or a DynamicMethod with an operation that couldn't be linked with BeansLinker.
+        // Therefore, reaching here with a ScriptObject is a Nashorn bug.
         assert isExpectedObject(self) : "Couldn't link " + linkRequest.getCallSiteDescriptor() + " for " + self.getClass().getName();
 
-        return linkBean(linkRequest);
+        // Provide some JavaScript semantics for otherwise unlinkable operations on generic beans or dynamic methods.
+        return linkBean(linkRequest, linkerServices);
     }
 
     private static final MethodHandle EMPTY_PROP_GETTER =
@@ -89,6 +91,7 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
     private static final MethodHandle THROW_STRICT_PROPERTY_REMOVER;
     private static final MethodHandle THROW_OPTIMISTIC_UNDEFINED;
     private static final MethodHandle MISSING_PROPERTY_REMOVER;
+    private static final MethodHandle IS_DYNAMIC_METHOD;
 
     static {
         final Lookup lookup = new Lookup(MethodHandles.lookup());
@@ -96,9 +99,10 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
         THROW_STRICT_PROPERTY_REMOVER = lookup.findOwnStatic("throwStrictPropertyRemover", boolean.class, Object.class, Object.class);
         THROW_OPTIMISTIC_UNDEFINED = lookup.findOwnStatic("throwOptimisticUndefined", Object.class, int.class);
         MISSING_PROPERTY_REMOVER = lookup.findOwnStatic("missingPropertyRemover", boolean.class, Object.class, Object.class);
+        IS_DYNAMIC_METHOD = lookup.findStatic(BeansLinker.class, "isDynamicMethod", MethodType.methodType(boolean.class, Object.class));
     }
 
-    private static GuardedInvocation linkBean(final LinkRequest linkRequest) {
+    private static GuardedInvocation linkBean(final LinkRequest linkRequest, final LinkerServices linkerServices) {
         final CallSiteDescriptor desc = linkRequest.getCallSiteDescriptor();
         final Object self = linkRequest.getReceiver();
         switch (NashornCallSiteDescriptor.getStandardOperation(desc)) {
@@ -119,6 +123,11 @@ final class NashornBottomLinker implements GuardingDynamicLinker, GuardingTypeCo
             }
             throw typeError("not.a.function", NashornCallSiteDescriptor.getFunctionErrorMessage(desc, self));
         default:
+            // Property accessors on dynamic methods
+            if (BeansLinker.isDynamicMethod(self)) {
+                return new GuardedInvocation(
+                    linkMissingBeanMember(linkRequest, linkerServices), IS_DYNAMIC_METHOD);
+            }
             // Everything else is supposed to have been already handled by Bootstrap.beansLinker
             // delegating to linkNoSuchBeanMember
             throw new AssertionError("unknown call type " + desc);
