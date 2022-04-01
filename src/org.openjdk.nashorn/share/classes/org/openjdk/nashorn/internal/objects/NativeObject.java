@@ -198,7 +198,7 @@ public final class NativeObject {
      */
     @Function(attributes = Attribute.NOT_ENUMERABLE, where = Where.CONSTRUCTOR)
     public static Object setPrototypeOf(final Object self, final Object obj, final Object proto) {
-        Global.checkObjectCoercible(self);
+        Global.checkObjectCoercible(obj);
 
         if (obj instanceof ScriptObject) {
             ((ScriptObject)obj).setPrototypeOf(proto);
