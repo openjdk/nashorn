@@ -40,3 +40,7 @@ No code changes, but the artifacts published on Maven Central are now compiled w
 [`#16`](https://github.com/openjdk/nashorn/pull/16) [`JDK-8269602`](https://bugs.openjdk.java.net/browse/JDK-8269602) Gracefully handle absence of Unsafe.defineAnonymousClass
 
 `   ` `           ` The engine now reports its name as `OpenJDK Nashorn`.
+
+15.4 (2022.04.27)
+-----------------
+[`#17`](https://github.com/openjdk/nashorn/pull/17) [`JDK-8283339`](https://bugs.openjdk.java.net/browse/JDK-8283339) TypeError: undefined is not an Object after JDK-8240299
