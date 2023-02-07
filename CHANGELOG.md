@@ -44,3 +44,7 @@ No code changes, but the artifacts published on Maven Central are now compiled w
 15.4 (2022.04.27)
 -----------------
 [`#17`](https://github.com/openjdk/nashorn/pull/17) [`JDK-8283339`](https://bugs.openjdk.java.net/browse/JDK-8283339) TypeError: undefined is not an Object after JDK-8240299
+
+15.5 (unreleased)
+-----------------
+[`#18`](https://github.com/openjdk/nashorn/pull/18) [`JDK-8294560`](https://bugs.openjdk.java.net/browse/JDK-8294560) assertion raised in newBuiltinSwitchPoint
