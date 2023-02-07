@@ -180,7 +180,7 @@ public final class Context {
      * ever needs this, given the very rare occurrence of swapping out only parts of
      * a builtin v.s. the entire builtin object
      */
-    private final Map<String, SwitchPoint> builtinSwitchPoints = new HashMap<>();
+    private final Map<String, SwitchPoint> builtinSwitchPoints = new ConcurrentHashMap<>();
 
     /* Force DebuggerSupport to be loaded. */
     static {
@@ -1729,24 +1729,13 @@ public final class Context {
     }
 
     /**
-     * Create a new builtin switchpoint and return it
+     * Return the builtin switchpoint for a particular key name. A new switchpoint
+     * is atomically created if it doesn't exist yet.
      * @param name key name
-     * @return new builtin switchpoint
-     */
-    public SwitchPoint newBuiltinSwitchPoint(final String name) {
-        assert builtinSwitchPoints.get(name) == null;
-        final SwitchPoint sp = new BuiltinSwitchPoint();
-        builtinSwitchPoints.put(name, sp);
-        return sp;
-    }
-
-    /**
-     * Return the builtin switchpoint for a particular key name
-     * @param name key name
-     * @return builtin switchpoint or null if none
+     * @return builtin switchpoint
      */
     public SwitchPoint getBuiltinSwitchPoint(final String name) {
-        return builtinSwitchPoints.get(name);
+        return builtinSwitchPoints.computeIfAbsent(name, n -> new BuiltinSwitchPoint());
     }
 
     private static ClassLoader createModuleLoader(final ClassLoader cl,

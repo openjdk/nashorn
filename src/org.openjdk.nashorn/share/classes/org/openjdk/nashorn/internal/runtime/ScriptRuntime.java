@@ -1161,7 +1161,6 @@ public final class ScriptRuntime {
     public static void invalidateReservedBuiltinName(final String name) {
         final Context context = Context.getContextTrusted();
         final SwitchPoint sp = context.getBuiltinSwitchPoint(name);
-        assert sp != null;
         context.getLogger(ApplySpecialization.class).info("Overwrote special name '" + name +"' - invalidating switchpoint");
         SwitchPoint.invalidateAll(new SwitchPoint[] { sp });
     }

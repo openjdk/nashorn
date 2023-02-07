@@ -2945,10 +2945,7 @@ public final class Global extends Scope {
      * @param func builtin script object
      */
     private void tagBuiltinProperties(final String name, final ScriptObject func) {
-        SwitchPoint sp = context.getBuiltinSwitchPoint(name);
-        if (sp == null) {
-            sp = context.newBuiltinSwitchPoint(name);
-        }
+        final SwitchPoint sp = context.getBuiltinSwitchPoint(name);
 
         //get all builtin properties in this builtin object and register switchpoints keyed on the propery name,
         //one overwrite destroys all for now, e.g. Function.prototype.apply = 17; also destroys Function.prototype.call etc
