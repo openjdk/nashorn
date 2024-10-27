@@ -117,6 +117,12 @@ public final class MethodHandleFactory {
 
     private static final String VOID_TAG = "[VOID]";
 
+    // A lot of static fields use FUNC for lookups.
+    //
+    // We keep the logger as the last static field in this class, to ensure that no logging is attempted, until
+    // the rest of the static fields are initialized.
+    private static final DebugLogger log = Context.getContext().getLogger(StandardMethodHandleFunctionality.class);
+
     private static void err(final String str) {
         Context.getContext().getErr().println(str);
     }
@@ -274,13 +280,13 @@ public final class MethodHandleFactory {
      * @return  traced method handle
      */
     public static MethodHandle addDebugPrintout(final DebugLogger logger, final Level level, final MethodHandle mh, final int paramStart, final boolean printReturnValue, final Object tag) {
-        final MethodType type = mh.type();
-
         //if there is no logger, or if it's set to log only coarser events
         //than the trace level, skip and return
         if (logger == null || !logger.isLoggable(level)) {
             return mh;
         }
+
+        final MethodType type = mh.type();
 
         assert TRACE != null;
 
@@ -318,18 +324,12 @@ public final class MethodHandleFactory {
     @Logger(name="methodhandles")
     private static class StandardMethodHandleFunctionality implements MethodHandleFunctionality, Loggable {
 
-        // for bootstrapping reasons, because a lot of static fields use MH for lookups, we
-        // need to set the logger when the Global object is finished. This means that we don't
-        // get instrumentation for public static final MethodHandle SOMETHING = MH... in the builtin
-        // classes, but that doesn't matter, because this is usually not where we want it
-        private DebugLogger log = DebugLogger.DISABLED_LOGGER;
-
         public StandardMethodHandleFunctionality() {
         }
 
         @Override
         public DebugLogger initLogger(final Context context) {
-            return this.log = context.getLogger(this.getClass());
+            return log;
         }
 
         @Override
@@ -369,13 +369,11 @@ public final class MethodHandleFactory {
         }
 
         public MethodHandle debug(final MethodHandle master, final String str, final Object... args) {
-            if (log.isEnabled()) {
-                if (PRINT_STACKTRACE) {
-                    stacktrace(log);
-                }
-                return addDebugPrintout(log, Level.INFO, master, Integer.MAX_VALUE, false, str + ' ' + describe(args));
+            // The static `log` field can be `null` if the `MethodHandlerFactory` class has not been initialized yet.
+            if (PRINT_STACKTRACE) {
+                stacktrace(log);
             }
-            return master;
+            return addDebugPrintout(log, Level.INFO, master, Integer.MAX_VALUE, false, str + ' ' + describe(args));
         }
 
         @Override
@@ -569,7 +567,9 @@ public final class MethodHandleFactory {
         @Override
         public SwitchPoint createSwitchPoint() {
             final SwitchPoint sp = new SwitchPoint();
-            log.log(TRACE_LEVEL, "createSwitchPoint ", sp);
+            if (log != null) {
+                log.log(TRACE_LEVEL, "createSwitchPoint ", sp);
+            }
             return sp;
         }
 
@@ -582,7 +582,9 @@ public final class MethodHandleFactory {
         @Override
         public MethodType type(final Class<?> returnType, final Class<?>... paramTypes) {
             final MethodType mt = MethodType.methodType(returnType, paramTypes);
-            log.log(TRACE_LEVEL, "methodType ", returnType, " ", Arrays.toString(paramTypes), " ", mt);
+            if (log != null) {
+                log.log(TRACE_LEVEL, "methodType ", returnType, " ", Arrays.toString(paramTypes), " ", mt);
+            }
             return mt;
         }
     }
