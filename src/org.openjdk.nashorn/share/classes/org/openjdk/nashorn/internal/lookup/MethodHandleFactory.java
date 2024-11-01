@@ -370,9 +370,8 @@ public final class MethodHandleFactory {
 
         public MethodHandle debug(final MethodHandle master, final String str, final Object... args) {
             // The static `log` field can be `null` if the `MethodHandlerFactory` class has not been initialized yet.
-            if (PRINT_STACKTRACE) {
-                stacktrace(log);
-            }
+            // Both these methods are null-safe
+            stacktrace(log);
             return addDebugPrintout(log, Level.INFO, master, Integer.MAX_VALUE, false, str + ' ' + describe(args));
         }
 
