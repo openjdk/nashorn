@@ -100,6 +100,19 @@ public final class MethodHandleFactory {
         return obj.toString();
     }
 
+    private static final MethodHandle TRACE;
+    private static final MethodHandle TRACE_RETURN;
+    private static final MethodHandle TRACE_RETURN_VOID;
+    static {
+        try {
+            TRACE = LOOKUP.findStatic(MethodHandleFactory.class, "traceArgs",   MethodType.methodType(void.class, DebugLogger.class, String.class, int.class, Object[].class));
+            TRACE_RETURN = LOOKUP.findStatic(MethodHandleFactory.class, "traceReturn", MethodType.methodType(Object.class, DebugLogger.class, Object.class));
+            TRACE_RETURN_VOID = LOOKUP.findStatic(MethodHandleFactory.class, "traceReturnVoid", MethodType.methodType(void.class, DebugLogger.class));
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new LookupException(e);
+        }
+    }
+
     private static final MethodHandleFunctionality FUNC = new StandardMethodHandleFunctionality();
     private static final boolean PRINT_STACKTRACE = Options.getBooleanProperty("nashorn.methodhandles.debug.stacktrace");
 
@@ -110,10 +123,6 @@ public final class MethodHandleFactory {
     public static MethodHandleFunctionality getFunctionality() {
         return FUNC;
     }
-
-    private static final MethodHandle TRACE             = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceArgs",   MethodType.methodType(void.class, DebugLogger.class, String.class, int.class, Object[].class));
-    private static final MethodHandle TRACE_RETURN      = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceReturn", MethodType.methodType(Object.class, DebugLogger.class, Object.class));
-    private static final MethodHandle TRACE_RETURN_VOID = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceReturnVoid", MethodType.methodType(void.class, DebugLogger.class));
 
     private static final String VOID_TAG = "[VOID]";
 
