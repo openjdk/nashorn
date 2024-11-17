@@ -58,6 +58,8 @@ import org.openjdk.nashorn.internal.runtime.options.Options;
  */
 public final class MethodHandleFactory {
 
+    private static final DebugLogger log = Context.getContext().getLogger(StandardMethodHandleFunctionality.class);
+
     private static final MethodHandles.Lookup PUBLIC_LOOKUP = MethodHandles.publicLookup();
     private static final MethodHandles.Lookup LOOKUP        = MethodHandles.lookup();
 
@@ -100,6 +102,19 @@ public final class MethodHandleFactory {
         return obj.toString();
     }
 
+    private static final MethodHandle TRACE;
+    private static final MethodHandle TRACE_RETURN;
+    private static final MethodHandle TRACE_RETURN_VOID;
+    static {
+        try {
+            TRACE = LOOKUP.findStatic(MethodHandleFactory.class, "traceArgs",   MethodType.methodType(void.class, DebugLogger.class, String.class, int.class, Object[].class));
+            TRACE_RETURN = LOOKUP.findStatic(MethodHandleFactory.class, "traceReturn", MethodType.methodType(Object.class, DebugLogger.class, Object.class));
+            TRACE_RETURN_VOID = LOOKUP.findStatic(MethodHandleFactory.class, "traceReturnVoid", MethodType.methodType(void.class, DebugLogger.class));
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new LookupException(e);
+        }
+    }
+
     private static final MethodHandleFunctionality FUNC = new StandardMethodHandleFunctionality();
     private static final boolean PRINT_STACKTRACE = Options.getBooleanProperty("nashorn.methodhandles.debug.stacktrace");
 
@@ -111,15 +126,7 @@ public final class MethodHandleFactory {
         return FUNC;
     }
 
-    private static final MethodHandle TRACE             = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceArgs",   MethodType.methodType(void.class, DebugLogger.class, String.class, int.class, Object[].class));
-    private static final MethodHandle TRACE_RETURN      = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceReturn", MethodType.methodType(Object.class, DebugLogger.class, Object.class));
-    private static final MethodHandle TRACE_RETURN_VOID = FUNC.findStatic(LOOKUP, MethodHandleFactory.class, "traceReturnVoid", MethodType.methodType(void.class, DebugLogger.class));
-
     private static final String VOID_TAG = "[VOID]";
-
-    private static void err(final String str) {
-        Context.getContext().getErr().println(str);
-    }
 
     /**
      * Tracer that is applied before a value is returned from the traced function. It will output the return
@@ -129,13 +136,11 @@ public final class MethodHandleFactory {
      * @return return value unmodified
      */
     static Object traceReturn(final DebugLogger logger, final Object value) {
-        final String str = "    return" +
+        if (logger.isLoggable(TRACE_LEVEL)) {
+            final String str = "    return" +
                 (VOID_TAG.equals(value) ?
-                        ";" :
-                            " " + stripName(value) + "; // [type=" + (value == null ? "null]" : stripName(value.getClass()) + ']'));
-        if (logger == null) {
-            err(str);
-        } else if (logger.isEnabled()) {
+                    ";" :
+                    " " + stripName(value) + "; // [type=" + (value == null ? "null]" : stripName(value.getClass()) + ']'));
             logger.log(TRACE_LEVEL, str);
         }
 
@@ -154,48 +159,44 @@ public final class MethodHandleFactory {
      * @param args arguments to the function
      */
     static void traceArgs(final DebugLogger logger, final String tag, final int paramStart, final Object... args) {
-        final StringBuilder sb = new StringBuilder();
+        if (logger.isLoggable(TRACE_LEVEL)) {
+            final StringBuilder sb = new StringBuilder();
 
-        sb.append(tag);
+            sb.append(tag);
 
-        for (int i = paramStart; i < args.length; i++) {
-            if (i == paramStart) {
-                sb.append(" => args: ");
+            for (int i = paramStart; i < args.length; i++) {
+                if (i == paramStart) {
+                    sb.append(" => args: ");
+                }
+
+                sb.append('\'').
+                    append(stripName(argString(args[i]))).
+                    append('\'').
+                    append(' ').
+                    append('[').
+                    append("type=").
+                    append(args[i] == null ? "null" : stripName(args[i].getClass())).
+                    append(']');
+
+                if (i + 1 < args.length) {
+                    sb.append(", ");
+                }
             }
 
-            sb.append('\'').
-            append(stripName(argString(args[i]))).
-            append('\'').
-            append(' ').
-            append('[').
-            append("type=").
-            append(args[i] == null ? "null" : stripName(args[i].getClass())).
-            append(']');
-
-            if (i + 1 < args.length) {
-                sb.append(", ");
-            }
-        }
-
-        if (logger == null) {
-            err(sb.toString());
-        } else {
             logger.log(TRACE_LEVEL, sb);
+            stacktrace(logger);
         }
-        stacktrace(logger);
     }
 
     private static void stacktrace(final DebugLogger logger) {
         if (!PRINT_STACKTRACE) {
             return;
         }
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final PrintStream ps = new PrintStream(baos);
-        new Throwable().printStackTrace(ps);
-        final String st = baos.toString();
-        if (logger == null) {
-            err(st);
-        } else {
+        if (logger.isLoggable(TRACE_LEVEL)) {
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final PrintStream ps = new PrintStream(baos);
+            new Throwable().printStackTrace(ps);
+            final String st = baos.toString();
             logger.log(TRACE_LEVEL, st);
         }
     }
@@ -274,15 +275,13 @@ public final class MethodHandleFactory {
      * @return  traced method handle
      */
     public static MethodHandle addDebugPrintout(final DebugLogger logger, final Level level, final MethodHandle mh, final int paramStart, final boolean printReturnValue, final Object tag) {
-        final MethodType type = mh.type();
-
         //if there is no logger, or if it's set to log only coarser events
         //than the trace level, skip and return
         if (logger == null || !logger.isLoggable(level)) {
             return mh;
         }
 
-        assert TRACE != null;
+        final MethodType type = mh.type();
 
         MethodHandle trace = MethodHandles.insertArguments(TRACE, 0, logger, tag, paramStart);
 
@@ -318,18 +317,12 @@ public final class MethodHandleFactory {
     @Logger(name="methodhandles")
     private static class StandardMethodHandleFunctionality implements MethodHandleFunctionality, Loggable {
 
-        // for bootstrapping reasons, because a lot of static fields use MH for lookups, we
-        // need to set the logger when the Global object is finished. This means that we don't
-        // get instrumentation for public static final MethodHandle SOMETHING = MH... in the builtin
-        // classes, but that doesn't matter, because this is usually not where we want it
-        private DebugLogger log = DebugLogger.DISABLED_LOGGER;
-
         public StandardMethodHandleFunctionality() {
         }
 
         @Override
         public DebugLogger initLogger(final Context context) {
-            return this.log = context.getLogger(this.getClass());
+            return log;
         }
 
         @Override
@@ -345,12 +338,12 @@ public final class MethodHandleFactory {
                 if (d == null) {
                     sb.append("<null> ");
                 } else if (isString(d)) {
-                    sb.append(d.toString());
+                    sb.append(d);
                     sb.append(' ');
                 } else if (d.getClass().isArray()) {
                     sb.append("[ ");
                     for (final Object da : (Object[])d) {
-                        sb.append(describe(new Object[]{ da })).append(' ');
+                        sb.append(describe(da)).append(' ');
                     }
                     sb.append("] ");
                 } else {
@@ -369,13 +362,8 @@ public final class MethodHandleFactory {
         }
 
         public MethodHandle debug(final MethodHandle master, final String str, final Object... args) {
-            if (log.isEnabled()) {
-                if (PRINT_STACKTRACE) {
-                    stacktrace(log);
-                }
-                return addDebugPrintout(log, Level.INFO, master, Integer.MAX_VALUE, false, str + ' ' + describe(args));
-            }
-            return master;
+            stacktrace(log);
+            return addDebugPrintout(log, Level.INFO, master, Integer.MAX_VALUE, false, str + ' ' + describe(args));
         }
 
         @Override
