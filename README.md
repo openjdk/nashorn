@@ -33,7 +33,7 @@ Nashorn-related documents last published by Oracle with Java 14:
 
 Getting Started
 ===============
-Latest version of Nashorn is 15.4, available from [Maven Central](https://search.maven.org/artifact/org.openjdk.nashorn/nashorn-core/15.4/jar). You can check the [change log](CHANGELOG.md) to see what's new.
+Latest version of Nashorn is 15.5, available from [Maven Central](https://search.maven.org/artifact/org.openjdk.nashorn/nashorn-core/15.5/jar). You can check the [change log](CHANGELOG.md) to see what's new.
 
 Nashorn is a JPMS module, so make sure it and its transitive dependencies (Nashorn depends on several ASM JARs) are on your application's module path, or appropriately added to a module layer, or otherwise configured as modules.
 
