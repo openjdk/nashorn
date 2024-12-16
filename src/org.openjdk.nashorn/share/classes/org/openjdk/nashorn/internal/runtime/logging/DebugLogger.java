@@ -52,7 +52,7 @@ import org.openjdk.nashorn.internal.runtime.events.RuntimeEvent;
 public final class DebugLogger {
 
     /** Disabled logger used for all loggers that need an instance, but shouldn't output anything */
-    public static final DebugLogger DISABLED_LOGGER = new DebugLogger("disabled", Level.OFF, false);
+    public static final DebugLogger DISABLED_LOGGER = new DebugLogger("disabled", Level.OFF, false, false);
 
     private final Logger  logger;
     private final boolean isEnabled;
@@ -78,6 +78,13 @@ public final class DebugLogger {
         this.isQuiet = isQuiet;
         assert logger != null;
         this.isEnabled = getLevel() != Level.OFF;
+    }
+
+    private DebugLogger(final String loggerName, final Level loggerLevel, final boolean isQuiet, final boolean isEnabled) {
+        this.logger  = instantiateLogger(loggerName, loggerLevel);
+        this.isQuiet = isQuiet;
+        assert logger != null;
+        this.isEnabled = isEnabled;
     }
 
     private static Logger instantiateLogger(final String name, final Level level) {
