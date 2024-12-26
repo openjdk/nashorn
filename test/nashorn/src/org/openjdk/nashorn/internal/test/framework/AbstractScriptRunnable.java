@@ -249,7 +249,7 @@ public abstract class AbstractScriptRunnable {
                 } else {
                     break;
                 }
-            } else if (expectRunFailure && ((es == null) || as == null || !es.equals(as))) {
+            } else if (expectRunFailure && ((es == null) || !es.equals(as))) {
                 break;
             } else if (es == null) {
                 fail("Expected output for " + testFile + " ends prematurely at line " + lineCount);
