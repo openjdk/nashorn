@@ -422,9 +422,7 @@ public final class TestFinder {
             testExcludeArray = testExcludeList.split(" ");
         }
         final Set<String> testExcludeSet = new HashSet<>(testExcludeArray.length);
-        for (final String test : testExcludeArray) {
-            testExcludeSet.add(test);
-        }
+        testExcludeSet.addAll(Arrays.asList(testExcludeArray));
 
         final String testExcludesFile = System.getProperty(TEST_JS_EXCLUDES_FILE);
         if (testExcludesFile != null && !testExcludesFile.isEmpty()) {

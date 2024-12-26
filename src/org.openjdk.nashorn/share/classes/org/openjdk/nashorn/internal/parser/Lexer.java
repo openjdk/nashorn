@@ -457,10 +457,7 @@ public class Lexer extends Scanner {
                 // Skip over //.
                 skip(2);
 
-                boolean directiveComment = false;
-                if ((ch0 == '#' || ch0 == '@') && (ch1 == ' ')) {
-                    directiveComment = true;
-                }
+                boolean directiveComment = (ch0 == '#' || ch0 == '@') && (ch1 == ' ');
 
                 // Scan for EOL.
                 while (!atEOF() && !isEOL(ch0)) {

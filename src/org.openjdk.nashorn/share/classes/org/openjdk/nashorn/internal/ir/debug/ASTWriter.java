@@ -169,7 +169,7 @@ public final class ASTWriter {
         }
 
         status = status.trim();
-        if (!"".equals(status)) {
+        if (!status.isEmpty()) {
             status = " [" + status + "]";
         }
 

@@ -246,7 +246,7 @@ public class OctaneTest {
     }
 
     protected Double filterBenchmark(final List<String> output, final String benchmarkName) throws Exception {
-        Double currentScore = 0.;
+        double currentScore = 0.;
         for (final String s : output) {
             //if (s.trim().startsWith(benchmarkName)) {
             if (s.trim().startsWith("Score")) {
@@ -260,7 +260,7 @@ public class OctaneTest {
 
                 final NumberFormat nf = NumberFormat.getInstance();
                 final Number _newCurrentScore = nf.parse(split[1].trim());
-                final Double newCurrentScore = _newCurrentScore.doubleValue();
+                final double newCurrentScore = _newCurrentScore.doubleValue();
                 if (currentScore < newCurrentScore) {
                     currentScore = newCurrentScore;
                 }

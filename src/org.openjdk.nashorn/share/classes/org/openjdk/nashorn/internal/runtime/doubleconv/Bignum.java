@@ -152,9 +152,8 @@ class Bignum {
 
     void assignBignum(final Bignum other) {
         exponent_ = other.exponent_;
-        for (int i = 0; i < other.used_digits_; ++i) {
-            bigits_[i] = other.bigits_[i];
-        }
+        if (other.used_digits_ >= 0)
+            System.arraycopy(other.bigits_, 0, bigits_, 0, other.used_digits_);
         // Clear the excess digits (if there were any).
         for (int i = other.used_digits_; i < used_digits_; ++i) {
             bigits_[i] = 0;
