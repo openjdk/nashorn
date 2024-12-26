@@ -1,0 +1,28 @@
+name: Run Tests
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Check out the repository code
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    # Set up Java environment
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    # Navigate to the make/nashorn directory and run tests
+    - name: Run Tests
+      working-directory: make/nashorn
+      run: |
+        ant test
