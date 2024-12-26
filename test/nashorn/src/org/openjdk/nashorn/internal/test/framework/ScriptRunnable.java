@@ -38,10 +38,14 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.openjdk.nashorn.tools.Shell;
 import org.testng.Assert;
 import org.testng.ITest;
@@ -196,6 +200,19 @@ public final class ScriptRunnable extends AbstractScriptRunnable implements ITes
             final Process process = pb.start();
 
             final int exitCode = process.waitFor();
+
+            // Ignore security manager warnings for the time being for testing with Java versions that emit them.
+            if (errorFileHandle.length() > 0) {
+                final var errorFilePath = errorFileHandle.toPath();
+                final List<String> sanitizedErrorLines;
+                try(final var lines = Files.lines(errorFilePath)) {
+                    sanitizedErrorLines = lines.filter(l ->
+                        !"WARNING: A command line option has enabled the Security Manager".equals(l) &&
+                        !"WARNING: The Security Manager is deprecated and will be removed in a future release".equals(l))
+                        .collect(Collectors.toList());
+                }
+                Files.write(errorFilePath, sanitizedErrorLines, StandardOpenOption.TRUNCATE_EXISTING);
+            }
 
             if (exitCode != 0 || errorFileHandle.length() > 0) {
                 if (expectRunFailure) {
