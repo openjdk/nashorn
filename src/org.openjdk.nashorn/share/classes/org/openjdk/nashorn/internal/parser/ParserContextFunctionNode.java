@@ -24,6 +24,7 @@
  */
 package org.openjdk.nashorn.internal.parser;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -64,7 +65,7 @@ class ParserContextFunctionNode extends ParserContextBaseNode {
     private long lastToken;
 
     /** Opaque node for parser end state, see {@link Parser} */
-    private Object endParserState;
+    private Serializable endParserState;
 
     private HashSet<String> parameterBoundNames;
     private IdentNode duplicateParameterBinding;
@@ -209,7 +210,7 @@ class ParserContextFunctionNode extends ParserContextBaseNode {
      * Returns the ParserState of when the parsing of this function was ended
      * @return endParserState The end parser state
      */
-    public Object getEndParserState() {
+    public Serializable getEndParserState() {
         return endParserState;
     }
 
@@ -217,7 +218,7 @@ class ParserContextFunctionNode extends ParserContextBaseNode {
      * Sets the ParserState of when the parsing of this function was ended
      * @param endParserState The end parser state
      */
-    public void setEndParserState(final Object endParserState) {
+    public void setEndParserState(final Serializable endParserState) {
         this.endParserState = endParserState;
     }
 

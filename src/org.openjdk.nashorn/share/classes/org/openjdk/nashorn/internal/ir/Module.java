@@ -25,12 +25,15 @@
 
 package org.openjdk.nashorn.internal.ir;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * ES6 Module information.
  */
-public final class Module {
+
+public final class Module implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /** The synthetic binding name assigned to export default declarations with unnamed expressions. */
     public static final String DEFAULT_EXPORT_BINDING_NAME = "*default*";
@@ -46,7 +49,9 @@ public final class Module {
      *
      * @see <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-source-text-module-records">es6 modules</a>
      */
-    public static final class ExportEntry {
+    public static final class ExportEntry implements Serializable {
+        private static final long serialVersionUID = 1L;
+
         private final IdentNode exportName;
         private final IdentNode moduleRequest;
         private final IdentNode importName;
@@ -298,10 +303,15 @@ public final class Module {
         }
     }
 
+    @SuppressWarnings("serial")
     private final List<String> requestedModules;
+    @SuppressWarnings("serial")
     private final List<ImportEntry> importEntries;
+    @SuppressWarnings("serial")
     private final List<ExportEntry> localExportEntries;
+    @SuppressWarnings("serial")
     private final List<ExportEntry> indirectExportEntries;
+    @SuppressWarnings("serial")
     private final List<ExportEntry> starExportEntries;
 
     /**

@@ -46,6 +46,7 @@ public final class CallNode extends LexicalContextExpression implements Optimist
     private final Expression function;
 
     /** Call arguments. */
+    @SuppressWarnings("serial")
     private final List<Expression> args;
 
     /** Is this a "new" operation */
@@ -67,6 +68,7 @@ public final class CallNode extends LexicalContextExpression implements Optimist
      */
     public static class EvalArgs implements Serializable {
         private static final long serialVersionUID = 1L;
+        @SuppressWarnings("serial")
         private final List<Expression> args;
 
         /** location string for the eval call */

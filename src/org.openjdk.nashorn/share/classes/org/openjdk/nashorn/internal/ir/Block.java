@@ -46,9 +46,11 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
     private static final long serialVersionUID = 1L;
 
     /** List of statements */
+    @SuppressWarnings("serial")
     protected final List<Statement> statements;
 
     /** Symbol table - keys must be returned in the order they were put in. */
+    @SuppressWarnings("serial")
     protected final Map<String, Symbol> symbols;
 
     /** Entry label. */

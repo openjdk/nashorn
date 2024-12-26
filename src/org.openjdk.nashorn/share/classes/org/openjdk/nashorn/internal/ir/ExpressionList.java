@@ -37,6 +37,7 @@ import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
 public final class ExpressionList extends Expression {
     private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("serial")
     private final List<Expression> expressions;
 
     /**

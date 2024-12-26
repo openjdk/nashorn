@@ -28,6 +28,7 @@ package org.openjdk.nashorn.internal.runtime;
 import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
+import java.io.Serializable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import jdk.dynalink.CallSiteDescriptor;
@@ -39,13 +40,17 @@ import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
 /**
  * Unique instance of this class is used to represent JavaScript undefined.
  */
-public final class Undefined extends DefaultPropertyAccess {
+public final class Undefined extends DefaultPropertyAccess implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    private Undefined() {
+    private final boolean isEmpty;
+
+    private Undefined(boolean isEmpty) {
+        this.isEmpty = isEmpty;
     }
 
-    private static final Undefined UNDEFINED = new Undefined();
-    private static final Undefined EMPTY     = new Undefined();
+    private static final Undefined UNDEFINED = new Undefined(false);
+    private static final Undefined EMPTY     = new Undefined(true);
 
     // Guard used for indexed property access/set on the Undefined instance
     private static final MethodHandle UNDEFINED_GUARD = Guards.getIdentityGuard(UNDEFINED);
@@ -183,5 +188,9 @@ public final class Undefined extends DefaultPropertyAccess {
 
     private static MethodHandle findOwnMH(final String name, final Class<?> rtype, final Class<?>... types) {
         return MH.findVirtual(MethodHandles.lookup(), Undefined.class, name, MH.type(rtype, types));
+    }
+
+    private Object readResolve() {
+        return isEmpty ? EMPTY : UNDEFINED;
     }
 }

@@ -25,6 +25,7 @@
 
 package org.openjdk.nashorn.internal.ir;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,7 @@ import org.openjdk.nashorn.internal.runtime.Undefined;
  * @param <T> the literal type
  */
 @Immutable
-public abstract class LiteralNode<T> extends Expression implements PropertyKey {
+public abstract class LiteralNode<T extends Serializable> extends Expression implements PropertyKey {
     private static final long serialVersionUID = 1L;
 
     /** Literal value */
@@ -262,7 +263,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
      *
      * @return the new literal node
      */
-    public static LiteralNode<Object> newInstance(final long token, final int finish) {
+    public static LiteralNode<Serializable> newInstance(final long token, final int finish) {
         return new NullLiteralNode(token, finish);
     }
 
@@ -273,7 +274,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
      *
      * @return the new literal node
      */
-    public static LiteralNode<Object> newInstance(final Node parent) {
+    public static LiteralNode<Serializable> newInstance(final Node parent) {
         return new NullLiteralNode(parent.getToken(), parent.getFinish());
     }
 
@@ -282,7 +283,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
      *
      * @param <T> the literal type
      */
-    public static class PrimitiveLiteralNode<T> extends LiteralNode<T> {
+    public static class PrimitiveLiteralNode<T extends Serializable> extends LiteralNode<T> {
         private static final long serialVersionUID = 1L;
 
         private PrimitiveLiteralNode(final long token, final int finish, final T value) {
@@ -566,7 +567,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
         return objectAsConstant(object) != POSTSET_MARKER;
     }
 
-    private static final class NullLiteralNode extends PrimitiveLiteralNode<Object> {
+    private static final class NullLiteralNode extends PrimitiveLiteralNode<Serializable> {
         private static final long serialVersionUID = 1L;
 
         private NullLiteralNode(final long token, final int finish) {
@@ -604,13 +605,14 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
         private final Type elementType;
 
         /** Preset constant array. */
-        private final Object presets;
+        private final Serializable presets;
 
         /** Indices of array elements requiring computed post sets. */
         private final int[] postsets;
 
         /** Ranges for splitting up large literals in code generation */
         @Ignore
+        @SuppressWarnings("serial")
         private final List<Splittable.SplitRange> splitRanges;
 
         /** Does this array literal have a spread element? */
@@ -630,7 +632,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
             static ArrayLiteralNode initialize(final ArrayLiteralNode node) {
                 final Type elementType = computeElementType(node.value);
                 final int[] postsets = computePostsets(node.value);
-                final Object presets = computePresets(node.value, elementType, postsets);
+                final Serializable presets = computePresets(node.value, elementType, postsets);
                 return new ArrayLiteralNode(node, node.value, elementType, postsets, presets, node.splitRanges);
             }
 
@@ -735,7 +737,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
                 return array;
             }
 
-            static Object computePresets(final Expression[] value, final Type elementType, final int[] postsets) {
+            static Serializable computePresets(final Expression[] value, final Type elementType, final int[] postsets) {
                 assert !elementType.isUnknown();
                 if (elementType.isInteger()) {
                     return presetIntArray(value, postsets);
@@ -754,7 +756,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
          * @param finish  finish
          * @param value   array literal value, a Node array
          */
-        protected ArrayLiteralNode(final long token, final int finish, final Expression[] value) {
+        private ArrayLiteralNode(final long token, final int finish, final Expression[] value) {
             this(token, finish, value, false, false);
         }
 
@@ -767,7 +769,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
          * @param hasSpread true if the array has a spread element
          * @param hasTrailingComma true if the array literal has a comma after the last element
          */
-        protected ArrayLiteralNode(final long token, final int finish, final Expression[] value, final boolean hasSpread, final boolean hasTrailingComma) {
+        private ArrayLiteralNode(final long token, final int finish, final Expression[] value, final boolean hasSpread, final boolean hasTrailingComma) {
             super(Token.recast(token, TokenType.ARRAY), finish, value);
             this.elementType = Type.UNKNOWN;
             this.presets     = null;
@@ -781,7 +783,7 @@ public abstract class LiteralNode<T> extends Expression implements PropertyKey {
          * Copy constructor
          * @param node source array literal node
          */
-        private ArrayLiteralNode(final ArrayLiteralNode node, final Expression[] value, final Type elementType, final int[] postsets, final Object presets, final List<Splittable.SplitRange> splitRanges) {
+        private ArrayLiteralNode(final ArrayLiteralNode node, final Expression[] value, final Type elementType, final int[] postsets, final Serializable presets, final List<Splittable.SplitRange> splitRanges) {
             super(node, value);
             this.elementType = elementType;
             this.postsets    = postsets;
