@@ -177,7 +177,7 @@ public final class ScriptRunnable extends AbstractScriptRunnable implements ITes
 
     private void executeInNewProcess() {
 
-        final String separator = System.getProperty("file.separator");
+        final String separator = FileSystems.getDefault().getSeparator();
         final List<String> cmd = new ArrayList<>();
 
         cmd.add(System.getProperty("java.home") + separator + "bin" + separator + "java");

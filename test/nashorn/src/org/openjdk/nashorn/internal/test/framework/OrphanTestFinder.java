@@ -54,7 +54,7 @@ public final class OrphanTestFinder implements ITest {
         }
 
         final StringBuilder sb = new StringBuilder();
-        final String NL = System.getProperty("line.separator");
+        final String NL = System.lineSeparator();
         sb.append(orphanFiles.size());
         sb.append(" files found with neither @test nor @subtest: ");
         sb.append(NL);

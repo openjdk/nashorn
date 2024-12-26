@@ -123,7 +123,7 @@ class Console implements AutoCloseable {
 
     private void saveHistory() {
         try (Writer out = Files.newBufferedWriter(historyFile.toPath())) {
-            String lineSeparator = System.getProperty("line.separator");
+            String lineSeparator = System.lineSeparator();
 
             out.write(StreamSupport.stream(getHistory().spliterator(), false)
                                    .map(e -> e.line())
