@@ -2,6 +2,6 @@ true
 true
 java.net.MalformedURLException: no protocol: invalid_url
 true
-java.lang.IllegalMonitorStateException: current thread is not owner
+java.lang.IllegalMonitorStateException
 true
 java.io.IOException: I/O failed

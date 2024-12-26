@@ -46,7 +46,7 @@ try {
     obj.wait();
 } catch (e) {
     print(e instanceof java.lang.IllegalMonitorStateException);
-    print(e);
+    print(e.toString().substring(0, 38));
 }
 
 // directly throw a Java exception
