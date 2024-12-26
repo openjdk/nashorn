@@ -66,6 +66,7 @@ import org.openjdk.nashorn.internal.runtime.logging.DebugLogger;
  * and protected constructors. There are no *public* constructors - but only
  * factory methods that follow the naming pattern "createXYZ".
  */
+@SuppressWarnings("this-escape")
 public class ScriptFunction extends ScriptObject {
 
     /**
