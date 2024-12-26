@@ -51,3 +51,6 @@ No code changes, but the artifacts published on Maven Central are now compiled w
 
 [`#19`](https://github.com/openjdk/nashorn/pull/19) [`JDK-8343449`](https://bugs.openjdk.java.net/browse/JDK-8343449) Nashorn method handle debug logging breaks with log4j-jul
 
+15.6 (2024.12.25)
+-----------------
+[`#20`](https://github.com/openjdk/nashorn/pull/20) [`JDK-8346302`](https://bugs.openjdk.java.net/browse/JDK-8346302) Fix logging breaking Nashorn initialization
