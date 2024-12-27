@@ -41,10 +41,12 @@ public final class ObjectNode extends Expression implements LexicalContextNode, 
     private static final long serialVersionUID = 1L;
 
     /** Literal elements. */
+    @SuppressWarnings("serial")
     private final List<PropertyNode> elements;
 
     /** Ranges for splitting large literals over multiple compile units in codegen. */
     @Ignore
+    @SuppressWarnings("serial")
     private final List<Splittable.SplitRange> splitRanges;
 
     /**

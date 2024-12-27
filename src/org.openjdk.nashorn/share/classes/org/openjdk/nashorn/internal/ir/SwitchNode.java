@@ -43,6 +43,7 @@ public final class SwitchNode extends BreakableStatement {
     private final Expression expression;
 
     /** Switch cases. */
+    @SuppressWarnings("serial")
     private final List<CaseNode> cases;
 
     /** Switch default index. */

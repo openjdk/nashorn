@@ -33,6 +33,7 @@ import java.lang.invoke.MethodHandles;
 /**
  * Spill property
  */
+@SuppressWarnings("this-escape")
 public class SpillProperty extends AccessorProperty {
     private static final long serialVersionUID = 3028496245198669460L;
 

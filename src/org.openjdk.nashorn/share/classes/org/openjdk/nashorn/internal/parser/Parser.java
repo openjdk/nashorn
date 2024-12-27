@@ -4116,7 +4116,7 @@ public class Parser extends AbstractParser implements Loggable {
         int bodyFinish = 0;
 
         final boolean parseBody;
-        Object endParserState = null;
+        Serializable endParserState = null;
         try {
             // Create a new function block.
             body = newBlock();

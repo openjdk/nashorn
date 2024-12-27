@@ -25,6 +25,7 @@
 
 package org.openjdk.nashorn.internal.ir;
 
+import java.io.Serializable;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 
 /**
@@ -34,7 +35,9 @@ import org.openjdk.nashorn.internal.codegen.types.Type;
  * that is a head of a linked list of instances.
  * @see JoinPredecessor
  */
-public final class LocalVariableConversion {
+public final class LocalVariableConversion implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final Symbol symbol;
     // TODO: maybe introduce a type pair class? These will often be repeated.
     private final Type from;

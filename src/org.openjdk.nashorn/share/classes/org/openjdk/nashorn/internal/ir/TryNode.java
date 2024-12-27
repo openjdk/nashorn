@@ -44,6 +44,7 @@ public final class TryNode extends LexicalContextStatement implements JoinPredec
     private final Block body;
 
     /** List of catch clauses. */
+    @SuppressWarnings("serial")
     private final List<Block> catchBlocks;
 
     /** Finally clause. */
@@ -62,6 +63,7 @@ public final class TryNode extends LexicalContextStatement implements JoinPredec
      * Statement as the type of bodies of e.g. IfNode, WhileNode etc. but rather blockify them even when they're
      * single statements.
      */
+    @SuppressWarnings("serial")
     private final List<Block> inlinedFinallies;
 
     /** Exception symbol. */

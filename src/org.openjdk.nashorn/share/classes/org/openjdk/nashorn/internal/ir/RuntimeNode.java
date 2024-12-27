@@ -327,6 +327,7 @@ public class RuntimeNode extends Expression {
     private final Request request;
 
     /** Call arguments. */
+    @SuppressWarnings("serial")
     private final List<Expression> args;
 
     /**

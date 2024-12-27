@@ -47,6 +47,7 @@ import org.openjdk.nashorn.internal.runtime.arrays.TypedArrayData;
  * ArrayBufferView, es6 class or TypedArray implementation
  */
 @ScriptClass("ArrayBufferView")
+@SuppressWarnings("this-escape")
 public abstract class ArrayBufferView extends ScriptObject {
     private final NativeArrayBuffer buffer;
     private final int byteOffset;

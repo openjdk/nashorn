@@ -50,6 +50,7 @@ import org.openjdk.nashorn.internal.objects.Global;
  * An AccessorProperty is the most generic property type. An AccessorProperty is
  * represented as fields in a ScriptObject class.
  */
+@SuppressWarnings("this-escape")
 public class AccessorProperty extends Property {
     private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
 

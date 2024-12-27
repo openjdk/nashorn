@@ -32,6 +32,7 @@ import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescrip
 import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_MISSES;
 import static org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor.CALLSITE_TRACE_VALUES;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -86,7 +87,7 @@ public final class FunctionNode extends LexicalContextExpression implements Flag
      * Opaque object representing parser state at the end of the function. Used when reparsing outer functions
      * to skip parsing inner functions.
      */
-    private final Object endParserState;
+    private final Serializable endParserState;
 
     /** External function identifier. */
     @Ignore
@@ -105,9 +106,11 @@ public final class FunctionNode extends LexicalContextExpression implements Flag
     private final Kind kind;
 
     /** List of parameters. */
+    @SuppressWarnings("serial")
     private final List<IdentNode> parameters;
 
     /** Map of ES6 function parameter expressions. */
+    @SuppressWarnings("serial")
     private final Map<IdentNode, Expression> parameterExpressions;
 
     /** First token of function. **/
@@ -336,7 +339,7 @@ public final class FunctionNode extends LexicalContextExpression implements Flag
         final FunctionNode.Kind kind,
         final int flags,
         final Block body,
-        final Object endParserState,
+        final Serializable endParserState,
         final Module module,
         final int debugFlags) {
         super(token, finish);
@@ -364,7 +367,7 @@ public final class FunctionNode extends LexicalContextExpression implements Flag
     private FunctionNode(
         final FunctionNode functionNode,
         final long lastToken,
-        final Object endParserState,
+        final Serializable endParserState,
         final int flags,
         final String name,
         final Type returnType,

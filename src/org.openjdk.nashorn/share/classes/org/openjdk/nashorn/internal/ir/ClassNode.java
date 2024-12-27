@@ -40,6 +40,7 @@ public class ClassNode extends Expression {
     private final IdentNode ident;
     private final Expression classHeritage;
     private final PropertyNode constructor;
+    @SuppressWarnings("serial")
     private final List<PropertyNode> classElements;
     private final int line;
     private final boolean isStatement;

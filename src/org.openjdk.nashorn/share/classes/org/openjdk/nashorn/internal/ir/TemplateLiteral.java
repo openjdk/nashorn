@@ -38,6 +38,7 @@ import org.openjdk.nashorn.internal.ir.visitor.NodeVisitor;
  */
 public final class TemplateLiteral extends Expression {
     private static final long serialVersionUID = 1L;
+    @SuppressWarnings("serial")
     private final List<Expression> exprs;
 
     public TemplateLiteral(final List<Expression> exprs) {
