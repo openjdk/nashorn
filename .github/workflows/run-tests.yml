@@ -1,13 +1,18 @@
 name: Run Tests
 
 on:
-  pull_request:
   push:
-    branches: [main]
+    branches-ignore:
+      - main
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [11, 21]
 
     steps:
     # Check out the repository code
@@ -19,10 +24,16 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '11'
+        java-version: ${{ matrix.java-version }}
 
     # Navigate to the make/nashorn directory and run tests
-    - name: Run Tests
+    - name: Run Nashorn Tests
       working-directory: make/nashorn
       run: |
         ant test
+        
+    # Navigate to the make/nashorn directory and run tests
+    - name: Run ECMA-262 Tests
+      working-directory: make/nashorn
+      run: |
+        ant test262-parallel
