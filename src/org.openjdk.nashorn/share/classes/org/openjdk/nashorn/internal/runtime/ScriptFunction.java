@@ -32,12 +32,8 @@ import static org.openjdk.nashorn.internal.runtime.UnwarrantedOptimismException.
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.invoke.SwitchPoint;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -46,7 +42,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.LongAdder;
 import jdk.dynalink.CallSiteDescriptor;
-import jdk.dynalink.SecureLookupSupplier;
 import jdk.dynalink.linker.GuardedInvocation;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.support.Guards;
@@ -130,9 +125,6 @@ public class ScriptFunction extends ScriptObject {
 
     // Marker object for lazily initialized prototype object
     private static final Object LAZY_PROTOTYPE = new Object();
-
-    private static final AccessControlContext GET_LOOKUP_PERMISSION_CONTEXT =
-            AccessControlContextFactory.createAccessControlContext(SecureLookupSupplier.GET_LOOKUP_PERMISSION_NAME);
 
     private static PropertyMap createStrictModeMap(final PropertyMap map) {
         final int flags = Property.NOT_ENUMERABLE | Property.NOT_CONFIGURABLE;
@@ -838,7 +830,7 @@ public class ScriptFunction extends ScriptObject {
             return LinkLogic.EMPTY_INSTANCE; //always OK to link this, specialization but without special linking logic
         }
 
-        if (!Context.getContextTrusted().getEnv()._optimistic_types) {
+        if (!Context.getContext().getEnv()._optimistic_types) {
             return null; //if optimistic types are off, optimistic builtins are too
         }
 
@@ -929,7 +921,7 @@ public class ScriptFunction extends ScriptObject {
             final LinkLogic linkLogic = getLinkLogic(self, linkLogicClass);
 
             if (linkLogic != null && linkLogic.checkLinkable(self, desc, request)) {
-                final DebugLogger log = Context.getContextTrusted().getLogger(Compiler.class);
+                final DebugLogger log = Context.getContext().getLogger(Compiler.class);
 
                 if (log.isEnabled()) {
                     log.info("Linking optimistic builtin function: '", name, "' args=", Arrays.toString(request.getArguments()), " desc=", desc);
@@ -961,7 +953,7 @@ public class ScriptFunction extends ScriptObject {
         } else if (data.isBuiltin() && Global.isBuiltInJavaExtend(this)) {
             // We're binding the current lookup as "self" so the function can do
             // security-sensitive creation of adapter classes.
-            boundHandle = MH.dropArguments(MH.bindTo(callHandle, getLookupPrivileged(desc)), 0, type.parameterType(0), type.parameterType(1));
+            boundHandle = MH.dropArguments(MH.bindTo(callHandle, desc.getLookup()), 0, type.parameterType(0), type.parameterType(1));
         } else if (data.isBuiltin() && Global.isBuiltInJavaTo(this)) {
             // We're binding the current call site descriptor as "self" so the function can do
             // security-sensitive creation of adapter classes.
@@ -1010,12 +1002,6 @@ public class ScriptFunction extends ScriptObject {
                         guard,
                 spsArray,
                 exceptionGuard);
-    }
-
-    private static Lookup getLookupPrivileged(final CallSiteDescriptor desc) {
-        // NOTE: we'd rather not make NashornCallSiteDescriptor.getLookupPrivileged public.
-        return AccessController.doPrivileged((PrivilegedAction<Lookup>) desc::getLookup,
-                GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     private GuardedInvocation createApplyOrCallCall(final boolean isApply, final CallSiteDescriptor desc, final LinkRequest request, final Object[] args) {
@@ -1142,7 +1128,8 @@ public class ScriptFunction extends ScriptObject {
         if (isApplyToCall) {
             if (isFailedApplyToCall) {
                 //take the real arguments that were passed to a call and force them into the apply instead
-                Context.getContextTrusted().getLogger(ApplySpecialization.class).info("Collection arguments to revert call to apply in " + appliedFn);
+                Context.getContext()
+                    .getLogger(ApplySpecialization.class).info("Collection arguments to revert call to apply in " + appliedFn);
                 inv = MH.asCollector(inv, Object[].class, realArgCount);
             } else {
                 appliedInvocation = appliedInvocation.addSwitchPoint(applyToCallSwitchPoint);

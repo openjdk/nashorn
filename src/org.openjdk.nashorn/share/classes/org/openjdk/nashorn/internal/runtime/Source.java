@@ -984,7 +984,7 @@ public final class Source implements Loggable {
 
     @Override
     public DebugLogger getLogger() {
-        return initLogger(Context.getContextTrusted());
+        return initLogger(Context.getContext());
     }
 
     private File dumpFile(final File dirFile) {

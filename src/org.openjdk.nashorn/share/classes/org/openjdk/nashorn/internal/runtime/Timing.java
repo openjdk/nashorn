@@ -100,7 +100,7 @@ public final class Timing implements Loggable {
      */
     public void accumulateTime(final String module, final long durationNano) {
         if (isEnabled()) {
-            ensureInitialized(Context.getContextTrusted());
+            ensureInitialized(Context.getContext());
             timeSupplier.accumulateTime(module, durationNano);
         }
     }

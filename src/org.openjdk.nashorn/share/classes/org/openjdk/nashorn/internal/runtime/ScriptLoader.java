@@ -97,7 +97,6 @@ final class ScriptLoader extends NashornLoader {
 
     @Override
     protected Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
-        checkPackageAccess(name);
         final Class<?> cl = super.loadClass(name, resolve);
         if (!structureAccessAdded && isInNamedModule()) {
             final StructureLoader structLoader = context.getStructLoader();

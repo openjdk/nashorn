@@ -43,9 +43,7 @@ import java.nio.file.Files;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.security.AccessController;
 import java.security.MessageDigest;
-import java.security.PrivilegedAction;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -170,27 +168,22 @@ public final class OptimisticTypesPersistence {
         }
         final File file = ((LocationDescriptor)locationDescriptor).file;
 
-        AccessController.doPrivileged(new PrivilegedAction<Void>() {
-            @Override
-            public Void run() {
-                synchronized(getFileLock(file)) {
-                    if (!file.exists()) {
-                        // If the file already exists, we aren't increasing the number of cached files, so
-                        // don't schedule cleanup.
-                        scheduleCleanup();
-                    }
-                    try (final FileOutputStream out = new FileOutputStream(file)) {
-                        out.getChannel().lock(); // lock exclusive
-                        final DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(out));
-                        Type.writeTypeMap(optimisticTypes, dout);
-                        dout.flush();
-                    } catch(final Exception e) {
-                        reportError("write", file, e);
-                    }
-                }
-                return null;
+        synchronized(getFileLock(file)) {
+            if (!file.exists()) {
+                // If the file already exists, we aren't increasing the number of cached files, so
+                // don't schedule cleanup.
+                scheduleCleanup();
             }
-        });
+            try (final FileOutputStream out = new FileOutputStream(file)) {
+                try (var ignored = out.getChannel().lock()) {
+                    final DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(out));
+                    Type.writeTypeMap(optimisticTypes, dout);
+                    dout.flush();
+                }
+            } catch(final Exception e) {
+                reportError("write", file, e);
+            }
+        }
     }
 
     /**
@@ -205,26 +198,21 @@ public final class OptimisticTypesPersistence {
             return null;
         }
         final File file = ((LocationDescriptor)locationDescriptor).file;
-        return AccessController.doPrivileged(new PrivilegedAction<Map<Integer, Type>>() {
-            @Override
-            public Map<Integer, Type> run() {
-                try {
-                    if(!file.isFile()) {
-                        return null;
-                    }
-                    synchronized(getFileLock(file)) {
-                        try (final FileInputStream in = new FileInputStream(file)) {
-                            in.getChannel().lock(0, Long.MAX_VALUE, true); // lock shared
-                            final DataInputStream din = new DataInputStream(new BufferedInputStream(in));
-                            return Type.readTypeMap(din);
-                        }
-                    }
-                } catch (final Exception e) {
-                    reportError("read", file, e);
-                    return null;
+        try {
+            if(!file.isFile()) {
+                return null;
+            }
+            synchronized(getFileLock(file)) {
+                try (final FileInputStream in = new FileInputStream(file)) {
+                    in.getChannel().lock(0, Long.MAX_VALUE, true); // lock shared
+                    final DataInputStream din = new DataInputStream(new BufferedInputStream(in));
+                    return Type.readTypeMap(din);
                 }
             }
-        });
+        } catch (final Exception e) {
+            reportError("read", file, e);
+            return null;
+        }
     }
 
     private static void reportError(final String msg, final File file, final Exception e) {
@@ -274,25 +262,20 @@ public final class OptimisticTypesPersistence {
     }
 
     private static File createBaseCacheDirPrivileged() {
-        return AccessController.doPrivileged(new PrivilegedAction<File>() {
-            @Override
-            public File run() {
-                final String explicitDir = System.getProperty("nashorn.typeInfo.cacheDir");
-                final File dir;
-                if(explicitDir != null) {
-                    dir = new File(explicitDir);
-                } else {
-                    // When no directory is explicitly specified, get an operating system specific cache
-                    // directory, and create "com.oracle.java.NashornTypeInfo" in it.
-                    final File systemCacheDir = getSystemCacheDir();
-                    dir = new File(systemCacheDir, DEFAULT_CACHE_SUBDIR_NAME);
-                    if (isSymbolicLink(dir)) {
-                        return null;
-                    }
-                }
-                return dir;
+        final String explicitDir = System.getProperty("nashorn.typeInfo.cacheDir");
+        final File dir;
+        if(explicitDir != null) {
+            dir = new File(explicitDir);
+        } else {
+            // When no directory is explicitly specified, get an operating system specific cache
+            // directory, and create "com.oracle.java.NashornTypeInfo" in it.
+            final File systemCacheDir = getSystemCacheDir();
+            dir = new File(systemCacheDir, DEFAULT_CACHE_SUBDIR_NAME);
+            if (isSymbolicLink(dir)) {
+                return null;
             }
-        });
+        }
+        return dir;
     }
 
     private static File createCacheDir(final File baseDir) {
@@ -308,31 +291,26 @@ public final class OptimisticTypesPersistence {
     }
 
     private static File createCacheDirPrivileged(final File baseDir) {
-        return AccessController.doPrivileged(new PrivilegedAction<File>() {
-            @Override
-            public File run() {
-                final String versionDirName;
-                try {
-                    versionDirName = getVersionDirName();
-                } catch(final Exception e) {
-                    reportError("Failed to calculate version dir name", e);
-                    return null;
-                }
-                final File versionDir = new File(baseDir, versionDirName);
-                if (isSymbolicLink(versionDir)) {
-                    return null;
-                }
-                versionDir.mkdirs();
-                if (versionDir.isDirectory()) {
-                    //FIXME:Logger is disabled as Context.getContext() always returns null here because global scope object will not be created
-                    //by the time this method gets invoked
-                    getLogger().info("Optimistic type persistence directory is " + versionDir);
-                    return versionDir;
-                }
-                getLogger().warning("Could not create optimistic type persistence directory " + versionDir);
-                return null;
-            }
-        });
+        final String versionDirName;
+        try {
+            versionDirName = getVersionDirName();
+        } catch(final Exception e) {
+            reportError("Failed to calculate version dir name", e);
+            return null;
+        }
+        final File versionDir = new File(baseDir, versionDirName);
+        if (isSymbolicLink(versionDir)) {
+            return null;
+        }
+        versionDir.mkdirs();
+        if (versionDir.isDirectory()) {
+            //FIXME:Logger is disabled as Context.getContext() always returns null here because global scope object will not be created
+            //by the time this method gets invoked
+            getLogger().info("Optimistic type persistence directory is " + versionDir);
+            return versionDir;
+        }
+        getLogger().warning("Could not create optimistic type persistence directory " + versionDir);
+        return null;
     }
 
     /**
@@ -566,7 +544,7 @@ public final class OptimisticTypesPersistence {
 
     // version directory name if nashorn is loaded from jrt:/ URL
     private static String getJrtVersionDirName() throws Exception {
-        final FileSystem fs = getJrtFileSystem();
+        final FileSystem fs = FileSystems.getFileSystem(URI.create("jrt:/"));
         // consider all .class resources under nashorn module to compute checksum
         final Path nashorn = fs.getPath(JRT_NASHORN_DIR);
         if (! Files.isDirectory(nashorn)) {
@@ -590,13 +568,4 @@ public final class OptimisticTypesPersistence {
     }
 
     // get the default jrt FileSystem instance
-    private static FileSystem getJrtFileSystem() {
-        return AccessController.doPrivileged(
-            new PrivilegedAction<FileSystem>() {
-                @Override
-                public FileSystem run() {
-                    return FileSystems.getFileSystem(URI.create("jrt:/"));
-                }
-            });
-    }
 }

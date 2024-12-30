@@ -56,20 +56,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.AccessControlContext;
-import java.security.AccessController;
 import java.security.CodeSigner;
 import java.security.CodeSource;
-import java.security.Permissions;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
-import java.security.ProtectionDomain;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -113,37 +105,6 @@ import sun.misc.Unsafe;
  * This class manages the global state of execution. Context is immutable.
  */
 public final class Context {
-    // nashorn specific security runtime access permission names
-    /**
-     * Permission needed to pass arbitrary nashorn command line options when creating Context.
-     */
-    public static final String NASHORN_SET_CONFIG      = "nashorn.setConfig";
-
-    /**
-     * Permission needed to create Nashorn Context instance.
-     */
-    public static final String NASHORN_CREATE_CONTEXT  = "nashorn.createContext";
-
-    /**
-     * Permission needed to create Nashorn Global instance.
-     */
-    public static final String NASHORN_CREATE_GLOBAL   = "nashorn.createGlobal";
-
-    /**
-     * Permission to get current Nashorn Context from thread local storage.
-     */
-    public static final String NASHORN_GET_CONTEXT     = "nashorn.getContext";
-
-    /**
-     * Permission to use Java reflection/jsr292 from script code.
-     */
-    public static final String NASHORN_JAVA_REFLECTION = "nashorn.JavaReflection";
-
-    /**
-     * Permission to enable nashorn debug mode.
-     */
-    public static final String NASHORN_DEBUG_MODE = "nashorn.debugMode";
-
     // nashorn load psuedo URL prefixes
     private static final String LOAD_CLASSPATH = "classpath:";
     private static final String LOAD_FX = "fx:";
@@ -216,20 +177,17 @@ public final class Context {
         @Override
         public void initialize(final Collection<Class<?>> classes, final Source source, final Object[] constants) {
             try {
-                AccessController.doPrivileged((PrivilegedExceptionAction<Void>) () -> {
-                    for (final Class<?> clazz : classes) {
-                        //use reflection to write source and constants table to installed classes
-                        final Field sourceField = clazz.getDeclaredField(SOURCE.symbolName());
-                        sourceField.setAccessible(true);
-                        sourceField.set(null, source);
+                for (final Class<?> clazz : classes) {
+                    //use reflection to write source and constants table to installed classes
+                    final Field sourceField = clazz.getDeclaredField(SOURCE.symbolName());
+                    sourceField.setAccessible(true);
+                    sourceField.set(null, source);
 
-                        final Field constantsField = clazz.getDeclaredField(CONSTANTS.symbolName());
-                        constantsField.setAccessible(true);
-                        constantsField.set(null, constants);
-                    }
-                    return null;
-                });
-            } catch (final PrivilegedActionException e) {
+                    final Field constantsField = clazz.getDeclaredField(CONSTANTS.symbolName());
+                    constantsField.setAccessible(true);
+                    constantsField.set(null, constants);
+                }
+            } catch (final ReflectiveOperationException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -322,21 +280,16 @@ public final class Context {
         private final Class<?> hostClass;
 
         private static MethodHandle getDefineAnonymousClass() {
-            // Can't reference the Unsafe class at all outside of the doPrivileged block,
-            // not even as a type of the return value, hence we just export a MethodHandle
-            // out of it.
-            return AccessController.doPrivileged((PrivilegedAction<MethodHandle>) () -> {
-                try {
-                    final MethodHandle mh = MethodHandles.lookup().findVirtual(Unsafe.class, "defineAnonymousClass",
-                        MethodType.methodType(Class.class, Class.class, byte[].class, Object[].class));
-                    final Field f = Unsafe.class.getDeclaredField("theUnsafe");
-                    f.setAccessible(true);
-                    return mh.bindTo(f.get(null));
-                } catch (Exception e) {
-                    initFailure = e;
-                    return null;
-                }
-            });
+            try {
+                final MethodHandle mh = MethodHandles.lookup().findVirtual(Unsafe.class, "defineAnonymousClass",
+                    MethodType.methodType(Class.class, Class.class, byte[].class, Object[].class));
+                final Field f = Unsafe.class.getDeclaredField("theUnsafe");
+                f.setAccessible(true);
+                return mh.bindTo(f.get(null));
+            } catch (Exception e) {
+                initFailure = e;
+                return null;
+            }
         }
 
         private AnonymousContextCodeInstaller(final Context context, final CodeSource codeSource, final Class<?> hostClass) {
@@ -446,11 +399,7 @@ public final class Context {
      * @return current global scope's context.
      */
     public static Context getContext() {
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            sm.checkPermission(new RuntimePermission(NASHORN_GET_CONTEXT));
-        }
-        return getContextTrusted();
+        return getContext(getGlobal());
     }
 
     /**
@@ -527,24 +476,8 @@ public final class Context {
         return theStructLoader;
     }
 
-    private static AccessControlContext createNoPermAccCtxt() {
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, new Permissions()) });
-    }
-
-    private static AccessControlContext createPermAccCtxt(final String permName) {
-        final Permissions perms = new Permissions();
-        perms.add(new RuntimePermission(permName));
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, perms) });
-    }
-
-    private static final AccessControlContext NO_PERMISSIONS_ACC_CTXT = createNoPermAccCtxt();
-    private static final AccessControlContext CREATE_LOADER_ACC_CTXT  = createPermAccCtxt("createClassLoader");
-    private static final AccessControlContext CREATE_GLOBAL_ACC_CTXT  = createPermAccCtxt(NASHORN_CREATE_GLOBAL);
-    private static final AccessControlContext GET_LOADER_ACC_CTXT     = createPermAccCtxt("getClassLoader");
-
     static {
-        final ClassLoader myLoader = Context.class.getClassLoader();
-        theStructLoader = AccessController.doPrivileged((PrivilegedAction<StructureLoader>) () -> new StructureLoader(myLoader), CREATE_LOADER_ACC_CTXT);
+        theStructLoader = new StructureLoader(Context.class.getClassLoader());
     }
 
     /**
@@ -609,11 +542,6 @@ public final class Context {
      * @param classFilter class filter to use
      */
     public Context(final Options options, final ErrorManager errors, final PrintWriter out, final PrintWriter err, final ClassLoader appLoader, final ClassFilter classFilter) {
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            sm.checkPermission(new RuntimePermission(NASHORN_CREATE_CONTEXT));
-        }
-
         this.classFilter = classFilter;
         this.env       = new ScriptEnvironment(options, out, err);
         this._strict   = env._strict;
@@ -631,11 +559,7 @@ public final class Context {
         final String modulePath = env._module_path;
         ClassLoader appCl;
         if (!env._compile_only && modulePath != null && !modulePath.isEmpty()) {
-            // make sure that caller can create a class loader.
-            if (sm != null) {
-                sm.checkCreateClassLoader();
-            }
-            appCl = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> createModuleLoader(appLoader, modulePath, env._add_modules));
+            appCl = createModuleLoader(appLoader, modulePath, env._add_modules);
         } else {
             appCl = appLoader;
         }
@@ -644,10 +568,6 @@ public final class Context {
         // the app loader or module app loader as the parent.
         final String classPath = env._classpath;
         if (!env._compile_only && classPath != null && !classPath.isEmpty()) {
-            // make sure that caller can create a class loader.
-            if (sm != null) {
-                sm.checkCreateClassLoader();
-            }
             appCl = NashornLoader.createClassLoader(classPath, appCl);
         }
 
@@ -874,16 +794,18 @@ public final class Context {
     private static Source loadInternal(final String srcStr, final String prefix, final String resourcePath) {
         if (srcStr.startsWith(prefix)) {
             final String resource = resourcePath + srcStr.substring(prefix.length());
-            // NOTE: even sandbox scripts should be able to load scripts in nashorn: scheme
-            // These scripts are always available and are loaded from nashorn.jar's resources.
-            return AccessController.doPrivileged((PrivilegedAction<Source>) () -> {
-                try {
-                    final InputStream resStream = Context.class.getResourceAsStream(resource);
-                    return resStream != null ? sourceFor(srcStr, Source.readFully(resStream)) : null;
-                } catch (final IOException exp) {
+            // NOTE: scripts in nashorn: scheme are always available and are loaded from nashorn.jar's resources.
+            try {
+                final InputStream resStream = Context.class.getResourceAsStream(resource);
+                if (resStream == null) {
                     return null;
                 }
-            });
+                try (resStream) {
+                    return sourceFor(srcStr, Source.readFully(resStream));
+                }
+            } catch (final IOException exp) {
+                return null;
+            }
         }
 
         return null;
@@ -1006,16 +928,15 @@ public final class Context {
      */
     public Object loadWithNewGlobal(final Object from, final Object...args) throws IOException {
         final Global oldGlobal = getGlobal();
-        final Global newGlobal = AccessController.doPrivileged((PrivilegedAction<Global>) () -> {
-            try {
-                return newGlobal();
-            } catch (final RuntimeException e) {
-                if (Context.DEBUG) {
-                    e.printStackTrace();
-                }
-                throw e;
+        final Global newGlobal;
+        try {
+            newGlobal =  newGlobal();
+        } catch (final RuntimeException e) {
+            if (Context.DEBUG) {
+                e.printStackTrace();
             }
-        }, CREATE_GLOBAL_ACC_CTXT);
+            throw e;
+        }
         // initialize newly created Global instance
         initGlobal(newGlobal);
         setGlobal(newGlobal);
@@ -1048,9 +969,6 @@ public final class Context {
      */
     @SuppressWarnings("unchecked")
     public static Class<? extends ScriptObject> forStructureClass(final String fullName) throws ClassNotFoundException {
-        if (System.getSecurityManager() != null && !StructureLoader.isStructureClass(fullName)) {
-            throw new ClassNotFoundException(fullName);
-        }
         return (Class<? extends ScriptObject>)structureClasses.computeIfAbsent(fullName, (name) -> {
             try {
                 return Class.forName(name, true, theStructLoader);
@@ -1071,77 +989,13 @@ public final class Context {
     }
 
     /**
-     * Checks that the given Class can be accessed from no permissions context.
-     *
-     * @param clazz Class object
-     * @throws SecurityException if not accessible
-     */
-    public static void checkPackageAccess(final Class<?> clazz) {
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            Class<?> bottomClazz = clazz;
-            while (bottomClazz.isArray()) {
-                bottomClazz = bottomClazz.getComponentType();
-            }
-            checkPackageAccess(sm, bottomClazz.getName());
-        }
-    }
-
-    /**
-     * Checks that the given package name can be accessed from no permissions context.
-     *
-     * @param pkgName package name
-     * @throws SecurityException if not accessible
-     */
-    public static void checkPackageAccess(final String pkgName) {
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            checkPackageAccess(sm, pkgName.endsWith(".") ? pkgName : pkgName + ".");
-        }
-    }
-
-    /**
-     * Checks that the given package can be accessed from no permissions context.
-     *
-     * @param sm current security manager instance
-     * @param fullName fully qualified package name
-     * @throws SecurityException if not accessible
-     */
-    private static void checkPackageAccess(final SecurityManager sm, final String fullName) {
-        Objects.requireNonNull(sm);
-        final int index = fullName.lastIndexOf('.');
-        if (index != -1) {
-            final String pkgName = fullName.substring(0, index);
-            AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-                sm.checkPackageAccess(pkgName);
-                return null;
-            }, NO_PERMISSIONS_ACC_CTXT);
-        }
-    }
-
-    /**
-     * Checks that the given Class can be accessed from no permissions context.
-     *
-     * @param clazz Class object
-     * @return true if package is accessible, false otherwise
-     */
-    private static boolean isAccessiblePackage(final Class<?> clazz) {
-        try {
-            checkPackageAccess(clazz);
-            return true;
-        } catch (final SecurityException se) {
-            return false;
-        }
-    }
-
-    /**
-     * Checks that the given Class is public and it can be accessed from no permissions context.
+     * Checks that the given Class is public.
      *
      * @param clazz Class object to check
      * @return true if Class is accessible, false otherwise
      */
     public static boolean isAccessibleClass(final Class<?> clazz) {
-        return Modifier.isPublic(clazz.getModifiers()) && Context.isAccessiblePackage(clazz);
+        return Modifier.isPublic(clazz.getModifiers());
     }
 
     /**
@@ -1165,18 +1019,12 @@ public final class Context {
             throw new ClassNotFoundException(fullName);
         }
 
-        // check package access as soon as possible!
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            checkPackageAccess(sm, fullName);
-        }
-
         // Try finding using the "app" loader.
         if (appLoader != null) {
             return Class.forName(fullName, true, appLoader);
         } else {
             final Class<?> cl = Class.forName(fullName);
-            // return the Class only if it was loaded by boot loader
+            // return the Class only if it was loaded by the boot loader
             if (cl.getClassLoader() == null) {
                 return cl;
             } else {
@@ -1210,11 +1058,7 @@ public final class Context {
      */
     public void verify(final byte[] bytecode) {
         if (env._verify_code) {
-            // No verification when security manager is around as verifier
-            // may load further classes - which should be avoided.
-            if (System.getSecurityManager() == null) {
-                CheckClassAdapter.verify(new ClassReader(bytecode), theStructLoader, false, new PrintWriter(System.err, true));
-            }
+            CheckClassAdapter.verify(new ClassReader(bytecode), theStructLoader, false, new PrintWriter(System.err, true));
         }
     }
 
@@ -1292,14 +1136,6 @@ public final class Context {
     }
 
     /**
-     * Return the current global's context
-     * @return current global's context
-     */
-    static Context getContextTrusted() {
-        return getContext(getGlobal());
-    }
-
-    /**
      * Gets the Nashorn dynamic linker for the specified class. If the class is
      * a script class, the dynamic linker associated with its context is
      * returned. Otherwise the dynamic linker associated with the current
@@ -1316,7 +1152,7 @@ public final class Context {
      * @return the Nashorn dynamic linker for the current context.
      */
     public static DynamicLinker getDynamicLinker() {
-        return getContextTrusted().dynamicLinker;
+        return getContext().dynamicLinker;
     }
 
     /**
@@ -1356,8 +1192,7 @@ public final class Context {
         final Configuration cf = parent.configuration()
                 .resolve(finder, ModuleFinder.of(), Set.of(mn));
 
-        final PrivilegedAction<ModuleLayer> pa = () -> parent.defineModules(cf, name -> loader);
-        final ModuleLayer layer = AccessController.doPrivileged(pa, GET_LOADER_ACC_CTXT);
+        final ModuleLayer layer = parent.defineModules(cf, name -> loader);
 
         final Module m = layer.findModule(mn).get();
         assert m.getLayer() == layer;
@@ -1400,7 +1235,7 @@ public final class Context {
             return ((ScriptLoader)loader).getContext();
         }
 
-        return Context.getContextTrusted();
+        return getContext();
     }
 
     private URL getResourceURL(final String resName) {
@@ -1544,9 +1379,7 @@ public final class Context {
     }
 
     private ScriptLoader createNewLoader() {
-        return AccessController.doPrivileged(
-            (PrivilegedAction<ScriptLoader>) () -> new ScriptLoader(Context.this),
-            CREATE_LOADER_ACC_CTXT);
+        return new ScriptLoader(Context.this);
     }
 
     private long getUniqueScriptId() {

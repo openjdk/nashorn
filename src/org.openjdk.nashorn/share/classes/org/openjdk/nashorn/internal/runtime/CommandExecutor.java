@@ -36,8 +36,6 @@ import java.io.StringReader;
 import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,15 +58,13 @@ class CommandExecutor {
     private static final int BUFFER_SIZE = 1024;
 
     // Test to see if running on Windows.
-    private static final boolean IS_WINDOWS =
-        AccessController.doPrivileged((PrivilegedAction<Boolean>)() -> System.getProperty("os.name").contains("Windows"));
+    private static final boolean IS_WINDOWS = System.getProperty("os.name").contains("Windows");
 
     // Cygwin drive alias prefix.
     private static final String CYGDRIVE = "/cygdrive/";
 
     // User's home directory
-    private static final String HOME_DIRECTORY =
-        AccessController.doPrivileged((PrivilegedAction<String>)() -> System.getProperty("user.home"));
+    private static final String HOME_DIRECTORY = System.getProperty("user.home");
 
     // Various types of standard redirects.
     enum RedirectType {

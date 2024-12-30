@@ -31,8 +31,6 @@
 
 package org.openjdk.dynalink.test;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,7 +46,6 @@ import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.GuardingDynamicLinkerExporter;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
-import jdk.dynalink.linker.support.SimpleLinkRequest;
 
 /**
  * This is a dynalink pluggable linker (see http://openjdk.java.net/jeps/276).
@@ -92,13 +89,7 @@ public final class TrustedUnderscoreNameLinkerExporter extends GuardingDynamicLi
 
                     final String nameStr = translateToCamelCase(str);
                     // create a new call descriptor to use translated name
-                    final CallSiteDescriptor newDesc = AccessController.doPrivileged(
-                        new PrivilegedAction<CallSiteDescriptor>() {
-                            @Override
-                            public CallSiteDescriptor run() {
-                                return desc.changeOperation(((NamedOperation)op).changeName(nameStr));
-                            }
-                        });
+                    final CallSiteDescriptor newDesc = desc.changeOperation(((NamedOperation)op).changeName(nameStr));
                     // create a new Link request to link the call site with translated name
                     final LinkRequest newRequest = request.replaceArguments(newDesc, request.getArguments());
                     // return guarded invocation linking the translated request

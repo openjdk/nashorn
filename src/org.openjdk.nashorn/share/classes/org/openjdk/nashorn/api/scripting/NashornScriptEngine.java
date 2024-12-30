@@ -32,11 +32,6 @@ import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.Permissions;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Objects;
@@ -75,16 +70,6 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
      */
     public static final String NASHORN_GLOBAL = "nashorn.global";
 
-    // commonly used access control context objects
-    private static AccessControlContext createPermAccCtxt(final String permName) {
-        final Permissions perms = new Permissions();
-        perms.add(new RuntimePermission(permName));
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, perms) });
-    }
-
-    private static final AccessControlContext CREATE_CONTEXT_ACC_CTXT = createPermAccCtxt(Context.NASHORN_CREATE_CONTEXT);
-    private static final AccessControlContext CREATE_GLOBAL_ACC_CTXT  = createPermAccCtxt(Context.NASHORN_CREATE_GLOBAL);
-
     // the factory that created this engine
     private final ScriptEngineFactory factory;
     // underlying nashorn Context - 1:1 with engine instance
@@ -121,16 +106,14 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
         // throw ParseException on first error from script
         final ErrorManager errMgr = new Context.ThrowErrorManager();
         // create new Nashorn Context
-        this.nashornContext = AccessController.doPrivileged((PrivilegedAction<Context>) () -> {
-            try {
-                return new Context(options, errMgr, appLoader, classFilter);
-            } catch (final RuntimeException e) {
-                if (Context.DEBUG) {
-                    e.printStackTrace();
-                }
-                throw e;
+        try {
+            this.nashornContext = new Context(options, errMgr, appLoader, classFilter);
+        } catch (final RuntimeException e) {
+            if (Context.DEBUG) {
+                e.printStackTrace();
             }
-        }, CREATE_CONTEXT_ACC_CTXT);
+            throw e;
+        }
 
         // cache this option that is used often
         this._global_per_engine = nashornContext.getEnv()._global_per_engine;
@@ -234,15 +217,6 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
             throw new IllegalArgumentException(getMessage("interface.class.expected"));
         }
 
-        // perform security access check as early as possible
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            if (! Modifier.isPublic(clazz.getModifiers())) {
-                throw new SecurityException(getMessage("implementing.non.public.interface", clazz.getName()));
-            }
-            Context.checkPackageAccess(clazz);
-        }
-
         ScriptObject realSelf = null;
         Global realGlobal = null;
         if(thiz == null) {
@@ -339,16 +313,15 @@ public final class NashornScriptEngine extends AbstractScriptEngine implements C
 
     // Create a new Nashorn Global object
     private Global createNashornGlobal() {
-        final Global newGlobal = AccessController.doPrivileged((PrivilegedAction<Global>) () -> {
-            try {
-                return nashornContext.newGlobal();
-            } catch (final RuntimeException e) {
-                if (Context.DEBUG) {
-                    e.printStackTrace();
-                }
-                throw e;
+        final Global newGlobal;
+        try {
+            newGlobal = nashornContext.newGlobal();
+        } catch (final RuntimeException e) {
+            if (Context.DEBUG) {
+                e.printStackTrace();
             }
-        }, CREATE_GLOBAL_ACC_CTXT);
+            throw e;
+        }
 
         nashornContext.initGlobal(newGlobal, this);
 

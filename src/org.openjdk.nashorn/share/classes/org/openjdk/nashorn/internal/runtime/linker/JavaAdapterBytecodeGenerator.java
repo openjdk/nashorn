@@ -52,9 +52,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.util.Collection;
 import java.util.HashSet;
@@ -1179,8 +1176,6 @@ final class JavaAdapterBytecodeGenerator {
         }
     }
 
-    private static final AccessControlContext GET_DECLARED_MEMBERS_ACC_CTXT = ClassAndLoader.createPermAccCtxt("accessDeclaredMembers");
-
     /**
      * Creates a collection of methods that are not final, but we still never allow them to be overridden in adapters,
      * as explicitly declaring them automatically is a bad idea. Currently, this means {@code Object.finalize()} and
@@ -1188,15 +1183,13 @@ final class JavaAdapterBytecodeGenerator {
      * @return a collection of method infos representing those methods that we never override in adapter classes.
      */
     private static Collection<MethodInfo> getExcludedMethods() {
-        return AccessController.doPrivileged((PrivilegedAction<Collection<MethodInfo>>) () -> {
-            try {
-                return List.of(
-                        new MethodInfo(Object.class, "finalize"),
-                        new MethodInfo(Object.class, "clone"));
-            } catch (final NoSuchMethodException e) {
-                throw new AssertionError(e);
-            }
-        }, GET_DECLARED_MEMBERS_ACC_CTXT);
+        try {
+            return List.of(
+                    new MethodInfo(Object.class, "finalize"),
+                    new MethodInfo(Object.class, "clone"));
+        } catch (final NoSuchMethodException e) {
+            throw new AssertionError(e);
+        }
     }
 
     private String getCommonSuperClass(final String type1, final String type2) {

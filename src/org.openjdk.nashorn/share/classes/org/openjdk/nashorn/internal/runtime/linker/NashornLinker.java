@@ -31,9 +31,6 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Modifier;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
@@ -56,7 +53,6 @@ import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.openjdk.nashorn.api.scripting.ScriptUtils;
 import org.openjdk.nashorn.internal.codegen.CompilerConstants.Call;
 import org.openjdk.nashorn.internal.objects.NativeArray;
-import org.openjdk.nashorn.internal.runtime.AccessControlContextFactory;
 import org.openjdk.nashorn.internal.runtime.JSType;
 import org.openjdk.nashorn.internal.runtime.ListAdapter;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
@@ -68,9 +64,6 @@ import org.openjdk.nashorn.internal.runtime.Undefined;
  * includes {@link ScriptFunction} and its subclasses) as well as {@link Undefined}.
  */
 final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTypeConverterFactory, ConversionComparator {
-    private static final AccessControlContext GET_LOOKUP_PERMISSION_CONTEXT =
-            AccessControlContextFactory.createAccessControlContext(SecureLookupSupplier.GET_LOOKUP_PERMISSION_NAME);
-
     private static final ClassValue<MethodHandle> ARRAY_CONVERTERS = new ClassValue<>() {
         @Override
         protected MethodHandle computeValue(final Class<?> type) {
@@ -164,15 +157,11 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
             // which is safe but slower than a single constructor handle. If the actual argument is a ScriptFunction it
             // would be nice if we could change the formal parameter to ScriptFunction.class and add a guard for it
             // in the main invocation.
-            final MethodHandle ctor = JavaAdapterFactory.getConstructor(paramType, targetType, getCurrentLookup(lookupSupplier));
+            final MethodHandle ctor = JavaAdapterFactory.getConstructor(paramType, targetType, lookupSupplier.get());
             assert ctor != null; // if isAutoConvertibleFromFunction() returned true, then ctor must exist.
             return new GuardedInvocation(ctor, isSourceTypeGeneric ? IS_FUNCTION : null);
         }
         return null;
-    }
-
-    private static MethodHandles.Lookup getCurrentLookup(final Supplier<MethodHandles.Lookup> lookupSupplier) {
-        return AccessController.doPrivileged((PrivilegedAction<MethodHandles.Lookup>) lookupSupplier::get, GET_LOOKUP_PERMISSION_CONTEXT);
     }
 
     /**
@@ -206,7 +195,7 @@ final class NashornLinker implements TypeBasedGuardingDynamicLinker, GuardingTyp
                     // new SecureLookupSupplier in order to bind it to the
                     // JSType.toJavaArrayWithLookup() parameter.
                     mhWithLookup = MH.insertArguments(mh, 1,
-                            new SecureLookupSupplier(getCurrentLookup(lookupSupplier)));
+                            new SecureLookupSupplier(lookupSupplier.get()));
                 } else {
                     mhWithLookup = mh;
                 }

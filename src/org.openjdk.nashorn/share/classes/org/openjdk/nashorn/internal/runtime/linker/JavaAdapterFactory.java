@@ -33,12 +33,9 @@ import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.invoke.VarHandle;
 import java.lang.reflect.Modifier;
-import java.security.AccessControlContext;
-import java.security.AccessController;
 import java.security.CodeSigner;
 import java.security.CodeSource;
 import java.security.Permissions;
-import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -83,11 +80,6 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
 
 public final class JavaAdapterFactory {
     private static final ProtectionDomain MINIMAL_PERMISSION_DOMAIN = createMinimalPermissionDomain();
-
-    // context with permissions needs for AdapterInfo creation
-    private static final AccessControlContext CREATE_ADAPTER_INFO_ACC_CTXT =
-        ClassAndLoader.createPermAccCtxt("createClassLoader", "getClassLoader",
-            "accessDeclaredMembers", "accessClassInPackage.org.openjdk.nashorn.internal.runtime");
 
     /**
      * A mapping from an original Class object to AdapterInfo representing the adapter for the class it represents.
@@ -151,15 +143,6 @@ public final class JavaAdapterFactory {
 
     private static StaticClass getAdapterClassFor(final Class<?>[] types, final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
         assert types != null && types.length > 0;
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            for (final Class<?> type : types) {
-                // check for restricted package access
-                Context.checkPackageAccess(type);
-                // check for classes, interfaces in reflection
-                ReflectionCheckLinker.checkReflectionAccess(type, true);
-            }
-        }
         return getAdapterInfo(types).getAdapterClass(classOverrides, protectionDomain);
     }
 
@@ -167,11 +150,7 @@ public final class JavaAdapterFactory {
         if((lookup.lookupModes() & Lookup.PRIVATE) == 0) {
             return MINIMAL_PERMISSION_DOMAIN;
         }
-        return getProtectionDomain(lookup.lookupClass());
-    }
-
-    private static ProtectionDomain getProtectionDomain(final Class<?> clazz) {
-        return AccessController.doPrivileged((PrivilegedAction<ProtectionDomain>) clazz::getProtectionDomain);
+        return lookup.lookupClass().getProtectionDomain();
     }
 
     /**
@@ -264,9 +243,7 @@ public final class JavaAdapterFactory {
         }
 
         final Class<?> effectiveSuperClass = superClass == null ? Object.class : superClass;
-        return AccessController.doPrivileged((PrivilegedAction<AdapterInfo>) () ->
-            new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader),
-            CREATE_ADAPTER_INFO_ACC_CTXT);
+        return new AdapterInfo(effectiveSuperClass, interfaces, definingClassAndLoader);
     }
 
     static ECMAException adaptationException(ErrorOutcome outcome, String... messageArgs) {

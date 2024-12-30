@@ -34,11 +34,9 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.AccessController;
 import java.security.CodeSource;
 import java.security.Permission;
 import java.security.PermissionCollection;
-import java.security.PrivilegedAction;
 import java.security.Permissions;
 import java.security.SecureClassLoader;
 import java.util.Arrays;
@@ -86,24 +84,18 @@ abstract class NashornLoader extends SecureClassLoader {
     }
 
     void loadModuleManipulator() {
-        final Class<?> clazz = defineClass(MODULE_MANIPULATOR_NAME,
-                MODULE_MANIPULATOR_BYTES, 0, MODULE_MANIPULATOR_BYTES.length);
-        // force class initialization so that <clinit> runs!
         try {
+            final Class<?> clazz = defineClass(MODULE_MANIPULATOR_NAME,
+                MODULE_MANIPULATOR_BYTES, 0, MODULE_MANIPULATOR_BYTES.length);
+            // force class initialization so that <clinit> runs!
             Class.forName(MODULE_MANIPULATOR_NAME, true, this);
+            addModuleExport = clazz.getDeclaredMethod("addExport", Module.class);
+            addModuleExport.setAccessible(true);
+        } catch (final RuntimeException e) {
+            throw e;
         } catch (final Exception ex) {
             throw new RuntimeException(ex);
         }
-        final PrivilegedAction<Void> pa = () -> {
-            try {
-                addModuleExport = clazz.getDeclaredMethod("addExport", Module.class);
-                addModuleExport.setAccessible(true);
-            } catch (final NoSuchMethodException | SecurityException ex) {
-                throw new RuntimeException(ex);
-            }
-            return null;
-        };
-        AccessController.doPrivileged(pa);
     }
 
     final void addModuleExport(final Module to) {
@@ -122,27 +114,6 @@ abstract class NashornLoader extends SecureClassLoader {
         // unnamed module. There are modular execution aspects that need to
         // be taken care of when Nashorn is used as a JPMS module.
         return NASHORN_MODULE.isNamed();
-    }
-
-    protected static void checkPackageAccess(final String name) {
-        final int i = name.lastIndexOf('.');
-        if (i != -1) {
-            final SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                final String pkgName = name.substring(0, i);
-                switch (pkgName) {
-                    case RUNTIME_PKG:
-                    case RUNTIME_ARRAYS_PKG:
-                    case RUNTIME_LINKER_PKG:
-                    case OBJECTS_PKG:
-                    case SCRIPTS_PKG:
-                        // allow it.
-                        break;
-                    default:
-                        sm.checkPackageAccess(pkgName);
-                }
-            }
-        }
     }
 
     @Override
@@ -210,15 +181,12 @@ abstract class NashornLoader extends SecureClassLoader {
     }
 
     private static byte[] readModuleManipulatorBytes() {
-        final PrivilegedAction<byte[]> pa = () -> {
-            final String res = "/"+ MODULE_MANIPULATOR_NAME.replace('.', '/') + ".class";
-            try (InputStream in = NashornLoader.class.getResourceAsStream(res)) {
-                return in.readAllBytes();
-            } catch (final IOException exp) {
-                throw new UncheckedIOException(exp);
-            }
-        };
-        return AccessController.doPrivileged(pa);
+        final String res = "/"+ MODULE_MANIPULATOR_NAME.replace('.', '/') + ".class";
+        try (InputStream in = NashornLoader.class.getResourceAsStream(res)) {
+            return in.readAllBytes();
+        } catch (final IOException exp) {
+            throw new UncheckedIOException(exp);
+        }
     }
 }
 

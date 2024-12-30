@@ -40,11 +40,9 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
-import java.security.AccessController;
 import java.security.CodeSigner;
 import java.security.CodeSource;
 import java.security.Permissions;
-import java.security.PrivilegedAction;
 import java.security.ProtectionDomain;
 import java.security.SecureClassLoader;
 import java.util.Objects;
@@ -230,7 +228,7 @@ public final class JavaAdapterServices {
         cw.visitEnd();
         final byte[] bytes = cw.toByteArray();
 
-        final ClassLoader loader = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> new SecureClassLoader(null) {
+        final ClassLoader loader = new SecureClassLoader(null) {
             @Override
             protected Class<?> findClass(final String name) throws ClassNotFoundException {
                 if(name.equals(className)) {
@@ -239,7 +237,7 @@ public final class JavaAdapterServices {
                 }
                 throw new ClassNotFoundException(name);
             }
-        });
+        };
 
         try {
             return MethodHandles.publicLookup().findStatic(Class.forName(className, true, loader), "invoke",
@@ -315,10 +313,7 @@ public final class JavaAdapterServices {
         private static Field getMirrorField(final String fieldName) {
             try {
                 final Field field = ScriptObjectMirror.class.getDeclaredField(fieldName);
-                AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-                    field.setAccessible(true);
-                    return null;
-                });
+                field.setAccessible(true);
                 return field;
             } catch (final NoSuchFieldException e) {
                 throw new RuntimeException(e);

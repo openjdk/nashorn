@@ -26,18 +26,12 @@
 package org.openjdk.nashorn.internal.runtime.logging;
 
 import java.io.PrintWriter;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.Permissions;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-import java.util.logging.LoggingPermission;
 import org.openjdk.nashorn.internal.objects.Global;
 import org.openjdk.nashorn.internal.runtime.Context;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
@@ -89,26 +83,22 @@ public final class DebugLogger {
 
     private static Logger instantiateLogger(final String name, final Level level) {
         final Logger logger = java.util.logging.Logger.getLogger(name);
-        AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-            for (final Handler h : logger.getHandlers()) {
-                logger.removeHandler(h);
+        for (final Handler h : logger.getHandlers()) {
+            logger.removeHandler(h);
+        }
+
+        logger.setLevel(level);
+        logger.setUseParentHandlers(false);
+        final Handler c = new ConsoleHandler();
+
+        c.setFormatter(new Formatter() {
+            @Override
+            public String format(final LogRecord record) {
+                return '[' + record.getLoggerName() + "] " + record.getMessage() + '\n';
             }
-
-            logger.setLevel(level);
-            logger.setUseParentHandlers(false);
-            final Handler c = new ConsoleHandler();
-
-            c.setFormatter(new Formatter() {
-                @Override
-                public String format(final LogRecord record) {
-                    return '[' + record.getLoggerName() + "] " + record.getMessage() + '\n';
-                }
-            });
-            logger.addHandler(c);
-            c.setLevel(level);
-            return null;
-        }, createLoggerControlAccCtxt());
-
+        });
+        logger.addHandler(c);
+        c.setLevel(level);
         return logger;
     }
 
@@ -540,15 +530,4 @@ public final class DebugLogger {
             log(level, sb.toString());
         }
     }
-
-    /**
-     * Access control context for logger level and instantiation permissions
-     * @return access control context
-     */
-    private static AccessControlContext createLoggerControlAccCtxt() {
-        final Permissions perms = new Permissions();
-        perms.add(new LoggingPermission("control", null));
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, perms) });
-    }
-
 }

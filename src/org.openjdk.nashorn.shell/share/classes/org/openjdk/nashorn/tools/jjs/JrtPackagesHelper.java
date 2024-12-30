@@ -77,7 +77,7 @@ final class JrtPackagesHelper extends PackagesHelper {
                                 if (clsName.indexOf('$') == -1 && isClassAccessible(pkg + "." + clsName)) {
                                     props.add(str);
                                 }
-                            } else if (isPackageAccessible(pkg + "." + str)) {
+                            } else {
                                 props.add(str);
                             }
                         }

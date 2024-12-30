@@ -81,9 +81,6 @@ final class NashornStaticClassLinker implements TypeBasedGuardingDynamicLinker {
                 throw ECMAErrors.typeError("new.on.nonpublic.javatype", receiverClass.getName());
             }
 
-            // make sure new is on accessible Class
-            Context.checkPackageAccess(receiverClass);
-
             // Is the class abstract? (This includes interfaces.)
             if (NashornLinker.isAbstractClass(receiverClass)) {
                 // Change this link request into a link request on the adapter class.
