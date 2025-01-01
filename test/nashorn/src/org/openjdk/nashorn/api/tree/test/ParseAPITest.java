@@ -43,8 +43,8 @@ import org.testng.annotations.Test;
  */
 public class ParseAPITest {
 
-    private static final boolean VERBOSE   = Boolean.valueOf(System.getProperty("parserapitest.verbose"));
-    private static final boolean TEST262   = Boolean.valueOf(System.getProperty("parserapitest.test262"));
+    private static final boolean VERBOSE   = Boolean.parseBoolean(System.getProperty("parserapitest.verbose"));
+    private static final boolean TEST262   = Boolean.parseBoolean(System.getProperty("parserapitest.test262"));
 
     private static final String TEST_BASIC_DIR;
     private static final String TEST_MAPTESTS_DIR;
