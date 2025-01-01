@@ -104,7 +104,7 @@ public final class NativeNumber extends ScriptObject {
 
     @Override
     public String safeToString() {
-        return "[Number " + toString() + "]";
+        return "[Number " + this + "]";
     }
 
     @Override

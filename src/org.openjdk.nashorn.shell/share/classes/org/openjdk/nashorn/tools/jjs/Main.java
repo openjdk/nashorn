@@ -205,7 +205,7 @@ public final class Main extends Shell {
                 try {
                     source = in.readLine(prompt, prompt2);
                 } catch (final IOException ioe) {
-                    err.println(ioe.toString());
+                    err.println(ioe);
                     if (env._dump_on_error) {
                         ioe.printStackTrace(err);
                     }

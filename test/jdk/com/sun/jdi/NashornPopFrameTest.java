@@ -68,7 +68,7 @@ class ScriptDebuggee {
             engine.eval(script);
         } catch (Exception ex) {
             failReason = "ScriptDebuggee failed: Exception in engine.eval(): "
-                    + ex.toString();
+                         + ex;
             ex.printStackTrace();
         }
         System.out.println("Debugee: finished!"); // BKPT_LINE

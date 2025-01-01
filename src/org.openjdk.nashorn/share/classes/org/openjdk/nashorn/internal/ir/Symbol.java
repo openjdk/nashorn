@@ -218,7 +218,7 @@ public final class Symbol implements Comparable<Symbol>, Cloneable, Serializable
 
         sb.append('\n');
 
-        stream.print(sb.toString());
+        stream.print(sb);
     }
 
     /**

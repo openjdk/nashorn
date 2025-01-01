@@ -406,7 +406,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
             sb.append("[LEAVE ").
                 append(name(node)).
                 append("] ").
-                append(node.toString()).
+                append(node).
                 append(" in '").
                 append(lc.getCurrentFunction().getName()).
                 append('\'');

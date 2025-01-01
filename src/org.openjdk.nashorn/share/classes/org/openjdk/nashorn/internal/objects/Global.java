@@ -2823,9 +2823,9 @@ public final class Global extends Scope {
 
         // Print all at once to ensure thread friendly result.
         if (newLine) {
-            out.println(sb.toString());
+            out.println(sb);
         } else {
-            out.print(sb.toString());
+            out.print(sb);
         }
 
         out.flush();

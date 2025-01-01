@@ -270,7 +270,7 @@ public final class NativeRegExp extends ScriptObject {
 
     @Override
     public String safeToString() {
-        return "[RegExp " + toString() + "]";
+        return "[RegExp " + this + "]";
     }
 
     @Override

@@ -585,7 +585,7 @@ public class Shell implements PartialParser {
                 try {
                     source = in.readLine();
                 } catch (final IOException ioe) {
-                    err.println(ioe.toString());
+                    err.println(ioe);
                 }
 
                 if (source == null) {

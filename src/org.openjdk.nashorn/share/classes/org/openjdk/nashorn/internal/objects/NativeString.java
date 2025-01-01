@@ -98,7 +98,7 @@ public final class NativeString extends ScriptObject implements OptimisticBuilti
 
     @Override
     public String safeToString() {
-        return "[String " + toString() + "]";
+        return "[String " + this + "]";
     }
 
     @Override

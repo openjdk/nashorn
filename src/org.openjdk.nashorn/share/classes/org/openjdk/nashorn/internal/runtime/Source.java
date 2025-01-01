@@ -991,7 +991,7 @@ public final class Source implements Loggable {
         final URL u = getURL();
         final StringBuilder buf = new StringBuilder();
         // make it unique by prefixing current date & time
-        buf.append(LocalDateTime.now().toString());
+        buf.append(LocalDateTime.now());
         buf.append('_');
         if (u != null) {
             // make it a safe file name
@@ -1024,7 +1024,7 @@ public final class Source implements Loggable {
                     ECMAErrors.getMessage(
                         "io.error.cant.write",
                         dir +
-                        " : " + ioExp.toString()));
+                        " : " + ioExp));
         }
     }
 }

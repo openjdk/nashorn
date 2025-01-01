@@ -503,7 +503,7 @@ public class CodeStoreAndPathTest {
                 return codeCachePath.resolve(file);
             }
         }
-        throw new AssertionError("Code cache path not found: " + codeCachePath.toString());
+        throw new AssertionError("Code cache path not found: " + codeCachePath);
     }
 
     private static void checkCompiledScripts(final DirectoryStream<Path> stream, final int numberOfScripts) throws IOException {

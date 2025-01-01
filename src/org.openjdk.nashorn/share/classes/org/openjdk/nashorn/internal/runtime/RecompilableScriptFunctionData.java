@@ -322,7 +322,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
                 .append(' ');
         }
 
-        return sb.toString() + super.toString();
+        return sb + super.toString();
     }
 
     @Override

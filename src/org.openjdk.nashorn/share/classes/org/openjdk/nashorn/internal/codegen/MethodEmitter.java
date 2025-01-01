@@ -2331,7 +2331,8 @@ public class MethodEmitter {
         if((flags & CALLSITE_OPTIMISTIC) == 0) {
             return "";
         }
-        return "pp=" + String.valueOf((flags & (-1 << CALLSITE_PROGRAM_POINT_SHIFT)) >> CALLSITE_PROGRAM_POINT_SHIFT);
+        return "pp=" + ((flags & (-1 << CALLSITE_PROGRAM_POINT_SHIFT))
+                        >> CALLSITE_PROGRAM_POINT_SHIFT);
     }
 
     /**
