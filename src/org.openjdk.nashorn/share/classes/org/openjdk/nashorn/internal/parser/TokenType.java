@@ -289,7 +289,7 @@ public enum TokenType {
     }
 
     boolean startsWith(final char c) {
-        return name != null && name.length() > 0 && name.charAt(0) == c;
+        return name != null && !name.isEmpty() && name.charAt(0) == c;
     }
 
     static TokenType[] getValues() {

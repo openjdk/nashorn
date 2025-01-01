@@ -740,7 +740,7 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
 
         if (!(key instanceof String)) {
             throw new ClassCastException("key should be a String. It is " + key.getClass().getName() + " instead.");
-        } else if (((String)key).length() == 0) {
+        } else if (((String) key).isEmpty()) {
             throw new IllegalArgumentException("key can not be empty");
         }
     }
