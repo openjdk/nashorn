@@ -109,10 +109,7 @@ final class ArrayCompiler extends Compiler {
         int op;
 
         if (ignoreCase) {
-            switch(strLength) {
-            case 1: op = OPCode.EXACT1_IC; break;
-            default:op = OPCode.EXACTN_IC; break;
-            } // switch
+            op = strLength == 1 ? OPCode.EXACT1_IC : OPCode.EXACTN_IC;
         } else {
             switch (strLength) {
             case 1: op = OPCode.EXACT1; break;
