@@ -529,8 +529,7 @@ class Bignum {
             // multiplication.  The first bit_size bits must be 0.
             if ((power_exponent & mask) != 0) {
                 assert bit_size > 0;
-                final long base_bits_mask =
-                        ~((1L << (64 - bit_size)) - 1);
+                final long base_bits_mask = -(1L << (64 - bit_size));
                 final boolean high_bits_zero = (this_value & base_bits_mask) == 0;
                 if (high_bits_zero) {
                     this_value *= base;
