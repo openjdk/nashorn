@@ -25,7 +25,6 @@
 
 package org.openjdk.nashorn.test.models;
 
-import org.openjdk.nashorn.api.tree.SimpleTreeVisitorES6;
 import org.openjdk.nashorn.api.tree.*;
 
 public class ES6ASTVisitor{

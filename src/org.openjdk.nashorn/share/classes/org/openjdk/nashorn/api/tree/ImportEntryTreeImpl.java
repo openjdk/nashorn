@@ -26,8 +26,6 @@ package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openjdk.nashorn.internal.ir.FunctionNode;
-import org.openjdk.nashorn.internal.ir.IdentNode;
 import org.openjdk.nashorn.internal.ir.Module;
 import static org.openjdk.nashorn.api.tree.ModuleTreeImpl.identOrNull;
 

@@ -44,7 +44,6 @@ import jdk.dynalink.linker.GuardingDynamicLinker;
 import jdk.dynalink.linker.GuardingDynamicLinkerExporter;
 import jdk.dynalink.linker.LinkRequest;
 import jdk.dynalink.linker.LinkerServices;
-import jdk.dynalink.linker.support.SimpleLinkRequest;
 
 /**
  * This is a dynalink pluggable linker (see http://openjdk.java.net/jeps/276).

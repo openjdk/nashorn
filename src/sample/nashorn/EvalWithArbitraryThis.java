@@ -30,7 +30,6 @@
  */
 
 import javax.script.*;
-import org.openjdk.nashorn.api.scripting.*;
 
 // Simple nashorn demo that evals a script with arbitrary script
 // object bound as "this" for the evaluated script.

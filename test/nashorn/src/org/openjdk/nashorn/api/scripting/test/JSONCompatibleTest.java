@@ -34,7 +34,6 @@ import java.util.Map;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import org.openjdk.nashorn.api.scripting.JSObject;
-import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
 import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;

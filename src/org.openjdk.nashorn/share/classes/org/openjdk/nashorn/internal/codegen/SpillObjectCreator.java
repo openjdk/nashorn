@@ -28,9 +28,7 @@ package org.openjdk.nashorn.internal.codegen;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.constructorNoLookup;
 import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCallNoLookup;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.ir.Expression;
 import org.openjdk.nashorn.internal.ir.LiteralNode;

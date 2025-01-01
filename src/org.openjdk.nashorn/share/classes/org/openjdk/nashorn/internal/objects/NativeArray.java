@@ -66,9 +66,7 @@ import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import org.openjdk.nashorn.internal.runtime.arrays.ContinuousArrayData;
-import org.openjdk.nashorn.internal.runtime.arrays.IntElements;
 import org.openjdk.nashorn.internal.runtime.arrays.IteratorAction;
-import org.openjdk.nashorn.internal.runtime.arrays.NumericElements;
 import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 import org.openjdk.nashorn.internal.runtime.linker.InvokeByName;
 

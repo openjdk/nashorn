@@ -29,13 +29,9 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 import jdk.internal.org.jline.reader.Candidate;
-import jdk.internal.org.jline.reader.Completer;
-import jdk.internal.org.jline.reader.LineReader;
-import jdk.internal.org.jline.reader.ParsedLine;
 import jdk.internal.org.jline.reader.UserInterruptException;
 import org.openjdk.nashorn.api.tree.AssignmentTree;
 import org.openjdk.nashorn.api.tree.BinaryTree;
