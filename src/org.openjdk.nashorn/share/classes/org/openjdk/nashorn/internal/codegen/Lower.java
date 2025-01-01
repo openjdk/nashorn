@@ -856,9 +856,8 @@ final class Lower extends NodeOperatorVisitor<BlockLexicalContext> implements Lo
      * @return true if an assignment to eval result, false otherwise
      */
     private static boolean isEvalResultAssignment(final Node expression) {
-        final Node e = expression;
-        if (e instanceof BinaryNode) {
-            final Node lhs = ((BinaryNode)e).lhs();
+        if (expression instanceof BinaryNode) {
+            final Node lhs = ((BinaryNode)expression).lhs();
             if (lhs instanceof IdentNode) {
                 return ((IdentNode)lhs).getName().equals(RETURN.symbolName());
             }

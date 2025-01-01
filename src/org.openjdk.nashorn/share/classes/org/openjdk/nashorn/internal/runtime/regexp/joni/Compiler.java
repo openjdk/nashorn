@@ -59,8 +59,7 @@ abstract class Compiler implements ErrorMessages {
         addCompileString(sn.chars, sn.p, sn.length(), false);
     }
 
-    private void compileStringNode(final StringNode node) {
-        final StringNode sn = node;
+    private void compileStringNode(final StringNode sn) {
         if (sn.length() <= 0) {
             return;
         }

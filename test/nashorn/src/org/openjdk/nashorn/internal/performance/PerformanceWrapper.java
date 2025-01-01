@@ -87,16 +87,13 @@ public class PerformanceWrapper extends org.openjdk.nashorn.tools.Shell {
     protected Object apply(final ScriptFunction target, final Object self) {
         if (_runsPerIteration == 0 && _numberOfIterations == 0) {
             final Global global = org.openjdk.nashorn.internal.runtime.Context.getGlobal();
-            final ScriptFunction _target = target;
-            final Object _self = self;
 
             class MyThread implements Callable<Object> {
                 @Override
                 public Object call() {
                     Context.setGlobal(global);
                     //just execute and return script is sufficient
-                    final Object scriptRuntimeApplyResult = ScriptRuntime.apply(_target, _self);
-                    return scriptRuntimeApplyResult;
+                    return ScriptRuntime.apply(target, self);
                 }
             }
 

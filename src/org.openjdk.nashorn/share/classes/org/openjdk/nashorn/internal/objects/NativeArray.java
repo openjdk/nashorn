@@ -1838,8 +1838,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
             if (data != null) {
                 final Class<?> elementType = data.getElementType();
                 final Class<?> returnType  = desc.getMethodType().returnType();
-                final boolean  typeFits    = JSType.getAccessorTypeIndex(returnType) >= JSType.getAccessorTypeIndex(elementType);
-                return typeFits;
+                return JSType.getAccessorTypeIndex(returnType) >= JSType.getAccessorTypeIndex(elementType); // type fits
             }
             return false;
         }

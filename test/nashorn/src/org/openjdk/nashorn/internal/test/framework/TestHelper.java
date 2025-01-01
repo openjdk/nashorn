@@ -61,8 +61,7 @@ public abstract class TestHelper {
         if (!testFile.getPath().startsWith(TEST_PREFIX)) {
             throw new IllegalArgumentException("test file path not a relative pathname");
         }
-        final File buildDir = new File(BUILD_ROOT + File.separator + testFile.getParent().substring(TEST_PREFIX.length()));
-        return buildDir;
+        return new File(BUILD_ROOT + File.separator + testFile.getParent().substring(TEST_PREFIX.length()));
     }
 
     // return the first line of the given file

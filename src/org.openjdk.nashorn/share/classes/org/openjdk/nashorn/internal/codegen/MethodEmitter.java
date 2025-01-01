@@ -1430,8 +1430,7 @@ public class MethodEmitter {
         for (int i = params.length - 1; i >= 0; i--) {
             popType(params[i]);
         }
-        final Type returnType = Type.getMethodReturnType(signature);
-        return returnType;
+        return Type.getMethodReturnType(signature);
     }
 
     /**

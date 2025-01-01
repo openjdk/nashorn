@@ -167,9 +167,7 @@ public class OctaneTest {
             final byte[] output = baos.toByteArray();
             final List<String> result = outputToStrings(output);
 
-            final Double _result = filterBenchmark(result, benchmark);
-
-            return _result;
+            return filterBenchmark(result, benchmark);
         } catch (final Throwable e) {
             e.printStackTrace();
             throw e;
