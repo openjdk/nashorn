@@ -209,9 +209,7 @@ public final class Timing implements Loggable {
                 final long duration = timings.get(timingName).longValue();
                 final String strDuration = toMillisPrint(duration);
                 len = strDuration.length();
-                for (int i = 0; i < maxValueLength - len; i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, maxValueLength - len)));
 
                 sb.append(strDuration).
                     append(" ms\n");

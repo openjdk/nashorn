@@ -135,9 +135,7 @@ public final class PrintVisitor extends SimpleNodeVisitor {
      * Insert spaces before a statement.
      */
     private void indent() {
-        for (int i = indent; i > 0; i--) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, indent)));
     }
 
     /*

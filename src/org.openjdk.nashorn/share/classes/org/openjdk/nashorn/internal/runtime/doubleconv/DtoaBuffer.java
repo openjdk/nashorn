@@ -172,9 +172,7 @@ public class DtoaBuffer {
             if (length > 0) {
                 buffer.append('.');
                 final int padding = -decimalPoint;
-                for (int i = 0; i < padding; i++) {
-                    buffer.append('0');
-                }
+                buffer.append("0".repeat(Math.max(0, padding)));
                 buffer.append(chars, 0, length);
             } else {
                 decimalPoint = 1;
@@ -182,9 +180,7 @@ public class DtoaBuffer {
         } else if (decimalPoint >= length) {
             // large integer, add trailing zeroes
             buffer.append(chars, 0, length);
-            for (int i = length; i < decimalPoint; i++) {
-                buffer.append('0');
-            }
+            buffer.append("0".repeat(Math.max(0, decimalPoint - length)));
         } else if (decimalPoint < length) {
             // >= 1, split decimals and insert decimalPoint
             buffer.append(chars, 0, decimalPoint);
@@ -197,9 +193,8 @@ public class DtoaBuffer {
             if (decimalPoint >= length) {
                 buffer.append('.');
             }
-            for (int i = Math.max(0, length - decimalPoint); i < digitsAfterPoint; i++) {
-                buffer.append('0');
-            }
+            buffer.append("0".repeat(Math.max(0,
+                digitsAfterPoint - Math.max(0, length - decimalPoint))));
         }
     }
 

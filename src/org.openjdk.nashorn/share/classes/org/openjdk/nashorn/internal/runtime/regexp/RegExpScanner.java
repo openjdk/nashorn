@@ -953,9 +953,7 @@ final class RegExpScanner extends Scanner {
     private static void unicode(final int value, final StringBuilder buffer) {
         final String hex = Integer.toHexString(value);
         buffer.append('u');
-        for (int i = 0; i < 4 - hex.length(); i++) {
-            buffer.append('0');
-        }
+        buffer.append("0".repeat(Math.max(0, 4 - hex.length())));
         buffer.append(hex);
     }
 
