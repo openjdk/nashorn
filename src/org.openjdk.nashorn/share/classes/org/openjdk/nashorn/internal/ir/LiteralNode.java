@@ -571,23 +571,10 @@ public abstract class LiteralNode<T extends Serializable> extends Expression imp
         }
 
         @Override
-        public Node accept(final NodeVisitor<? extends LexicalContext> visitor) {
-            if (visitor.enterLiteralNode(this)) {
-                return visitor.leaveLiteralNode(this);
-            }
-
-            return this;
-        }
-
-        @Override
         public Type getType() {
             return Type.OBJECT;
         }
 
-        @Override
-        public Type getWidestOperationType() {
-            return Type.OBJECT;
-        }
     }
 
     /**

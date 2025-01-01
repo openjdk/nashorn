@@ -87,13 +87,6 @@ public class ArrayType extends ObjectType implements BytecodeArrayOps {
     }
 
     @Override
-    public Type load(final MethodVisitor method, final int slot) {
-        assert slot != -1;
-        method.visitVarInsn(ALOAD, slot);
-        return this;
-    }
-
-    @Override
     public String toString() {
         return "array<elementType=" + getElementType().getTypeClass().getSimpleName() + '>';
     }

@@ -2520,10 +2520,6 @@ public abstract class ScriptObject implements PropertyAccess, Cloneable {
             return values[index++];
         }
 
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("remove");
-        }
     }
 
     private static class KeyIterator extends ScriptObjectIterator<String> {
