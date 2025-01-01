@@ -155,15 +155,14 @@ final class NashornCompleter {
             } catch (final Throwable th) {
                 if (th instanceof UserInterruptException) {
                     // Ctrl-C from user - discard the whole thing silently!
-                    return null;
                 } else {
                     // print anything else -- but still discard the code
                     err.println(th);
                     if (env._dump_on_error) {
                         th.printStackTrace(err);
                     }
-                    return null;
                 }
+                return null;
             }
 
             final String allLines = buf.toString();
