@@ -42,9 +42,7 @@ import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 final class EditObject extends AbstractJSObject {
     private static final Set<String> props;
     static {
-        final HashSet<String> s = new HashSet<>();
-        s.add("editor");
-        props = Collections.unmodifiableSet(s);
+        props = Set.of("editor");
     }
 
     private final Console console;

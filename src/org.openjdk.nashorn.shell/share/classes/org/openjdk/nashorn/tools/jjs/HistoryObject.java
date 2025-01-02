@@ -51,15 +51,7 @@ import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 final class HistoryObject extends AbstractJSObject {
     private static final Set<String> props;
     static {
-        final HashSet<String> s = new HashSet<>();
-        s.add("clear");
-        s.add("forEach");
-        s.add("load");
-        s.add("print");
-        s.add("save");
-        s.add("size");
-        s.add("toString");
-        props = Collections.unmodifiableSet(s);
+        props = Set.of("clear", "forEach", "load", "print", "save", "size", "toString");
     }
 
     private final History hist;
