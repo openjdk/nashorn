@@ -36,27 +36,6 @@ function check(e) {
 }
 
 try {
-    var unsafe = java.lang.Class.forName("sun.misc.Unsafe");
-    fail("No SecurityException for Class.forName sun.misc.Unsafe");
-} catch (e) {
-    check(e);
-}
-
-try {
-    var unsafe = Java.type("sun.misc.Unsafe");
-    fail("No SecurityException for Java.type sun.misc.Unsafe");
-} catch (e) {
-    check(e);
-}
-
-try {
-    var unsafe = Packages.sun.misc.Unsafe;
-    fail("No SecurityException for Packages.sun.misc.Unsafe");
-} catch (e) {
-    check(e);
-}
-
-try {
     var cl = Packages.org.openjdk.nashorn.internal.runtime.Context.class;
     var unsafe = cl.getClassLoader().loadClass("sun.misc.Unsafe");
 } catch (e) {

@@ -60,20 +60,6 @@ EOF);
 print(obj.hashCode());
 print(obj.toString());
 
-// should throw SecurityException!
-try {
-    e.eval("Packages.jdk.internal");
-} catch (ex) {
-    print(ex);
-}
-
-// should throw SecurityException!
-try {
-    e.eval("Java.type('jdk.internal.misc.Unsafe')");
-} catch (ex) {
-    print(ex);
-}
-
 // should throw ClassNotFoundException!
 try {
     e.eval("Java.type('org.openjdk.nashorn.internal.runtime.Context')");

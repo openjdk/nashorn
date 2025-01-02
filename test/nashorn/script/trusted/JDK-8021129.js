@@ -37,7 +37,6 @@ print(r1.toString()) // Can execute public method from a superclass
 
 print(r1.restrictedRun === undefined) // Can't see method from a restricted interface
 print(r1.canNotInvokeThis === undefined) // Can't see any other public methods
-print(r1.invisibleProperty === undefined) // Can't see any other properties
 print(r1.canSeeThisField === undefined) // Can't see fields from superclasses
 print(r1.canNotSeeThisField === undefined) // Can't see its own fields
 

@@ -36,6 +36,7 @@ import java.nio.file.Path;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -390,11 +391,19 @@ public class CodeStoreAndPathTest {
             "        return object; \n" +
             "    })(); \n" +
             "}()); ";
-    final static String codeCache = System.getProperty("build.dir", "build") + "/nashorn_code_cache";
+    final static String codeCache = System.getProperty("build.dir", "build") + File.separator + "nashorn_code_cache";
     final static String oldUserDir = System.getProperty("user.dir");
 
     private static final String[] ENGINE_OPTIONS_OPT   = new String[]{"--persistent-code-cache", "--optimistic-types=true"};
     private static final String[] ENGINE_OPTIONS_NOOPT = new String[]{"--persistent-code-cache", "--optimistic-types=false"};
+
+    @BeforeMethod
+    public void emptyCache() {
+        File codeCacheDir = new File(codeCache);
+        if (codeCacheDir.isDirectory()) {
+            deleteDirectory(codeCacheDir);
+        }
+    }
 
     @Test
     public void pathHandlingTest() {
@@ -506,4 +515,19 @@ public class CodeStoreAndPathTest {
         assertEquals(n, 0);
     }
 
+    public static void deleteDirectory(File dir) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    assertTrue(file.delete(), "Failed to delete file: " + file.getAbsolutePath());
+                }
+            }
+        }
+
+        // Delete the directory itself
+        assertTrue(dir.delete(), "Failed to delete directory: " + dir.getAbsolutePath());
+    }
 }

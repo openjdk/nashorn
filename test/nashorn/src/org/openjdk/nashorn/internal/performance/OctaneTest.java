@@ -108,15 +108,17 @@ public class OctaneTest {
         genericTest("Splay");
     }
 
+/*
     @Test
-/*    public void typeScriptTest() {
+    public void typeScriptTest() {
         genericTest("TypeScript");
     }
 
     @Test
     public void zlibTest() {
         genericTest("zlib");
-    }/*/
+    }
+*/
 
     public void genericTest(final String benchmark) {
         try {
