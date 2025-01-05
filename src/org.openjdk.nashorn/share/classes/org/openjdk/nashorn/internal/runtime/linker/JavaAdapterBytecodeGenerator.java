@@ -45,7 +45,6 @@ import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.CallSite;
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
@@ -156,7 +155,6 @@ final class JavaAdapterBytecodeGenerator {
     private static final Call GET_CLASS_OVERRIDES = lookupServiceMethod("getClassOverrides", ScriptObject.class);
     private static final Call GET_NON_NULL_GLOBAL = lookupServiceMethod("getNonNullGlobal", ScriptObject.class);
     private static final Call HAS_OWN_TO_STRING = lookupServiceMethod("hasOwnToString", boolean.class, ScriptObject.class);
-    private static final Call INVOKE_NO_PERMISSIONS = lookupServiceMethod("invokeNoPermissions", void.class, MethodHandle.class, Object.class);
     private static final Call NOT_AN_OBJECT = lookupServiceMethod("notAnObject", void.class, Object.class);
     private static final Call SET_GLOBAL = lookupServiceMethod("setGlobal", Runnable.class, ScriptObject.class);
     private static final Call TO_CHAR_PRIMITIVE = lookupServiceMethod("toCharPrimitive", char.class, Object.class);
@@ -203,10 +201,6 @@ final class JavaAdapterBytecodeGenerator {
     // Method name prefix for invoking super-methods
     static final String SUPER_PREFIX = "super$";
 
-    // Method name and type for the no-privilege finalizer delegate
-    private static final String FINALIZER_DELEGATE_NAME = "$$nashornFinalizerDelegate";
-    private static final String FINALIZER_DELEGATE_METHOD_DESCRIPTOR = Type.getMethodDescriptor(Type.VOID_TYPE, OBJECT_TYPE);
-
     private static final String CALLER_SENSITIVE_CLASS_NAME = "jdk.internal.reflect.CallerSensitive";
 
     /**
@@ -233,7 +227,6 @@ final class JavaAdapterBytecodeGenerator {
     private final Set<MethodInfo> finalMethods = new HashSet<>(EXCLUDED);
     private final Set<MethodInfo> methodInfos = new HashSet<>();
     private final boolean autoConvertibleFromFunction;
-    private boolean hasExplicitFinalizer = false;
 
     private final ClassWriter cw;
 
@@ -284,10 +277,6 @@ final class JavaAdapterBytecodeGenerator {
         autoConvertibleFromFunction = generateConstructors();
         generateMethods();
         generateSuperMethods();
-        if (hasExplicitFinalizer) {
-            generateFinalizerMethods();
-        }
-        // }
         cw.visitEnd();
     }
 
@@ -1064,40 +1053,6 @@ final class JavaAdapterBytecodeGenerator {
         return nextParam;
     }
 
-    private void generateFinalizerMethods() {
-        generateFinalizerDelegate();
-        generateFinalizerOverride();
-    }
-
-    private void generateFinalizerDelegate() {
-        // Generate a delegate that will be invoked from the no-permission trampoline. Note it can be private, as we'll
-        // refer to it with a MethodHandle constant pool entry in the overridden finalize() method (see
-        // generateFinalizerOverride()).
-        final InstructionAdapter mv = new InstructionAdapter(cw.visitMethod(ACC_PRIVATE | ACC_STATIC,
-                FINALIZER_DELEGATE_NAME, FINALIZER_DELEGATE_METHOD_DESCRIPTOR, null, null));
-
-        // Simply invoke super.finalize()
-        mv.visitVarInsn(ALOAD, 0);
-        mv.checkcast(Type.getType('L' + generatedClassName + ';'));
-        mv.invokespecial(superClassName, "finalize", VOID_METHOD_DESCRIPTOR, false);
-
-        mv.visitInsn(RETURN);
-        endMethod(mv);
-    }
-
-    private void generateFinalizerOverride() {
-        final InstructionAdapter mv = new InstructionAdapter(cw.visitMethod(ACC_PUBLIC, "finalize",
-                VOID_METHOD_DESCRIPTOR, null, null));
-        // Overridden finalizer will take a MethodHandle to the finalizer delegating method, ...
-        mv.aconst(new Handle(Opcodes.H_INVOKESTATIC, generatedClassName, FINALIZER_DELEGATE_NAME,
-                FINALIZER_DELEGATE_METHOD_DESCRIPTOR, false));
-        mv.visitVarInsn(ALOAD, 0);
-        // ...and invoke it through JavaAdapterServices.invokeNoPermissions
-        INVOKE_NO_PERMISSIONS.invoke(mv);
-        mv.visitInsn(RETURN);
-        endMethod(mv);
-    }
-
     private static String[] getExceptionNames(final Class<?>[] exceptions) {
         final String[] exceptionNames = new String[exceptions.length];
         for (int i = 0; i < exceptions.length; ++i) {
@@ -1132,16 +1087,8 @@ final class JavaAdapterBytecodeGenerator {
                     continue;
                 }
                 if (Modifier.isPublic(m) || Modifier.isProtected(m)) {
-                    // Is it a "finalize()"?
                     if(name.equals("finalize") && typeMethod.getParameterCount() == 0) {
-                        if(type != Object.class) {
-                            hasExplicitFinalizer = true;
-                            if(Modifier.isFinal(m)) {
-                                // Must be able to override an explicit finalizer
-                                throw JavaAdapterFactory.adaptationException(
-                                    JavaAdapterFactory.ErrorOutcome.FINAL_FINALIZER, type.getCanonicalName());
-                            }
-                        }
+                        // We intentionally don't support "finalize"
                         continue;
                     }
 

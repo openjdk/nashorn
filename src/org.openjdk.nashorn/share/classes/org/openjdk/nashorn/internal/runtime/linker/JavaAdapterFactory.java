@@ -260,8 +260,7 @@ public final class JavaAdapterFactory {
         MULTIPLE_SUPERCLASSES,
         DUPLICATE_TYPE,
         TOO_MANY_INTERFACES,
-        NO_COMMON_LOADER,
-        FINAL_FINALIZER
+        NO_COMMON_LOADER
     }
 
     private static class AdapterInfo {

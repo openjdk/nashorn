@@ -25,31 +25,15 @@
 
 package org.openjdk.nashorn.internal.runtime.linker;
 
-import static org.objectweb.asm.Opcodes.ACC_FINAL;
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ACC_STATIC;
-import static org.objectweb.asm.Opcodes.ACC_SUPER;
-import static org.objectweb.asm.Opcodes.ALOAD;
-import static org.objectweb.asm.Opcodes.RETURN;
 import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 
 import java.lang.invoke.CallSite;
 import java.lang.invoke.ConstantCallSite;
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
-import java.security.CodeSigner;
-import java.security.CodeSource;
-import java.security.Permissions;
-import java.security.ProtectionDomain;
-import java.security.SecureClassLoader;
 import java.util.Objects;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.InstructionAdapter;
 import org.openjdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.openjdk.nashorn.internal.objects.Global;
 import org.openjdk.nashorn.internal.runtime.Context;
@@ -64,7 +48,6 @@ import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
  */
 public final class JavaAdapterServices {
     private static final ThreadLocal<ScriptObject> classOverrides = new ThreadLocal<>();
-    private static final MethodHandle NO_PERMISSIONS_INVOKER = createNoPermissionsInvoker();
 
     private JavaAdapterServices() {
     }
@@ -123,18 +106,6 @@ public final class JavaAdapterServices {
         final ScriptObject overrides = classOverrides.get();
         assert overrides != null;
         return overrides;
-    }
-
-    /**
-     * Takes a method handle and an argument to it, and invokes the method handle passing it the argument. Basically
-     * equivalent to {@code method.invokeExact(arg)}, except that the method handle will be invoked in a protection
-     * domain with absolutely no permissions.
-     * @param method the method handle to invoke. The handle must have the exact type of {@code void(Object)}.
-     * @param arg the argument to pass to the handle.
-     * @throws Throwable if anything goes wrong.
-     */
-    public static void invokeNoPermissions(final MethodHandle method, final Object arg) throws Throwable {
-        NO_PERMISSIONS_INVOKER.invokeExact(method, arg);
     }
 
     /**
@@ -206,45 +177,6 @@ public final class JavaAdapterServices {
 
     static void setClassOverrides(final ScriptObject overrides) {
         classOverrides.set(overrides);
-    }
-
-    private static MethodHandle createNoPermissionsInvoker() {
-        final String className = "NoPermissionsInvoker";
-
-        final ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-        cw.visit(Opcodes.V1_7, ACC_PUBLIC | ACC_SUPER | ACC_FINAL, className, null, "java/lang/Object", null);
-        final Type objectType = Type.getType(Object.class);
-        final Type methodHandleType = Type.getType(MethodHandle.class);
-        final InstructionAdapter mv = new InstructionAdapter(cw.visitMethod(ACC_PUBLIC | ACC_STATIC, "invoke",
-                Type.getMethodDescriptor(Type.VOID_TYPE, methodHandleType, objectType), null, null));
-        mv.visitCode();
-        mv.visitVarInsn(ALOAD, 0);
-        mv.visitVarInsn(ALOAD, 1);
-        mv.invokevirtual(methodHandleType.getInternalName(), "invokeExact", Type.getMethodDescriptor(
-                Type.VOID_TYPE, objectType), false);
-        mv.visitInsn(RETURN);
-        mv.visitMaxs(0, 0);
-        mv.visitEnd();
-        cw.visitEnd();
-        final byte[] bytes = cw.toByteArray();
-
-        final ClassLoader loader = new SecureClassLoader(null) {
-            @Override
-            protected Class<?> findClass(final String name) throws ClassNotFoundException {
-                if(name.equals(className)) {
-                    return defineClass(name, bytes, 0, bytes.length, new ProtectionDomain(
-                            new CodeSource(null, (CodeSigner[])null), new Permissions()));
-                }
-                throw new ClassNotFoundException(name);
-            }
-        };
-
-        try {
-            return MethodHandles.publicLookup().findStatic(Class.forName(className, true, loader), "invoke",
-                    MethodType.methodType(void.class, MethodHandle.class, Object.class));
-        } catch(final ReflectiveOperationException e) {
-            throw new AssertionError(e.getMessage(), e);
-        }
     }
 
     /**
