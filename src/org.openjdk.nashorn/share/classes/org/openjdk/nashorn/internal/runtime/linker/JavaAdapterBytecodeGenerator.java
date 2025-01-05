@@ -51,7 +51,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.ProtectionDomain;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -116,15 +115,17 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
  * to resemble Java anonymous classes) is actually equivalent to <code>new X(a, b, { ... })</code>.
  * </p><p>
  * It is possible to create two different adapter classes: those that can have class-level overrides, and those that can
- * have instance-level overrides. When {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject, ProtectionDomain)}
- * or {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject, Lookup)} is invoked
+ * have instance-level overrides. When {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject)}
+ * or {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject)} is invoked
  * with non-null {@code classOverrides} parameter, an adapter class is created that can have class-level overrides, and
  * the passed script object will be used as the implementations for its methods, just as in the above case of the
  * constructor taking a script object. Note that in the case of class-level overrides, a new adapter class is created on
  * every invocation, and the implementation object is bound to the class, not to any instance. All created instances
  * will share these functions. If it is required to have both class-level overrides and instance-level overrides, the
  * class-level override adapter class should be subclassed with an instance-override adapter. Since adapters delegate to
- * super class when an overriding method handle is not specified, this will behave as expected. It is not possible to
+ * super class when an overriding method handle is not specified, this will behave as expected.
+ * TODO: see if below described limitation could be lifted now that java.security.ProtectionDomain is no longer used.
+ * It is not possible to
  * have both class-level and instance-level overrides in the same class for security reasons: adapter classes are
  * defined with a protection domain of their creator code, and an adapter class that has both class and instance level
  * overrides would need to have two potentially different protection domains: one for class-based behavior and one for

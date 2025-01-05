@@ -56,8 +56,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.CodeSigner;
-import java.security.CodeSource;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -162,11 +160,9 @@ public final class Context {
      */
     private abstract static class ContextCodeInstaller implements CodeInstaller {
         final Context context;
-        final CodeSource codeSource;
 
-        ContextCodeInstaller(final Context context, final CodeSource codeSource) {
+        ContextCodeInstaller(final Context context) {
             this.context = context;
-            this.codeSource = codeSource;
         }
 
         @Override
@@ -223,7 +219,7 @@ public final class Context {
         public boolean isCompatibleWith(final CodeInstaller other) {
             if (other instanceof ContextCodeInstaller) {
                 final ContextCodeInstaller cci = (ContextCodeInstaller)other;
-                return cci.context == context && cci.codeSource == codeSource;
+                return cci.context == context;
             }
             return false;
         }
@@ -239,8 +235,8 @@ public final class Context {
         private final static int MAX_USAGES = 10;
         private final static int MAX_BYTES_DEFINED = 200_000;
 
-        private NamedContextCodeInstaller(final Context context, final CodeSource codeSource, final ScriptLoader loader) {
-            super(context, codeSource);
+        private NamedContextCodeInstaller(final Context context, final ScriptLoader loader) {
+            super(context);
             this.loader = loader;
         }
 
@@ -249,7 +245,7 @@ public final class Context {
             usageCount++;
             bytesDefined += bytecode.length;
             NAMED_INSTALLED_SCRIPT_COUNT.increment();
-            return loader.installClass(Compiler.binaryName(className), bytecode, codeSource);
+            return loader.installClass(Compiler.binaryName(className), bytecode);
         }
 
         @Override
@@ -258,7 +254,7 @@ public final class Context {
             if (usageCount < MAX_USAGES && bytesDefined < MAX_BYTES_DEFINED) {
                 return this;
             }
-            return new NamedContextCodeInstaller(context, codeSource, context.createNewLoader());
+            return new NamedContextCodeInstaller(context, context.createNewLoader());
         }
 
         @Override
@@ -269,7 +265,7 @@ public final class Context {
         }
     }
 
-    private final WeakValueCache<CodeSource, Class<?>> anonymousHostClasses = new WeakValueCache<>();
+    private final WeakValueCache<URL, Class<?>> anonymousHostClasses = new WeakValueCache<>();
 
     private static final class AnonymousContextCodeInstaller extends ContextCodeInstaller {
         private static final MethodHandle DEFINE_ANONYMOUS_CLASS = getDefineAnonymousClass();
@@ -292,8 +288,8 @@ public final class Context {
             }
         }
 
-        private AnonymousContextCodeInstaller(final Context context, final CodeSource codeSource, final Class<?> hostClass) {
-            super(context, codeSource);
+        private AnonymousContextCodeInstaller(final Context context, final Class<?> hostClass) {
+            super(context);
             this.hostClass = hostClass;
         }
 
@@ -320,7 +316,7 @@ public final class Context {
             // This code loader can not be used to install multiple classes that reference each other, as they
             // would have no resolvable names. Therefore, in such situation we must revert to an installer that
             // produces named classes.
-            return new NamedContextCodeInstaller(context, codeSource, context.createNewLoader());
+            return new NamedContextCodeInstaller(context, context.createNewLoader());
         }
 
         private static byte[] getAnonymousHostClassBytes() {
@@ -1335,23 +1331,21 @@ public final class Context {
             return null;
         }
 
-        final URL          url    = source.getURL();
-        final CodeSource   cs     = new CodeSource(url, (CodeSigner[])null);
         final CodeInstaller installer;
         if (env._persistent_cache || !env._lazy_compilation || !env.useAnonymousClasses(source.getLength(), () -> AnonymousContextCodeInstaller.initFailure) ) {
             // Persistent code cache, eager compilation, or inability to use Unsafe.defineAnonymousClass (typically, JDK 17+)
             // preclude use of VM anonymous classes
             final ScriptLoader loader = env._loader_per_compile ? createNewLoader() : scriptLoader;
-            installer = new NamedContextCodeInstaller(this, cs, loader);
+            installer = new NamedContextCodeInstaller(this, loader);
         } else {
-            installer = new AnonymousContextCodeInstaller(this, cs,
-                    anonymousHostClasses.getOrCreate(cs, (key) ->
+            installer = new AnonymousContextCodeInstaller(this,
+                    anonymousHostClasses.getOrCreate(source.getURL(), key ->
                             createNewLoader().installClass(
                                     // NOTE: we're defining these constants in AnonymousContextCodeInstaller so they are not
                                     // initialized if we don't use AnonymousContextCodeInstaller. As this method is only ever
                                     // invoked from AnonymousContextCodeInstaller, this is okay.
                                     AnonymousContextCodeInstaller.ANONYMOUS_HOST_CLASS_NAME,
-                                    AnonymousContextCodeInstaller.ANONYMOUS_HOST_CLASS_BYTES, cs)));
+                                    AnonymousContextCodeInstaller.ANONYMOUS_HOST_CLASS_BYTES)));
         }
 
         if (storedScript == null) {

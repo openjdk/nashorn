@@ -27,8 +27,6 @@ package org.openjdk.nashorn.internal.runtime;
 
 import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleDescriptor.Modifier;
-import java.security.CodeSource;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -36,6 +34,9 @@ import java.util.Set;
  *
  */
 final class ScriptLoader extends NashornLoader {
+    private static final String OBJECTS_PKG        = "org.openjdk.nashorn.internal.objects";
+    private static final String RUNTIME_ARRAYS_PKG = "org.openjdk.nashorn.internal.runtime.arrays";
+    private static final String RUNTIME_LINKER_PKG = "org.openjdk.nashorn.internal.runtime.linker";
     private static final String NASHORN_PKG_PREFIX = "org.openjdk.nashorn.internal.";
 
     private volatile boolean structureAccessAdded;
@@ -142,11 +143,10 @@ final class ScriptLoader extends NashornLoader {
      *
      * @param name Binary name of class.
      * @param data Class data bytes.
-     * @param cs CodeSource code source of the class bytes.
      *
      * @return Installed class.
      */
-    synchronized Class<?> installClass(final String name, final byte[] data, final CodeSource cs) {
-        return defineClass(name, data, 0, data.length, Objects.requireNonNull(cs));
+    synchronized Class<?> installClass(final String name, final byte[] data) {
+        return defineClass(name, data, 0, data.length);
     }
 }

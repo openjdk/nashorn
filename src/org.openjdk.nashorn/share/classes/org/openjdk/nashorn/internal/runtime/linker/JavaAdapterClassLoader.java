@@ -25,8 +25,6 @@
 
 package org.openjdk.nashorn.internal.runtime.linker;
 
-import java.security.ProtectionDomain;
-import java.security.SecureClassLoader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -62,27 +60,23 @@ final class JavaAdapterClassLoader {
     /**
      * Loads the generated adapter class into the JVM.
      * @param parentLoader the parent class loader for the generated class loader
-     * @param protectionDomain the protection domain for the generated class
      * @return the generated adapter class
      */
-    StaticClass generateClass(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
-        assert protectionDomain != null;
+    StaticClass generateClass(final ClassLoader parentLoader) {
         try {
-            return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
+            return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader)));
         } catch (final ClassNotFoundException e) {
             throw new AssertionError(e); // cannot happen
         }
     }
 
-    // Note that the adapter class is created in the protection domain of the class/interface being
-    // extended/implemented, and only the privileged global setter action class is generated in the protection domain
-    // of Nashorn itself. Also note that the creation and loading of the global setter is deferred until it is
-    // required by JVM linker, which will only happen on first invocation of any of the adapted method. We could defer
+    // Note that the creation and loading of the global setter is deferred until it is
+    // required by JVM linker, which will only happen on first invocation of any adapted method. We could defer
     // it even more by separating its invocation into a separate static method on the adapter class, but then someone
     // with ability to introspect on the class and use setAccessible(true) on it could invoke the method. It's a
     // security tradeoff...
-    private ClassLoader createClassLoader(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
-        return new SecureClassLoader(parentLoader) {
+    private ClassLoader createClassLoader(final ClassLoader parentLoader) {
+        return new ClassLoader(parentLoader) {
             private final ClassLoader myLoader = getClass().getClassLoader();
 
             // the unnamed module into which adapter is loaded!
@@ -120,7 +114,7 @@ final class JavaAdapterClassLoader {
 
                     final Context ctx = Context.getContext();
                     DumpBytecode.dumpBytecode(ctx.getEnv(), ctx.getLogger(org.openjdk.nashorn.internal.codegen.Compiler.class), classBytes, name);
-                    return defineClass(name, classBytes, 0, classBytes.length, protectionDomain);
+                    return defineClass(name, classBytes, 0, classBytes.length);
                 }
                 throw new ClassNotFoundException(name);
             }

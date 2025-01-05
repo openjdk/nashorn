@@ -34,46 +34,19 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.CodeSource;
-import java.security.Permission;
-import java.security.PermissionCollection;
-import java.security.Permissions;
-import java.security.SecureClassLoader;
 import java.util.Arrays;
 
 /**
  * Superclass for Nashorn class loader classes.
  */
-abstract class NashornLoader extends SecureClassLoader {
-    protected static final String OBJECTS_PKG        = "org.openjdk.nashorn.internal.objects";
-    protected static final String RUNTIME_PKG        = "org.openjdk.nashorn.internal.runtime";
-    protected static final String RUNTIME_ARRAYS_PKG = "org.openjdk.nashorn.internal.runtime.arrays";
-    protected static final String RUNTIME_LINKER_PKG = "org.openjdk.nashorn.internal.runtime.linker";
-    protected static final String SCRIPTS_PKG        = "org.openjdk.nashorn.internal.scripts";
+abstract class NashornLoader extends ClassLoader {
+    protected static final String RUNTIME_PKG = "org.openjdk.nashorn.internal.runtime";
+    protected static final String SCRIPTS_PKG = "org.openjdk.nashorn.internal.scripts";
 
     static final Module NASHORN_MODULE = Context.class.getModule();
 
-    private static final Permission[] SCRIPT_PERMISSIONS;
-
     private static final String MODULE_MANIPULATOR_NAME = SCRIPTS_PKG + ".ModuleGraphManipulator";
     private static final byte[] MODULE_MANIPULATOR_BYTES = readModuleManipulatorBytes();
-
-    static {
-        /*
-         * Generated classes get access to runtime, runtime.linker, objects, scripts packages.
-         * Note that the actual scripts can not access these because Java.type, Packages
-         * prevent these restricted packages. And Java reflection and JSR292 access is prevented
-         * for scripts. In other words, nashorn generated portions of script classes can access
-         * classes in these implementation packages.
-         */
-        SCRIPT_PERMISSIONS = new Permission[] {
-                new RuntimePermission("accessClassInPackage." + RUNTIME_PKG),
-                new RuntimePermission("accessClassInPackage." + RUNTIME_LINKER_PKG),
-                new RuntimePermission("accessClassInPackage." + OBJECTS_PKG),
-                new RuntimePermission("accessClassInPackage." + SCRIPTS_PKG),
-                new RuntimePermission("accessClassInPackage." + RUNTIME_ARRAYS_PKG)
-        };
-    }
 
     // addExport Method object on ModuleGraphManipulator
     // class loaded by this loader
@@ -114,15 +87,6 @@ abstract class NashornLoader extends SecureClassLoader {
         // unnamed module. There are modular execution aspects that need to
         // be taken care of when Nashorn is used as a JPMS module.
         return NASHORN_MODULE.isNamed();
-    }
-
-    @Override
-    protected PermissionCollection getPermissions(final CodeSource codesource) {
-        final Permissions permCollection = new Permissions();
-        for (final Permission perm : SCRIPT_PERMISSIONS) {
-            permCollection.add(perm);
-        }
-        return permCollection;
     }
 
     /**

@@ -29,14 +29,8 @@ import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
-import java.lang.invoke.VarHandle;
 import java.lang.reflect.Modifier;
-import java.security.CodeSigner;
-import java.security.CodeSource;
-import java.security.Permissions;
-import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +41,6 @@ import jdk.dynalink.CallSiteDescriptor;
 import jdk.dynalink.StandardOperation;
 import jdk.dynalink.beans.StaticClass;
 import jdk.dynalink.linker.support.SimpleLinkRequest;
-import org.openjdk.nashorn.internal.runtime.Context;
 import org.openjdk.nashorn.internal.runtime.ECMAErrors;
 import org.openjdk.nashorn.internal.runtime.ECMAException;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
@@ -61,15 +54,14 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
  * generated that extends the specified superclass and implements the specified
  * interfaces. (But see the discussion of class-based overrides for exceptions.)
  * <p>
- * The adapter class is generated in a new secure class loader that inherits
- * Nashorn's protection domain, and has either one of the original types' class
- * loader or the Nashorn's class loader as its parent - the parent class loader
- * is chosen so that all the original types and the Nashorn core classes are
- * visible from it (as the adapter will have constant pool references to
- * ScriptObject and ScriptFunction classes). In case none of the candidate class
- * loaders has visibility of all the required types, an error is thrown. The
- * class uses {@link JavaAdapterBytecodeGenerator} to generate the adapter class
- * itself; see its documentation for details about the generated class.
+ * The adapter class is generated in a new class loader and has either one of the
+ * original types' class loader or the Nashorn's class loader as its parent - the
+ * parent class loader is chosen so that all the original types and the Nashorn
+ * core classes are visible from it (as the adapter will have constant pool
+ * references to ScriptObject and ScriptFunction classes). In case none of the
+ * candidate class loaders has visibility of all the required types, an error is
+ * thrown. The class uses {@link JavaAdapterBytecodeGenerator} to generate the
+ * adapter class itself; see its documentation for details about the generated class.
  * <p>
  * You normally don't use this class directly, but rather either create adapters
  * from script using {@link org.openjdk.nashorn.internal.objects.NativeJava#extend(Object, Object...)},
@@ -79,8 +71,6 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
  */
 
 public final class JavaAdapterFactory {
-    private static final ProtectionDomain MINIMAL_PERMISSION_DOMAIN = createMinimalPermissionDomain();
-
     /**
      * A mapping from an original Class object to AdapterInfo representing the adapter for the class it represents.
      */
@@ -125,11 +115,6 @@ public final class JavaAdapterFactory {
      *        defined for all instances of the class, and can be further
      *        overridden on a per-instance basis by passing additional objects
      *        in the constructor.
-     * @param lookup the lookup object identifying the caller class. The
-     *        generated adapter class will have the protection domain of the
-     *        caller class iff the lookup object is full-strength, otherwise it
-     *        will be completely unprivileged.
-     *
      * @return an adapter class. See this class' documentation for details on
      *         the generated adapter class.
      *
@@ -137,20 +122,9 @@ public final class JavaAdapterFactory {
      *         generated because the original class is final, non-public, or has
      *         no public or protected constructors.
      */
-    public static StaticClass getAdapterClassFor(final Class<?>[] types, final ScriptObject classOverrides, final MethodHandles.Lookup lookup) {
-        return getAdapterClassFor(types, classOverrides, getProtectionDomain(lookup));
-    }
-
-    private static StaticClass getAdapterClassFor(final Class<?>[] types, final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
+    public static StaticClass getAdapterClassFor(final Class<?>[] types, final ScriptObject classOverrides) {
         assert types != null && types.length > 0;
-        return getAdapterInfo(types).getAdapterClass(classOverrides, protectionDomain);
-    }
-
-    private static ProtectionDomain getProtectionDomain(final MethodHandles.Lookup lookup) {
-        if((lookup.lookupModes() & Lookup.PRIVATE) == 0) {
-            return MINIMAL_PERMISSION_DOMAIN;
-        }
-        return lookup.lookupClass().getProtectionDomain();
+        return getAdapterInfo(types).getAdapterClass(classOverrides);
     }
 
     /**
@@ -174,7 +148,7 @@ public final class JavaAdapterFactory {
      * @throws Exception if anything goes wrong
      */
     public static MethodHandle getConstructor(final Class<?> sourceType, final Class<?> targetType, final MethodHandles.Lookup lookup) throws Exception {
-        final StaticClass adapterClass = getAdapterClassFor(new Class<?>[] { targetType }, null, lookup);
+        final StaticClass adapterClass = getAdapterClassFor(new Class<?>[] { targetType }, null);
         return MH.bindTo(Bootstrap.getLinkerServices().getGuardedInvocation(new SimpleLinkRequest(
                 new CallSiteDescriptor(lookup, StandardOperation.NEW,
                         MethodType.methodType(targetType, StaticClass.class, sourceType)), false,
@@ -265,61 +239,43 @@ public final class JavaAdapterFactory {
 
     private static class AdapterInfo {
         private static final ClassAndLoader SCRIPT_OBJECT_LOADER = new ClassAndLoader(ScriptFunction.class, true);
-        private static final VarHandle INSTANCE_ADAPTERS;
-        static {
-            try {
-                INSTANCE_ADAPTERS = MethodHandles.lookup().findVarHandle(AdapterInfo.class, "instanceAdapters", Map.class);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException(e);
-            }
-        }
 
         private final ClassLoader commonLoader;
         // TODO: soft reference the JavaAdapterClassLoader objects. They can be recreated when needed.
         private final JavaAdapterClassLoader classAdapterGenerator;
-        private final JavaAdapterClassLoader instanceAdapterGenerator;
-        private Map<CodeSource, StaticClass> instanceAdapters;
+        private JavaAdapterClassLoader instanceAdapterGenerator;
+        private volatile StaticClass instanceAdapter;
         final boolean autoConvertibleFromFunction;
 
         AdapterInfo(final Class<?> superClass, final List<Class<?>> interfaces, final ClassAndLoader definingLoader) {
             this.commonLoader = findCommonLoader(definingLoader);
             final JavaAdapterBytecodeGenerator gen = new JavaAdapterBytecodeGenerator(superClass, interfaces, commonLoader, false);
             this.autoConvertibleFromFunction = gen.isAutoConvertibleFromFunction();
-            instanceAdapterGenerator = gen.createAdapterClassLoader();
+            this.instanceAdapterGenerator = gen.createAdapterClassLoader();
             this.classAdapterGenerator = new JavaAdapterBytecodeGenerator(superClass, interfaces, commonLoader, true).createAdapterClassLoader();
         }
 
-        StaticClass getAdapterClass(final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
-            return classOverrides == null ? getInstanceAdapterClass(protectionDomain) :
-                getClassAdapterClass(classOverrides, protectionDomain);
+        StaticClass getAdapterClass(final ScriptObject classOverrides) {
+            return classOverrides == null ? getInstanceAdapterClass() :
+                getClassAdapterClass(classOverrides);
         }
 
-        private StaticClass getInstanceAdapterClass(final ProtectionDomain protectionDomain) {
-            CodeSource codeSource = protectionDomain.getCodeSource();
-            if(codeSource == null) {
-                codeSource = MINIMAL_PERMISSION_DOMAIN.getCodeSource();
+        private StaticClass getInstanceAdapterClass() {
+            if (instanceAdapter == null) {
+                synchronized (this) {
+                    if (instanceAdapter == null) {
+                        instanceAdapter = instanceAdapterGenerator.generateClass(commonLoader);
+                        instanceAdapterGenerator = null;
+                    }
+                }
             }
-            var ia = instanceAdapters;
-            if (ia == null) {
-                var nia = new ConcurrentHashMap<CodeSource, StaticClass>();
-                @SuppressWarnings("unchecked")
-                var xia = (Map<CodeSource, StaticClass>)INSTANCE_ADAPTERS.compareAndExchange(this, null, nia);
-                ia = xia == null ? nia : xia;
-            }
-            return ia.computeIfAbsent(codeSource, cs -> {
-                // Any "unknown source" code source will default to no permission domain.
-                final ProtectionDomain effectiveDomain =
-                    cs.equals(MINIMAL_PERMISSION_DOMAIN.getCodeSource())
-                    ? MINIMAL_PERMISSION_DOMAIN : protectionDomain;
-
-                return instanceAdapterGenerator.generateClass(commonLoader, effectiveDomain);
-            });
+            return instanceAdapter;
         }
 
-        private StaticClass getClassAdapterClass(final ScriptObject classOverrides, final ProtectionDomain protectionDomain) {
+        private StaticClass getClassAdapterClass(final ScriptObject classOverrides) {
             JavaAdapterServices.setClassOverrides(classOverrides);
             try {
-                return classAdapterGenerator.generateClass(commonLoader, protectionDomain);
+                return classAdapterGenerator.generateClass(commonLoader);
             } finally {
                 JavaAdapterServices.setClassOverrides(null);
             }
@@ -344,13 +300,5 @@ public final class JavaAdapterFactory {
 
             throw adaptationException(ErrorOutcome.NO_COMMON_LOADER, classAndLoader.getRepresentativeClass().getCanonicalName());
         }
-    }
-
-    private static ProtectionDomain createMinimalPermissionDomain() {
-        // Generated classes need to have at least the permission to access Nashorn runtime and runtime.linker packages.
-        final Permissions permissions = new Permissions();
-        permissions.add(new RuntimePermission("accessClassInPackage.org.openjdk.nashorn.internal.runtime"));
-        permissions.add(new RuntimePermission("accessClassInPackage.org.openjdk.nashorn.internal.runtime.linker"));
-        return new ProtectionDomain(new CodeSource(null, (CodeSigner[])null), permissions);
     }
 }
