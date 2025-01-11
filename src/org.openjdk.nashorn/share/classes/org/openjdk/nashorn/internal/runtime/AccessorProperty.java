@@ -655,7 +655,7 @@ public class AccessorProperty extends Property {
             return mh;
         }
 
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
         assert context != null;
 
         return context.addLoggingToHandle(
@@ -672,7 +672,7 @@ public class AccessorProperty extends Property {
             return REPLACE_MAP;
         }
 
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
         assert context != null;
 
         MethodHandle mh = context.addLoggingToHandle(
@@ -695,7 +695,7 @@ public class AccessorProperty extends Property {
             return invalidator;
         }
 
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
         assert context != null;
 
         return context.addLoggingToHandle(

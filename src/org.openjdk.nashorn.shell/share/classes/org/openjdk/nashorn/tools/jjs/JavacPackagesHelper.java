@@ -133,10 +133,7 @@ final class JavacPackagesHelper extends PackagesHelper {
 
             if (nextDot != -1) {
                 // subpackage - eg. "regex" for "java.util"
-                final String pkgName = binaryName.substring(start, nextDot);
-                if (isPackageAccessible(binaryName.substring(0, nextDot))) {
-                    props.add(binaryName.substring(start, nextDot));
-                }
+                props.add(binaryName.substring(start, nextDot));
             } else {
                 // class - filter out nested, inner, anonymous, local classes.
                 // Dynalink supported public nested classes as properties of

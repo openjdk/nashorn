@@ -28,7 +28,6 @@ package org.openjdk.nashorn.internal.objects;
 import static org.openjdk.nashorn.internal.runtime.ECMAErrors.typeError;
 import static org.openjdk.nashorn.internal.runtime.ScriptRuntime.UNDEFINED;
 
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -592,8 +591,8 @@ public final class NativeJava {
      * </pre>
      * We can see several important concepts in the above example:
      * <ul>
-     * <li>Every specified list of Java types will have one extender subclass in Nashorn per caller protection domain -
-     * repeated invocations of {@code extend} for the same list of types for scripts same protection domain will yield
+     * <li>Every specified list of Java types will have one extender subclass in Nashorn -
+     * repeated invocations of {@code extend} for the same list of types will yield
      * the same extender type. It's a generic adapter that delegates to whatever JavaScript functions its implementation
      * object has on a per-instance basis.</li>
      * <li>If the Java method is overloaded (as in the above example {@code List.add()}), then your JavaScript adapter
@@ -675,18 +674,7 @@ public final class NativeJava {
         } catch(final ClassCastException e) {
             throw typeError("extend.expects.java.types");
         }
-        // Note that while the public API documentation claims self is not used, we actually use it.
-        // ScriptFunction.findCallMethod will bind the lookup object into it, and we can then use that lookup when
-        // requesting the adapter class. Note that if Java.extend is invoked with no lookup object, it'll pass the
-        // public lookup which'll result in generation of a no-permissions adapter. A typical situation this can happen
-        // is when the extend function is bound.
-        final MethodHandles.Lookup lookup;
-        if(self instanceof MethodHandles.Lookup) {
-            lookup = (MethodHandles.Lookup)self;
-        } else {
-            lookup = MethodHandles.publicLookup();
-        }
-        return JavaAdapterFactory.getAdapterClassFor(stypes, classOverrides, lookup);
+        return JavaAdapterFactory.getAdapterClassFor(stypes, classOverrides);
     }
 
     /**

@@ -26,11 +26,6 @@
 package org.openjdk.nashorn.internal.runtime.options;
 
 import java.io.PrintWriter;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.Permissions;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,15 +50,6 @@ import org.openjdk.nashorn.internal.runtime.QuotedStringTokenizer;
  * Manages global runtime options.
  */
 public final class Options {
-    // permission to just read nashorn.* System properties
-    private static AccessControlContext createPropertyReadAccCtxt() {
-        final Permissions perms = new Permissions();
-        perms.add(new PropertyPermission("nashorn.*", "read"));
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, perms) });
-    }
-
-    private static final AccessControlContext READ_PROPERTY_ACC_CTXT = createPropertyReadAccCtxt();
-
     /** Resource tag. */
     private final String resource;
 
@@ -151,18 +137,16 @@ public final class Options {
      */
     public static boolean getBooleanProperty(final String name, final Boolean defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> {
-            try {
-                final String property = System.getProperty(name);
-                if (property == null && defValue != null) {
-                    return defValue;
-                }
-                return property != null && !"false".equalsIgnoreCase(property);
-            } catch (final SecurityException e) {
-                // if no permission to read, assume false
-                return false;
+        try {
+            final String property = System.getProperty(name);
+            if (property == null && defValue != null) {
+                return defValue;
             }
-        }, READ_PROPERTY_ACC_CTXT);
+            return property != null && !"false".equalsIgnoreCase(property);
+        } catch (final SecurityException e) {
+            // if no permission to read, assume false
+            return false;
+        }
     }
 
     /**
@@ -184,14 +168,12 @@ public final class Options {
      */
     public static String getStringProperty(final String name, final String defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged((PrivilegedAction<String>) () -> {
-            try {
-                return System.getProperty(name, defValue);
-            } catch (final SecurityException e) {
-                // if no permission to read, assume the default value
-                return defValue;
-            }
-        }, READ_PROPERTY_ACC_CTXT);
+        try {
+            return System.getProperty(name, defValue);
+        } catch (final SecurityException e) {
+            // if no permission to read, assume the default value
+            return defValue;
+        }
     }
 
     /**
@@ -203,14 +185,12 @@ public final class Options {
      */
     public static int getIntProperty(final String name, final int defValue) {
         checkPropertyName(name);
-        return AccessController.doPrivileged((PrivilegedAction<Integer>) () -> {
-            try {
-                return Integer.getInteger(name, defValue);
-            } catch (final SecurityException e) {
-                // if no permission to read, assume the default value
-                return defValue;
-            }
-        }, READ_PROPERTY_ACC_CTXT);
+        try {
+            return Integer.getInteger(name, defValue);
+        } catch (final SecurityException e) {
+            // if no permission to read, assume the default value
+            return defValue;
+        }
     }
 
     /**

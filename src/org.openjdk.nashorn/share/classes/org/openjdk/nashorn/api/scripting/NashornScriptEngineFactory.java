@@ -163,9 +163,6 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
      *
      * @param appLoader class loader to be used as script "app" class loader.
      * @return newly created script engine.
-     * @throws SecurityException
-     *         if the security manager's {@code checkPermission}
-     *         denies {@code RuntimePermission("nashorn.setConfig")}
      */
     public ScriptEngine getScriptEngine(final ClassLoader appLoader) {
         return newEngine(DEFAULT_OPTIONS, appLoader, null);
@@ -177,9 +174,6 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
      * @param classFilter class filter to use.
      * @return newly created script engine.
      * @throws NullPointerException if {@code classFilter} is {@code null}
-     * @throws SecurityException
-     *         if the security manager's {@code checkPermission}
-     *         denies {@code RuntimePermission("nashorn.setConfig")}
      */
     public ScriptEngine getScriptEngine(final ClassFilter classFilter) {
         return newEngine(DEFAULT_OPTIONS, getAppClassLoader(), Objects.requireNonNull(classFilter));
@@ -191,9 +185,6 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
      * @param args arguments array passed to script engine.
      * @return newly created script engine.
      * @throws NullPointerException if {@code args} is {@code null}
-     * @throws SecurityException
-     *         if the security manager's {@code checkPermission}
-     *         denies {@code RuntimePermission("nashorn.setConfig")}
      */
     public ScriptEngine getScriptEngine(final String... args) {
         return newEngine(Objects.requireNonNull(args), getAppClassLoader(), null);
@@ -206,9 +197,6 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
      * @param appLoader class loader to be used as script "app" class loader.
      * @return newly created script engine.
      * @throws NullPointerException if {@code args} is {@code null}
-     * @throws SecurityException
-     *         if the security manager's {@code checkPermission}
-     *         denies {@code RuntimePermission("nashorn.setConfig")}
      */
     public ScriptEngine getScriptEngine(final String[] args, final ClassLoader appLoader) {
         return newEngine(Objects.requireNonNull(args), appLoader, null);
@@ -222,16 +210,12 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
      * @param classFilter class filter to use.
      * @return newly created script engine.
      * @throws NullPointerException if {@code args} or {@code classFilter} is {@code null}
-     * @throws SecurityException
-     *         if the security manager's {@code checkPermission}
-     *         denies {@code RuntimePermission("nashorn.setConfig")}
      */
     public ScriptEngine getScriptEngine(final String[] args, final ClassLoader appLoader, final ClassFilter classFilter) {
         return newEngine(Objects.requireNonNull(args), appLoader, Objects.requireNonNull(classFilter));
     }
 
     private ScriptEngine newEngine(final String[] args, final ClassLoader appLoader, final ClassFilter classFilter) {
-        checkConfigPermission();
         try {
             return new NashornScriptEngine(this, args, appLoader, classFilter);
         } catch (final RuntimeException e) {
@@ -243,13 +227,6 @@ public final class NashornScriptEngineFactory implements ScriptEngineFactory {
     }
 
     // -- Internals only below this point
-
-    private static void checkConfigPermission() {
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            sm.checkPermission(new RuntimePermission(Context.NASHORN_SET_CONFIG));
-        }
-    }
 
     private static final List<String> names = List.of(
         "nashorn", "Nashorn",

@@ -34,9 +34,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.security.AccessController;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.util.Map;
 import org.openjdk.nashorn.internal.codegen.OptimisticTypesPersistence;
 import org.openjdk.nashorn.internal.codegen.types.Type;
@@ -213,27 +210,21 @@ public abstract class CodeStore implements Loggable {
         }
 
         private static File checkDirectory(final String path, final ScriptEnvironment env, final boolean readOnly) throws IOException {
-            try {
-                return AccessController.doPrivileged((PrivilegedExceptionAction<File>) () -> {
-                    final File dir = new File(path, getVersionDir(env)).getAbsoluteFile();
-                    if (readOnly) {
-                        if (!dir.exists() || !dir.isDirectory()) {
-                            throw new IOException("Not a directory: " + dir.getPath());
-                        } else if (!dir.canRead()) {
-                            throw new IOException("Directory not readable: " + dir.getPath());
-                        }
-                    } else if (!dir.exists() && !dir.mkdirs()) {
-                        throw new IOException("Could not create directory: " + dir.getPath());
-                    } else if (!dir.isDirectory()) {
-                        throw new IOException("Not a directory: " + dir.getPath());
-                    } else if (!dir.canRead() || !dir.canWrite()) {
-                        throw new IOException("Directory not readable or writable: " + dir.getPath());
-                    }
-                    return dir;
-                });
-            } catch (final PrivilegedActionException e) {
-                throw (IOException) e.getException();
+            final File dir = new File(path, getVersionDir(env)).getAbsoluteFile();
+            if (readOnly) {
+                if (!dir.exists() || !dir.isDirectory()) {
+                    throw new IOException("Not a directory: " + dir.getPath());
+                } else if (!dir.canRead()) {
+                    throw new IOException("Directory not readable: " + dir.getPath());
+                }
+            } else if (!dir.exists() && !dir.mkdirs()) {
+                throw new IOException("Could not create directory: " + dir.getPath());
+            } else if (!dir.isDirectory()) {
+                throw new IOException("Not a directory: " + dir.getPath());
+            } else if (!dir.canRead() || !dir.canWrite()) {
+                throw new IOException("Directory not readable or writable: " + dir.getPath());
             }
+            return dir;
         }
 
         private static String getVersionDir(final ScriptEnvironment env) throws IOException {
@@ -253,19 +244,15 @@ public abstract class CodeStore implements Loggable {
 
             final File file = getCacheFile(source, functionKey);
 
-            try {
-                return AccessController.doPrivileged((PrivilegedExceptionAction<StoredScript>) () -> {
-                    if (!file.exists()) {
-                        return null;
-                    }
-                    try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
-                        final StoredScript storedScript = (StoredScript) in.readObject();
-                        getLogger().info("loaded ", source, "-", functionKey);
-                        return storedScript;
-                    }
-                });
-            } catch (final PrivilegedActionException e) {
-                getLogger().warning("failed to load ", source, "-", functionKey, ": ", e.getException());
+            if (!file.exists()) {
+                return null;
+            }
+            try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)))) {
+                final StoredScript storedScript = (StoredScript) in.readObject();
+                getLogger().info("loaded ", source, "-", functionKey);
+                return storedScript;
+            } catch (final IOException | ClassNotFoundException e) {
+                getLogger().warning("failed to load ", source, "-", functionKey, ": ", e);
                 return null;
             }
         }
@@ -279,15 +266,13 @@ public abstract class CodeStore implements Loggable {
             final File file = getCacheFile(source, functionKey);
 
             try {
-                return AccessController.doPrivileged((PrivilegedExceptionAction<StoredScript>) () -> {
-                    try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-                        out.writeObject(script);
-                    }
-                    getLogger().info("stored ", source, "-", functionKey);
-                    return script;
-                });
-            } catch (final PrivilegedActionException e) {
-                getLogger().warning("failed to store ", script, "-", functionKey, ": ", e.getException());
+                try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
+                    out.writeObject(script);
+                }
+                getLogger().info("stored ", source, "-", functionKey);
+                return script;
+            } catch (final IOException e) {
+                getLogger().warning("failed to store ", script, "-", functionKey, ": ", e);
                 return null;
             }
         }

@@ -4,7 +4,5 @@
 hello Runnable
 33
 I'm object
-java.security.AccessControlException: access denied ("java.lang.RuntimePermission" "accessClassInPackage.jdk.internal")
-java.security.AccessControlException: access denied ("java.lang.RuntimePermission" "accessClassInPackage.jdk.internal.misc")
 java.lang.RuntimeException: java.lang.ClassNotFoundException: org.openjdk.nashorn.internal.runtime.Context
 java.lang.ClassNotFoundException: org.openjdk.nashorn.api.scripting.JSObject

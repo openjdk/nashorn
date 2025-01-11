@@ -25,11 +25,6 @@
 
 package org.openjdk.nashorn.internal.runtime.linker;
 
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
-import java.security.SecureClassLoader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,9 +46,6 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
 final class JavaAdapterClassLoader {
     private static final Module NASHORN_MODULE = Context.class.getModule();
 
-    private static final AccessControlContext CREATE_LOADER_ACC_CTXT = ClassAndLoader.createPermAccCtxt("createClassLoader");
-    private static final AccessControlContext GET_CONTEXT_ACC_CTXT = ClassAndLoader.createPermAccCtxt(Context.NASHORN_GET_CONTEXT);
-
     private static final Collection<String> VISIBLE_INTERNAL_CLASS_NAMES = Collections.unmodifiableCollection(new HashSet<>(
             Arrays.asList(JavaAdapterServices.class.getName(), ScriptObject.class.getName(), ScriptFunction.class.getName(), JSType.class.getName())));
 
@@ -68,29 +60,23 @@ final class JavaAdapterClassLoader {
     /**
      * Loads the generated adapter class into the JVM.
      * @param parentLoader the parent class loader for the generated class loader
-     * @param protectionDomain the protection domain for the generated class
      * @return the generated adapter class
      */
-    StaticClass generateClass(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
-        assert protectionDomain != null;
-        return AccessController.doPrivileged((PrivilegedAction<StaticClass>) () -> {
-            try {
-                return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader, protectionDomain)));
-            } catch (final ClassNotFoundException e) {
-                throw new AssertionError(e); // cannot happen
-            }
-        }, CREATE_LOADER_ACC_CTXT);
+    StaticClass generateClass(final ClassLoader parentLoader) {
+        try {
+            return StaticClass.forClass(Class.forName(className, true, createClassLoader(parentLoader)));
+        } catch (final ClassNotFoundException e) {
+            throw new AssertionError(e); // cannot happen
+        }
     }
 
-    // Note that the adapter class is created in the protection domain of the class/interface being
-    // extended/implemented, and only the privileged global setter action class is generated in the protection domain
-    // of Nashorn itself. Also note that the creation and loading of the global setter is deferred until it is
-    // required by JVM linker, which will only happen on first invocation of any of the adapted method. We could defer
+    // Note that the creation and loading of the global setter is deferred until it is
+    // required by JVM linker, which will only happen on first invocation of any adapted method. We could defer
     // it even more by separating its invocation into a separate static method on the adapter class, but then someone
     // with ability to introspect on the class and use setAccessible(true) on it could invoke the method. It's a
     // security tradeoff...
-    private ClassLoader createClassLoader(final ClassLoader parentLoader, final ProtectionDomain protectionDomain) {
-        return new SecureClassLoader(parentLoader) {
+    private ClassLoader createClassLoader(final ClassLoader parentLoader) {
+        return new ClassLoader(parentLoader) {
             private final ClassLoader myLoader = getClass().getClassLoader();
 
             // the unnamed module into which adapter is loaded!
@@ -108,11 +94,6 @@ final class JavaAdapterClassLoader {
             @Override
             public Class<?> loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
                 try {
-                    final int i = name.lastIndexOf('.');
-                    if(i != -1){
-                        final String pkgName = name.substring(0,i);
-                        Context.checkPackageAccess(pkgName);
-                    }
                     return super.loadClass(name, resolve);
                 } catch (final SecurityException se) {
                     // we may be implementing an interface or extending a class that was
@@ -131,9 +112,9 @@ final class JavaAdapterClassLoader {
                 if(name.equals(className)) {
                     assert classBytes != null : "what? already cleared .class bytes!!";
 
-                    final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext, GET_CONTEXT_ACC_CTXT);
+                    final Context ctx = Context.getContext();
                     DumpBytecode.dumpBytecode(ctx.getEnv(), ctx.getLogger(org.openjdk.nashorn.internal.codegen.Compiler.class), classBytes, name);
-                    return defineClass(name, classBytes, 0, classBytes.length, protectionDomain);
+                    return defineClass(name, classBytes, 0, classBytes.length);
                 }
                 throw new ClassNotFoundException(name);
             }

@@ -63,9 +63,4 @@ public class InternalRunnable implements Runnable, RestrictedRunnable {
         // This is a public method in a restricted class; scripts should not see it.
         throw new AssertionError();
     }
-
-    public void getInvisibleProperty() {
-        // This is a public method in a restricted class; scripts should not see it.
-        throw new AssertionError();
-    }
 }

@@ -32,7 +32,6 @@ import static org.openjdk.nashorn.internal.codegen.CompilerConstants.JS_OBJECT_S
 
 import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleDescriptor.Modifier;
-import java.security.ProtectionDomain;
 import java.util.Set;
 import org.openjdk.nashorn.internal.codegen.ObjectClassGenerator;
 
@@ -126,9 +125,9 @@ final class StructureLoader extends NashornLoader {
      * @return Generated class.
      */
     private Class<?> generateClass(final String name, final String descriptor, final boolean dualFields) {
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
 
         final byte[] code = new ObjectClassGenerator(context, dualFields).generate(descriptor);
-        return defineClass(name, code, 0, code.length, new ProtectionDomain(null, getPermissions(null)));
+        return defineClass(name, code, 0, code.length);
     }
 }

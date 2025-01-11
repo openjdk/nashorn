@@ -89,8 +89,6 @@ public final class NativeJavaPackage extends ScriptObject {
      */
     public NativeJavaPackage(final String name, final ScriptObject proto) {
         super(proto, null);
-        // defense-in-path, check here for sensitive packages
-        Context.checkPackageAccess(name);
         this.name = name;
     }
 
@@ -229,7 +227,7 @@ public final class NativeJavaPackage extends ScriptObject {
 
     private Object createProperty(final String propertyName) {
         final String fullName     = name.isEmpty() ? propertyName : name + "." + propertyName;
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
 
         Class<?> javaClass = null;
         try {

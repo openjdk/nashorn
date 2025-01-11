@@ -53,8 +53,6 @@ import static org.openjdk.nashorn.internal.codegen.CompilerConstants.virtualCall
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -427,7 +425,7 @@ public class ClassEmitter {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (final PrintWriter pw = new PrintWriter(baos)) {
             final NashornClassReader cr = new NashornClassReader(bytecode);
-            final Context ctx = AccessController.doPrivileged((PrivilegedAction<Context>) Context::getContext);
+            final Context ctx = Context.getContext();
             final TraceClassVisitor tcv = new TraceClassVisitor(null, new NashornTextifier(ctx.getEnv(), cr), pw);
             cr.accept(tcv, 0);
         }

@@ -45,17 +45,12 @@ import static org.openjdk.nashorn.internal.lookup.Lookup.MH;
 
 import java.lang.annotation.Annotation;
 import java.lang.invoke.CallSite;
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -120,15 +115,17 @@ import org.openjdk.nashorn.internal.runtime.ScriptObject;
  * to resemble Java anonymous classes) is actually equivalent to <code>new X(a, b, { ... })</code>.
  * </p><p>
  * It is possible to create two different adapter classes: those that can have class-level overrides, and those that can
- * have instance-level overrides. When {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject, ProtectionDomain)}
- * or {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject, Lookup)} is invoked
+ * have instance-level overrides. When {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject)}
+ * or {@link JavaAdapterFactory#getAdapterClassFor(Class[], ScriptObject)} is invoked
  * with non-null {@code classOverrides} parameter, an adapter class is created that can have class-level overrides, and
  * the passed script object will be used as the implementations for its methods, just as in the above case of the
  * constructor taking a script object. Note that in the case of class-level overrides, a new adapter class is created on
  * every invocation, and the implementation object is bound to the class, not to any instance. All created instances
  * will share these functions. If it is required to have both class-level overrides and instance-level overrides, the
  * class-level override adapter class should be subclassed with an instance-override adapter. Since adapters delegate to
- * super class when an overriding method handle is not specified, this will behave as expected. It is not possible to
+ * super class when an overriding method handle is not specified, this will behave as expected.
+ * TODO: see if below described limitation could be lifted now that java.security.ProtectionDomain is no longer used.
+ * It is not possible to
  * have both class-level and instance-level overrides in the same class for security reasons: adapter classes are
  * defined with a protection domain of their creator code, and an adapter class that has both class and instance level
  * overrides would need to have two potentially different protection domains: one for class-based behavior and one for
@@ -159,7 +156,6 @@ final class JavaAdapterBytecodeGenerator {
     private static final Call GET_CLASS_OVERRIDES = lookupServiceMethod("getClassOverrides", ScriptObject.class);
     private static final Call GET_NON_NULL_GLOBAL = lookupServiceMethod("getNonNullGlobal", ScriptObject.class);
     private static final Call HAS_OWN_TO_STRING = lookupServiceMethod("hasOwnToString", boolean.class, ScriptObject.class);
-    private static final Call INVOKE_NO_PERMISSIONS = lookupServiceMethod("invokeNoPermissions", void.class, MethodHandle.class, Object.class);
     private static final Call NOT_AN_OBJECT = lookupServiceMethod("notAnObject", void.class, Object.class);
     private static final Call SET_GLOBAL = lookupServiceMethod("setGlobal", Runnable.class, ScriptObject.class);
     private static final Call TO_CHAR_PRIMITIVE = lookupServiceMethod("toCharPrimitive", char.class, Object.class);
@@ -206,10 +202,6 @@ final class JavaAdapterBytecodeGenerator {
     // Method name prefix for invoking super-methods
     static final String SUPER_PREFIX = "super$";
 
-    // Method name and type for the no-privilege finalizer delegate
-    private static final String FINALIZER_DELEGATE_NAME = "$$nashornFinalizerDelegate";
-    private static final String FINALIZER_DELEGATE_METHOD_DESCRIPTOR = Type.getMethodDescriptor(Type.VOID_TYPE, OBJECT_TYPE);
-
     private static final String CALLER_SENSITIVE_CLASS_NAME = "jdk.internal.reflect.CallerSensitive";
 
     /**
@@ -236,7 +228,6 @@ final class JavaAdapterBytecodeGenerator {
     private final Set<MethodInfo> finalMethods = new HashSet<>(EXCLUDED);
     private final Set<MethodInfo> methodInfos = new HashSet<>();
     private final boolean autoConvertibleFromFunction;
-    private boolean hasExplicitFinalizer = false;
 
     private final ClassWriter cw;
 
@@ -287,10 +278,6 @@ final class JavaAdapterBytecodeGenerator {
         autoConvertibleFromFunction = generateConstructors();
         generateMethods();
         generateSuperMethods();
-        if (hasExplicitFinalizer) {
-            generateFinalizerMethods();
-        }
-        // }
         cw.visitEnd();
     }
 
@@ -1067,40 +1054,6 @@ final class JavaAdapterBytecodeGenerator {
         return nextParam;
     }
 
-    private void generateFinalizerMethods() {
-        generateFinalizerDelegate();
-        generateFinalizerOverride();
-    }
-
-    private void generateFinalizerDelegate() {
-        // Generate a delegate that will be invoked from the no-permission trampoline. Note it can be private, as we'll
-        // refer to it with a MethodHandle constant pool entry in the overridden finalize() method (see
-        // generateFinalizerOverride()).
-        final InstructionAdapter mv = new InstructionAdapter(cw.visitMethod(ACC_PRIVATE | ACC_STATIC,
-                FINALIZER_DELEGATE_NAME, FINALIZER_DELEGATE_METHOD_DESCRIPTOR, null, null));
-
-        // Simply invoke super.finalize()
-        mv.visitVarInsn(ALOAD, 0);
-        mv.checkcast(Type.getType('L' + generatedClassName + ';'));
-        mv.invokespecial(superClassName, "finalize", VOID_METHOD_DESCRIPTOR, false);
-
-        mv.visitInsn(RETURN);
-        endMethod(mv);
-    }
-
-    private void generateFinalizerOverride() {
-        final InstructionAdapter mv = new InstructionAdapter(cw.visitMethod(ACC_PUBLIC, "finalize",
-                VOID_METHOD_DESCRIPTOR, null, null));
-        // Overridden finalizer will take a MethodHandle to the finalizer delegating method, ...
-        mv.aconst(new Handle(Opcodes.H_INVOKESTATIC, generatedClassName, FINALIZER_DELEGATE_NAME,
-                FINALIZER_DELEGATE_METHOD_DESCRIPTOR, false));
-        mv.visitVarInsn(ALOAD, 0);
-        // ...and invoke it through JavaAdapterServices.invokeNoPermissions
-        INVOKE_NO_PERMISSIONS.invoke(mv);
-        mv.visitInsn(RETURN);
-        endMethod(mv);
-    }
-
     private static String[] getExceptionNames(final Class<?>[] exceptions) {
         final String[] exceptionNames = new String[exceptions.length];
         for (int i = 0; i < exceptions.length; ++i) {
@@ -1135,16 +1088,8 @@ final class JavaAdapterBytecodeGenerator {
                     continue;
                 }
                 if (Modifier.isPublic(m) || Modifier.isProtected(m)) {
-                    // Is it a "finalize()"?
                     if(name.equals("finalize") && typeMethod.getParameterCount() == 0) {
-                        if(type != Object.class) {
-                            hasExplicitFinalizer = true;
-                            if(Modifier.isFinal(m)) {
-                                // Must be able to override an explicit finalizer
-                                throw JavaAdapterFactory.adaptationException(
-                                    JavaAdapterFactory.ErrorOutcome.FINAL_FINALIZER, type.getCanonicalName());
-                            }
-                        }
+                        // We intentionally don't support "finalize"
                         continue;
                     }
 
@@ -1179,8 +1124,6 @@ final class JavaAdapterBytecodeGenerator {
         }
     }
 
-    private static final AccessControlContext GET_DECLARED_MEMBERS_ACC_CTXT = ClassAndLoader.createPermAccCtxt("accessDeclaredMembers");
-
     /**
      * Creates a collection of methods that are not final, but we still never allow them to be overridden in adapters,
      * as explicitly declaring them automatically is a bad idea. Currently, this means {@code Object.finalize()} and
@@ -1188,15 +1131,13 @@ final class JavaAdapterBytecodeGenerator {
      * @return a collection of method infos representing those methods that we never override in adapter classes.
      */
     private static Collection<MethodInfo> getExcludedMethods() {
-        return AccessController.doPrivileged((PrivilegedAction<Collection<MethodInfo>>) () -> {
-            try {
-                return List.of(
-                        new MethodInfo(Object.class, "finalize"),
-                        new MethodInfo(Object.class, "clone"));
-            } catch (final NoSuchMethodException e) {
-                throw new AssertionError(e);
-            }
-        }, GET_DECLARED_MEMBERS_ACC_CTXT);
+        try {
+            return List.of(
+                    new MethodInfo(Object.class, "finalize"),
+                    new MethodInfo(Object.class, "clone"));
+        } catch (final NoSuchMethodException e) {
+            throw new AssertionError(e);
+        }
     }
 
     private String getCommonSuperClass(final String type1, final String type2) {

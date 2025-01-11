@@ -12,5 +12,5 @@ java.lang.ClassNotFoundException: java.lang.String
 TypeError: Java.extend needs Java types as its arguments. in <eval> at line number 1
 java.lang.NullPointerException
 java.lang.ClassNotFoundException: java.lang.NullPointerException
-java.lang.NullPointerException: library can't be null
-java.lang.NullPointerException: library can't be null
+java.lang.NullPointerException
+java.lang.NullPointerException

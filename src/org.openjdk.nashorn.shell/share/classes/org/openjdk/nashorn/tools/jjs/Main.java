@@ -34,8 +34,6 @@ import java.io.UncheckedIOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.function.Consumer;
 
 import jdk.internal.org.jline.reader.UserInterruptException;
@@ -301,20 +299,14 @@ public final class Main extends Shell {
     }
 
     private static String readJJSScript() {
-        return AccessController.doPrivileged(
-            new PrivilegedAction<String>() {
-                @Override
-                public String run() {
-                    try {
-                        final InputStream resStream = Main.class.getResourceAsStream("resources/jjs.js");
-                        if (resStream == null) {
-                            throw new RuntimeException("resources/jjs.js is missing!");
-                        }
-                        return new String(Source.readFully(resStream));
-                    } catch (final IOException exp) {
-                        throw new RuntimeException(exp);
-                    }
-                }
-            });
+        try {
+            final InputStream resStream = Main.class.getResourceAsStream("resources/jjs.js");
+            if (resStream == null) {
+                throw new RuntimeException("resources/jjs.js is missing!");
+            }
+            return new String(Source.readFully(resStream));
+        } catch (final IOException exp) {
+            throw new RuntimeException(exp);
+        }
     }
 }

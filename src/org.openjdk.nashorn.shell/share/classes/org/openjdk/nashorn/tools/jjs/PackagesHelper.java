@@ -116,15 +116,6 @@ abstract class PackagesHelper {
         return false;
     }
 
-    final boolean isPackageAccessible(final String pkgName) {
-        try {
-            Context.checkPackageAccess(pkgName);
-            return true;
-        } catch (final SecurityException se) {
-            return false;
-        }
-    }
-
     private static boolean isJavacHelperAvailable() {
         try {
             boolean result = JavacPackagesHelper.isAvailable();

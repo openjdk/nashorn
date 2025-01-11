@@ -1144,12 +1144,6 @@ public final class Global extends Scope {
     // performs initialization checks for Global constructor and returns the
     // PropertyMap, if everything is fine.
     private static PropertyMap checkAndGetMap(final Context context) {
-        // security check first
-        final SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            sm.checkPermission(new RuntimePermission(Context.NASHORN_CREATE_GLOBAL));
-        }
-
         Objects.requireNonNull(context);
 
         return $nasgenmap$;
@@ -1602,11 +1596,7 @@ public final class Global extends Scope {
         if ("context".equals(nameStr)) {
             return sctxt;
         } else if ("engine".equals(nameStr)) {
-            // expose "engine" variable only when there is no security manager
-            // or when no class filter is set.
-            if (System.getSecurityManager() == null || global.getClassFilter() == null) {
-                return global.engine;
-            }
+            return global.engine;
         }
 
         if (self == UNDEFINED) {
@@ -2669,24 +2659,7 @@ public final class Global extends Scope {
         }
 
         if (Context.DEBUG) {
-            boolean debugOkay;
-            final SecurityManager sm = System.getSecurityManager();
-            if (sm != null) {
-                try {
-                    sm.checkPermission(new RuntimePermission(Context.NASHORN_DEBUG_MODE));
-                    debugOkay = true;
-                } catch (final SecurityException ignored) {
-                    // if no permission, don't initialize Debug object
-                    debugOkay = false;
-                }
-
-            } else {
-                debugOkay = true;
-            }
-
-            if (debugOkay) {
-                initDebug();
-            }
+            initDebug();
         }
 
         copyBuiltins();
@@ -2785,15 +2758,12 @@ public final class Global extends Scope {
 
         // Nashorn extension: global.$ENV (scripting-mode-only)
         final ScriptObject env = newObject();
-        if (System.getSecurityManager() == null) {
-            // do not fill $ENV if we have a security manager around
-            // Retrieve current state of ENV variables.
-            env.putAll(System.getenv(), scriptEnv._strict);
+        // Retrieve current state of ENV variables.
+        env.putAll(System.getenv(), scriptEnv._strict);
 
-            // Set the PWD variable to a value that is guaranteed to be understood
-            // by the underlying platform.
-            env.put(ScriptingFunctions.PWD_NAME, System.getProperty("user.dir"), scriptEnv._strict);
-        }
+        // Set the PWD variable to a value that is guaranteed to be understood
+        // by the underlying platform.
+        env.put(ScriptingFunctions.PWD_NAME, System.getProperty("user.dir"), scriptEnv._strict);
         addOwnProperty(ScriptingFunctions.ENV_NAME, Attribute.NOT_ENUMERABLE, env);
 
         // add other special properties for exec support

@@ -49,11 +49,4 @@ if (! res.equals(new File(".").getAbsolutePath())) {
 }
 
 // try same subtest without URLReader and so it runs with null code source
-try {
-    e.eval(new FileReader(scriptFile));
-    fail("Expected SecurityException from script!");
-} catch (e) {
-    if (! (e instanceof SecurityException)) {
-        fail("Expected SecurityException, but got " + e);
-    }
-}
+e.eval(new FileReader(scriptFile));

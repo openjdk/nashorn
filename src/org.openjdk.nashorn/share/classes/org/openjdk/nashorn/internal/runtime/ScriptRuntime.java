@@ -57,7 +57,6 @@ import org.openjdk.nashorn.internal.objects.AbstractIterator;
 import org.openjdk.nashorn.internal.objects.Global;
 import org.openjdk.nashorn.internal.objects.NativeObject;
 import org.openjdk.nashorn.internal.objects.NativeJava;
-import org.openjdk.nashorn.internal.objects.NativeArray;
 import org.openjdk.nashorn.internal.parser.Lexer;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
 import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
@@ -613,7 +612,7 @@ public final class ScriptRuntime {
      * @return JSON string representation of AST of the supplied code
      */
     public static String parse(final String code, final String name, final boolean includeLoc) {
-        return JSONWriter.parse(Context.getContextTrusted(), code, name, includeLoc);
+        return JSONWriter.parse(Context.getContext(), code, name, includeLoc);
     }
 
     /**
@@ -1159,7 +1158,7 @@ public final class ScriptRuntime {
      * @param name property name
      */
     public static void invalidateReservedBuiltinName(final String name) {
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
         final SwitchPoint sp = context.getBuiltinSwitchPoint(name);
         context.getLogger(ApplySpecialization.class).info("Overwrote special name '" + name +"' - invalidating switchpoint");
         SwitchPoint.invalidateAll(new SwitchPoint[] { sp });

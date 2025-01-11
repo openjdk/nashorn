@@ -26,11 +26,6 @@
 package org.openjdk.nashorn.api.scripting;
 
 import java.nio.ByteBuffer;
-import java.security.AccessControlContext;
-import java.security.AccessController;
-import java.security.Permissions;
-import java.security.PrivilegedAction;
-import java.security.ProtectionDomain;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,14 +56,6 @@ import org.openjdk.nashorn.internal.runtime.linker.NashornCallSiteDescriptor;
  * @since 1.8u40
  */
 public final class ScriptObjectMirror extends AbstractJSObject implements Bindings {
-    private static AccessControlContext getContextAccCtxt() {
-        final Permissions perms = new Permissions();
-        perms.add(new RuntimePermission(Context.NASHORN_GET_CONTEXT));
-        return new AccessControlContext(new ProtectionDomain[] { new ProtectionDomain(null, perms) });
-    }
-
-    private static final AccessControlContext GET_CONTEXT_ACC_CTXT = getContextAccCtxt();
-
     private final ScriptObject sobj;
     private final Global  global;
     private final boolean strict;
@@ -111,7 +98,7 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
                 return wrapLikeMe(ScriptRuntime.apply((ScriptFunction)sobj, unwrap(self, global), unwrapArray(modArgs, global)));
             }
 
-            throw new RuntimeException("not a function: " + toString());
+            throw new RuntimeException("not a function: " + this);
         } catch (final NashornException ne) {
             throw ne.initEcmaError(global);
         } catch (final RuntimeException | Error e) {
@@ -140,7 +127,7 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
                 return wrapLikeMe(ScriptRuntime.construct((ScriptFunction)sobj, unwrapArray(modArgs, global)));
             }
 
-            throw new RuntimeException("not a constructor: " + toString());
+            throw new RuntimeException("not a constructor: " + this);
         } catch (final NashornException ne) {
             throw ne.initEcmaError(global);
         } catch (final RuntimeException | Error e) {
@@ -156,13 +143,7 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
 
     @Override
     public Object eval(final String s) {
-        return inGlobal(() -> {
-            final Context context = AccessController.doPrivileged(
-                (PrivilegedAction<Context>)Context::getContext,
-                GET_CONTEXT_ACC_CTXT
-            );
-            return wrapLikeMe(context.eval(global, s, sobj, null));
-        });
+        return inGlobal(() -> wrapLikeMe(Context.getContext().eval(global, s, sobj, null)));
     }
 
     /**

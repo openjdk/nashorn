@@ -397,7 +397,7 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
         }
 
         final int descPosition = Token.descPosition(token);
-        final Context context = Context.getContextTrusted();
+        final Context context = Context.getContext();
         final Parser parser = new Parser(
             context.getEnv(),
             source,
@@ -1066,6 +1066,6 @@ public final class RecompilableScriptFunctionData extends ScriptFunctionData imp
     }
 
     private void createLogger() {
-        log = initLogger(Context.getContextTrusted());
+        log = initLogger(Context.getContext());
     }
 }
