@@ -361,9 +361,7 @@ public final class OptionTemplate implements Comparable<OptionTemplate> {
                 if (pos >= LINE_BREAK && Character.isWhitespace(c)) {
                     pos = 0;
                     sb.append("\n\t");
-                    for (int i = 0; i < indent; i++) {
-                        sb.append(' ');
-                    }
+                    sb.append(" ".repeat(Math.max(0, indent)));
                 }
             }
             sb.append(')');

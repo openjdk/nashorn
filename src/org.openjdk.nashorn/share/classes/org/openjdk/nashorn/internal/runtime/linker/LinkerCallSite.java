@@ -499,11 +499,6 @@ public class LinkerCallSite extends ChainedCallSite {
         }
     }
 
-    @Override
-    protected int getMaxChainLength() {
-        return 8;
-    }
-
     /**
      * Get the callsite count
      * @return the count

@@ -74,7 +74,7 @@ public final class NativeBoolean extends ScriptObject {
 
     @Override
     public String safeToString() {
-        return "[Boolean " + toString() + "]";
+        return "[Boolean " + this + "]";
     }
 
     @Override

@@ -24,8 +24,6 @@
  */
 package org.openjdk.nashorn.api.tree;
 
-import java.util.List;
-
 /**
  * A Tree node for export entry in <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-modules">Module information</a>.
  */

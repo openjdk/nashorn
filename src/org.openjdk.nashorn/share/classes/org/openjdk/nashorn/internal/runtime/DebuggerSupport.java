@@ -372,9 +372,7 @@ final class DebuggerSupport {
                     sb.append("\\u");
 
                     final String hex = Integer.toHexString(ch);
-                    for (int i = hex.length(); i < 4; i++) {
-                        sb.append('0');
-                    }
+                    sb.append("0".repeat(4 - hex.length()));
                     sb.append(hex);
                 } else {
                     sb.append(ch);

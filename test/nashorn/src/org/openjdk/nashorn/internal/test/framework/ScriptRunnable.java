@@ -38,14 +38,12 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.openjdk.nashorn.tools.Shell;
 import org.testng.Assert;
 import org.testng.ITest;
@@ -177,7 +175,7 @@ public final class ScriptRunnable extends AbstractScriptRunnable implements ITes
 
     private void executeInNewProcess() {
 
-        final String separator = System.getProperty("file.separator");
+        final String separator = FileSystems.getDefault().getSeparator();
         final List<String> cmd = new ArrayList<>();
 
         cmd.add(System.getProperty("java.home") + separator + "bin" + separator + "java");

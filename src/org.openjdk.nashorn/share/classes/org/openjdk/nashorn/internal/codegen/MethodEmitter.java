@@ -1430,8 +1430,7 @@ public class MethodEmitter {
         for (int i = params.length - 1; i >= 0; i--) {
             popType(params[i]);
         }
-        final Type returnType = Type.getMethodReturnType(signature);
-        return returnType;
+        return Type.getMethodReturnType(signature);
     }
 
     /**
@@ -2331,7 +2330,8 @@ public class MethodEmitter {
         if((flags & CALLSITE_OPTIMISTIC) == 0) {
             return "";
         }
-        return "pp=" + String.valueOf((flags & (-1 << CALLSITE_PROGRAM_POINT_SHIFT)) >> CALLSITE_PROGRAM_POINT_SHIFT);
+        return "pp=" + ((flags & (-1 << CALLSITE_PROGRAM_POINT_SHIFT))
+                        >> CALLSITE_PROGRAM_POINT_SHIFT);
     }
 
     /**

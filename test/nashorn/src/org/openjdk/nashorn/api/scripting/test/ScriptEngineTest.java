@@ -872,7 +872,7 @@ public class ScriptEngineTest {
         assertEquals(value, e.eval("java.lang.System.getProperty(name)"));
     }
 
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     // Returns String that would be the result of calling PrintWriter.println
     // of the given String. (This is to handle platform specific newline).

@@ -113,11 +113,11 @@ public final class TestFinder {
                 return;
             }
         }
-        if (testList == null || testList.length() == 0) {
+        if (testList == null || testList.isEmpty()) {
             // Run the tests under the test roots dir, selected by the
             // TEST_JS_INCLUDES patterns
             final String testRootsString = System.getProperty(TEST_JS_ROOTS, "test/nashorn/script");
-            if (testRootsString == null || testRootsString.length() == 0) {
+            if (testRootsString == null || testRootsString.isEmpty()) {
                 throw new Exception("Error: " + TEST_JS_ROOTS + " must be set");
             }
             final String testRoots[] = testRootsString.split(" ");
@@ -422,9 +422,7 @@ public final class TestFinder {
             testExcludeArray = testExcludeList.split(" ");
         }
         final Set<String> testExcludeSet = new HashSet<>(testExcludeArray.length);
-        for (final String test : testExcludeArray) {
-            testExcludeSet.add(test);
-        }
+        testExcludeSet.addAll(Arrays.asList(testExcludeArray));
 
         final String testExcludesFile = System.getProperty(TEST_JS_EXCLUDES_FILE);
         if (testExcludesFile != null && !testExcludesFile.isEmpty()) {

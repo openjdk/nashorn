@@ -52,11 +52,11 @@ public class DummyNashornJSEngineFactory implements ScriptEngineFactory {
     }
 
     public String getMethodCallSyntax(String obj, String m, String... args) {
-        StringBuffer buf = new StringBuffer();
-        buf.append("call " + m + " ");
-        buf.append(" on " + obj + " with ");
-        for (int i = 0; i < args.length; i++) {
-            buf.append(args[i] + ", ");
+        StringBuilder buf = new StringBuilder();
+        buf.append("call ").append(m).append(" ");
+        buf.append(" on ").append(obj).append(" with ");
+        for (String arg : args) {
+            buf.append(arg).append(", ");
         }
         buf.append(";");
         return buf.toString();
@@ -91,9 +91,9 @@ public class DummyNashornJSEngineFactory implements ScriptEngineFactory {
     }
 
     public String getProgram(String... statements) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < statements.length; i++) {
-            buf.append(statements[i]);
+        StringBuilder buf = new StringBuilder();
+        for (String statement : statements) {
+            buf.append(statement);
         }
         return buf.toString();
     }

@@ -315,10 +315,6 @@ public final class ScriptRuntime {
             return index++;
         }
 
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("remove");
-        }
     }
 
     // value Iterator for important Java objects - arrays, maps, iterables.
@@ -342,10 +338,6 @@ public final class ScriptRuntime {
                     return Array.get(obj, index++);
                 }
 
-                @Override
-                public void remove() {
-                    throw new UnsupportedOperationException("remove");
-                }
             };
         }
 
@@ -484,10 +476,6 @@ public final class ScriptRuntime {
                 }
             }
 
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("remove");
-            }
         };
     }
 

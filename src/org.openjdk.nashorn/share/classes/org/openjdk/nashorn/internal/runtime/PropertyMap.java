@@ -963,10 +963,6 @@ public class PropertyMap implements Iterable<Object>, Serializable {
             return key;
         }
 
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException("remove");
-        }
     }
 
     /*

@@ -81,7 +81,7 @@ final class OptAnchorInfo implements AnchorType {
     }
 
     static String anchorToString(final int anchor) {
-        final StringBuffer s = new StringBuffer("[");
+        final StringBuilder s = new StringBuilder("[");
 
         if ((anchor & AnchorType.BEGIN_BUF) !=0 ) {
             s.append("begin-buf ");

@@ -46,8 +46,8 @@ import org.testng.annotations.Test;
  */
 @SuppressWarnings("javadoc")
 public class CompilerTest {
-    private static final boolean VERBOSE  = Boolean.valueOf(System.getProperty("compilertest.verbose"));
-    private static final boolean TEST262  = Boolean.valueOf(System.getProperty("compilertest.test262"));
+    private static final boolean VERBOSE  = Boolean.parseBoolean(System.getProperty("compilertest.verbose"));
+    private static final boolean TEST262  = Boolean.parseBoolean(System.getProperty("compilertest.test262"));
     private static final String TEST_BASIC_DIR  = System.getProperty("test.basic.dir");
     private static final String TEST262_SUITE_DIR = System.getProperty("test262.suite.dir");
 

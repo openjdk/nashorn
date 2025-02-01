@@ -898,11 +898,11 @@ final class LocalVariableTypesCalculator extends SimpleNodeVisitor {
                 jumpToLabel(previousBlock, entryLabel);
             }
             joinOnLabel(entryLabel);
-            assert reachable == true;
+            assert reachable;
             body.accept(this);
             previousBlock = body;
         }
-        if(previousBlock != null && reachable) {
+        if(reachable) {
             jumpToLabel(previousBlock, breakLabel);
         }
         leaveBreakable(switchNode);

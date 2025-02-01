@@ -764,7 +764,7 @@ final class Lower extends NodeOperatorVisitor<BlockLexicalContext> implements Lo
             final IdentNode callee = (IdentNode)callNode.getFunction();
 
             // 'eval' call with at least one argument
-            if (args.size() >= 1 && EVAL.symbolName().equals(callee.getName())) {
+            if (!args.isEmpty() && EVAL.symbolName().equals(callee.getName())) {
                 final List<Expression> evalArgs = new ArrayList<>(args.size());
                 for(final Expression arg: args) {
                     evalArgs.add((Expression)ensureUniqueNamesIn(arg).accept(this));
@@ -856,9 +856,8 @@ final class Lower extends NodeOperatorVisitor<BlockLexicalContext> implements Lo
      * @return true if an assignment to eval result, false otherwise
      */
     private static boolean isEvalResultAssignment(final Node expression) {
-        final Node e = expression;
-        if (e instanceof BinaryNode) {
-            final Node lhs = ((BinaryNode)e).lhs();
+        if (expression instanceof BinaryNode) {
+            final Node lhs = ((BinaryNode)expression).lhs();
             if (lhs instanceof IdentNode) {
                 return ((IdentNode)lhs).getName().equals(RETURN.symbolName());
             }

@@ -308,7 +308,7 @@ public final class NameCodec {
     }
 
     private static String mangle(final String s) {
-        if (s.length() == 0)
+        if (s.isEmpty())
             return NULL_ESCAPE;
 
         // build this lazily, when we first need an escape:

@@ -152,9 +152,8 @@ class Bignum {
 
     void assignBignum(final Bignum other) {
         exponent_ = other.exponent_;
-        for (int i = 0; i < other.used_digits_; ++i) {
-            bigits_[i] = other.bigits_[i];
-        }
+        if (other.used_digits_ >= 0)
+            System.arraycopy(other.bigits_, 0, bigits_, 0, other.used_digits_);
         // Clear the excess digits (if there were any).
         for (int i = other.used_digits_; i < used_digits_; ++i) {
             bigits_[i] = 0;
@@ -530,8 +529,7 @@ class Bignum {
             // multiplication.  The first bit_size bits must be 0.
             if ((power_exponent & mask) != 0) {
                 assert bit_size > 0;
-                final long base_bits_mask =
-                        ~((1L << (64 - bit_size)) - 1);
+                final long base_bits_mask = -(1L << (64 - bit_size));
                 final boolean high_bits_zero = (this_value & base_bits_mask) == 0;
                 if (high_bits_zero) {
                     this_value *= base;

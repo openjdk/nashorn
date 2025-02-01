@@ -4323,11 +4323,7 @@ public class Parser extends AbstractParser implements Loggable {
         }
         final ArrayList<Expression> args = new ArrayList<>();
         args.add(lhs);
-        if (rhs == null) {
-            args.add(LiteralNode.newInstance(lhs.getToken(), lhs.getFinish()));
-        } else {
-            args.add(rhs);
-        }
+        args.add(Objects.requireNonNullElseGet(rhs, () -> LiteralNode.newInstance(lhs.getToken(), lhs.getFinish())));
         args.add(LiteralNode.newInstance(lhs.getToken(), lhs.getFinish(), lhs.toString()));
         return new RuntimeNode(lhs.getToken(), lhs.getFinish(), RuntimeNode.Request.REFERENCE_ERROR, args);
     }

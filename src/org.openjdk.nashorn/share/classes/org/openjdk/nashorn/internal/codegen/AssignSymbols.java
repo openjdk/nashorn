@@ -406,7 +406,7 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
             sb.append("[LEAVE ").
                 append(name(node)).
                 append("] ").
-                append(node.toString()).
+                append(node).
                 append(" in '").
                 append(lc.getCurrentFunction().getName()).
                 append('\'');
@@ -921,7 +921,6 @@ final class AssignSymbols extends SimpleNodeVisitor implements Loggable {
                     // therefore it doesn't count.
                     return true;
                 }
-                previousWasBlock = false;
             } else if (node instanceof Block) {
                 if (((Block)node).getExistingSymbol(symbol.getName()) == symbol) {
                     // We reached the block that defines the symbol without reaching either the function boundary, or a

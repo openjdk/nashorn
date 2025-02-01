@@ -74,13 +74,7 @@ final class MinMaxLen {
             return -1;
         }
 
-        if (other.min < min) {
-            return 1;
-        }
-        if (other.min > min) {
-            return -1;
-        }
-        return 0;
+        return Integer.compare(min, other.min);
     }
 
     boolean equal(final MinMaxLen other) {

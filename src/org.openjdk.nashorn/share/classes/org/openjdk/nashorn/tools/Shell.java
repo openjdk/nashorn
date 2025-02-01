@@ -43,7 +43,6 @@ import org.openjdk.nashorn.internal.runtime.ScriptEnvironment;
 import org.openjdk.nashorn.internal.runtime.ScriptFunction;
 import org.openjdk.nashorn.internal.runtime.ScriptObject;
 import org.openjdk.nashorn.internal.runtime.ScriptRuntime;
-import org.openjdk.nashorn.internal.runtime.ScriptingFunctions;
 import org.openjdk.nashorn.internal.runtime.Symbol;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import org.openjdk.nashorn.internal.runtime.options.Options;
@@ -585,7 +584,7 @@ public class Shell implements PartialParser {
                 try {
                     source = in.readLine();
                 } catch (final IOException ioe) {
-                    err.println(ioe.toString());
+                    err.println(ioe);
                 }
 
                 if (source == null) {

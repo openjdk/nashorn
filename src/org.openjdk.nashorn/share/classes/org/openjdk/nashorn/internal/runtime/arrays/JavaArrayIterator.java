@@ -73,8 +73,4 @@ class JavaArrayIterator extends ArrayLikeIterator<Object> {
         return indexInArray();
     }
 
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException("remove");
-    }
 }

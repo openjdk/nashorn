@@ -95,9 +95,7 @@ public abstract class Node implements NodeType {
         }
 
         final StringBuilder pad = new StringBuilder("  ");
-        for (int i=0; i<level; i++) {
-            pad.append(pad);
-        }
+        pad.append(String.valueOf(pad).repeat(Math.max(0, level)));
 
         return value.toString().replace("\n",  "\n" + pad);
     }

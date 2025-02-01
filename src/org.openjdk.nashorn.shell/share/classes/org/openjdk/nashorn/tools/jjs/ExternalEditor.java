@@ -26,7 +26,6 @@
 package org.openjdk.nashorn.tools.jjs;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.ClosedWatchServiceException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -46,7 +45,6 @@ final class ExternalEditor {
 
     private WatchService watcher;
     private Thread watchedThread;
-    private Path dir;
     private Path tmpfile;
 
     ExternalEditor(final Consumer<String> errorHandler, final Consumer<String> saveHandler, final Console input) {
@@ -69,9 +67,9 @@ final class ExternalEditor {
      */
     private void setupWatch(final String initialText) throws IOException {
         this.watcher = FileSystems.getDefault().newWatchService();
-        this.dir = Files.createTempDirectory("REPL");
+        Path dir = Files.createTempDirectory("REPL");
         this.tmpfile = Files.createTempFile(dir, null, ".js");
-        Files.write(tmpfile, initialText.getBytes(Charset.forName("UTF-8")));
+        Files.writeString(tmpfile, initialText);
         dir.register(watcher,
                 ENTRY_CREATE,
                 ENTRY_DELETE,
@@ -104,8 +102,7 @@ final class ExternalEditor {
     }
 
     private void launch(final String cmd) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(cmd, tmpfile.toString());
-        pb = pb.inheritIO();
+        ProcessBuilder pb = new ProcessBuilder(cmd, tmpfile.toString()).inheritIO();
 
         try {
             input.suspend();

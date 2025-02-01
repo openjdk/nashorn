@@ -29,13 +29,9 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 import jdk.internal.org.jline.reader.Candidate;
-import jdk.internal.org.jline.reader.Completer;
-import jdk.internal.org.jline.reader.LineReader;
-import jdk.internal.org.jline.reader.ParsedLine;
 import jdk.internal.org.jline.reader.UserInterruptException;
 import org.openjdk.nashorn.api.tree.AssignmentTree;
 import org.openjdk.nashorn.api.tree.BinaryTree;
@@ -155,15 +151,14 @@ final class NashornCompleter {
             } catch (final Throwable th) {
                 if (th instanceof UserInterruptException) {
                     // Ctrl-C from user - discard the whole thing silently!
-                    return null;
                 } else {
                     // print anything else -- but still discard the code
                     err.println(th);
                     if (env._dump_on_error) {
                         th.printStackTrace(err);
                     }
-                    return null;
                 }
+                return null;
             }
 
             final String allLines = buf.toString();

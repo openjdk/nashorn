@@ -273,13 +273,13 @@ public final class ObjectClassGenerator implements Loggable {
      */
     public byte[] generate(final String descriptor) {
         final String[] counts     = descriptor.split(SCOPE_MARKER);
-        final int      fieldCount = Integer.valueOf(counts[0]);
+        final int      fieldCount = Integer.parseInt(counts[0]);
 
         if (counts.length == 1) {
             return generate(fieldCount);
         }
 
-        final int paramCount = Integer.valueOf(counts[1]);
+        final int paramCount = Integer.parseInt(counts[1]);
 
         return generate(fieldCount, paramCount);
     }

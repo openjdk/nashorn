@@ -405,9 +405,7 @@ public final class NashornTextifier extends Printer {
             final int bci = next.getOffset();
             if (bci != -1) {
                 final String bcis = "" + bci;
-                for (int i = 0; i < 5 - bcis.length(); i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, 5 - bcis.length())));
                 sb.append(bcis);
                 sb.append(' ');
             } else {
@@ -511,9 +509,7 @@ public final class NashornTextifier extends Printer {
         }
         appendDescriptor(sb, METHOD_DESCRIPTOR, desc);
         final int len = sb.length();
-        for (int i = 0; i < 80 - len ; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, 80 - len)));
         sb.append(" [");
         appendHandle(sb, bsm);
         if (bsmArgs.length == 0) {
@@ -706,19 +702,13 @@ public final class NashornTextifier extends Printer {
 
         sb.append(tab2).append("local ").append(name).append(' ');
         final int len = sb.length();
-        for (int i = 0; i < 25 - len; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, 25 - len)));
         String label;
 
         label = appendLabel(sb, start);
-        for (int i = 0; i < 5 - label.length(); i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, 5 - label.length())));
         label = appendLabel(sb, end);
-        for (int i = 0; i < 5 - label.length(); i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(Math.max(0, 5 - label.length())));
 
         sb.append(index).append(tab2);
 

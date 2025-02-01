@@ -79,11 +79,6 @@ abstract public class ArrayLikeIterator<T> implements Iterator<T> {
         return index;
     }
 
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException("remove");
-    }
-
     /**
      * Get the length of the iteration
      * @return length

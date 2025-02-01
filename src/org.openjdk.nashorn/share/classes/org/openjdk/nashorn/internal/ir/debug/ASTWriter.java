@@ -169,7 +169,7 @@ public final class ASTWriter {
         }
 
         status = status.trim();
-        if (!"".equals(status)) {
+        if (!status.isEmpty()) {
             status = " [" + status + "]";
         }
 
@@ -291,9 +291,7 @@ public final class ASTWriter {
 
     private static void indent(final StringBuilder sb, final int indent) {
         for (int i = 0; i < indent; i++) {
-            for (int j = 0; j < TABWIDTH; j++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(TABWIDTH));
         }
     }
 }

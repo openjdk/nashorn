@@ -156,7 +156,7 @@ class CommandExecutor {
                     File file = null;
                     if (redirect != REDIRECT_ERROR_TO_OUTPUT) {
                         // Nothing left of current token.
-                        if (token.length() == 0) {
+                        if (token.isEmpty()) {
                             if (iterator.hasNext()) {
                                 // Use next token.
                                 token = iterator.next();
@@ -482,7 +482,7 @@ class CommandExecutor {
             command.add(stripQuotes(token));
         }
 
-        if (command.size() > 0) {
+        if (!command.isEmpty()) {
             command.set(0, sanitizePath(command.get(0)));
         }
 

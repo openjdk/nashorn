@@ -57,8 +57,8 @@ final class OptMapInfo {
 
         final char[]items = EncodingHelper.caseFoldCodesByString(caseFoldFlag & ~Config.INTERNAL_ENC_CASE_FOLD_MULTI_CHAR, chars[p]);
 
-        for (int i=0; i<items.length; i++) {
-            addChar(items[i]);
+        for (char item : items) {
+            addChar(item);
         }
     }
 

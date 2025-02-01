@@ -79,7 +79,7 @@ public final class DumpBytecode {
                     } while (file.exists());
 
                     try (final PrintWriter pw = new PrintWriter(new FileOutputStream(file))) {
-                        pw.print(sb.toString());
+                        pw.print(sb);
                         pw.flush();
                     }
                 } else {

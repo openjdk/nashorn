@@ -73,7 +73,6 @@ public final class TypeMap {
 
     MethodType getCallSiteType(final FunctionNode functionNode) {
         assert this.functionNodeId == functionNode.getId();
-        final Type[] types = paramTypes;
         MethodType mt = MethodType.methodType(returnType.getTypeClass());
         if (needsCallee) {
             mt = mt.appendParameterTypes(ScriptFunction.class);
@@ -81,7 +80,7 @@ public final class TypeMap {
 
         mt = mt.appendParameterTypes(Object.class); //this
 
-        for (final Type type : types) {
+        for (final Type type : paramTypes) {
             if (type == null) {
                 return null; // not all parameter information is supplied
             }
@@ -134,9 +133,8 @@ public final class TypeMap {
     String toString(final String prefix) {
         final StringBuilder sb = new StringBuilder();
 
-        final int id = functionNodeId;
         sb.append(prefix).append('\t');
-        sb.append("function ").append(id).append('\n');
+        sb.append("function ").append(functionNodeId).append('\n');
         sb.append(prefix).append("\t\tparamTypes=");
         sb.append(Arrays.toString(paramTypes));
         sb.append('\n');

@@ -104,7 +104,7 @@ final class Formatter {
                             // convert double to long
                             args[index - 1] = ((Double) arg).longValue();
                         } else if (arg instanceof String
-                                && ((String) arg).length() > 0) {
+                                   && !((String) arg).isEmpty()) {
                             // convert string (first character) to int
                             args[index - 1] = (int) ((String) arg).charAt(0);
                         }
@@ -126,7 +126,7 @@ final class Formatter {
                             // convert double to integer
                             args[index - 1] = ((Double) arg).intValue();
                         } else if (arg instanceof String
-                                && ((String) arg).length() > 0) {
+                                   && !((String) arg).isEmpty()) {
                             // get the first character from string
                             args[index - 1] = (int) ((String) arg).charAt(0);
                         }

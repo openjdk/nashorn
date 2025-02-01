@@ -265,7 +265,7 @@ public final class URIUtils {
                 u >>>= 6; // 64 bits per octet.
             }
 
-            b[0] = (byte) (~((1 << (8 - len)) - 1) | u);
+            b[0] = (byte) (-(1 << (8 - len)) | u);
         }
 
         final StringBuilder sb = new StringBuilder();

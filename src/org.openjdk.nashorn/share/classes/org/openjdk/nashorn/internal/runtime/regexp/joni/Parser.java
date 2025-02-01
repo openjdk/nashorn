@@ -392,8 +392,7 @@ class Parser extends Lexer {
                     } // switch
 
                     if (c == ')') {
-                        final EncloseNode en = new EncloseNode(option, 0); // node_new_option
-                        node = en;
+                        node = new EncloseNode(option, 0); // node_new_option;
                         returnCode = 2; /* option only */
                         return node;
                     } else if (c == ':') {
@@ -426,8 +425,7 @@ class Parser extends Lexer {
                 return node;
             }
             final EncloseNode en = new EncloseNode(); // node_new_enclose_memory
-            final int num = env.addMemEntry();
-            en.regNum = num;
+            en.regNum = env.addMemEntry();
             node = en;
         }
 

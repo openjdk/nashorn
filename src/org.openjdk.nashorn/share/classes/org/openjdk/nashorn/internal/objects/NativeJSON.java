@@ -379,9 +379,9 @@ public final class NativeJSON extends ScriptObject {
         if (partial.isEmpty()) {
             finalStr.append("[]");
         } else {
+            final int size = partial.size();
+            index = 0;
             if (state.gap.isEmpty()) {
-                final int size = partial.size();
-                index = 0;
                 finalStr.append('[');
                 for (final Object str : partial) {
                     finalStr.append(str);
@@ -391,10 +391,7 @@ public final class NativeJSON extends ScriptObject {
                     index++;
                 }
 
-                finalStr.append(']');
             } else {
-                final int size = partial.size();
-                index = 0;
                 finalStr.append("[\n");
                 finalStr.append(state.indent);
                 for (final Object str : partial) {
@@ -408,8 +405,8 @@ public final class NativeJSON extends ScriptObject {
 
                 finalStr.append('\n');
                 finalStr.append(stepback);
-                finalStr.append(']');
             }
+            finalStr.append(']');
         }
 
         state.stack.remove(value);

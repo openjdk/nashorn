@@ -52,10 +52,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.openjdk.nashorn.internal.codegen.types.Type;
 import org.openjdk.nashorn.internal.runtime.Context;
@@ -161,7 +157,6 @@ public final class OptimisticTypesPersistence {
      * {@link #getLocationDescriptor(Source, int, Type[])}.
      * @param optimisticTypes the map of optimistic types.
      */
-    @SuppressWarnings("resource")
     public static void store(final Object locationDescriptor, final Map<Integer, Type> optimisticTypes) {
         if(locationDescriptor == null || optimisticTypes.isEmpty()) {
             return;
@@ -175,10 +170,13 @@ public final class OptimisticTypesPersistence {
                 scheduleCleanup();
             }
             try (final FileOutputStream out = new FileOutputStream(file)) {
-                try (var ignored = out.getChannel().lock()) {
+                final var lock = out.getChannel().lock();
+                try {
                     final DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(out));
                     Type.writeTypeMap(optimisticTypes, dout);
                     dout.flush();
+                } finally {
+                    lock.close();
                 }
             } catch(final Exception e) {
                 reportError("write", file, e);
@@ -476,33 +474,12 @@ public final class OptimisticTypesPersistence {
 
     private static Path[] getAllRegularFilesInLastModifiedOrder() throws IOException {
         try (final Stream<Path> filesStream = Files.walk(baseCacheDir.toPath())) {
-            // TODO: rewrite below once we can use JDK8 syntactic constructs
             return filesStream
-            .filter(new Predicate<Path>() {
-                @Override
-                public boolean test(final Path path) {
-                    return !Files.isDirectory(path);
-                }
-            })
-            .map(new Function<Path, PathAndTime>() {
-                @Override
-                public PathAndTime apply(final Path path) {
-                    return new PathAndTime(path);
-                }
-            })
+            .filter(path -> !Files.isDirectory(path))
+            .map(PathAndTime::new)
             .sorted()
-            .map(new Function<PathAndTime, Path>() {
-                @Override
-                public Path apply(final PathAndTime pathAndTime) {
-                    return pathAndTime.path;
-                }
-            })
-            .toArray(new IntFunction<Path[]>() { // Replace with Path::new
-                @Override
-                public Path[] apply(final int length) {
-                    return new Path[length];
-                }
-            });
+            .map(pathAndTime -> pathAndTime.path)
+            .toArray(Path[]::new);
         }
     }
 
@@ -551,9 +528,8 @@ public final class OptimisticTypesPersistence {
             throw new FileNotFoundException("missing " + JRT_NASHORN_DIR + " dir in jrt fs");
         }
         final MessageDigest digest = MessageDigest.getInstance("SHA-1");
-        Files.walk(nashorn).forEach(new Consumer<Path>() {
-            @Override
-            public void accept(final Path p) {
+        try(Stream<Path> walk = Files.walk(nashorn)) {
+            walk.forEach(p -> {
                 // take only the .class resources.
                 if (Files.isRegularFile(p) && p.toString().endsWith(".class")) {
                     try {
@@ -562,8 +538,8 @@ public final class OptimisticTypesPersistence {
                         throw new UncheckedIOException(ioe);
                     }
                 }
-            }
-        });
+            });
+        }
         return Base64.getUrlEncoder().withoutPadding().encodeToString(digest.digest());
     }
 

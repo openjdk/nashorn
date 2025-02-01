@@ -530,10 +530,7 @@ final class Analyser extends Parser {
                         }
                     }
                 }
-                if ((xc.mbuf == null && !xc.isNot()) || yc.mbuf == null && !yc.isNot()) {
-                    return true;
-                }
-                return false;
+                return (xc.mbuf == null && !xc.isNot()) || yc.mbuf == null && !yc.isNot();
                 // break; not reached
 
             case NodeType.STR:

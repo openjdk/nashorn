@@ -708,7 +708,7 @@ public class LexicalContext {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append("[ ");
         for (int i = 0; i < sp; i++) {
             final Object node = stack[i];
@@ -737,7 +737,7 @@ public class LexicalContext {
         private int index;
         private T next;
         private final Class<T> clazz;
-        private LexicalContextNode until;
+        private final LexicalContextNode until;
 
         NodeIterator(final Class<T> clazz) {
             this(clazz, null);

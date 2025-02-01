@@ -25,7 +25,6 @@
 package org.openjdk.nashorn.api.tree;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.openjdk.nashorn.internal.ir.FunctionNode;
 import org.openjdk.nashorn.internal.ir.IdentNode;
 import org.openjdk.nashorn.internal.ir.Module;
@@ -34,7 +33,6 @@ import static org.openjdk.nashorn.api.tree.ImportEntryTreeImpl.createImportList;
 
 final class ModuleTreeImpl extends TreeImpl implements ModuleTree {
 
-    private final Module mod;
     private final List<? extends ImportEntryTree> imports;
     private final List<? extends ExportEntryTree> localExports;
     private final List<? extends ExportEntryTree> indirectExports;
@@ -47,7 +45,6 @@ final class ModuleTreeImpl extends TreeImpl implements ModuleTree {
             final List<? extends ExportEntryTree> starExports) {
         super(func);
         assert func.getKind() == FunctionNode.Kind.MODULE : "module function node expected";
-        this.mod = func.getModule();
         this.imports = imports;
         this.localExports = localExports;
         this.indirectExports = indirectExports;

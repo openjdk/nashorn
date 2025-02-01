@@ -48,9 +48,9 @@ public class JDK_8182996_Test {
         engine = new ScriptEngineManager().getEngineByName("js");
         bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
 
-        bindings.put("long1", Long.valueOf(1L));
-        bindings.put("long2", Long.valueOf(2L));
-        bindings.put("long2", Long.valueOf(3L));
+        bindings.put("long1", 1L);
+        bindings.put("long2", 2L);
+        bindings.put("long2", 3L);
     }
 
     @Test
@@ -61,10 +61,10 @@ public class JDK_8182996_Test {
 
     @Test
     public void testValue() throws ScriptException {
-        assertEquals(engine.eval("long1"), Long.valueOf(1));
-        assertEquals(engine.eval("long2"), Long.valueOf(3));
-        assertEquals(bindings.get("long1"), Long.valueOf(1));
-        assertEquals(bindings.get("long2"), Long.valueOf(3));
+        assertEquals(engine.eval("long1"), 1L);
+        assertEquals(engine.eval("long2"), 3L);
+        assertEquals(bindings.get("long1"), 1L);
+        assertEquals(bindings.get("long2"), 3L);
     }
 
 }

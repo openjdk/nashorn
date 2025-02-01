@@ -371,22 +371,12 @@ public final class BinaryNode extends Expression implements Assignment<Expressio
 
     @Override
     public boolean isAlwaysFalse() {
-        switch (tokenType()) {
-        case COMMARIGHT:
-            return rhs.isAlwaysFalse();
-        default:
-            return false;
-        }
+        return tokenType() == TokenType.COMMARIGHT && rhs.isAlwaysFalse();
     }
 
     @Override
     public boolean isAlwaysTrue() {
-        switch (tokenType()) {
-        case COMMARIGHT:
-            return rhs.isAlwaysTrue();
-        default:
-            return false;
-        }
+        return tokenType() == TokenType.COMMARIGHT && rhs.isAlwaysTrue();
     }
 
     @Override

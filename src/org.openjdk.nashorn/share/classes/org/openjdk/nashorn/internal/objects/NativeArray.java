@@ -66,9 +66,7 @@ import org.openjdk.nashorn.internal.runtime.arrays.ArrayData;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayIndex;
 import org.openjdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import org.openjdk.nashorn.internal.runtime.arrays.ContinuousArrayData;
-import org.openjdk.nashorn.internal.runtime.arrays.IntElements;
 import org.openjdk.nashorn.internal.runtime.arrays.IteratorAction;
-import org.openjdk.nashorn.internal.runtime.arrays.NumericElements;
 import org.openjdk.nashorn.internal.runtime.linker.Bootstrap;
 import org.openjdk.nashorn.internal.runtime.linker.InvokeByName;
 
@@ -1838,8 +1836,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
             if (data != null) {
                 final Class<?> elementType = data.getElementType();
                 final Class<?> returnType  = desc.getMethodType().returnType();
-                final boolean  typeFits    = JSType.getAccessorTypeIndex(returnType) >= JSType.getAccessorTypeIndex(elementType);
-                return typeFits;
+                return JSType.getAccessorTypeIndex(returnType) >= JSType.getAccessorTypeIndex(elementType); // type fits
             }
             return false;
         }
@@ -1847,7 +1844,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
         private static ContinuousArrayData getContinuousNonEmptyArrayData(final Object self) {
             final ContinuousArrayData data = getContinuousArrayData(self);
             if (data != null) {
-                return data.length() == 0 ? null : data;
+                return data.isEmpty() ? null : data;
             }
             return null;
         }
@@ -1863,7 +1860,7 @@ public final class NativeArray extends ScriptObject implements OptimisticBuiltin
     private static ContinuousArrayData getContinuousNonEmptyArrayDataCCE(final Object self) {
         try {
             final ContinuousArrayData data = (ContinuousArrayData) ((NativeArray)self).getArray();
-            if (data.length() != 0L) {
+            if (!data.isEmpty()) {
                 return data; //if length is 0 we cannot pop and have to relink, because then we'd have to return an undefined, which is a wider type than e.g. int
            }
         } catch (final NullPointerException e) {

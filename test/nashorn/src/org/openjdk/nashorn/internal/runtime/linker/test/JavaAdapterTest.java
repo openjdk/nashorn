@@ -223,13 +223,13 @@ public class JavaAdapterTest {
                 "227", "228", "229", "230", "231", "232", "233", "234", "235", "236", "237", "238", "239", "240", "241", "242",
                 "243", "244", "245", "246", "247", "248", "249", "250", "251");
         Assert.assertEquals(true, m.getSlot(0));
-        Assert.assertEquals(Integer.valueOf(Byte.MIN_VALUE), m.getSlot(1)); // Byte becomes Integer
-        Assert.assertEquals(Integer.valueOf(Short.MIN_VALUE), m.getSlot(2)); // Short becomes Integer
-        Assert.assertEquals(Character.valueOf('a'), m.getSlot(3));
-        Assert.assertEquals(Integer.valueOf(Integer.MAX_VALUE), m.getSlot(4));
-        Assert.assertEquals(Double.valueOf(Float.MAX_VALUE), m.getSlot(5)); // Float becomes Double
-        Assert.assertEquals(Long.valueOf(Long.MAX_VALUE), m.getSlot(6)); // Long was untouched
-        Assert.assertEquals(Double.valueOf(Double.MAX_VALUE), m.getSlot(7));
+        Assert.assertEquals((int) Byte.MIN_VALUE, m.getSlot(1)); // Byte becomes Integer
+        Assert.assertEquals((int) Short.MIN_VALUE, m.getSlot(2)); // Short becomes Integer
+        Assert.assertEquals('a', m.getSlot(3));
+        Assert.assertEquals(Integer.MAX_VALUE, m.getSlot(4));
+        Assert.assertEquals((double) Float.MAX_VALUE, m.getSlot(5)); // Float becomes Double
+        Assert.assertEquals(Long.MAX_VALUE, m.getSlot(6)); // Long was untouched
+        Assert.assertEquals(Double.MAX_VALUE, m.getSlot(7));
         for (int i = 8; i < 252; ++i) {
             Assert.assertEquals(String.valueOf(i), m.getSlot(i));
         }

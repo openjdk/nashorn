@@ -4714,7 +4714,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             final Label afterConsumeStack = isOptimistic || currentContinuationEntryPoint ? new Label("after_consume_stack") : null;
             if(isOptimistic) {
                 beginTry = new Label("try_optimistic");
-                final String catchLabelName = afterConsumeStack.toString() + "_handler";
+                final String catchLabelName = afterConsumeStack + "_handler";
                 catchLabel = new Label(catchLabelName);
                 method.label(beginTry);
             } else {

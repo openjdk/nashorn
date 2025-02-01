@@ -100,7 +100,7 @@ public class LoggingOption extends KeyValueOption {
             final String levelString = entry.getValue().toUpperCase(Locale.ENGLISH);
             final boolean isQuiet;
 
-            if ("".equals(levelString)) {
+            if (levelString.isEmpty()) {
                 level = Level.INFO;
                 isQuiet = false;
             } else if ("QUIET".equals(levelString)) {

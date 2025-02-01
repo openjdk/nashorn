@@ -42,6 +42,6 @@ public class PrintToString {
     StringWriter sw = new StringWriter();
     e.getContext().setWriter(sw);
     e.eval("print('hello world')");
-    System.out.println(sw.toString());
+    System.out.println(sw);
   }
 }
