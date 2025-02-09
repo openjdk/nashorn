@@ -732,14 +732,8 @@ final class Lower extends NodeOperatorVisitor<BlockLexicalContext> implements Lo
     private String evalLocation(final IdentNode node) {
         final Source source = lc.getCurrentFunction().getSource();
         final int pos = node.position();
-        return new StringBuilder().
-            append(source.getName()).
-            append('#').
-            append(source.getLine(pos)).
-            append(':').
-            append(source.getColumn(pos)).
-            append("<eval>").
-            toString();
+        return source.getName() + '#' + source.getLine(pos) + ':' + source.getColumn(pos)
+               + "<eval>";
     }
 
     /**
@@ -826,7 +820,7 @@ final class Lower extends NodeOperatorVisitor<BlockLexicalContext> implements Lo
     }
 
     private void addStatementEnclosedInBlock(final Statement stmt) {
-        BlockStatement b = BlockStatement.createReplacement(stmt, Collections.<Statement>singletonList(stmt));
+        BlockStatement b = BlockStatement.createReplacement(stmt, Collections.singletonList(stmt));
         if(stmt.isTerminal()) {
             b = b.setBlock(b.getBlock().setIsTerminal(null, true));
         }

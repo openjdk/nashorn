@@ -137,14 +137,7 @@ public class ScriptEngineTest {
         assertEquals(fac.getProgram("print('hello')", "print('world')"), "print('hello');print('world');");
         assertEquals(fac.getParameter(ScriptEngine.NAME), "javascript");
 
-        boolean seenJS = false;
-        for (final String ext : fac.getExtensions()) {
-            if (ext.equals("js")) {
-                seenJS = true;
-            }
-        }
-
-        assertEquals(seenJS, true);
+        assertTrue(fac.getExtensions().stream().anyMatch(ext -> ext.equals("js")));
         final String str = fac.getMethodCallSyntax("obj", "foo", "x");
         assertEquals(str, "obj.foo(x)");
 
@@ -204,9 +197,9 @@ public class ScriptEngineTest {
 
         try {
             Object obj = e.eval("34 + 41");
-            assertTrue(34.0 + 41.0 == ((Number)obj).doubleValue());
+            assertEquals(((Number) obj).doubleValue(), 34.0 + 41.0);
             obj = e.eval("x = 5");
-            assertTrue(5.0 == ((Number)obj).doubleValue());
+            assertEquals(((Number) obj).doubleValue(), 5.0);
         } catch (final ScriptException se) {
             se.printStackTrace();
             fail(se.getMessage());
@@ -399,7 +392,7 @@ public class ScriptEngineTest {
         final Window window = new Window();
 
         try {
-            final Class<?> setTimeoutParamTypes[] = { Window.class, String.class, int.class };
+            final Class<?>[] setTimeoutParamTypes = { Window.class, String.class, int.class };
             final Method setTimeout = Window.class.getDeclaredMethod("setTimeout", setTimeoutParamTypes);
             assertNotNull(setTimeout);
             e.put("window", window);
@@ -729,7 +722,7 @@ public class ScriptEngineTest {
         final Object val = e.eval("var arr = { length: 1, 0: 1}; arr.length");
 
         assertTrue(Number.class.isAssignableFrom(val.getClass()));
-        assertTrue(((Number)val).intValue() == 1);
+        assertEquals(((Number) val).intValue(), 1);
     }
 
     // @bug JDK-8068603: NashornScriptEngine.put/get() impls don't conform to NPE, IAE spec assertions

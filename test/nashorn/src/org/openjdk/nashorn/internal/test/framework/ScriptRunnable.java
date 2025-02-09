@@ -121,11 +121,11 @@ public final class ScriptRunnable extends AbstractScriptRunnable implements ITes
         if (errors != 0 || checkCompilerMsg) {
             if (expectCompileFailure || checkCompilerMsg) {
                 try (PrintStream outputDest = new PrintStream(new FileOutputStream(errorFileName))) {
-                    TestHelper.dumpFile(outputDest, new StringReader(new String(err.toByteArray())));
+                    TestHelper.dumpFile(outputDest, new StringReader(err.toString()));
                     outputDest.println("--");
                 }
             } else {
-                log(new String(err.toByteArray()));
+                log(err.toString());
             }
 
             if (errors != 0 && !expectCompileFailure) {

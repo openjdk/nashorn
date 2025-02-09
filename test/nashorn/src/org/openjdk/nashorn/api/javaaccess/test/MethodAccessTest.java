@@ -26,6 +26,7 @@
 package org.openjdk.nashorn.api.javaaccess.test;
 
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 import java.util.Arrays;
@@ -34,6 +35,7 @@ import java.util.Locale;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import org.testng.AssertJUnit;
 import org.testng.TestNG;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -104,7 +106,7 @@ public class MethodAccessTest {
     @Test
     public void accessMethodStartsThread() throws ScriptException {
         e.eval("o.methodStartsThread();");
-        assertEquals(false, o.isFinished);
+        assertFalse(o.isFinished);
     }
 
     @Test

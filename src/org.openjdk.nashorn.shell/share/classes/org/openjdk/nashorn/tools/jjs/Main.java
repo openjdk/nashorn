@@ -289,7 +289,7 @@ public final class Main extends Shell {
         }
     }
 
-    private static String JAVADOC_BASE = "https://docs.oracle.com/javase/%d/docs/api/";
+    private static final String JAVADOC_BASE = "https://docs.oracle.com/javase/%d/docs/api/";
     private static void openBrowserForJavadoc(ScriptFunction browse, String relativeUrl) {
         try {
             final URI uri = new URI(String.format(JAVADOC_BASE, Runtime.version().feature()) + relativeUrl);

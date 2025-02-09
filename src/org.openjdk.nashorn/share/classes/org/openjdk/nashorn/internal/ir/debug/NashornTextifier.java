@@ -112,7 +112,7 @@ public final class NashornTextifier extends Printer {
      *            the ASM API version implemented by this visitor. Must be one
      *            of {@link Opcodes#ASM4} or {@link Opcodes#ASM5}.
      */
-    protected NashornTextifier(final int api) {
+    private NashornTextifier(final int api) {
         super(api);
     }
 
@@ -730,20 +730,14 @@ public final class NashornTextifier extends Printer {
 
     @Override
     public void visitLineNumber(final int line, final Label start) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("<line ");
-        sb.append(line);
-        sb.append(">\n");
-        addText(sb.toString());
+        String sb = "<line " + line + ">\n";
+        addText(sb);
     }
 
     @Override
     public void visitMaxs(final int maxStack, final int maxLocals) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append('\n');
-        sb.append(tab2).append("max stack  = ").append(maxStack);
-        sb.append(", max locals = ").append(maxLocals).append('\n');
-        addText(sb.toString());
+        String sb = '\n' + tab2 + "max stack  = " + maxStack + ", max locals = " + maxLocals + '\n';
+        addText(sb);
     }
 
     private void printToDir(final Graph g) {
@@ -786,7 +780,7 @@ public final class NashornTextifier extends Printer {
      *
      * @return a new TraceVisitor.
      */
-    protected NashornTextifier createNashornTextifier() {
+    private NashornTextifier createNashornTextifier() {
         return new NashornTextifier(env, cr, labelIter, graph);
     }
 
@@ -950,7 +944,7 @@ public final class NashornTextifier extends Printer {
                             slash = i;
                         }
                     }
-                    sb.append(desc.substring(slash + 1, i)).append(';');
+                    sb.append(desc, slash + 1, i).append(';');
                 } else {
                     sb.append(desc.charAt(i));
                 }

@@ -179,7 +179,7 @@ public class SharedObject {
         return !arg;
     }
 
-    public boolean[] booleanArrayMethod(final boolean arg[]) {
+    public boolean[] booleanArrayMethod(final boolean[] arg) {
         final boolean[] res = new boolean[arg.length];
         for (int i = 0; i < arg.length; i++) {
             res[i] = !arg[i];
@@ -195,7 +195,7 @@ public class SharedObject {
         return arg + arg;
     }
 
-    public int[] intArrayMethod(final int arg[]) {
+    public int[] intArrayMethod(final int[] arg) {
         final int[] res = new int[arg.length];
         for (int i = 0; i < arg.length; i++) {
             res[i] = arg[i] * 2;

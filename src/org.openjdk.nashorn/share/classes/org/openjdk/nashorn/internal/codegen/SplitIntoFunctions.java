@@ -166,7 +166,7 @@ final class SplitIntoFunctions extends NodeVisitor<BlockLexicalContext> {
                 namespace,
                 createIdent(name),
                 originalFn.getName() + "$" + name,
-                isProgram ? Collections.singletonList(createReturnParamIdent()) : Collections.<IdentNode>emptyList(),
+                isProgram ? Collections.singletonList(createReturnParamIdent()) : Collections.emptyList(),
                 null,
                 FunctionNode.Kind.NORMAL,
                 // We only need IS_SPLIT conservatively, in case it contains any array units so that we force
@@ -190,8 +190,8 @@ final class SplitIntoFunctions extends NodeVisitor<BlockLexicalContext> {
         // assumptions on their return value (when they return a value), as they should be.
         final IdentNode thisIdent = createIdent(THIS_NAME);
         final CallNode callNode = new CallNode(firstLineNumber, token, finish, new AccessNode(NO_TOKEN, NO_FINISH, fn, "call"),
-                isProgram ? Arrays.<Expression>asList(thisIdent, createReturnIdent())
-                          : Collections.<Expression>singletonList(thisIdent),
+                isProgram ? Arrays.asList(thisIdent, createReturnIdent())
+                          : Collections.singletonList(thisIdent),
                 false);
 
         final SplitState splitState = splitStates.pop();

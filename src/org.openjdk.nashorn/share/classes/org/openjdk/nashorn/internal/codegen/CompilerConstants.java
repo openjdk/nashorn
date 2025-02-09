@@ -193,25 +193,25 @@ public enum CompilerConstants {
     private final Class<?> type;
     private final int slot;
 
-    private CompilerConstants() {
+    CompilerConstants() {
         this.symbolName = name();
         this.type = null;
         this.slot = -1;
     }
 
-    private CompilerConstants(final String symbolName) {
+    CompilerConstants(final String symbolName) {
         this(symbolName, -1);
     }
 
-    private CompilerConstants(final String symbolName, final int slot) {
+    CompilerConstants(final String symbolName, final int slot) {
         this(symbolName, null, slot);
     }
 
-    private CompilerConstants(final String symbolName, final Class<?> type) {
+    CompilerConstants(final String symbolName, final Class<?> type) {
         this(symbolName, type, -1);
     }
 
-    private CompilerConstants(final String symbolName, final Class<?> type, final int slot) {
+    CompilerConstants(final String symbolName, final Class<?> type, final int slot) {
         this.symbolName = symbolName;
         this.type       = type;
         this.slot       = slot;
