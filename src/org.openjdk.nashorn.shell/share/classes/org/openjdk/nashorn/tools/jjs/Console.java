@@ -96,7 +96,7 @@ class Console implements AutoCloseable {
                 in.getHistory().add(line.toString());
             }
         }
-        Runtime.getRuntime().addShutdownHook(new Thread((Runnable)this::saveHistory));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::saveHistory));
         bind(DOCUMENTATION_SHORTCUT, ()->showDocumentation(docHelper));
     }
 

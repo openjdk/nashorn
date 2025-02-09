@@ -40,7 +40,7 @@ public interface BreakableNode extends LexicalContextNode, JoinPredecessor, Labe
      * @param lc the lexical context
      * @return node after labels have been made unique
      */
-    public abstract Node ensureUniqueLabels(final LexicalContext lc);
+    public Node ensureUniqueLabels(final LexicalContext lc);
 
     /**
      * Check whether this can be broken out from without using a label,

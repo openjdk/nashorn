@@ -25,7 +25,9 @@
 
 package org.openjdk.nashorn.api.javaaccess.test;
 
+import static org.testng.AssertJUnit.assertArrayEquals;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 import java.util.Arrays;
 import javax.script.ScriptEngine;
@@ -72,7 +74,7 @@ public class BooleanAccessTest {
         assertEquals(o.publicBoolean, e.get("p_boolean"));
         assertEquals("boolean", e.eval("typeof p_boolean;"));
         e.eval("o.publicBoolean = false;");
-        assertEquals(false, o.publicBoolean);
+        assertFalse(o.publicBoolean);
     }
 
     @Test
@@ -87,7 +89,7 @@ public class BooleanAccessTest {
                 "o.publicBooleanArray = t_boolean_arr;");
         assertTrue(Arrays.equals(new boolean[] { true, false, false }, o.publicBooleanArray));
         e.eval("o.publicBooleanArray[0] = false;");
-        assertEquals(false, o.publicBooleanArray[0]);
+        assertFalse(o.publicBooleanArray[0]);
     }
 
     @Test
@@ -96,7 +98,7 @@ public class BooleanAccessTest {
         assertEquals(SharedObject.publicStaticBoolean, e.get("ps_boolean"));
         assertEquals("boolean", e.eval("typeof ps_boolean;"));
         e.eval("SharedObject.publicStaticBoolean = false;");
-        assertEquals(false, SharedObject.publicStaticBoolean);
+        assertFalse(SharedObject.publicStaticBoolean);
     }
 
     @Test
@@ -111,7 +113,7 @@ public class BooleanAccessTest {
                 "SharedObject.publicStaticBooleanArray = ts_boolean_arr;");
         assertTrue(Arrays.equals(new boolean[] { true, false, true }, SharedObject.publicStaticBooleanArray));
         e.eval("SharedObject.publicStaticBooleanArray[0] = false;");
-        assertEquals(false, SharedObject.publicStaticBooleanArray[0]);
+        assertFalse(SharedObject.publicStaticBooleanArray[0]);
     }
 
     @Test
@@ -120,7 +122,7 @@ public class BooleanAccessTest {
         assertEquals(o.publicFinalBoolean, e.get("pf_boolean"));
         assertEquals("boolean", e.eval("typeof pf_boolean;"));
         e.eval("o.publicFinalBoolean = false;");
-        assertEquals(true, o.publicFinalBoolean);
+        assertTrue(o.publicFinalBoolean);
     }
 
     @Test
@@ -135,7 +137,7 @@ public class BooleanAccessTest {
                 "o.publicOFinalbjectArray = tf_boolean_arr;");
         assertTrue(Arrays.equals(new boolean[] { false, false, true, false }, o.publicFinalBooleanArray));
         e.eval("o.publicFinalBooleanArray[0] = true;");
-        assertEquals(true, o.publicFinalBooleanArray[0]);
+        assertTrue(o.publicFinalBooleanArray[0]);
     }
 
     @Test
@@ -144,7 +146,7 @@ public class BooleanAccessTest {
         assertEquals(SharedObject.publicStaticFinalBoolean, e.get("psf_boolean"));
         assertEquals("boolean", e.eval("typeof psf_boolean;"));
         e.eval("SharedObject.publicStaticFinalBoolean = false;");
-        assertEquals(true, SharedObject.publicStaticFinalBoolean);
+        assertTrue(SharedObject.publicStaticFinalBoolean);
     }
 
     @Test
@@ -159,7 +161,7 @@ public class BooleanAccessTest {
                 "SharedObject.publicStaticFinalBooleanArray = tsf_boolean_arr;");
         assertTrue(Arrays.equals(new boolean[] { false, true, false, false }, SharedObject.publicStaticFinalBooleanArray));
         e.eval("SharedObject.publicStaticFinalBooleanArray[0] = true;");
-        assertEquals(true, SharedObject.publicStaticFinalBooleanArray[0]);
+        assertTrue(SharedObject.publicStaticFinalBooleanArray[0]);
     }
 
     @Test
@@ -168,7 +170,7 @@ public class BooleanAccessTest {
         assertEquals(o.publicBooleanBox, e.get("p_boolean_box"));
         assertEquals("boolean", e.eval("typeof p_boolean_box;"));
         e.eval("o.publicBooleanBox = false;");
-        assertEquals(false, (boolean)o.publicBooleanBox);
+        assertFalse((boolean) o.publicBooleanBox);
     }
 
     @Test
@@ -177,7 +179,7 @@ public class BooleanAccessTest {
         assertEquals(SharedObject.publicStaticBooleanBox, e.get("ps_boolean_box"));
         assertEquals("boolean", e.eval("typeof ps_boolean_box;"));
         e.eval("SharedObject.publicStaticBooleanBox = false;");
-        assertEquals(false, (boolean)SharedObject.publicStaticBooleanBox);
+        assertFalse((boolean) SharedObject.publicStaticBooleanBox);
     }
 
     @Test
@@ -186,7 +188,7 @@ public class BooleanAccessTest {
         assertEquals(o.publicFinalBooleanBox, e.get("pf_boolean_box"));
         assertEquals("boolean", e.eval("typeof pf_boolean_box;"));
         e.eval("o.publicFinalBooleanBox = false;");
-        assertEquals(true, (boolean)o.publicFinalBooleanBox);
+        assertTrue((boolean) o.publicFinalBooleanBox);
     }
 
     @Test
@@ -195,7 +197,7 @@ public class BooleanAccessTest {
         assertEquals(SharedObject.publicStaticFinalBooleanBox, e.get("psf_boolean_box"));
         assertEquals("boolean", e.eval("typeof psf_boolean_box;"));
         e.eval("SharedObject.publicStaticFinalBooleanBox = false;");
-        assertEquals(true, (boolean)SharedObject.publicStaticFinalBooleanBox);
+        assertTrue((boolean) SharedObject.publicStaticFinalBooleanBox);
     }
 
     @Test
@@ -204,7 +206,7 @@ public class BooleanAccessTest {
         assertEquals(o.volatileBoolean, e.get("pv_boolean"));
         assertEquals("boolean", e.eval("typeof pv_boolean;"));
         e.eval("o.volatileBoolean = false;");
-        assertEquals(false, o.volatileBoolean);
+        assertFalse(o.volatileBoolean);
     }
 
     @Test
@@ -213,7 +215,7 @@ public class BooleanAccessTest {
         assertEquals(o.transientBoolean, e.get("pt_boolean"));
         assertEquals("boolean", e.eval("typeof pt_boolean;"));
         e.eval("o.transientBoolean = false;");
-        assertEquals(false, o.transientBoolean);
+        assertFalse(o.transientBoolean);
     }
 
 }

@@ -902,7 +902,7 @@ public abstract class LiteralNode<T extends Serializable> extends Expression imp
 
         @Override
         public Node accept(final NodeVisitor<? extends LexicalContext> visitor) {
-            return Acceptor.accept(this, visitor);
+            return LexicalContextNode.accept(this, visitor);
         }
 
         @Override

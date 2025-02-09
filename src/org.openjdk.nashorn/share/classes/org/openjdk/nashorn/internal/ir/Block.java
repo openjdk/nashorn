@@ -506,7 +506,7 @@ public class Block extends Node implements BreakableNode, Terminal, Flags<Block>
 
     @Override
     public Node accept(final NodeVisitor<? extends LexicalContext> visitor) {
-        return Acceptor.accept(this, visitor);
+        return LexicalContextNode.accept(this, visitor);
     }
 
     /**

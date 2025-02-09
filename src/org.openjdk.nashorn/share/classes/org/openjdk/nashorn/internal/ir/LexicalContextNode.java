@@ -43,19 +43,19 @@ public interface LexicalContextNode {
      */
     Node accept(final LexicalContext lc, final NodeVisitor<? extends LexicalContext> visitor);
 
-    // Would be a default method on Java 8
     /**
-     * Helper class for accept for items of this lexical context, delegates to the
+     * Helper method for accept for items of this lexical context, delegates to the
      * subclass accept and makes sure that the node is on the context before accepting
      * and gets popped after accepting (and that the stack is consistent in that the
-     * node has been replaced with the possible new node resulting in visitation)
+     * node has been replaced with the possible new node resulting in visitation.)
+     * This could be default accept(NodeVisitor) method on LexicalContextNode but unfortunately
+     * Java compiler does not accept interface default methods as implementations of abstract class
+     * methods so classes that extend Node and implement LexicalContextNode won't compile.
      */
-    static class Acceptor {
-        static Node accept(final LexicalContextNode node, final NodeVisitor<? extends LexicalContext> visitor) {
-            final LexicalContext lc = visitor.getLexicalContext();
-            lc.push(node);
-            final Node newNode = node.accept(lc, visitor);
-            return lc.pop(newNode);
-        }
+    static Node accept(final LexicalContextNode node, final NodeVisitor<? extends LexicalContext> visitor) {
+        final LexicalContext lc = visitor.getLexicalContext();
+        lc.push(node);
+        final Node newNode = node.accept(lc, visitor);
+        return lc.pop(newNode);
     }
 }

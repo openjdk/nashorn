@@ -182,7 +182,7 @@ final class HistoryObject extends AbstractJSObject {
 
     private Object iterate(final JSObject func) {
         for (History.Entry e : hist) {
-            if (JSType.toBoolean(func.call(this, e.line().toString()))) {
+            if (JSType.toBoolean(func.call(this, e.line()))) {
                 break; // return true from callback to skip iteration
             }
         }

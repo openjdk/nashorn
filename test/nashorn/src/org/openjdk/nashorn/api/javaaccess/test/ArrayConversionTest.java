@@ -25,6 +25,7 @@
 
 package org.openjdk.nashorn.api.javaaccess.test;
 
+import static org.testng.AssertJUnit.assertArrayEquals;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertNull;
@@ -156,7 +157,7 @@ public class ArrayConversionTest {
 
     public static void assertSingleEmptyIntIntArray(final int[][] array) {
         assertEquals(1, array.length);
-        assertTrue(Arrays.equals(new int[0], array[0]));
+        assertArrayEquals(new int[0], array[0]);
     }
 
     public static void assertSingleNullIntIntArray(final int[][] array) {
@@ -166,18 +167,18 @@ public class ArrayConversionTest {
 
     public static void assertLargeIntIntArray(final int[][] array) {
         assertEquals(5, array.length);
-        assertTrue(Arrays.equals(new int[] { 0 }, array[0]));
-        assertTrue(Arrays.equals(new int[] { 1 }, array[1]));
-        assertTrue(Arrays.equals(new int[] { 2, 3 }, array[2]));
-        assertTrue(Arrays.equals(new int[] { 4, 5, 6 }, array[3]));
-        assertTrue(Arrays.equals(new int[] { 7, 8 }, array[4]));
+        assertArrayEquals(new int[]{0}, array[0]);
+        assertArrayEquals(new int[]{1}, array[1]);
+        assertArrayEquals(new int[]{2, 3}, array[2]);
+        assertArrayEquals(new int[]{4, 5, 6}, array[3]);
+        assertArrayEquals(new int[]{7, 8}, array[4]);
     }
 
     public static void assertLargeObjectObjectArray(final Object[][] array) throws ScriptException {
         assertEquals(4, array.length);
-        assertTrue(Arrays.equals(new Object[] { Boolean.FALSE }, array[0]));
-        assertTrue(Arrays.equals(new Object[] { 1 }, array[1]));
-        assertTrue(Arrays.equals(new Object[] { "foo", 42.3d }, array[2]));
+        assertArrayEquals(new Object[]{Boolean.FALSE}, array[0]);
+        assertArrayEquals(new Object[]{1}, array[1]);
+        assertArrayEquals(new Object[]{"foo", 42.3d}, array[2]);
         assertEquals(1, array[3].length);
         e.getBindings(ScriptContext.ENGINE_SCOPE).put("obj", array[3][0]);
         assertEquals(17, e.eval("obj.x"));
@@ -234,6 +235,6 @@ public class ArrayConversionTest {
         assertEquals("abc", y);
     }
     public static void x(final String[] y) {
-        assertTrue(Arrays.equals(new String[] { "foo", "bar"}, y));
+        assertArrayEquals(new String[]{"foo", "bar"}, y);
     }
 }

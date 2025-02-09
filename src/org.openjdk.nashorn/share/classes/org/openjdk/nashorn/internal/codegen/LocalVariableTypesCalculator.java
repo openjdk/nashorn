@@ -138,7 +138,7 @@ final class LocalVariableTypesCalculator extends SimpleNodeVisitor {
         private final Type type;
         private final TypeHolderExpression typeExpression;
 
-        private LvarType(final Type type) {
+        LvarType(final Type type) {
             this.type = type;
             this.typeExpression = new TypeHolderExpression(type);
         }
@@ -1139,7 +1139,7 @@ final class LocalVariableTypesCalculator extends SimpleNodeVisitor {
             withNode.getBody().accept(this);
         }
         return false;
-    };
+    }
 
     private Map<Symbol, LvarType> getBreakTargetTypes(final LexicalContextNode target) {
         // Remove symbols defined in the the blocks that are being broken out of.

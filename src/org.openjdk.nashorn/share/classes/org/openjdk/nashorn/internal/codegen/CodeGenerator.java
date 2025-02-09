@@ -3047,7 +3047,7 @@ final class CodeGenerator extends NodeOperatorVisitor<CodeGeneratorLexicalContex
             }
             // TABLESWITCH needs (range + 3) 32-bit values; LOOKUPSWITCH needs ((size * 2) + 2). Choose the one with
             // smaller representation, favor TABLESWITCH when they're equal size.
-            if (range + 1 <= (size * 2)) {
+            if (range + 1 <= (size * 2L)) {
                 final Label[] table = new Label[(int)range];
                 Arrays.fill(table, defaultLabel);
                 for (int i = 0; i < size; i++) {

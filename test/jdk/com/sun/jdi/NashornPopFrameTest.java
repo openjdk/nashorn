@@ -89,7 +89,7 @@ public class NashornPopFrameTest extends TestScaffold {
     ThreadReference mainThread;
     BreakpointRequest bkptRequest;
 
-    NashornPopFrameTest(String args[]) {
+    NashornPopFrameTest(String[] args) {
         super(args);
     }
 
@@ -229,8 +229,8 @@ public class NashornPopFrameTest extends TestScaffold {
     /********** event handlers **********/
 
     public void breakpointReached(BreakpointEvent event) {
-        ThreadReference thread = ((BreakpointEvent) event).thread();
-        String locStr = "" + ((BreakpointEvent) event).location();
+        ThreadReference thread = event.thread();
+        String locStr = "" + event.location();
         out.println("Agent: BreakpointEvent #" + (bkptCount++) +
                 " at " + locStr + " in thread: " + thread);
         if (locStr.equals("ScriptDebuggee:" + ScriptDebuggee.BKPT_LINE)) {

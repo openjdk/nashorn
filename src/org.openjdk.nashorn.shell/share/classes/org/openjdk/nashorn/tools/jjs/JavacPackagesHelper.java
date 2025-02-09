@@ -88,7 +88,7 @@ final class JavacPackagesHelper extends PackagesHelper {
                 fm.setLocation(StandardLocation.CLASS_PATH, getFiles(classPath));
             } else {
                 // no classpath set. Make sure that it is empty and not any default like "."
-                fm.setLocation(StandardLocation.CLASS_PATH, Collections.<File>emptyList());
+                fm.setLocation(StandardLocation.CLASS_PATH, Collections.emptyList());
             }
         } else {
             // javac is not available - caller should have checked!

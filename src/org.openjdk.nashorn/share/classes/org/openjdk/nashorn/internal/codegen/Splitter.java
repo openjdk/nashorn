@@ -183,7 +183,7 @@ final class Splitter extends SimpleNodeVisitor implements Loggable {
      * @param weight weight needed
      * @return compile unit
      */
-    protected CompileUnit findUnit(final long weight) {
+    private CompileUnit findUnit(final long weight) {
         return compiler.findUnit(weight);
     }
 

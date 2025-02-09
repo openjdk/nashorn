@@ -90,7 +90,7 @@ final class PropertiesHelper {
             if (pkgsHelper != null) {
                 return pkgsHelper.getPackageProperties(((NativeJavaPackage)obj).getName());
             } else {
-                return Collections.<String>emptyList();
+                return Collections.emptyList();
             }
         }
 

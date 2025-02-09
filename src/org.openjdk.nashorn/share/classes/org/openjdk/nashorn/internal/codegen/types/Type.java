@@ -295,8 +295,8 @@ public abstract class Type implements Comparable<Type>, BytecodeOps, Serializabl
      * @return parameter type array
      */
     public static Type[] getMethodArguments(final String methodDescriptor) {
-        final org.objectweb.asm.Type itypes[] = org.objectweb.asm.Type.getArgumentTypes(methodDescriptor);
-        final Type types[] = new Type[itypes.length];
+        final org.objectweb.asm.Type[] itypes = org.objectweb.asm.Type.getArgumentTypes(methodDescriptor);
+        final Type[] types = new Type[itypes.length];
         for (int i = 0; i < itypes.length; i++) {
             types[i] = Type.typeFor(itypes[i]);
         }
@@ -1042,7 +1042,7 @@ public abstract class Type implements Comparable<Type>, BytecodeOps, Serializabl
         }
     };
 
-    private static interface Unknown {
+    private interface Unknown {
         // EMPTY - used as a class that is absolutely not compatible with a type to represent "unknown"
     }
 

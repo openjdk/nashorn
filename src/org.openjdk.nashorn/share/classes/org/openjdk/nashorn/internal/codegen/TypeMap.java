@@ -131,18 +131,8 @@ public final class TypeMap {
     }
 
     String toString(final String prefix) {
-        final StringBuilder sb = new StringBuilder();
-
-        sb.append(prefix).append('\t');
-        sb.append("function ").append(functionNodeId).append('\n');
-        sb.append(prefix).append("\t\tparamTypes=");
-        sb.append(Arrays.toString(paramTypes));
-        sb.append('\n');
-        sb.append(prefix).append("\t\treturnType=");
-        final Type ret = returnType;
-        sb.append(ret == null ? "N/A" : ret);
-        sb.append('\n');
-
-        return sb.toString();
+        return prefix + '\t' + "function " + functionNodeId + '\n' + prefix + "\t\tparamTypes="
+               + Arrays.toString(paramTypes) + '\n' + prefix + "\t\treturnType="
+               + (returnType == null ? "N/A" : returnType) + '\n';
     }
 }

@@ -44,6 +44,6 @@ abstract class LexicalContextExpression extends Expression implements LexicalCon
 
     @Override
     public Node accept(final NodeVisitor<? extends LexicalContext> visitor) {
-        return Acceptor.accept(this, visitor);
+        return LexicalContextNode.accept(this, visitor);
     }
 }

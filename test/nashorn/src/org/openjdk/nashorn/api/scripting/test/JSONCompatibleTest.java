@@ -78,7 +78,7 @@ public class JSONCompatibleTest {
         final List<Object> y = asList(x1.get("y"));
         assertEquals(y.get(0), 2);
         final Map<String, Object> y1 = asMap(y.get(1));
-        assertEquals(asList(y1.get("z")), Arrays.asList(3));
+        assertEquals(asList(y1.get("z")), List.of(3));
         assertEquals(asList(x.get(2)), Arrays.asList(4, 5));
     }
 

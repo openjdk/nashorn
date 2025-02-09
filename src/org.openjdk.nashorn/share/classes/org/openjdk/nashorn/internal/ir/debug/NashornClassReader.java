@@ -77,7 +77,7 @@ public class NashornClassReader extends ClassReader {
 
     private static String readUTF(final int index, final int utfLen, final byte[] bytecode) {
         final int endIndex = index + utfLen;
-        final char buf[] = new char[utfLen * 2];
+        final char[] buf = new char[utfLen * 2];
         int strLen = 0;
         int c;
         int st = 0;

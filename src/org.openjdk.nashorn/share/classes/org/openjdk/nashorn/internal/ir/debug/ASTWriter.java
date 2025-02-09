@@ -120,7 +120,7 @@ public final class ASTWriter {
         final Class<?> clazz = node.getClass();
         String   type  = clazz.getName();
 
-        type = type.substring(type.lastIndexOf('.') + 1, type.length());
+        type = type.substring(type.lastIndexOf('.') + 1);
         int truncate = type.indexOf("Node");
         if (truncate == -1) {
             truncate = type.indexOf("Statement");
@@ -176,7 +176,7 @@ public final class ASTWriter {
         if (symbol != null) {
             String tname = ((Expression)node).getType().toString();
             if (tname.indexOf('.') != -1) {
-                tname = tname.substring(tname.lastIndexOf('.') + 1, tname.length());
+                tname = tname.substring(tname.lastIndexOf('.') + 1);
             }
             status += " (" + tname + ")";
         }

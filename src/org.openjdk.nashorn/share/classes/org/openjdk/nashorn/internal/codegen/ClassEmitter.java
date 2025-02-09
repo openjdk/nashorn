@@ -430,7 +430,7 @@ public class ClassEmitter {
             cr.accept(tcv, 0);
         }
 
-        return new String(baos.toByteArray());
+        return baos.toString();
     }
 
     /**

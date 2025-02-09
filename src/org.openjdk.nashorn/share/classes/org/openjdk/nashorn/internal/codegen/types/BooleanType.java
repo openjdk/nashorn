@@ -50,7 +50,7 @@ public final class BooleanType extends Type {
     /**
      * Constructor
      */
-    protected BooleanType() {
+    BooleanType() {
         super("boolean", boolean.class, 1, 1);
     }
 

@@ -143,7 +143,7 @@ public final class Source implements Loggable {
     }
 
     // Wrapper to manage lazy loading
-    private static interface Data {
+    private interface Data {
 
         URL url();
 

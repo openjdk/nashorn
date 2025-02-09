@@ -50,7 +50,7 @@ final class YieldTreeImpl extends ExpressionTreeImpl
 
     @Override
     public boolean isStar() {
-        return ((UnaryNode) node).isTokenType(TokenType.YIELD_STAR);
+        return node.isTokenType(TokenType.YIELD_STAR);
     }
 
     @Override

@@ -120,7 +120,7 @@ public final class TestFinder {
             if (testRootsString == null || testRootsString.isEmpty()) {
                 throw new Exception("Error: " + TEST_JS_ROOTS + " must be set");
             }
-            final String testRoots[] = testRootsString.split(" ");
+            final String[] testRoots = testRootsString.split(" ");
             final FileSystem fileSystem = FileSystems.getDefault();
             final Set<String> testExcludeSet = getExcludeSet();
             final Path[] excludePaths = getExcludeDirs();
@@ -130,7 +130,7 @@ public final class TestFinder {
             }
         } else {
             // TEST_JS_LIST contains a blank speparated list of test file names.
-            final String strArray[] = testList.split(" ");
+            final String[] strArray = testList.split(" ");
             for (final String ss : strArray) {
                 handleOneTest(framework, new File(ss).toPath(), tests, orphans, testFactory);
             }
@@ -192,7 +192,7 @@ public final class TestFinder {
         }
     }
 
-    private static final String uncheckedDirs[] = System.getProperty(TEST_JS_UNCHECKED_DIR, "test/nashorn/script/external/test262/").split(" ");
+    private static final String[] uncheckedDirs = System.getProperty(TEST_JS_UNCHECKED_DIR, "test/nashorn/script/external/test262/").split(" ");
 
     private static boolean isUnchecked(final Path testFile) {
         for (final String uncheckedDir : uncheckedDirs) {
@@ -446,7 +446,7 @@ public final class TestFinder {
     }
 
     private static Path[] getExcludeDirs() {
-        final String excludeDirs[] = System.getProperty(TEST_JS_EXCLUDE_DIR, "test/nashorn/script/currently-failing").split(" ");
+        final String[] excludeDirs = System.getProperty(TEST_JS_EXCLUDE_DIR, "test/nashorn/script/currently-failing").split(" ");
         final Path[] excludePaths = new Path[excludeDirs.length];
         final FileSystem fileSystem = FileSystems.getDefault();
         int i = 0;

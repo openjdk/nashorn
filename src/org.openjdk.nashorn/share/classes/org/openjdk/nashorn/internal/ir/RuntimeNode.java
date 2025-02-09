@@ -93,15 +93,16 @@ public class RuntimeNode extends Expression {
         /** Can the specializer turn this into something that works with 1 or more primitives? */
         private final boolean canSpecialize;
 
-        private Request() {
+        Request() {
             this(TokenType.VOID, Type.OBJECT, 0);
         }
 
-        private Request(final TokenType tokenType, final Type returnType, final int arity) {
+        Request(final TokenType tokenType, final Type returnType, final int arity) {
             this(tokenType, returnType, arity, false);
         }
 
-        private Request(final TokenType tokenType, final Type returnType, final int arity, final boolean canSpecialize) {
+        Request(final TokenType tokenType, final Type returnType, final int arity,
+            final boolean canSpecialize) {
             this.tokenType     = tokenType;
             this.returnType    = returnType;
             this.arity         = arity;

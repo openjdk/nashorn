@@ -122,7 +122,7 @@ public final class Context {
      */
     private final FieldMode fieldMode;
 
-    private static enum FieldMode {
+    private enum FieldMode {
         /** Value for automatic field representation depending on optimistic types setting */
         AUTO,
         /** Value for object field representation regardless of optimistic types setting */
@@ -681,14 +681,14 @@ public final class Context {
      * Interface to represent compiled code that can be re-used across many
      * global scope instances
      */
-    public static interface MultiGlobalCompiledScript {
+    public interface MultiGlobalCompiledScript {
         /**
          * Obtain script function object for a specific global scope object.
          *
          * @param newGlobal global scope for which function object is obtained
          * @return script function for script level expressions
          */
-        public ScriptFunction getFunction(final Global newGlobal);
+        ScriptFunction getFunction(final Global newGlobal);
     }
 
     /**
