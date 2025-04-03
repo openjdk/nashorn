@@ -361,7 +361,7 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
     /**
      * Remove all variables matching keys
      * Added for performance and for symmetry with putAll
-     * @param keys 
+     * @param keys
      */
     public void removeAll(final Set<? extends String> keys) {
         Objects.requireNonNull(keys);
@@ -370,11 +370,11 @@ public final class ScriptObjectMirror extends AbstractJSObject implements Bindin
         inGlobal(() -> {
             for (final String key : keys) {
                 checkKey(key);
-                sobj.remove(key, strict); // Hopefully works (
+                sobj.remove(key, strict);
 //                wrapLikeMe(sobj.remove(key, strict));
             }
         });
-    }    
+    }
 
     /**
      * Delete a property from this object.
