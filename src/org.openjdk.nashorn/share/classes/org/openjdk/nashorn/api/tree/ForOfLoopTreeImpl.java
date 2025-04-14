@@ -36,7 +36,7 @@ final class ForOfLoopTreeImpl extends StatementTreeImpl implements ForOfLoopTree
             final ExpressionTree expr,
             final StatementTree stat) {
         super(node);
-        assert node.isForIn() : "for ..in expected";
+        assert node.isForOf() : "for ..of expected";
         this.lhsExpr = lhsExpr;
         this.expr = expr;
         this.stat = stat;
