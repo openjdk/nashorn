@@ -90,7 +90,7 @@ abstract class PackagesHelper {
             if (Main.DEBUG) {
                 exp.printStackTrace();
             }
-            return Collections.<String>emptyList();
+            return Collections.emptyList();
         }
     }
 

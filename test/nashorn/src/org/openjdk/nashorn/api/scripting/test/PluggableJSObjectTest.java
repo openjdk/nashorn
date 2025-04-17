@@ -27,6 +27,8 @@ package org.openjdk.nashorn.api.scripting.test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertSame;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
@@ -135,8 +137,8 @@ public class PluggableJSObjectTest {
             assertEquals(e.eval("'foo' in obj"), Boolean.TRUE);
             e.eval("delete obj[f + 'oo']");
             assertFalse(obj.getMap().containsKey("foo"));
-            assertEquals(e.eval("obj[f + 'oo']"), null);
-            assertEquals(e.eval("obj['foo']"), null);
+            assertNull(e.eval("obj[f + 'oo']"));
+            assertNull(e.eval("obj['foo']"));
             assertEquals(e.eval("f + 'oo' in obj"), Boolean.FALSE);
             assertEquals(e.eval("'foo' in obj"), Boolean.FALSE);
         } catch (final Exception exp) {
@@ -307,7 +309,7 @@ public class PluggableJSObjectTest {
             @Override
             public void setMember(final String name, final Object value) {
                 // make sure that wrapped objects are passed (and not internal impl. objects)
-                assertTrue(value.getClass() == ScriptObjectMirror.class);
+                assertSame(value.getClass(), ScriptObjectMirror.class);
             }
         });
     }

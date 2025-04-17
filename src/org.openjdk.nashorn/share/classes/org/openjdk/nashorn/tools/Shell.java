@@ -327,7 +327,7 @@ public class Shell implements PartialParser {
             // escaping \ character. This is handled here.
             if (s.endsWith("\\")) {
                 // omit trailing \, append space instead
-                toAppend.append(s.substring(0, s.length() - 1)).append(' ');
+                toAppend.append(s, 0, s.length() - 1).append(' ');
             } else {
                 tokenList.add(toAppend.append(s).toString());
                 toAppend.setLength(0);

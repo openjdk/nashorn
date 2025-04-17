@@ -573,12 +573,8 @@ public final class JSONWriter extends SimpleNodeVisitor {
             if (value instanceof RegexToken) {
                 // encode RegExp literals as Strings of the form /.../<flags>
                 final RegexToken regex = (RegexToken)value;
-                final StringBuilder regexBuf = new StringBuilder();
-                regexBuf.append('/');
-                regexBuf.append(regex.getExpression());
-                regexBuf.append('/');
-                regexBuf.append(regex.getOptions());
-                buf.append(quote(regexBuf.toString()));
+                String regexBuf = '/' + regex.getExpression() + '/' + regex.getOptions();
+                buf.append(quote(regexBuf));
             } else {
                 final String str = literalNode.getString();
                 // encode every String literal with prefix '$' so that script

@@ -215,12 +215,12 @@ public class TrustedScriptEngineTest {
 
         // all global definitions shared and so 'foo' should be
         // visible in new Bindings as well.
-        assertTrue(e.eval("typeof foo", newCtx).equals("function"));
+        assertEquals(e.eval("typeof foo", newCtx), "function");
 
         e.eval("function bar() {}", newCtx);
 
         // bar should be visible in default context
-        assertTrue(e.eval("typeof bar").equals("function"));
+        assertEquals(e.eval("typeof bar"), "function");
     }
 
     @Test
@@ -327,11 +327,10 @@ public class TrustedScriptEngineTest {
         final String[] args = new String[] { "--const-as-var" };
         final ScriptEngine engine = f.getScriptEngine(args);
 
-        final Object ret = engine.eval(""
-            + "(function() {\n"
-            + "  const x = 10;\n"
-            + "  return x;\n"
-            + "})();"
+        final Object ret = engine.eval("(function() {\n"
+                                       + "  const x = 10;\n"
+                                       + "  return x;\n"
+                                       + "})();"
         );
         assertEquals(ret, 10, "Parsed and executed OK");
     }
@@ -339,7 +338,7 @@ public class TrustedScriptEngineTest {
     @Test
     public void evalDefaultFileNameTest() throws ScriptException {
         final NashornScriptEngineFactory fac = new NashornScriptEngineFactory();
-        final ScriptEngine engine = fac.getScriptEngine(new String[] { "--verify-code=true" });
+        final ScriptEngine engine = fac.getScriptEngine("--verify-code=true");
         // default FILENAME being "<eval>" make sure generated code bytecode verifies.
         engine.eval("var a = 3;");
     }
@@ -347,7 +346,7 @@ public class TrustedScriptEngineTest {
     @Test
     public void evalFileNameWithSpecialCharsTest() throws ScriptException {
         final NashornScriptEngineFactory fac = new NashornScriptEngineFactory();
-        final ScriptEngine engine = fac.getScriptEngine(new String[] { "--verify-code=true" });
+        final ScriptEngine engine = fac.getScriptEngine("--verify-code=true");
         final ScriptContext ctxt = new SimpleScriptContext();
         // use file name with "dangerous" chars.
         ctxt.setAttribute(ScriptEngine.FILENAME, "<myscript>", ScriptContext.ENGINE_SCOPE);

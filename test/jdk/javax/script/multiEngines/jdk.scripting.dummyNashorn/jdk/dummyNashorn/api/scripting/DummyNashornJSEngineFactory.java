@@ -103,7 +103,7 @@ public class DummyNashornJSEngineFactory implements ScriptEngineFactory {
     }
 
     private static List<String> names;
-    private static List<String> extensions;
+    private static final List<String> extensions;
     private static List<String> mimeTypes;
     static {
         names = new ArrayList<String>(1);

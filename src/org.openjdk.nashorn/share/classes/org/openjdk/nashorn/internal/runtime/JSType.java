@@ -247,7 +247,7 @@ public enum JSType {
      *
      * @param typeName the type name
      */
-    private JSType(final String typeName) {
+    JSType(final String typeName) {
         this.typeName = typeName;
     }
 

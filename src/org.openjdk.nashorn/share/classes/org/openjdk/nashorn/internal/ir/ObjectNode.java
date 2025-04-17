@@ -72,7 +72,7 @@ public final class ObjectNode extends Expression implements LexicalContextNode, 
 
     @Override
     public Node accept(final NodeVisitor<? extends LexicalContext> visitor) {
-        return Acceptor.accept(this, visitor);
+        return LexicalContextNode.accept(this, visitor);
     }
 
     @Override

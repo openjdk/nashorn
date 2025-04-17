@@ -2836,13 +2836,10 @@ public final class Global extends Scope {
     private <T extends ScriptObject> T initConstructor(final String name, final Class<T> clazz) {
         try {
             // Assuming class name pattern for built-in JS constructors.
-            final StringBuilder sb = new StringBuilder(PACKAGE_PREFIX);
 
-            sb.append("Native");
-            sb.append(name);
-            sb.append("$Constructor");
+            String sb = PACKAGE_PREFIX + "Native" + name + "$Constructor";
 
-            final Class<?> funcClass = Class.forName(sb.toString());
+            final Class<?> funcClass = Class.forName(sb);
             final T res = clazz.cast(funcClass.getDeclaredConstructor().newInstance());
 
             if (res instanceof ScriptFunction) {

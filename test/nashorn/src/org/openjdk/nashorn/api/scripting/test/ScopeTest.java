@@ -27,6 +27,7 @@ package org.openjdk.nashorn.api.scripting.test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 import javax.script.Bindings;
@@ -171,7 +172,7 @@ public class ScopeTest {
         newContext.setBindings(new SimpleBindings(), ScriptContext.ENGINE_SCOPE);
         // we are using a new bindings - so it should have 'func' defined
         final Object value = e.eval("typeof func", newContext);
-        assertTrue(value.equals("undefined"));
+        assertEquals(value, "undefined");
     }
 
     @Test
@@ -183,7 +184,7 @@ public class ScopeTest {
         e.eval("function foo() {}", newContext);
 
         // in the default context's ENGINE_SCOPE, 'foo' shouldn't exist
-        assertTrue(e.eval("typeof foo").equals("undefined"));
+        assertEquals(e.eval("typeof foo"), "undefined");
     }
 
     @Test
@@ -195,16 +196,16 @@ public class ScopeTest {
         e.eval("function foo() {}", newContext);
 
         // definition retained with user's ENGINE_SCOPE Binding
-        assertTrue(e.eval("typeof foo", newContext).equals("function"));
+        assertEquals(e.eval("typeof foo", newContext), "function");
 
         final Bindings oldBindings = newContext.getBindings(ScriptContext.ENGINE_SCOPE);
         // but not in another ENGINE_SCOPE binding
         newContext.setBindings(new SimpleBindings(), ScriptContext.ENGINE_SCOPE);
-        assertTrue(e.eval("typeof foo", newContext).equals("undefined"));
+        assertEquals(e.eval("typeof foo", newContext), "undefined");
 
         // restore ENGINE_SCOPE and check again
         newContext.setBindings(oldBindings, ScriptContext.ENGINE_SCOPE);
-        assertTrue(e.eval("typeof foo", newContext).equals("function"));
+        assertEquals(e.eval("typeof foo", newContext), "function");
     }
 
     @Test
@@ -232,29 +233,29 @@ public class ScopeTest {
         globalScope.put("x", "hello");
 
         // GLOBAL_SCOPE mapping should be visible from default ScriptContext eval
-        assertTrue(e.eval("x").equals("hello"));
+        assertEquals(e.eval("x"), "hello");
 
         final ScriptContext ctx = new SimpleScriptContext();
         ctx.setBindings(globalScope, ScriptContext.GLOBAL_SCOPE);
         ctx.setBindings(b, ScriptContext.ENGINE_SCOPE);
 
         // GLOBAL_SCOPE mapping should be visible from non-default ScriptContext eval
-        assertTrue(e.eval("x", ctx).equals("hello"));
+        assertEquals(e.eval("x", ctx), "hello");
 
         // try some arbitray Bindings for ENGINE_SCOPE
         final Bindings sb = new SimpleBindings();
         ctx.setBindings(sb, ScriptContext.ENGINE_SCOPE);
 
         // GLOBAL_SCOPE mapping should be visible from non-default ScriptContext eval
-        assertTrue(e.eval("x", ctx).equals("hello"));
+        assertEquals(e.eval("x", ctx), "hello");
 
         // engine.js builtins are still defined even with arbitrary Bindings
-        assertTrue(e.eval("typeof print", ctx).equals("function"));
-        assertTrue(e.eval("typeof __noSuchProperty__", ctx).equals("function"));
+        assertEquals(e.eval("typeof print", ctx), "function");
+        assertEquals(e.eval("typeof __noSuchProperty__", ctx), "function");
 
         // ENGINE_SCOPE definition should 'hide' GLOBAL_SCOPE definition
         sb.put("x", "newX");
-        assertTrue(e.eval("x", ctx).equals("newX"));
+        assertEquals(e.eval("x", ctx), "newX");
     }
 
     /**
@@ -270,8 +271,8 @@ public class ScopeTest {
         newCtxt.setBindings(b, ScriptContext.ENGINE_SCOPE);
         final String sharedScript = "foo";
 
-        assertEquals(e.eval("var foo = 'original context';", origContext), null);
-        assertEquals(e.eval("var foo = 'new context';", newCtxt), null);
+        assertNull(e.eval("var foo = 'original context';", origContext));
+        assertNull(e.eval("var foo = 'new context';", newCtxt));
 
         final Thread t1 = new Thread(new ScriptRunner(e, origContext, sharedScript, "original context", 1000));
         final Thread t2 = new Thread(new ScriptRunner(e, newCtxt, sharedScript, "new context", 1000));
@@ -280,7 +281,7 @@ public class ScopeTest {
         t1.join();
         t2.join();
 
-        assertEquals(e.eval("var foo = 'newer context';", newCtxt), null);
+        assertNull(e.eval("var foo = 'newer context';", newCtxt));
         final Thread t3 = new Thread(new ScriptRunner(e, origContext, sharedScript, "original context", 1000));
         final Thread t4 = new Thread(new ScriptRunner(e, newCtxt, sharedScript, "newer context", 1000));
 
@@ -342,8 +343,8 @@ public class ScopeTest {
         final ScriptContext newCtxt = new SimpleScriptContext();
         newCtxt.setBindings(b, ScriptContext.ENGINE_SCOPE);
 
-        assertEquals(e.eval("var x = 0;", origContext), null);
-        assertEquals(e.eval("var x = 2;", newCtxt), null);
+        assertNull(e.eval("var x = 0;", origContext));
+        assertNull(e.eval("var x = 2;", newCtxt));
         final String sharedScript = "x++;";
 
         final Thread t1 = new Thread(new Runnable() {
@@ -879,7 +880,7 @@ public class ScopeTest {
 
          // call "newfunc" and check the return value
          final Object value = ((Invocable)engine).invokeFunction("newfunc");
-         assertTrue(((Number)value).intValue() == 42);
+         assertEquals(((Number) value).intValue(), 42);
     }
 
 
@@ -911,7 +912,7 @@ public class ScopeTest {
 
          // call "newfunc" and check the return value
          final Object value = ((Invocable)engine).invokeFunction("newfunc");
-         assertTrue(((Number)value).intValue() == 42);
+         assertEquals(((Number) value).intValue(), 42);
     }
 
     // @bug 8150219 ReferenceError in 1.8.0_72
@@ -934,6 +935,6 @@ public class ScopeTest {
 
         // Invoked function should be able to see context it was evaluated with
         final Object result = ((Invocable) engine).invokeMethod(func, "call", func, "o", null);
-        assertTrue(((Number)result).intValue() == 1);
+        assertEquals(((Number) result).intValue(), 1);
     }
 }
