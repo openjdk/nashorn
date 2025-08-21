@@ -37,7 +37,7 @@ questions.
 
   <licenses>
     <license>
-      <name>GPL v2 with the Classpath exception</name>
+      <name>GNU General Public License v2.0 w/Classpath exception</name>
       <url>https://github.com/openjdk/nashorn/blob/main/LICENSE</url>
     </license>
   </licenses>
