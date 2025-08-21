@@ -54,3 +54,17 @@ No code changes, but the artifacts published on Maven Central are now compiled w
 15.6 (2024.12.25)
 -----------------
 [`#20`](https://github.com/openjdk/nashorn/pull/20) [`JDK-8346302`](https://bugs.openjdk.java.net/browse/JDK-8346302) Fix logging breaking Nashorn initialization
+
+15.7 (2024.12.25)
+-----------------
+[`#21`](https://github.com/openjdk/nashorn/pull/21) [`JDK-8346848`](https://bugs.openjdk.java.net/browse/JDK-8346848) Eliminate compilation warnings with Java 21
+
+[`#22`](https://github.com/openjdk/nashorn/pull/22) [`JDK-8347015`](https://bugs.openjdk.java.net/browse/JDK-8347015) Remove support for Security Manager in Nashorn
+
+[`#23`](https://github.com/openjdk/nashorn/pull/23) [`JDK-8348033`](https://bugs.openjdk.java.net/browse/JDK-8348033) Tidy Nashorn code
+
+[`#25`](https://github.com/openjdk/nashorn/pull/25) [`JDK-8349687`](https://bugs.openjdk.java.net/browse/JDK-8349687) Some more tidying of Nashorn codebase
+
+[`#26`](https://github.com/openjdk/nashorn/pull/26) `           ` Correct assert in `ForOfLoopTreeImpl.java`
+
+`   ` `           ` License in the POM has been updated to SPDX-compliant string `GNU General Public License v2.0 w/Classpath exception`.
